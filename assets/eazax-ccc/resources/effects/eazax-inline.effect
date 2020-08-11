@@ -1,0 +1,106 @@
+// Eazax-CCC 外描边 1.0.0.20200604
+
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs
+      frag: fs
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties:
+        size: { value: [500.0, 500.0], editor: { tooltip: '节点尺寸' } }
+        outlineColor: { value: [1.0, 0.0, 0.0, 1], editor: { type: color, tooltip: '颜色' } }
+        outlineWidth: { value: 5.0, editor: { tooltip: '宽度' } }
+}%
+
+
+CCProgram vs %{
+  precision highp float;
+
+  #include <cc-global>
+
+  in vec3 a_position;
+  in vec2 a_uv0;
+  in vec4 a_color;
+
+  out vec2 v_uv0;
+  out vec4 v_color;
+
+  void main () {
+    gl_Position = cc_matViewProj * vec4(a_position, 1);
+    v_uv0 = a_uv0;
+    v_color = a_color;
+  }
+}%
+
+
+CCProgram fs %{
+  precision highp float;
+
+  in vec2 v_uv0;
+  in vec4 v_color;
+
+  uniform sampler2D texture;
+
+  uniform Properties {
+    vec4 outlineColor;
+    vec2 size;
+    float outlineWidth;
+  };
+
+  void main () {
+    vec4 color = v_color;
+    color *= texture(texture, v_uv0);
+
+    // vec2 up = v_uv0 + vec2(0.0, 1.0) / size * outlineWidth;
+    // vec2 down = v_uv0 + vec2(0.0, -1.0) / size * outlineWidth;
+    // vec2 up_right = v_uv0 + vec2(1.0, 1.0) / size * outlineWidth;
+    // vec2 up_left = v_uv0 + vec2(-1.0, 1.0) / size * outlineWidth;
+    // vec2 left = v_uv0 + vec2(-1.0, 0.0) / size * outlineWidth;
+    // vec2 right = v_uv0 + vec2(1.0, 0.0) / size * outlineWidth;
+    // vec2 down_right = v_uv0 + vec2(1.0, -1.0) / size * outlineWidth;
+    // vec2 down_left = v_uv0 + vec2(-1.0, -1.0) / size * outlineWidth;
+
+    float x = 1.0 / size.x * outlineWidth;
+    float y = 1.0 / size.y * outlineWidth;
+
+    float alpha = color.a;
+    if (v_uv0.y + (y) <= 1.0) {
+      alpha *= texture(texture, v_uv0 + vec2(0.0, 1.0) / size * outlineWidth).a;
+      
+      //  alpha *= texture(texture, v_uv0 + vec2(-1.0, 1.0) / size * outlineWidth).a;
+      // else alpha *= 0.0;
+
+      //  alpha *= texture(texture, v_uv0 + vec2(1.0, 1.0) / size * outlineWidth).a;
+      // else alpha *= 0.0;
+    } else {
+      alpha *= 0.0;
+    }
+
+    if (v_uv0.y + (-y) >= 0.0) {
+      alpha *= texture(texture, v_uv0 + vec2(0.0, -1.0) / size * outlineWidth).a;
+
+      //  alpha *= texture(texture, v_uv0 + vec2(-1.0, -1.0) / size * outlineWidth).a;
+      // else alpha *= 0.0;
+
+      //  alpha *= texture(texture, v_uv0 + vec2(1.0, -1.0) / size * outlineWidth).a;
+      // else alpha *= 0.0;
+
+    } else {
+      alpha *= 0.0;
+    }
+   
+    if (v_uv0.x + (-x) >= 0.0) alpha *= texture(texture, v_uv0 + vec2(-1.0, 0.0) / size * outlineWidth).a;
+    else alpha *= 0.0;
+
+    if (v_uv0.x + (x) <= 1.0) alpha *= texture(texture, v_uv0 + vec2(1.0, 0.0) / size * outlineWidth).a;
+    else alpha *= 0.0;
+
+    color.rgb = mix(outlineColor.rgb, color.rgb, alpha);
+
+    gl_FragColor = color;
+  }
+}%
