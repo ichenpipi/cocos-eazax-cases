@@ -1,0 +1,19 @@
+{
+  "__type__": "cc.Material",
+  "_name": "eazax-avatar",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "cf2290d7-5f6f-4494-a109-71793e5996cc"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "feather": 0.01,
+        "round": 0.5
+      },
+      "defines": {}
+    }
+  }
+}

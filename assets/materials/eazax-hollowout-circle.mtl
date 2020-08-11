@@ -1,0 +1,15 @@
+{
+  "__type__": "cc.Material",
+  "_name": "eazax-hollowout",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "e95fc354-492e-4a2b-92e5-f4ba83e0a181"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {}
+    }
+  }
+}
