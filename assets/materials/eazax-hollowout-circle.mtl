@@ -1,10 +1,10 @@
 {
   "__type__": "cc.Material",
-  "_name": "eazax-hollowout",
+  "_name": "eazax-hollowout-circle",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "e95fc354-492e-4a2b-92e5-f4ba83e0a181"
+    "__uuid__": "29b5405c-5c8f-4a42-af8f-7eb62c5c79c3"
   },
   "_techniqueIndex": 0,
   "_techniqueData": {

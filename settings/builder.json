@@ -2,17 +2,7 @@
   "title": "eazax-examples",
   "packageName": "org.cocos2d.demo",
   "startScene": "c96a7da9-0270-4350-9dc3-15efc23eb456",
-  "excludeScenes": [
-    "f525b02f-271d-4f9d-a443-a1f238054cec",
-    "7c4ed02f-8fa8-4697-86b8-4013bcb53b53",
-    "c5619237-87d5-490b-957d-79b9f94d7e65",
-    "e20d0811-c00a-4d08-bbba-c8d920943819",
-    "6ca3b991-776a-4eb2-abd6-79d8a871777e",
-    "ef6933b9-0038-4a83-a631-906cbc9a3c5f",
-    "7110aaf7-1e78-4a8b-a86f-a8aed48a3843",
-    "8a319344-5551-4463-990c-ec6882b237ac",
-    "2aaa8bda-8118-4265-8686-176a5d6a2a13"
-  ],
+  "excludeScenes": [],
   "includeSDKBox": false,
   "orientation": {
     "landscapeLeft": true,

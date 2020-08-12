@@ -1,0 +1,17 @@
+{
+  "ver": "1.0.25",
+  "uuid": "6571f725-5de7-4105-9b97-f8d8264cccd5",
+  "compiledShaders": [
+    {
+      "glsl1": {
+        "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nattribute vec3 a_position;\nattribute vec2 a_uv0;\nattribute vec4 a_color;\nvarying vec2 v_uv0;\nvarying vec4 v_color;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_uv0 = a_uv0;\n  v_color = a_color;\n}",
+        "frag": "\nprecision highp float;\nvarying vec2 v_uv0;\nvarying vec4 v_color;\nuniform sampler2D texture;\nuniform vec2 size;\nconst float RADIUS = 20.0;\nvec4 getBlurColor (vec2 uv) {\n  vec4 color = vec4(0);\n  float sum = 0.0;\n  for (float r = -RADIUS; r <= RADIUS; r++) {\n    float x = uv.x + r / size.x;\n    if (x < 0.0 || x > 1.0) continue;\n    for (float c = -RADIUS; c <= RADIUS; c++) {\n      float y = uv.y + c / size.y;\n      if (y < 0.0 || y > 1.0) continue;\n      vec2 target = vec2(x, y);\n      float weight = (RADIUS - abs(r)) * (RADIUS - abs(c));\n      color += texture2D(texture, target) * weight;\n      sum += weight;\n    }\n  }\n  color /= sum;\n  return color;\n}\nvoid main () {\n  vec4 color = v_color;\n  color *= texture2D(texture, v_uv0);\n  if (color.a != 0.0) {\n    color = getBlurColor(v_uv0);\n  }\n  color.a *= v_color.a;\n  gl_FragColor = color;\n}"
+      },
+      "glsl3": {
+        "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nin vec3 a_position;\nin vec2 a_uv0;\nin vec4 a_color;\nout vec2 v_uv0;\nout vec4 v_color;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_uv0 = a_uv0;\n  v_color = a_color;\n}",
+        "frag": "\nprecision highp float;\nin vec2 v_uv0;\nin vec4 v_color;\nuniform sampler2D texture;\nuniform Properties {\n  vec2 size;\n};\nconst float RADIUS = 20.0;\nvec4 getBlurColor (vec2 uv) {\n  vec4 color = vec4(0);\n  float sum = 0.0;\n  for (float r = -RADIUS; r <= RADIUS; r++) {\n    float x = uv.x + r / size.x;\n    if (x < 0.0 || x > 1.0) continue;\n    for (float c = -RADIUS; c <= RADIUS; c++) {\n      float y = uv.y + c / size.y;\n      if (y < 0.0 || y > 1.0) continue;\n      vec2 target = vec2(x, y);\n      float weight = (RADIUS - abs(r)) * (RADIUS - abs(c));\n      color += texture2D(texture, target) * weight;\n      sum += weight;\n    }\n  }\n  color /= sum;\n  return color;\n}\nvoid main () {\n  vec4 color = v_color;\n  color *= texture(texture, v_uv0);\n  if (color.a != 0.0) {\n    color = getBlurColor(v_uv0);\n  }\n  color.a *= v_color.a;\n  gl_FragColor = color;\n}"
+      }
+    }
+  ],
+  "subMetas": {}
+}

@@ -1,0 +1,17 @@
+{
+  "ver": "1.0.25",
+  "uuid": "8f209644-d8a8-4a8f-bc9d-ffa225da7eae",
+  "compiledShaders": [
+    {
+      "glsl1": {
+        "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nattribute vec3 a_position;\nattribute vec2 a_uv0;\nattribute vec4 a_color;\nvarying vec2 v_uv0;\nvarying vec4 v_color;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_uv0 = a_uv0;\n  v_color = a_color;\n}",
+        "frag": "\nprecision highp float;\nvarying vec2 v_uv0;\nvarying vec4 v_color;\nuniform sampler2D texture;\nuniform float round;\nuniform float feather;\nvoid main () {\n  vec4 color = v_color;\n  color *= texture2D(texture, v_uv0);\n  if (color.a == 0.0) discard;\n  if(round > 0.0){\n    vec2 vertex;\n    if (v_uv0.x <= round) {\n      if (v_uv0.y <= round) {\n        vertex = vec2(round, round);\n      } else if (v_uv0.y >= 1.0 - round) {\n        vertex = vec2(round, (1.0 - round));\n      } else {\n        vertex = vec2(round, v_uv0.y);\n      }\n    } else if (v_uv0.x >= 1.0 - round) {\n      if (v_uv0.y <= round){\n        vertex = vec2(1.0 - round, round);\n      } else if (v_uv0.y >= 1.0 - round) {\n        vertex = vec2(1.0 - round, (1.0 - round));\n      } else {\n        vertex = vec2(1.0 - round, v_uv0.y);\n      }\n    } else if (v_uv0.y <= round) {\n      vertex = vec2(v_uv0.x, round);\n    } else if (v_uv0.y >= 1.0 - round) {\n      vertex = vec2(v_uv0.x, (1.0 - round));\n    } else {\n      vertex = v_uv0;\n    }\n    float dis = distance(v_uv0, vertex);\n    color.a = smoothstep(round, round - feather, dis);\n  }\n  color.a *= v_color.a;\n  gl_FragColor = color;\n}"
+      },
+      "glsl3": {
+        "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nin vec3 a_position;\nin vec2 a_uv0;\nin vec4 a_color;\nout vec2 v_uv0;\nout vec4 v_color;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_uv0 = a_uv0;\n  v_color = a_color;\n}",
+        "frag": "\nprecision highp float;\nin vec2 v_uv0;\nin vec4 v_color;\nuniform sampler2D texture;\nuniform Properties {\n  float round;\n  float feather;\n};\nvoid main () {\n  vec4 color = v_color;\n  color *= texture(texture, v_uv0);\n  if (color.a == 0.0) discard;\n  if(round > 0.0){\n    vec2 vertex;\n    if (v_uv0.x <= round) {\n      if (v_uv0.y <= round) {\n        vertex = vec2(round, round);\n      } else if (v_uv0.y >= 1.0 - round) {\n        vertex = vec2(round, (1.0 - round));\n      } else {\n        vertex = vec2(round, v_uv0.y);\n      }\n    } else if (v_uv0.x >= 1.0 - round) {\n      if (v_uv0.y <= round){\n        vertex = vec2(1.0 - round, round);\n      } else if (v_uv0.y >= 1.0 - round) {\n        vertex = vec2(1.0 - round, (1.0 - round));\n      } else {\n        vertex = vec2(1.0 - round, v_uv0.y);\n      }\n    } else if (v_uv0.y <= round) {\n      vertex = vec2(v_uv0.x, round);\n    } else if (v_uv0.y >= 1.0 - round) {\n      vertex = vec2(v_uv0.x, (1.0 - round));\n    } else {\n      vertex = v_uv0;\n    }\n    float dis = distance(v_uv0, vertex);\n    color.a = smoothstep(round, round - feather, dis);\n  }\n  color.a *= v_color.a;\n  gl_FragColor = color;\n}"
+      }
+    }
+  ],
+  "subMetas": {}
+}

@@ -1,10 +1,10 @@
 {
   "__type__": "cc.Material",
-  "_name": "gaussianBlur",
+  "_name": "eazax-gaussian-blur",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "56971683-bb34-42e1-b44a-9b5f9c7617fb"
+    "__uuid__": "6571f725-5de7-4105-9b97-f8d8264cccd5"
   },
   "_techniqueIndex": 0,
   "_techniqueData": {
