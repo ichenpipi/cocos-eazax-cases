@@ -15,17 +15,12 @@ export default class RadarChartController extends cc.Component {
         this.btn.on(cc.Node.EventType.TOUCH_END, this.onBtnClick, this);
     }
 
-    protected start() {
-        // this.btn.interactable = true;
-    }
-
     protected onDestroy() {
         this.btn.off(cc.Node.EventType.TOUCH_END, this.onBtnClick, this);
     }
 
     public async onBtnClick() {
-        cc.log('onBtnClick')
-        // this.btn.interactable = false;
+        eazax.log('[RadarChartController]', 'Random Data');
         let datas: RadarChartData[] = [];
         for (let i = 0; i < 2; i++) {
             const data: RadarChartData = {
@@ -34,11 +29,10 @@ export default class RadarChartController extends cc.Component {
                 lineColor: this.getRandomColor(255),
                 fillColor: this.getRandomColor(100)
             };
-            cc.log(data);
             datas.push(data);
         }
         this.radarChart.to(datas, 1);
-        // this.btn.interactable = true;
+        console.log(datas)
     }
 
     private getRandomValues() {
