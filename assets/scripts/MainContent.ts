@@ -18,6 +18,8 @@ export default class MainContent extends cc.Component {
 
     private static instance: MainContent = null;
 
+    private static caseMap: Map<string, number> = new Map<string, number>();
+
     protected onLoad() {
         MainContent.instance = this;
 
@@ -27,6 +29,10 @@ export default class MainContent extends cc.Component {
         for (let i = 0; i < this.btns.length; i++) {
             this.btns[i].on(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
         }
+
+        for (let i = 0; i < this.cases.length; i++) {
+            MainContent.caseMap.set(this.cases[i].name, i);
+        }
     }
 
     protected onDestroy() {
@@ -35,23 +41,27 @@ export default class MainContent extends cc.Component {
         }
     }
 
+    public static hasCase(name: string) {
+        return MainContent.caseMap.has(name);
+    }
+
     public static goHome() {
         eazax.log('[Go Home]');
         this.instance.home.active = true;
         this.instance.casesContainer.active = false;
     }
 
-    public goCase(name: string) {
+    public static goCase(name: string) {
         eazax.log('[Go Case]', name);
-        for (let i = 0; i < this.cases.length; i++) {
-            this.cases[i].active = this.cases[i].name === name;
+        for (let i = 0; i < this.instance.cases.length; i++) {
+            this.instance.cases[i].active = this.instance.cases[i].name === name;
         }
-        this.home.active = false;
-        this.casesContainer.active = true;
+        this.instance.home.active = false;
+        this.instance.casesContainer.active = true;
     }
 
     private onBtnClick(event: cc.Event.EventTouch) {
-        this.goCase(event.target.name);
+        MainContent.goCase(event.target.name);
     }
 
 }
