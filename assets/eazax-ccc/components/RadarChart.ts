@@ -121,7 +121,7 @@ export default class RadarChart extends cc.Component {
                 lineWidth: this._dataLineWidths[i] || 3,
                 lineColor: this._dataLineColors[i] || cc.Color.BLUE,
                 fillColor: this._dataFillColors[i] || cc.color(120, 120, 180, 200),
-                joinColor: this._dataJoinColors[i] || cc.Color.BLUE
+                joinColor: this._dataJoinColors[i] || cc.Color.WHITE
             });
         }
         // 绘制
