@@ -34,7 +34,7 @@ export default class NewGuide extends cc.Component {
     protected start() {
         this.hollowOut.node.active = true;
         this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
-        this.touchBlocker.setTarget(this.startBtn); // 设置可点击节点
+        this.touchBlocker.passAll(); // 放行所有点击
     }
 
     private async onStartBtnClick() {

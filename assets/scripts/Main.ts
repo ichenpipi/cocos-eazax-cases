@@ -7,8 +7,8 @@ const { ccclass, property } = cc._decorator;
 export default class Main extends cc.Component {
 
     protected start() {
-        const targetCase = BrowserUtil.getUrlParam('case');
-        if (targetCase && MainContent.hasCase(targetCase)) MainContent.goCase(targetCase);
+        const caseName = BrowserUtil.getUrlParam('case');
+        if (caseName && MainContent.hasCase(caseName)) MainContent.goCase(caseName);
         else MainContent.goHome();
     }
 

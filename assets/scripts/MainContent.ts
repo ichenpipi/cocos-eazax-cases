@@ -18,7 +18,7 @@ export default class MainContent extends cc.Component {
 
     private static instance: MainContent = null;
 
-    private static caseMap: Map<string, number> = new Map<string, number>();
+    private static casesMap: Map<string, number> = new Map<string, number>();
 
     protected onLoad() {
         MainContent.instance = this;
@@ -31,7 +31,7 @@ export default class MainContent extends cc.Component {
         }
 
         for (let i = 0; i < this.cases.length; i++) {
-            MainContent.caseMap.set(this.cases[i].name, i);
+            MainContent.casesMap.set(this.cases[i].name, i);
         }
     }
 
@@ -42,7 +42,7 @@ export default class MainContent extends cc.Component {
     }
 
     public static hasCase(name: string) {
-        return MainContent.caseMap.has(name);
+        return MainContent.casesMap.has(name);
     }
 
     public static goHome() {
