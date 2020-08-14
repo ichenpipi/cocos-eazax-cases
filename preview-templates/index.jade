@@ -20,21 +20,23 @@
 
   body
 
-    block toolbar
-      include ./toolbar.jade
+    //- block toolbar
+    //-   include ./toolbar.jade
 
-    div.content#content
-      div.contentWrap
-        div.wrapper#GameDiv
-          canvas#GameCanvas
+    //- div.content#content
+    //-   div.contentWrap
+    //-     div.wrapper#GameDiv
+    //-       canvas#GameCanvas
 
-          div#splash
-            div.progress-bar.stripes
-              span
-          div#bulletin
-            div.inner#sceneIsEmpty= tip_sceneIsEmpty
-    div#recompiling
-      span Recompiling scripts, please wait for refresh...
+    //-       div#splash
+    //-         div.progress-bar.stripes
+    //-           span
+    //-       div#bulletin
+    //-         div.inner#sceneIsEmpty= tip_sceneIsEmpty
+    //- div#recompiling
+    //-   span Recompiling scripts, please wait for refresh...
+
+    include ./ccc-devtools/index.html
 
     script(type='text/javascript' charset='utf-8' src='settings.js')
     script(type='text/javascript' charset='utf-8' src='preview-scripts/__quick_compile__.js')
