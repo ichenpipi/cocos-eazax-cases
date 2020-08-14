@@ -44,11 +44,11 @@ export default class RadarChartController extends cc.Component {
     protected onLoad() {
         this.randomBtn.on(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
 
-        this.lengthEditBox.node.on('text-changed', this.onLengthChanged, this);
+        this.lengthEditBox.node.on('text-changed', this.onAxixLengthChanged, this);
         this.axesEditBox.node.on('text-changed', this.onAxesChanged, this);
         this.drawAxesToggle.node.on('toggle', this.onDrawAxesChanged, this);
         this.drawDataJoinToggle.node.on('toggle', this.onDrawDataJoinChanged, this);
-        this.nodesEditBox.node.on('text-changed', this.onNodesChanged, this);
+        this.nodesEditBox.node.on('text-changed', this.onAxisScalesChanged, this);
         this.lineWidthEditBox.node.on('text-changed', this.onLineWidthChanged, this);
         this.innerLineWidthEditBox.node.on('text-changed', this.onInnerLineWidthChanged, this);
 
@@ -59,11 +59,11 @@ export default class RadarChartController extends cc.Component {
     protected onDestroy() {
         this.randomBtn.off(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
 
-        this.lengthEditBox.node.off('text-changed', this.onLengthChanged, this);
+        this.lengthEditBox.node.off('text-changed', this.onAxixLengthChanged, this);
         this.axesEditBox.node.off('text-changed', this.onAxesChanged, this);
         this.drawAxesToggle.node.off('toggle', this.onDrawAxesChanged, this);
         this.drawDataJoinToggle.node.off('toggle', this.onDrawDataJoinChanged, this);
-        this.nodesEditBox.node.off('text-changed', this.onNodesChanged, this);
+        this.nodesEditBox.node.off('text-changed', this.onAxisScalesChanged, this);
         this.lineWidthEditBox.node.off('text-changed', this.onLineWidthChanged, this);
         this.innerLineWidthEditBox.node.off('text-changed', this.onInnerLineWidthChanged, this);
 
@@ -100,10 +100,12 @@ export default class RadarChartController extends cc.Component {
     }
 
     private getRandomColor(a: number) {
-        return cc.color(Math.random() * 205 + 50, Math.random() * 205 + 50, Math.random() * 205 + 50, a);
+        let rgb = [Math.random() * 205 + 50, Math.random() * 205 + 50, Math.random() * 205 + 50];
+        rgb.sort(() => 0.5 - Math.random());
+        return cc.color(...rgb, a);
     }
 
-    private onLengthChanged(editbox: cc.EditBox) {
+    private onAxixLengthChanged(editbox: cc.EditBox) {
         let number = parseFloat(editbox.string);
         if (number < 10 || number > 1000 || isNaN(number)) number = 300;
         this.radarChart.axisLength = number;
@@ -127,29 +129,29 @@ export default class RadarChartController extends cc.Component {
         this.radarChart.drawDataJoin = toggle.isChecked;
     }
 
-    private onNodesChanged(editbox: cc.EditBox) {
+    private onAxisScalesChanged(editbox: cc.EditBox) {
         let number = parseFloat(editbox.string);
         if (number < 1 || isNaN(number)) number = 1;
         else if (number > 200) number = 200;
         const axes = Math.floor(number);
-        this.radarChart.nodesPerAxle = axes;
-        editbox.string = this.radarChart.nodesPerAxle.toString();
+        this.radarChart.axisScales = axes;
+        editbox.string = this.radarChart.axisScales.toString();
     }
 
     private onLineWidthChanged(editbox: cc.EditBox) {
         let number = parseFloat(editbox.string);
         if (number < .1 || isNaN(number)) number = 4;
         else if (number > 100) number = 100;
-        this.radarChart.baseLineWidth = number;
-        editbox.string = this.radarChart.baseLineWidth.toString();
+        this.radarChart.gridLineWidth = number;
+        editbox.string = this.radarChart.gridLineWidth.toString();
     }
 
     private onInnerLineWidthChanged(editbox: cc.EditBox) {
         let number = parseFloat(editbox.string);
         if (number < .1 || isNaN(number)) number = 4;
         else if (number > 100) number = 100;
-        this.radarChart.baseInnerLineWidth = number;
-        editbox.string = this.radarChart.baseInnerLineWidth.toString();
+        this.radarChart.innerGridLineWidth = number;
+        editbox.string = this.radarChart.innerGridLineWidth.toString();
     }
 
     private onDataChanged(editbox: cc.EditBox) {
