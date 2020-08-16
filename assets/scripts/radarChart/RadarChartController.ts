@@ -76,7 +76,7 @@ export default class RadarChartController extends cc.Component {
 
         // 获取数据
         let datas: RadarChartData[] = [];
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < this.radarChart.curDatas.length; i++) {
             let numbers = [];
             for (let j = 0; j < this.radarChart.curDatas[0].values.length; j++) {
                 numbers.push(Math.random() * 0.8 + 0.2)
@@ -92,7 +92,7 @@ export default class RadarChartController extends cc.Component {
         console.log(datas)
         // 时间
         let time = parseFloat(this.timeEditBox.string);
-        if (time < 0 || isNaN(time)) time = 1;
+        if (time < 0 || isNaN(time)) time = .5;
         else if (time > 100) time = 100;
         this.timeEditBox.string = time.toString();
         // GO

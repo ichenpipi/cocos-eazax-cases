@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        535.2036995387831,
+        534.3376741349987,
         0,
         0,
         0,
@@ -7665,7 +7665,7 @@
     },
     "_dataValuesStrings": [
       "0.8,0.5,0.6,0.5,0.8,0.6",
-      "0.5,0.9,0.5,0.8,0.5,0.9"
+      "0.5,0.8,0.5,0.8,0.5,0.9"
     ],
     "_dataLineWidths": [
       5,
@@ -8182,8 +8182,8 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_useOriginalSize": true,
-    "_string": "1",
-    "_N$string": "1",
+    "_string": "0.5",
+    "_N$string": "0.5",
     "_fontSize": 20,
     "_lineHeight": 25,
     "_enableWrapText": false,
@@ -8362,7 +8362,7 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "1",
+    "_string": "0.5",
     "returnType": 1,
     "maxLength": 4,
     "_tabIndex": 0,
