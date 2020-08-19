@@ -1,7 +1,7 @@
 /**
- * 计算工具
+ * 数学工具
  */
-export default class CalUtil {
+export default class MathUtil {
 
     /**
     * 获取随机数
@@ -9,8 +9,16 @@ export default class CalUtil {
     * @param max 最大值
     */
     public static getRandomNumber(min: number = 0, max: number = 1): number {
-        let result = Math.floor(Math.random() * (max - min + 1)) + min;
-        return result;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    /**
+     * 获取一个伪随机数
+     * @param seed 随机种子
+     * @param key key
+     */
+    public static getRandomWithSeed(seed: number, key: number) {
+        return Math.ceil((((seed * 9301 + 49297) % 233280) / (233280.0)) * key);
     }
 
     /**
