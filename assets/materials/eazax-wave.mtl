@@ -1,0 +1,18 @@
+{
+  "__type__": "cc.Material",
+  "_name": "eazax-wave",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "a64e580e-473a-4b72-b0f5-54c4a37ec6fb"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "toRight": false
+      },
+      "defines": {}
+    }
+  }
+}
