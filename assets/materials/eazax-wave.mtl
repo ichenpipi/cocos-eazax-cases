@@ -10,7 +10,7 @@
   "_techniqueData": {
     "0": {
       "props": {
-        "toRight": false
+        "toLeft": true
       },
       "defines": {}
     }

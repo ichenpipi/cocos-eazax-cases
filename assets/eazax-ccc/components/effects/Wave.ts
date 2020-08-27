@@ -25,15 +25,15 @@ export default class Wave extends cc.Component {
     public get amplitude() { return this._amplitude; }
     public set amplitude(value: number) { this._amplitude = value; this.updateProperties(); }
 
-    @property private _frequency: number = 10;
-    @property({ tooltip: CC_DEV && '频率' })
-    public get frequency() { return this._frequency; }
-    public set frequency(value: number) { this._frequency = value; this.updateProperties(); }
-
     @property private _angularVelocity: number = 10;
     @property({ tooltip: CC_DEV && '角速度' })
     public get angularVelocity() { return this._angularVelocity; }
     public set angularVelocity(value: number) { this._angularVelocity = value; this.updateProperties(); }
+
+    @property private _frequency: number = 10;
+    @property({ tooltip: CC_DEV && '频率' })
+    public get frequency() { return this._frequency; }
+    public set frequency(value: number) { this._frequency = value; this.updateProperties(); }
 
     @property private _height: number = 0.5;
     @property({ tooltip: CC_DEV && '顶端高度（比例）' })
@@ -78,10 +78,10 @@ export default class Wave extends cc.Component {
         if (this._height < 0) this._height = 0; else if (this._height > 1) this._height = 1;
         // 赋值
         this.material.setProperty('amplitude', this._amplitude);
-        this.material.setProperty('frequency', this._frequency);
         this.material.setProperty('angularVelocity', this._angularVelocity);
-        this.material.setProperty('height', this._height);
-        this.material.setProperty('toRight', this._direction === WaveDirection.Right);
+        this.material.setProperty('frequency', this._frequency);
+        this.material.setProperty('offset', (1 - this._height) + this._amplitude);
+        this.material.setProperty('toLeft', this._direction === WaveDirection.Left);
     }
 
 }

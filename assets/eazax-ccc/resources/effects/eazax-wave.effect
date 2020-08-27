@@ -13,10 +13,10 @@ CCEffect %{
         cullMode: none
       properties:
         amplitude: { value: 0.05, range: [0.0, 0.5], editor: { tooltip: '振幅' } }
-        frequency: { value: 10.0, editor: { tooltip: '频率' } }
         angularVelocity: { value: 10.0, editor: { tooltip: '角速度' } }
-        height: { value: 0.5, range: [0.0, 1.0], editor: { tooltip: '顶端高度' } }
-        toRight: { value: false, editor: { type: boolean, tooltip: '向右（方向）' } }
+        frequency: { value: 10.0, editor: { tooltip: '频率' } }
+        offset: { value: 0.5, range: [0.0, 1.0], editor: { tooltip: '偏距' } }
+        toLeft: { value: true, editor: { type: boolean, tooltip: '向左（方向）' } }
 }%
 
 
@@ -52,10 +52,10 @@ CCProgram fs %{
 
   uniform Properties {
     float amplitude;
-    float frequency;
     float angularVelocity;
-    float height;
-    bool toRight;
+    float frequency;
+    float offset;
+    bool toLeft;
   };
 
   void main () {
@@ -64,12 +64,10 @@ CCProgram fs %{
     color *= texture(texture, v_uv0);
     // 丢弃透明部分
     if(color.a == 0.0) discard;
-    // 计算正弦 y 值
-    float y = amplitude * sin(toRight ? angularVelocity * v_uv0.x - (frequency * cc_time.x) : angularVelocity * v_uv0.x + (frequency * cc_time.x));
-    // 转换顶端高度
-    float r_height = 1.0 - height;
-    // 丢弃 y 值以上部分
-    if(v_uv0.y < r_height + y + amplitude) discard;
+    // 计算 y 值
+    float y = amplitude * sin(toLeft ? angularVelocity * v_uv0.x + (frequency * cc_time.x) : angularVelocity * v_uv0.x - (frequency * cc_time.x)) + offset;
+    // 丢弃 y 值以上的部分（左上角为原点）
+    if(v_uv0.y < y) discard;
     // 输出
     gl_FragColor = color;
   }
