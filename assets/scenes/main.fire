@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        533.6746234352262,
+        524.8113946933698,
         0,
         0,
         0,
@@ -3114,7 +3114,7 @@
         "__id__": 443
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 486
@@ -15672,7 +15672,7 @@
         "__id__": 363
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 440
@@ -15788,7 +15788,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -16262,7 +16262,7 @@
     "_id": "a8mYkOUbJAVp+e2oBCzwdw"
   },
   {
-    "__type__": "d3ddbuZsbFDKrFWmcDTjAcr",
+    "__type__": "4a577ajd65CI5xnHyK/u9Qp",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -16270,14 +16270,14 @@
     },
     "_enabled": true,
     "_effect": {
-      "__uuid__": "a64e580e-473a-4b72-b0f5-54c4a37ec6fb"
+      "__uuid__": "4cd40e29-827a-4b67-a2b7-82e1bb846b6f"
     },
     "_amplitude": 0.05,
     "_angularVelocity": 10,
     "_frequency": 10,
     "_height": 0.5,
     "_direction": 1,
-    "_id": "3dntF0FexG4K8AkoiAWKT1"
+    "_id": "cd/vNknBJB/79LBbVkARTC"
   },
   {
     "__type__": "cc.Node",
@@ -16398,7 +16398,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -19826,7 +19826,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
