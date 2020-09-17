@@ -11,7 +11,7 @@ export default class PopupManager {
 
     /** 队列 */
     public static get queue() { return this._queue; }
-    private static _queue: Item[] = [];
+    private static _queue: Request[] = [];
 
     /** 当前弹窗 */
     private static _curPopup: string = null;
@@ -51,7 +51,7 @@ export default class PopupManager {
 
         if (!cc.isValid(node)) {
             this._curPopup = null;
-            cc.warn('[PopupManager]', '加载预制体失败', path);
+            cc.warn('[PopupManager]', '弹窗加载失败', path);
             return;
         }
 
@@ -68,13 +68,13 @@ export default class PopupManager {
     /** 下一个弹窗 */
     public static next() {
         if (this._curPopup || this._queue.length === 0) return;
-        const item = this._queue.shift();
-        this.show(item.path, item.options, item.mode);
+        const request = this._queue.shift();
+        this.show(request.path, request.options, request.mode);
     }
 
 }
 
-interface Item {
+interface Request {
     path: string;
     options: object;
     mode: PopupMode,

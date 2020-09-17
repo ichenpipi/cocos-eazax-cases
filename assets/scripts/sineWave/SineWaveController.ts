@@ -6,7 +6,7 @@ const { ccclass, property } = cc._decorator;
 export default class SineWaveController extends cc.Component {
 
     @property(SineWave)
-    private wave: SineWave = null;
+    private sineWave: SineWave = null;
 
     @property(cc.Node)
     private fillBtn: cc.Node = null;
@@ -47,7 +47,7 @@ export default class SineWaveController extends cc.Component {
     }
 
     public onFillBtnClick() {
-        cc.tween(this.wave)
+        cc.tween(this.sineWave)
             .to(3, { height: 1 })
             .call(() => { this.heightEditBox.string = '1.0'; })
             .to(0.5, { amplitude: 0 })
@@ -56,23 +56,23 @@ export default class SineWaveController extends cc.Component {
     }
 
     public onAmplitudeChanged(editbox: cc.EditBox) {
-        this.wave.amplitude = parseFloat(editbox.string);
+        this.sineWave.amplitude = parseFloat(editbox.string);
     }
 
     public onAngularVelocityChanged(editbox: cc.EditBox) {
-        this.wave.angularVelocity = parseFloat(editbox.string);
+        this.sineWave.angularVelocity = parseFloat(editbox.string);
     }
 
     public onFrequencyChanged(editbox: cc.EditBox) {
-        this.wave.frequency = parseFloat(editbox.string);
+        this.sineWave.frequency = parseFloat(editbox.string);
     }
 
     public onHeightChanged(editbox: cc.EditBox) {
-        this.wave.height = parseFloat(editbox.string);
+        this.sineWave.height = parseFloat(editbox.string);
     }
 
     public onToLeftChanged(toggle: cc.Toggle) {
-        this.wave.direction = toggle.isChecked ? SineWaveDirection.Left : SineWaveDirection.Right;
+        this.sineWave.direction = toggle.isChecked ? SineWaveDirection.Left : SineWaveDirection.Right;
     }
 
 }

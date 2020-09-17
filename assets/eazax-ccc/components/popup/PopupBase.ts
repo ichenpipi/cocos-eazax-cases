@@ -1,5 +1,6 @@
 const { ccclass, property } = cc._decorator;
 
+/** 弹窗基类 */
 @ccclass
 export default class PopupBase extends cc.Component {
 
@@ -9,17 +10,14 @@ export default class PopupBase extends cc.Component {
     @property({ type: cc.Node, tooltip: CC_DEV && '弹窗主体' })
     public main: cc.Node = null;
 
-    @property({ tooltip: CC_DEV && '动画时长' })
+    /** 弹窗动画时间 */
     public animTime: number = 0.3;
 
     /** 选项 */
-    public options: object = null;
-
-    /** 展示回调 */
-    public openedCallback: Function = null;
+    protected options: object = null;
 
     /** 关闭回调 */
-    public closedCallback: Function = null;
+    protected closedCallback: Function = null;
 
     /** 完成回调 */
     private finishedCallback: Function = null;
@@ -29,7 +27,11 @@ export default class PopupBase extends cc.Component {
      * @param options 选项
      */
     public show(options?: object) {
+        // 储存参数
         this.options = options;
+        // 更新样式
+        this.updateDisplay();
+        // 开启节点
         this.node.active = true;
         // 背景
         this.background.active = true;
@@ -42,12 +44,6 @@ export default class PopupBase extends cc.Component {
         cc.tween(this.main)
             .set({ scale: 0 })
             .to(this.animTime, { scale: 1 }, { easing: 'backOut' })
-            .call(() => {
-                if (this.openedCallback) {
-                    this.openedCallback();
-                    this.openedCallback = null;
-                }
-            })
             .start();
     }
 
@@ -83,12 +79,19 @@ export default class PopupBase extends cc.Component {
     }
 
     /**
+     * 更新弹窗样式
+     */
+    protected updateDisplay() {
+
+    }
+
+    /**
      * 设置完成回调（PopupManager）
      * @param callback 回调
      */
     public setFinishedCallback(callback: Function) {
         if (this.finishedCallback)
-            return cc.warn('[PopupBase]', '无法再指定完成回调');;
+            return cc.warn('[PopupBase]', '无法重复指定完成回调');;
         this.finishedCallback = callback;
     }
 

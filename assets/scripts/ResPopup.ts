@@ -16,6 +16,10 @@ export default class ResPopup extends PopupBase {
         this.closeBtn.off(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
     }
 
+    protected updateDisplay() {
+
+    }
+
     private onCloseBtnClick() {
         this.hide();
     }
