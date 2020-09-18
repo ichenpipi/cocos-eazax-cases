@@ -688,18 +688,6 @@
     "_id": "408uOB6uBC0oBkWHk1kD1e"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 10
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc",
-    "openInNewTap": true,
-    "_id": "64c6xRDg5HZ6vlt5XZ3lem"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -766,6 +754,22 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "1csROU2JVG84tvtCEsW+ti"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 10
+    },
+    "_enabled": true,
+    "names": [
+      "Eazax-CCC"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-ccc"
+    ],
+    "_id": "e3NGNJQ+tM9Lz7LsBfcb1e"
   },
   {
     "__type__": "cc.Widget",
@@ -3114,7 +3118,7 @@
         "__id__": 443
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 486
@@ -3192,7 +3196,7 @@
         "__id__": 82
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 93
@@ -3302,7 +3306,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -3415,18 +3419,6 @@
     "_id": "02Fny4Ql5FQZiZBKJjW7UQ"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 69
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/RotateAround.ts",
-    "openInNewTap": true,
-    "_id": "6bPePqIiFLNpzlU0GLRbKe"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -3493,6 +3485,22 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "08Cl8xvp5LhJ7oPLRjhDOX"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 69
+    },
+    "_enabled": true,
+    "names": [
+      "RotateAround.ts"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/RotateAround.ts"
+    ],
+    "_id": "09HKSoQBZFW5OAjM8Iq3TS"
   },
   {
     "__type__": "cc.Widget",
@@ -15672,7 +15680,7 @@
         "__id__": 363
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 440

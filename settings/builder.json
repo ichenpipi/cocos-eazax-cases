@@ -2,7 +2,9 @@
   "title": "eazax-cases",
   "packageName": "org.cocos2d.demo",
   "startScene": "c96a7da9-0270-4350-9dc3-15efc23eb456",
-  "excludeScenes": [],
+  "excludeScenes": [
+    "8258d16f-5f14-490f-93d4-1389845b6232"
+  ],
   "includeSDKBox": false,
   "orientation": {
     "landscapeLeft": true,

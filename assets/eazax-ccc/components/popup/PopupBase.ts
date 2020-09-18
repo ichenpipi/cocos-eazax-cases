@@ -2,7 +2,7 @@ const { ccclass, property } = cc._decorator;
 
 /** 弹窗基类 */
 @ccclass
-export default class PopupBase extends cc.Component {
+export default class PopupBase<T> extends cc.Component {
 
     @property({ type: cc.Node, tooltip: CC_DEV && '背景遮罩' })
     public background: cc.Node = null;
@@ -14,7 +14,7 @@ export default class PopupBase extends cc.Component {
     public animTime: number = 0.3;
 
     /** 选项 */
-    protected options: object = null;
+    protected options: T = null;
 
     /** 关闭回调 */
     protected closedCallback: Function = null;
@@ -26,23 +26,25 @@ export default class PopupBase extends cc.Component {
      * 展示弹窗
      * @param options 选项
      */
-    public show(options?: object) {
+    public show(options?: T) {
         // 储存参数
         this.options = options;
         // 更新样式
         this.updateDisplay();
-        // 开启节点
+        // 初始化节点
+        this.background.opacity = 0;
+        this.main.scale = 0;
         this.node.active = true;
         // 背景
         this.background.active = true;
         cc.tween(this.background)
-            .set({ opacity: 0 })
+            // .set({ opacity: 0 })
             .to(this.animTime, { opacity: 200 })
             .start();
         // 主体
         this.main.active = true;
         cc.tween(this.main)
-            .set({ scale: 0 })
+            // .set({ scale: 0 })
             .to(this.animTime, { scale: 1 }, { easing: 'backOut' })
             .start();
     }
@@ -82,7 +84,7 @@ export default class PopupBase extends cc.Component {
      * 更新弹窗样式
      */
     protected updateDisplay() {
-
+        // 重写此函数以实现自定义样式
     }
 
     /**

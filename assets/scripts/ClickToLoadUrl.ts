@@ -4,20 +4,20 @@ const { ccclass, property } = cc._decorator;
 export default class ClickToLoadUrl extends cc.Component {
 
     @property({ multiline: true })
-    private url: string = 'https://gitee.com/ifaswind/eazax-ccc';
+    public url: string = 'https://gitee.com/ifaswind/eazax-ccc';
 
     @property()
-    private openInNewTap: boolean = true;
+    public openInNewTap: boolean = true;
 
     protected onLoad() {
-        this.node.on(cc.Node.EventType.TOUCH_END, this.load, this);
+        this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
     protected onDestroy() {
-        this.node.off(cc.Node.EventType.TOUCH_END, this.load, this);
+        this.node.off(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
-    private load() {
+    private onClick() {
         if (this.openInNewTap) window.open(this.url);
         else window.location.href = this.url;
     }
