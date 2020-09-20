@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        524.8113946933698,
+        525.6774200971543,
         0,
         0,
         0,
@@ -3118,7 +3118,7 @@
         "__id__": 443
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 486
@@ -3196,7 +3196,7 @@
         "__id__": 82
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 93
@@ -3306,7 +3306,7 @@
         1,
         1,
         1,
-        0
+        1
       ]
     },
     "_eulerAngles": {
@@ -16017,7 +16017,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "container",
+    "_name": "content",
     "_objFlags": 0,
     "_parent": {
       "__id__": 343
@@ -16176,7 +16176,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sineWave",
+    "_name": "item",
     "_objFlags": 0,
     "_parent": {
       "__id__": 350
@@ -16202,8 +16202,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 400,
-      "height": 400
+      "width": 512,
+      "height": 512
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -16237,7 +16237,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "5eatJtFDtNOLbyexlNNuSe"
+    "_id": "beh7O9z2FNZKR+VlimUSn7"
   },
   {
     "__type__": "cc.Sprite",
@@ -16256,7 +16256,7 @@
       "__uuid__": "fc299a64-4122-4d7b-9f74-a2939cfcde9f"
     },
     "_type": 0,
-    "_sizeMode": 0,
+    "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -16267,10 +16267,10 @@
     "_fillRange": 0,
     "_isTrimmedMode": false,
     "_atlas": null,
-    "_id": "a8mYkOUbJAVp+e2oBCzwdw"
+    "_id": "c1AkwtRHpAIbPSZK8th3Pt"
   },
   {
-    "__type__": "4a577ajd65CI5xnHyK/u9Qp",
+    "__type__": "1f5c9l34u9FvZdvP68ybH9p",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -16278,14 +16278,14 @@
     },
     "_enabled": true,
     "_effect": {
-      "__uuid__": "4cd40e29-827a-4b67-a2b7-82e1bb846b6f"
+      "__uuid__": "e0b773ad-b167-48d6-ae16-151067545c03"
     },
     "_amplitude": 0.05,
     "_angularVelocity": 10,
     "_frequency": 10,
     "_height": 0.5,
     "_direction": 1,
-    "_id": "5bcVU5U0FF3YpGNI3GbgE8"
+    "_id": "17e6DyxoBBUrj2aybMkjKc"
   },
   {
     "__type__": "cc.Node",
