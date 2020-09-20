@@ -13,10 +13,10 @@ export default class PopupBase<T> extends cc.Component {
     /** 弹窗动画时间 */
     public animTime: number = 0.3;
 
-    /** 选项 */
+    /** 弹窗选项 */
     protected options: T = null;
 
-    /** 关闭回调 */
+    /** 弹窗关闭回调 */
     protected closedCallback: Function = null;
 
     /** 完成回调 */
@@ -24,12 +24,12 @@ export default class PopupBase<T> extends cc.Component {
 
     /**
      * 展示弹窗
-     * @param options 选项
+     * @param options 弹窗选项
      */
     public show(options?: T) {
-        // 储存参数
+        // 储存选项参数
         this.options = options;
-        // 更新样式
+        // 更新弹窗样式
         this.updateDisplay();
         // 初始化节点
         this.background.opacity = 0;
@@ -38,13 +38,11 @@ export default class PopupBase<T> extends cc.Component {
         // 背景
         this.background.active = true;
         cc.tween(this.background)
-            // .set({ opacity: 0 })
-            .to(this.animTime, { opacity: 200 })
+            .to(this.animTime * 0.95, { opacity: 200 })
             .start();
         // 主体
         this.main.active = true;
         cc.tween(this.main)
-            // .set({ scale: 0 })
             .to(this.animTime, { scale: 1 }, { easing: 'backOut' })
             .start();
     }
@@ -67,11 +65,12 @@ export default class PopupBase<T> extends cc.Component {
                 // 关闭节点
                 this.main.active = false;
                 this.node.active = false;
-                // 回调
+                // 弹窗关闭回调
                 if (this.closedCallback) {
                     this.closedCallback();
                     this.closedCallback = null;
                 }
+                // 完成回调
                 if (this.finishedCallback) {
                     this.finishedCallback();
                     this.finishedCallback = null;
@@ -81,14 +80,14 @@ export default class PopupBase<T> extends cc.Component {
     }
 
     /**
-     * 更新弹窗样式
+     * 更新弹窗样式（子类请重写此函数以实现自定义样式）
      */
     protected updateDisplay() {
-        // 重写此函数以实现自定义样式
+
     }
 
     /**
-     * 设置完成回调（PopupManager）
+     * 设置完成回调（该回调为 PopupManager 专用）
      * @param callback 回调
      */
     public setFinishedCallback(callback: Function) {

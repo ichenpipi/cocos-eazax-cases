@@ -84,7 +84,7 @@ export default class SineWave extends cc.Component {
         }
         if (!this._effect) return;
 
-        // 使用自定义 Effect 需禁用纹理的 packable 属性，因为动态合图之后无法正确获取纹理 UV 坐标
+        // 使用自定义 Effect 需禁用纹理的 packable 属性（因为动态合图之后无法正确获取纹理 UV 坐标）
         // 详情请看：https://docs.cocos.com/creator/manual/zh/asset-workflow/sprite.html#packable
         this.sprite = this.node.getComponent(cc.Sprite);
         if (this.sprite.spriteFrame) this.sprite.spriteFrame.getTexture().packable = false;

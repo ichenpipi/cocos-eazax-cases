@@ -29,9 +29,10 @@ export default class MainContent extends cc.Component {
     }
 
     public static goHome() {
-        if (this.instance.home.active) return;
-
         eazax.log('[Go Home]');
+
+        window.history.replaceState({}, null, '.');
+
         this.instance.home.active = true;
         this.instance.casesContainer.active = false;
     }
@@ -40,6 +41,9 @@ export default class MainContent extends cc.Component {
         if (!this.hasCase(name)) return;
 
         eazax.log('[Go Case]', name);
+
+        window.history.replaceState({}, null, `?case=${name}`);
+
         for (let i = 0; i < this.instance.cases.length; i++) {
             this.instance.cases[i].active = this.instance.cases[i].name === name;
         }

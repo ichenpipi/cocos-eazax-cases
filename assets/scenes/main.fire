@@ -3118,7 +3118,7 @@
         "__id__": 443
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 486
@@ -3196,7 +3196,7 @@
         "__id__": 82
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 93
@@ -3306,7 +3306,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -6091,7 +6091,9 @@
       "__id__": 128
     },
     "_enabled": true,
-    "_effect": null,
+    "_effect": {
+      "__uuid__": "ad322569-d205-4d94-ad8d-7a591d59dfcb"
+    },
     "_shape": 1,
     "_center": {
       "__type__": "cc.Vec2",

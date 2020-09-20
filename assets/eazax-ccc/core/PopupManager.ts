@@ -49,7 +49,10 @@ export default class PopupManager {
             // 重新动态加载
             await new Promise(res => {
                 cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
-                    if (!error) node = cc.instantiate(prefab);
+                    if (!error) {
+                        node = cc.instantiate(prefab);
+                        this.prefabMap.set(path, prefab);
+                    }
                     res();
                 });
             });
@@ -62,7 +65,8 @@ export default class PopupManager {
         }
 
         node.setParent(cc.Canvas.instance.node);
-        node.setSiblingIndex(999);
+        node.setSiblingIndex(cc.macro.MAX_ZINDEX);
+
         const popup = node.getComponent(PopupBase);
         if (!popup) return (node.active = true);
         popup.setFinishedCallback(() => {
@@ -73,13 +77,28 @@ export default class PopupManager {
         popup.show(options);
     }
 
+    /**
+     * 展示等待队列中的下一个弹窗
+     */
+    public static next() {
+        if (this._curPopup || this._queue.length === 0) return;
+        const request = this._queue.shift();
+        this.show(request.path, request.options, request.mode);
+    }
+
+    /**
+     * 回收弹窗
+     * @param path 路径
+     * @param node 节点
+     * @param mode 模式
+     */
     private static recycle(path: string, node: cc.Node, mode: PopupRecycleMode) {
         switch (mode) {
             case PopupRecycleMode.OneTime:
-
+                node.destroy();
                 break;
             case PopupRecycleMode.Temporary:
-
+                node.destroy();
                 break;
             case PopupRecycleMode.Frequent:
                 this.nodeMap.set(path, node);
@@ -88,11 +107,12 @@ export default class PopupManager {
         }
     }
 
-    /** 下一个弹窗 */
-    public static next() {
-        if (this._curPopup || this._queue.length === 0) return;
-        const request = this._queue.shift();
-        this.show(request.path, request.options, request.mode);
+    /**
+     * 释放弹窗以及资源
+     * @param path 
+     */
+    private release(path: string) {
+
     }
 
 }
