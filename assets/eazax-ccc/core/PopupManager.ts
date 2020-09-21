@@ -13,8 +13,9 @@ export default class PopupManager {
     public static get queue() { return this._queue; }
     private static _queue: PopupRequest[] = [];
 
-    /** 当前弹窗路径 */
-    private static _curPopup: string = null;
+    /** 当前弹窗 */
+    public static get curPopup() { return this._curPopup; }
+    private static _curPopup: PopupRequest = null;
 
     /**
      * 展示弹窗
@@ -22,59 +23,70 @@ export default class PopupManager {
      * @param options 选项
      * @param mode 回收模式
      */
-    public static async show(path: string, options: object = null, mode: PopupRecycleMode = PopupRecycleMode.Temporary) {
+    public static async show(path: string, options: object = null, mode: PopupRecycleMode = PopupRecycleMode.Temporary): Promise<boolean> {
+        const request = { path, options, mode };
         if (this._curPopup) {
-            this._queue.push({ path, options, mode });
+            this._queue.push(request);
             cc.log('[PopupManager]', '弹窗已加入等待队列', this._queue);
-            return;
-        }
-        this._curPopup = path;
-
-        let node: cc.Node = null;
-        let curMode: PopupRecycleMode = null;
-        if (this.prefabMap.has(path)) {
-            // 从预制表中获取
-            const prefab = this.prefabMap.get(path);
-            if (cc.isValid(prefab)) node = cc.instantiate(prefab);
-            else this.prefabMap.delete(path);
-            curMode = PopupRecycleMode.Temporary;
-        } else if (this.nodeMap.has(path)) {
-            // 从节点表中获取
-            node = this.nodeMap.get(path);
-            if (!cc.isValid(node)) this.nodeMap.delete(path);
-            curMode = PopupRecycleMode.Frequent;
+            return false;
         }
 
-        if (!cc.isValid(node)) {
-            // 重新动态加载
-            await new Promise(res => {
-                cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
-                    if (!error) {
-                        node = cc.instantiate(prefab);
-                        this.prefabMap.set(path, prefab);
-                    }
-                    res();
+        return new Promise(async res => {
+            this._curPopup = request;
+
+            let node: cc.Node = null;
+            let curMode: PopupRecycleMode = null;
+            if (this.prefabMap.has(path)) {
+                // 从预制表中获取
+                const prefab = this.prefabMap.get(path);
+                if (cc.isValid(prefab)) node = cc.instantiate(prefab);
+                else this.prefabMap.delete(path);
+                curMode = PopupRecycleMode.Temporary;
+            } else if (this.nodeMap.has(path)) {
+                // 从节点表中获取
+                node = this.nodeMap.get(path);
+                if (!cc.isValid(node)) this.nodeMap.delete(path);
+                curMode = PopupRecycleMode.Frequent;
+            }
+
+            if (!cc.isValid(node)) {
+                // 重新动态加载
+                await new Promise(res => {
+                    cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
+                        if (!error) {
+                            node = cc.instantiate(prefab);
+                            this.prefabMap.set(path, prefab);
+                        }
+                        res();
+                    });
                 });
-            });
-        }
+            }
 
-        if (!cc.isValid(node)) {
-            this._curPopup = null;
-            cc.warn('[PopupManager]', '弹窗加载失败', path);
-            return;
-        }
+            if (!cc.isValid(node)) {
+                this._curPopup = null;
+                cc.warn('[PopupManager]', '弹窗加载失败', path);
+                return res(false);
+            }
 
-        node.setParent(cc.Canvas.instance.node);
-        node.setSiblingIndex(cc.macro.MAX_ZINDEX);
+            node.setParent(cc.Canvas.instance.node);
+            node.setSiblingIndex(cc.macro.MAX_ZINDEX);
 
-        const popup = node.getComponent(PopupBase);
-        if (!popup) return (node.active = true);
-        popup.setFinishedCallback(() => {
-            this._curPopup = null;
-            this.recycle(path, node, mode);
-            this.next();
+            const popup = node.getComponent(PopupBase);
+            if (popup) {
+                popup.setFinishedCallback(() => {
+                    this._curPopup = null;
+                    res(true);
+                    this.recycle(path, node, mode);
+                    this.next();
+                });
+                popup.show(options);
+            } else {
+                // 没有 PopupBase 组件则直接打开节点
+                node.active = true;
+                res(true);
+            }
         });
-        popup.show(options);
+
     }
 
     /**
