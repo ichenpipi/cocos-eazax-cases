@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        525.6774200971543,
+        524.8113946933698,
         0,
         0,
         0,
@@ -3118,7 +3118,7 @@
         "__id__": 443
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 486
@@ -3196,7 +3196,7 @@
         "__id__": 82
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 93
@@ -3306,7 +3306,7 @@
         1,
         1,
         1,
-        0
+        1
       ]
     },
     "_eulerAngles": {
@@ -16272,7 +16272,7 @@
     "_id": "c1AkwtRHpAIbPSZK8th3Pt"
   },
   {
-    "__type__": "1f5c9l34u9FvZdvP68ybH9p",
+    "__type__": "8873cgmM19Mb414MmY3ZA8/",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -16280,14 +16280,14 @@
     },
     "_enabled": true,
     "_effect": {
-      "__uuid__": "e0b773ad-b167-48d6-ae16-151067545c03"
+      "__uuid__": "4cd40e29-827a-4b67-a2b7-82e1bb846b6f"
     },
     "_amplitude": 0.05,
     "_angularVelocity": 10,
     "_frequency": 10,
     "_height": 0.5,
     "_direction": 1,
-    "_id": "17e6DyxoBBUrj2aybMkjKc"
+    "_id": "961D818jFAAIh1GyXw4h5N"
   },
   {
     "__type__": "cc.Node",
