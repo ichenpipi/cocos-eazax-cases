@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        524.8113946933698,
+        523.079343885801,
         0,
         0,
         0,
@@ -964,18 +964,6 @@
     "_id": "cdPJaPGhdBtqP4REXG8qW3"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 16
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-cases",
-    "openInNewTap": true,
-    "_id": "69JkUPdWpATKx53J55G+q3"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -1042,6 +1030,22 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "feNR+M9DBMxLITUd7YPcNg"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 16
+    },
+    "_enabled": true,
+    "names": [
+      "Eazax-CCC 示例项目"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-cases"
+    ],
+    "_id": "67sVeKlapFKrh7OguSEi97"
   },
   {
     "__type__": "cc.Node",
@@ -4639,18 +4643,6 @@
     "_id": "626ueW8MtEUJN2fQX/lgj2"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 95
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts",
-    "openInNewTap": true,
-    "_id": "75rJfda1FEo5r6lQxdrPwz"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -4717,6 +4709,28 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "4bupLqI1hKg4sN+HENl6Ni"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 95
+    },
+    "_enabled": true,
+    "names": [
+      "HollowOut.ts",
+      "eazax-hollowout.effect",
+      "TouchBlocker.ts",
+      "[示例] NewGuide.ts"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts",
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect",
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts",
+      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/cases/newGuide/NewGuide.ts"
+    ],
+    "_id": "ebdBbXxiZIUpbz8I6AKZH+"
   },
   {
     "__type__": "cc.Widget",
@@ -6446,18 +6460,6 @@
     "_id": "c7t0T7gnRHjJI+cKIuNJYE"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 136
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-avatar.effect",
-    "openInNewTap": true,
-    "_id": "c6fU6U7ydKn4FC8kbVSyTh"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -6524,6 +6526,22 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "969WCYd8dMHbWohsRFECAj"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 136
+    },
+    "_enabled": true,
+    "names": [
+      "eazax-avatar.effect"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-avatar.effect"
+    ],
+    "_id": "13S+SmO3BMaaepW4OpgKEs"
   },
   {
     "__type__": "cc.Widget",
@@ -7151,18 +7169,6 @@
     "_id": "4fOQnbSFBD07d9xeu/4cXL"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 152
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/GaussianBlur.ts",
-    "openInNewTap": true,
-    "_id": "c9VEf/EjpLEa1ptQsrG+ya"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -7229,6 +7235,24 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "be3Nso8JpNQqaKTrubaI9G"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 152
+    },
+    "_enabled": true,
+    "names": [
+      "GaussianBlur.ts",
+      "eazax-gaussian-blur.effect"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/GaussianBlur.ts",
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-gaussian-blur.effect"
+    ],
+    "_id": "7fq341IX9NP6J129WELRpE"
   },
   {
     "__type__": "cc.Widget",
@@ -7883,18 +7907,6 @@
     "_id": "0crXP1RpRBMIRiVnfE/EfD"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 169
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/RadarChart.ts",
-    "openInNewTap": true,
-    "_id": "b5MIp/9cBOkLcRmVsqDxe5"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -7961,6 +7973,24 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "04YSLAML9Mko+4Zl1vfIES"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 169
+    },
+    "_enabled": true,
+    "names": [
+      "RadarChart.ts",
+      "[示例] RadarChartController.ts"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/RadarChart.ts",
+      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/cases/radarChart/RadarChartController.ts"
+    ],
+    "_id": "642qK897VBZanqaiYKfc3b"
   },
   {
     "__type__": "cc.Widget",
@@ -15911,18 +15941,6 @@
     "_id": "ce4kbJG1xIap4TDQLLP30M"
   },
   {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 344
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-sine-wave.effect",
-    "openInNewTap": true,
-    "_id": "8a1antmRRJYo700sCK5FpK"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -15989,6 +16007,26 @@
     "_N$disabledSprite": null,
     "_N$target": null,
     "_id": "d3WSTUK5tL+JzLbKqhTLDn"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 344
+    },
+    "_enabled": true,
+    "names": [
+      "SineWave.ts",
+      "eazax-sine-wave.effect",
+      "[示例] SineWaveController.ts"
+    ],
+    "urls": [
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/SineWave.ts",
+      "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-sine-wave.effect",
+      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/cases/sineWave/SineWaveController.ts.meta"
+    ],
+    "_id": "49Kz4e2BRF+L461gfGIBIc"
   },
   {
     "__type__": "cc.Widget",

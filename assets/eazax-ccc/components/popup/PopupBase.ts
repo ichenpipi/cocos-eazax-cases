@@ -2,7 +2,7 @@ const { ccclass, property } = cc._decorator;
 
 /** 弹窗基类 */
 @ccclass
-export default class PopupBase<T> extends cc.Component {
+export default class PopupBase<Options> extends cc.Component {
 
     @property({ type: cc.Node, tooltip: CC_DEV && '背景遮罩' })
     public background: cc.Node = null;
@@ -14,23 +14,26 @@ export default class PopupBase<T> extends cc.Component {
     public animTime: number = 0.3;
 
     /** 弹窗选项 */
-    protected options: T = null;
+    protected options: Options = null;
 
-    /** 弹窗关闭回调 */
-    protected closedCallback: Function = null;
+    /** 弹窗流程结束回调（注意：该回调为 PopupManager 专用，重写 hide 函数时记得调用该回调） */
+    protected finishedCallback: Function = null;
 
-    /** 完成回调 */
-    private finishedCallback: Function = null;
+    /** 弹窗已打开（子类请重写此函数以实现自定义逻辑） */
+    protected onShow(): void { }
+
+    /** 弹窗已关闭（子类请重写此函数以实现自定义逻辑） */
+    protected onHide(): void { }
 
     /**
      * 展示弹窗
      * @param options 弹窗选项
      */
-    public show(options?: T) {
+    public show(options?: Options): void {
         // 储存选项参数
         this.options = options;
         // 更新弹窗样式
-        this.updateDisplay();
+        this.updateDisplay(options);
         // 初始化节点
         this.background.opacity = 0;
         this.main.scale = 0;
@@ -38,19 +41,23 @@ export default class PopupBase<T> extends cc.Component {
         // 背景
         this.background.active = true;
         cc.tween(this.background)
-            .to(this.animTime * 0.95, { opacity: 200 })
+            .to(this.animTime * 0.8, { opacity: 200 })
             .start();
         // 主体
         this.main.active = true;
         cc.tween(this.main)
             .to(this.animTime, { scale: 1 }, { easing: 'backOut' })
+            .call(() => {
+                // 弹窗已打开（动画完毕）
+                this.onShow && this.onShow();
+            })
             .start();
     }
 
     /**
      * 隐藏弹窗
      */
-    public hide() {
+    public hide(): void {
         // 背景
         cc.tween(this.background)
             .to(this.animTime, { opacity: 0 })
@@ -65,12 +72,10 @@ export default class PopupBase<T> extends cc.Component {
                 // 关闭节点
                 this.main.active = false;
                 this.node.active = false;
-                // 弹窗关闭回调
-                if (this.closedCallback) {
-                    this.closedCallback();
-                    this.closedCallback = null;
-                }
-                // 完成回调
+                // 弹窗已关闭（动画完毕）
+                this.onHide && this.onHide();
+                // 弹窗完成回调（该回调为 PopupManager 专用）
+                // 注意：重写 hide 函数时记得调用该回调
                 if (this.finishedCallback) {
                     this.finishedCallback();
                     this.finishedCallback = null;
@@ -81,18 +86,16 @@ export default class PopupBase<T> extends cc.Component {
 
     /**
      * 更新弹窗样式（子类请重写此函数以实现自定义样式）
+     * @param options 弹窗选项
      */
-    protected updateDisplay() {
-
-    }
+    protected updateDisplay(options: Options): void { }
 
     /**
-     * 设置完成回调（该回调为 PopupManager 专用）
+     * 设置弹窗完成回调（该回调为 PopupManager 专用）
      * @param callback 回调
      */
-    public setFinishedCallback(callback: Function) {
-        if (this.finishedCallback)
-            return cc.warn('[PopupBase]', '无法重复指定完成回调');;
+    public setFinishedCallback(callback: Function): void {
+        if (this.finishedCallback) return cc.warn('[PopupBase]', '无法重复指定完成回调！');
         this.finishedCallback = callback;
     }
 

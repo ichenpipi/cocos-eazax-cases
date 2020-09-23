@@ -1,3 +1,5 @@
+import BrowserUtil from "../eazax-ccc/utils/BrowserUtil";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -31,7 +33,8 @@ export default class MainContent extends cc.Component {
     public static goHome() {
         eazax.log('[Go Home]');
 
-        window.history.replaceState({}, null, '.');
+        // 清除当前 URL 的参数
+        BrowserUtil.clearUrlParam();
 
         this.instance.home.active = true;
         this.instance.casesContainer.active = false;
@@ -39,10 +42,10 @@ export default class MainContent extends cc.Component {
 
     public static goCase(name: string) {
         if (!this.hasCase(name)) return;
-
         eazax.log('[Go Case]', name);
 
-        window.history.replaceState({}, null, `?case=${name}`);
+        // 设置当前 URL 的参数
+        BrowserUtil.setUrlParam(`case=${name}`);
 
         for (let i = 0; i < this.instance.cases.length; i++) {
             this.instance.cases[i].active = this.instance.cases[i].name === name;

@@ -1,9 +1,9 @@
-import PopupManager, { PopupRecycleMode } from "../eazax-ccc/core/PopupManager";
+import PopupManager, { PopupRecycleMode } from "../../eazax-ccc/core/PopupManager";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class ClickToShowRes extends cc.Component {
+export default class ClickToShowResPopup extends cc.Component {
 
     @property({ type: [cc.String] })
     private names: string[] = [];
@@ -20,7 +20,7 @@ export default class ClickToShowRes extends cc.Component {
         for (let i = 0; i < this.urls.length; i++) {
             options.items.push({ name: this.names[i], url: this.urls[i] });
         }
-        PopupManager.show('prefabs/resPopup', options, PopupRecycleMode.Frequent);
+        PopupManager.show('prefabs/ResPopup', options, PopupRecycleMode.Frequent);
     }
 
 }

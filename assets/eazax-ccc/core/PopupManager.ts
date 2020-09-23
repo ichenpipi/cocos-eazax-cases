@@ -19,11 +19,11 @@ export default class PopupManager {
 
     /**
      * 展示弹窗
-     * @param path 相对路径（如：prefabs/popup）
-     * @param options 选项
+     * @param path 弹窗预制体相对路径（如：prefabs/popup）
+     * @param options 弹窗选项
      * @param mode 回收模式
      */
-    public static async show(path: string, options: object = null, mode: PopupRecycleMode = PopupRecycleMode.Temporary): Promise<boolean> {
+    public static async show(path: string, options: any = null, mode: PopupRecycleMode = PopupRecycleMode.Temporary): Promise<boolean> {
         const request = { path, options, mode };
         if (this._curPopup) {
             this._queue.push(request);
@@ -131,10 +131,10 @@ export default class PopupManager {
 
 /** 弹窗请求 */
 interface PopupRequest {
-    /** 路径 */
+    /** 弹窗预制体相对路径 */
     path: string;
     /** 弹窗选项 */
-    options: object;
+    options: any;
     /** 优化模式 */
     mode: PopupRecycleMode,
 }
