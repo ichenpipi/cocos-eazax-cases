@@ -17,6 +17,11 @@ export default class PopupManager {
     public static get curPopup() { return this._curPopup; }
     private static _curPopup: PopupRequest = null;
 
+    /** 动态加载开始回调 */
+    public static loadStartCallback: Function = null;
+    /** 动态加载结束回调 */
+    public static loadFinishCallback: Function = null;
+
     /**
      * 展示弹窗
      * @param path 弹窗预制体相对路径（如：prefabs/popup）
@@ -36,6 +41,8 @@ export default class PopupManager {
 
             let node: cc.Node = null;
             let curMode: PopupRecycleMode = null;
+
+            // 先在缓存中查找
             if (this.prefabMap.has(path)) {
                 // 从预制表中获取
                 const prefab = this.prefabMap.get(path);
@@ -49,8 +56,11 @@ export default class PopupManager {
                 curMode = PopupRecycleMode.Frequent;
             }
 
+            // 动态加载资源
             if (!cc.isValid(node)) {
-                // 重新动态加载
+                // 建议在动态加载时添加加载提示并屏蔽用户点击，避免多次点击
+                // 如：LoadingTip.show();
+                this.loadStartCallback && this.loadStartCallback();
                 await new Promise(res => {
                     cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
                         if (!error) {
@@ -60,20 +70,27 @@ export default class PopupManager {
                         res();
                     });
                 });
+                // 加载完成后隐藏加载提示
+                // 如：LoadingTip.hide();
+                this.loadFinishCallback && this.loadFinishCallback();
             }
 
+            // 加载失败（一般是路径错误导致的）
             if (!cc.isValid(node)) {
                 this._curPopup = null;
                 cc.warn('[PopupManager]', '弹窗加载失败', path);
                 return res(false);
             }
 
+            // 添加到场景中
             node.setParent(cc.Canvas.instance.node);
             node.setSiblingIndex(cc.macro.MAX_ZINDEX);
 
+            // 获取继承于 PopupBase 的弹窗组件
             const popup = node.getComponent(PopupBase);
             if (popup) {
-                popup.setFinishedCallback(() => {
+                // 设置完成回调
+                popup.setFinishCallback(() => {
                     this._curPopup = null;
                     res(true);
                     this.recycle(path, node, mode);

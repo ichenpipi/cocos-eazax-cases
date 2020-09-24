@@ -17,7 +17,7 @@ export default class PopupBase<Options> extends cc.Component {
     protected options: Options = null;
 
     /** 弹窗流程结束回调（注意：该回调为 PopupManager 专用，重写 hide 函数时记得调用该回调） */
-    protected finishedCallback: Function = null;
+    protected finishCallback: Function = null;
 
     /** 弹窗已打开（子类请重写此函数以实现自定义逻辑） */
     protected onShow(): void { }
@@ -76,9 +76,9 @@ export default class PopupBase<Options> extends cc.Component {
                 this.onHide && this.onHide();
                 // 弹窗完成回调（该回调为 PopupManager 专用）
                 // 注意：重写 hide 函数时记得调用该回调
-                if (this.finishedCallback) {
-                    this.finishedCallback();
-                    this.finishedCallback = null;
+                if (this.finishCallback) {
+                    this.finishCallback();
+                    this.finishCallback = null;
                 }
             })
             .start();
@@ -94,9 +94,9 @@ export default class PopupBase<Options> extends cc.Component {
      * 设置弹窗完成回调（该回调为 PopupManager 专用）
      * @param callback 回调
      */
-    public setFinishedCallback(callback: Function): void {
-        if (this.finishedCallback) return cc.warn('[PopupBase]', '无法重复指定完成回调！');
-        this.finishedCallback = callback;
+    public setFinishCallback(callback: Function): void {
+        if (this.finishCallback) return cc.warn('[PopupBase]', '无法重复指定完成回调！');
+        this.finishCallback = callback;
     }
 
 }
