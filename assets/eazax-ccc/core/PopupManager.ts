@@ -1,6 +1,9 @@
 import PopupBase from "../components/popup/PopupBase";
 
-/** 弹窗管理器 */
+/**
+ * 弹窗管理器
+ * @see PopupManager.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/PopupManager.ts
+ */
 export default class PopupManager {
 
     /** 预制表 */
@@ -17,9 +20,10 @@ export default class PopupManager {
     public static get curPopup() { return this._curPopup; }
     private static _curPopup: PopupRequest = null;
 
-    /** 动态加载开始回调 */
+    /** 弹窗动态加载开始回调 */
     public static loadStartCallback: Function = null;
-    /** 动态加载结束回调 */
+
+    /** 弹窗动态加载结束回调 */
     public static loadFinishCallback: Function = null;
 
     /**
@@ -40,7 +44,7 @@ export default class PopupManager {
             this._curPopup = request;
 
             let node: cc.Node = null;
-            let curMode: PopupRecycleMode = null;
+            // let curMode: PopupRecycleMode = null;
 
             // 先在缓存中查找
             if (this.prefabMap.has(path)) {
@@ -48,18 +52,18 @@ export default class PopupManager {
                 const prefab = this.prefabMap.get(path);
                 if (cc.isValid(prefab)) node = cc.instantiate(prefab);
                 else this.prefabMap.delete(path);
-                curMode = PopupRecycleMode.Temporary;
+                // curMode = PopupRecycleMode.Temporary;
             } else if (this.nodeMap.has(path)) {
                 // 从节点表中获取
                 node = this.nodeMap.get(path);
                 if (!cc.isValid(node)) this.nodeMap.delete(path);
-                curMode = PopupRecycleMode.Frequent;
+                // curMode = PopupRecycleMode.Frequent;
             }
 
             // 动态加载资源
             if (!cc.isValid(node)) {
                 // 建议在动态加载时添加加载提示并屏蔽用户点击，避免多次点击
-                // 如：LoadingTip.show();
+                // 如：PopupManager.loadStartCallback = () => LoadingTip.show();
                 this.loadStartCallback && this.loadStartCallback();
                 await new Promise(res => {
                     cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
@@ -71,7 +75,7 @@ export default class PopupManager {
                     });
                 });
                 // 加载完成后隐藏加载提示
-                // 如：LoadingTip.hide();
+                // 如：PopupManager.loadFinishCallback = () => LoadingTip.hide();
                 this.loadFinishCallback && this.loadFinishCallback();
             }
 
@@ -103,7 +107,6 @@ export default class PopupManager {
                 res(true);
             }
         });
-
     }
 
     /**
@@ -117,9 +120,9 @@ export default class PopupManager {
 
     /**
      * 回收弹窗
-     * @param path 路径
-     * @param node 节点
-     * @param mode 模式
+     * @param path 弹窗路径
+     * @param node 弹窗节点
+     * @param mode 回收模式
      */
     private static recycle(path: string, node: cc.Node, mode: PopupRecycleMode) {
         switch (mode) {
@@ -138,11 +141,11 @@ export default class PopupManager {
 
     /**
      * 释放弹窗以及资源
-     * @param path 
+     * @param path 弹窗路径
      */
-    private release(path: string) {
-
-    }
+    // private release(path: string) {
+    //     // TODO
+    // }
 
 }
 

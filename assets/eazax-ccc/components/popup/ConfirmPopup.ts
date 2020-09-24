@@ -2,6 +2,9 @@ import PopupBase from "./PopupBase";
 
 const { ccclass, property } = cc._decorator;
 
+/**
+ * 确认弹窗（PopupBase 使用示例）
+ */
 @ccclass
 export default class ConfirmPopup extends PopupBase<Options> {
 

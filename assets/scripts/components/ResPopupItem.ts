@@ -16,7 +16,7 @@ export default class ResPopupItem extends cc.Component {
 
     public set(name: string, url: string) {
         const extname = name.slice(name.lastIndexOf('.'));
-        this.typeLabel.string = SymbolMap[extname];
+        this.typeLabel.string = SymbolMap[extname] || '📦';
         this.nameLabel.string = name;
         this.clicker.url = url;
     }

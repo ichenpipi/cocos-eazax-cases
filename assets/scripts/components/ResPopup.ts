@@ -3,6 +3,9 @@ import ResPopupItem from "./ResPopupItem";
 
 const { ccclass, property } = cc._decorator;
 
+/**
+ * 资源弹窗
+ */
 @ccclass
 export default class ResPopup extends PopupBase<Options> {
 
@@ -51,6 +54,10 @@ export default class ResPopup extends PopupBase<Options> {
 
 }
 
+/** 资源弹窗选项类型 */
 interface Options {
     items: { name: string; url: string }[];
 }
+
+/** 资源弹窗路径 */
+export const ResPopupPath = 'prefabs/ResPopup';
