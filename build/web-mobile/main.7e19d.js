@@ -3,7 +3,9 @@ window.boot = function () {
     window._CCSettings = undefined;
     var onProgress = null;
     
-    let { RESOURCES, INTERNAL, MAIN, START_SCENE } = cc.AssetManager.BuiltinBundleName;
+    var RESOURCES = cc.AssetManager.BuiltinBundleName.RESOURCES;
+    var INTERNAL = cc.AssetManager.BuiltinBundleName.INTERNAL;
+    var MAIN = cc.AssetManager.BuiltinBundleName.MAIN;
     function setLoadingDisplay () {
         // Loading splash scene
         var splash = document.getElementById('splash');
@@ -44,6 +46,8 @@ window.boot = function () {
                 cc.sys.BROWSER_TYPE_WECHAT,
                 cc.sys.BROWSER_TYPE_MOBILE_QQ,
                 cc.sys.BROWSER_TYPE_MIUI,
+                cc.sys.BROWSER_TYPE_HUAWEI,
+                cc.sys.BROWSER_TYPE_UC,
             ].indexOf(cc.sys.browserType) < 0);
         }
 
@@ -95,8 +99,7 @@ window.boot = function () {
         server: settings.server
     });
     
-    let bundleRoot = [INTERNAL, MAIN];
-    settings.hasStartSceneBundle && bundleRoot.push(START_SCENE);
+    var bundleRoot = [INTERNAL];
     settings.hasResourcesBundle && bundleRoot.push(RESOURCES);
 
     var count = 0;
@@ -104,13 +107,15 @@ window.boot = function () {
         if (err) return console.error(err.message, err.stack);
         count++;
         if (count === bundleRoot.length + 1) {
-            cc.game.run(option, onStart);
+            cc.assetManager.loadBundle(MAIN, function (err) {
+                if (!err) cc.game.run(option, onStart);
+            });
         }
     }
 
     cc.assetManager.loadScript(settings.jsList.map(function (x) { return 'src/' + x;}), cb);
 
-    for (let i = 0; i < bundleRoot.length; i++) {
+    for (var i = 0; i < bundleRoot.length; i++) {
         cc.assetManager.loadBundle(bundleRoot[i], cb);
     }
 };
@@ -118,7 +123,7 @@ window.boot = function () {
 if (window.jsb) {
     var isRuntime = (typeof loadRuntime === 'function');
     if (isRuntime) {
-        require('src/settings.28016.js');
+        require('src/settings.0ed5b.js');
         require('src/cocos2d-runtime.js');
         if (CC_PHYSICS_BUILTIN || CC_PHYSICS_CANNON) {
             require('src/physics.js');
@@ -126,7 +131,7 @@ if (window.jsb) {
         require('jsb-adapter/engine/index.js');
     }
     else {
-        require('src/settings.28016.js');
+        require('src/settings.0ed5b.js');
         require('src/cocos2d-jsb.js');
         if (CC_PHYSICS_BUILTIN || CC_PHYSICS_CANNON) {
             require('src/physics.js');
