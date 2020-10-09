@@ -1,4 +1,4 @@
-import PopupBase from "../../eazax-ccc/components/popup/PopupBase";
+import PopupBase from "../../../eazax-ccc/components/popup/PopupBase";
 import ResPopupItem from "./ResPopupItem";
 
 const { ccclass, property } = cc._decorator;

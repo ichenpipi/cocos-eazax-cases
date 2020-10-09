@@ -1,4 +1,4 @@
-import BrowserUtil from "../eazax-ccc/utils/BrowserUtil";
+import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
 
 const { ccclass, property } = cc._decorator;
 

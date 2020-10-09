@@ -1,4 +1,4 @@
-import RadarChart, { RadarChartData } from "../../../eazax-ccc/components/RadarChart";
+import RadarChart, { RadarChartData } from "../../../../eazax-ccc/components/RadarChart";
 
 const { ccclass, property } = cc._decorator;
 

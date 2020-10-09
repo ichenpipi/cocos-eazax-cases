@@ -1,4 +1,4 @@
-import SineWave, { SineWaveDirection } from "../../../eazax-ccc/components/effects/SineWave";
+import SineWave, { SineWaveDirection } from "../../../../eazax-ccc/components/effects/SineWave";
 
 const { ccclass, property } = cc._decorator;
 

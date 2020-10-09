@@ -1,5 +1,5 @@
-import HollowOut from "../../../eazax-ccc/components/effects/HollowOut";
-import TouchBlocker from "../../../eazax-ccc/components/TouchBlocker";
+import HollowOut from "../../../../eazax-ccc/components/effects/HollowOut";
+import TouchBlocker from "../../../../eazax-ccc/components/TouchBlocker";
 
 const { ccclass, property } = cc._decorator;
 

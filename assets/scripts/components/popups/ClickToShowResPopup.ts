@@ -1,4 +1,4 @@
-import PopupManager, { PopupRecycleMode } from "../../eazax-ccc/core/PopupManager";
+import PopupManager, { PopupRecycleMode } from "../../../eazax-ccc/core/PopupManager";
 import { ResPopupPath } from "./ResPopup";
 
 const { ccclass, property } = cc._decorator;

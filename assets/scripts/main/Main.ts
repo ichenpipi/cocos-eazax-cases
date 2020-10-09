@@ -1,7 +1,7 @@
 import MainContent from "./MainContent";
-import BrowserUtil from "../eazax-ccc/utils/BrowserUtil";
-import PopupManager from "../eazax-ccc/core/PopupManager";
-import LoadingTip from "../eazax-ccc/components/LoadingTip";
+import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
+import PopupManager from "../../eazax-ccc/core/PopupManager";
+import LoadingTip from "../../eazax-ccc/components/LoadingTip";
 
 const { ccclass, property } = cc._decorator;
 
@@ -9,8 +9,7 @@ const { ccclass, property } = cc._decorator;
 export default class Main extends cc.Component {
 
     protected onLoad() {
-        // 禁用自动全屏
-        cc.view.enableAutoFullScreen(false);
+        
     }
 
     protected start() {

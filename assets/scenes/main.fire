@@ -17,10 +17,10 @@
         "__id__": 2
       },
       {
-        "__id__": 510
+        "__id__": 509
       },
       {
-        "__id__": 512
+        "__id__": 515
       }
     ],
     "_active": false,
@@ -84,19 +84,19 @@
         "__id__": 8
       },
       {
-        "__id__": 490
+        "__id__": 489
       }
     ],
     "_active": true,
     "_components": [
       {
+        "__id__": 506
+      },
+      {
         "__id__": 507
       },
       {
         "__id__": 508
-      },
-      {
-        "__id__": 509
       }
     ],
     "_prefab": null,
@@ -186,7 +186,7 @@
       "array": [
         0,
         0,
-        539.5338265577053,
+        540.3998519614897,
         0,
         0,
         0,
@@ -387,10 +387,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 488
+        "__id__": 487
       },
       {
-        "__id__": 489
+        "__id__": 488
       }
     ],
     "_prefab": null,
@@ -671,7 +671,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸Home🔸",
     "_N$string": "🔸Home🔸",
     "_fontSize": 40,
@@ -947,7 +946,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔗本项目源码在这里",
     "_N$string": "🔗本项目源码在这里",
     "_fontSize": 30,
@@ -1680,7 +1678,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "围绕旋转",
     "_N$string": "围绕旋转",
     "_fontSize": 24,
@@ -1874,7 +1871,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "新手引导",
     "_N$string": "新手引导",
     "_fontSize": 24,
@@ -2068,7 +2064,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "圆形头像",
     "_N$string": "圆形头像",
     "_fontSize": 24,
@@ -2262,7 +2257,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "高斯模糊",
     "_N$string": "高斯模糊",
     "_fontSize": 24,
@@ -2456,7 +2450,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "雷达图",
     "_N$string": "雷达图",
     "_fontSize": 24,
@@ -2650,7 +2643,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "正弦波浪",
     "_N$string": "正弦波浪",
     "_fontSize": 24,
@@ -2844,7 +2836,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "分帧加载",
     "_N$string": "分帧加载",
     "_fontSize": 24,
@@ -3128,10 +3119,10 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 486
+        "__id__": 485
       },
       {
-        "__id__": 487
+        "__id__": 486
       }
     ],
     "_prefab": null,
@@ -3406,7 +3397,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸Rotate Around🔸",
     "_N$string": "🔸Rotate Around🔸",
     "_fontSize": 40,
@@ -3682,7 +3672,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "示例功能待添加...",
     "_N$string": "示例功能待添加...",
     "_fontSize": 20,
@@ -4009,7 +3998,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "-x",
     "_N$string": "-x",
     "_fontSize": 40,
@@ -4105,7 +4093,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "x",
     "_N$string": "x",
     "_fontSize": 40,
@@ -4201,7 +4188,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "y",
     "_N$string": "y",
     "_fontSize": 40,
@@ -4297,7 +4283,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "-y",
     "_N$string": "-y",
     "_fontSize": 40,
@@ -4626,7 +4611,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸New Guide🔸",
     "_N$string": "🔸New Guide🔸",
     "_fontSize": 40,
@@ -4731,7 +4715,7 @@
       "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts",
       "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect",
       "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts",
-      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/cases/newGuide/NewGuide.ts"
+      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/main/cases/newGuide/NewGuide.ts"
     ],
     "_id": "ebdBbXxiZIUpbz8I6AKZH+"
   },
@@ -4974,7 +4958,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "开始新手引导",
     "_N$string": "开始新手引导",
     "_fontSize": 25,
@@ -5287,7 +5270,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "One",
     "_N$string": "One",
     "_fontSize": 30,
@@ -5577,7 +5559,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "Two",
     "_N$string": "Two",
     "_fontSize": 30,
@@ -5894,7 +5875,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "Three",
     "_N$string": "Three",
     "_fontSize": 30,
@@ -6443,7 +6423,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸Avatar🔸",
     "_N$string": "🔸Avatar🔸",
     "_fontSize": 40,
@@ -6719,7 +6698,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "示例功能待添加...",
     "_N$string": "示例功能待添加...",
     "_fontSize": 20,
@@ -7152,7 +7130,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸Gaussian Blur🔸",
     "_N$string": "🔸Gaussian Blur🔸",
     "_fontSize": 40,
@@ -7430,7 +7407,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "示例功能待添加...",
     "_N$string": "示例功能待添加...",
     "_fontSize": 20,
@@ -7890,7 +7866,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸Radar Chart🔸",
     "_N$string": "🔸Radar Chart🔸",
     "_fontSize": 40,
@@ -7991,7 +7966,7 @@
     ],
     "urls": [
       "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/RadarChart.ts",
-      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/cases/radarChart/RadarChartController.ts"
+      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/main/cases/radarChart/RadarChartController.ts"
     ],
     "_id": "642qK897VBZanqaiYKfc3b"
   },
@@ -8341,7 +8316,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "动画时长：",
     "_N$string": "动画时长：",
     "_fontSize": 25,
@@ -8636,7 +8610,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "0.5",
     "_N$string": "0.5",
     "_fontSize": 20,
@@ -8762,7 +8735,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -8816,7 +8788,6 @@
       "__id__": 181
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "0.5",
     "returnType": 1,
     "maxLength": 4,
@@ -9083,7 +9054,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "动态变化\n至\n随机数据",
     "_N$string": "动态变化\n至\n随机数据",
     "_fontSize": 26,
@@ -9472,7 +9442,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "轴长：",
     "_N$string": "轴长：",
     "_fontSize": 25,
@@ -9767,7 +9736,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "300",
     "_N$string": "300",
     "_fontSize": 20,
@@ -9893,7 +9861,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -9947,7 +9914,6 @@
       "__id__": 204
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "300",
     "returnType": 1,
     "maxLength": 4,
@@ -10178,7 +10144,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "轴数：",
     "_N$string": "轴数：",
     "_fontSize": 25,
@@ -10473,7 +10438,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "6",
     "_N$string": "6",
     "_fontSize": 20,
@@ -10599,7 +10563,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -10653,7 +10616,6 @@
       "__id__": 220
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "6",
     "returnType": 1,
     "maxLength": 4,
@@ -10884,7 +10846,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "绘制轴：",
     "_N$string": "绘制轴：",
     "_fontSize": 25,
@@ -11444,7 +11405,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "轴上刻度数：",
     "_N$string": "轴上刻度数：",
     "_fontSize": 25,
@@ -11739,7 +11699,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "3",
     "_N$string": "3",
     "_fontSize": 20,
@@ -11865,7 +11824,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -11919,7 +11877,6 @@
       "__id__": 247
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "3",
     "returnType": 1,
     "maxLength": 4,
@@ -12150,7 +12107,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "外线&轴宽度：",
     "_N$string": "外线&轴宽度：",
     "_fontSize": 25,
@@ -12445,7 +12401,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "4",
     "_N$string": "4",
     "_fontSize": 20,
@@ -12571,7 +12526,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -12625,7 +12579,6 @@
       "__id__": 263
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "4",
     "returnType": 1,
     "maxLength": 4,
@@ -12856,7 +12809,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "内线宽度：",
     "_N$string": "内线宽度：",
     "_fontSize": 25,
@@ -13151,7 +13103,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "4",
     "_N$string": "4",
     "_fontSize": 20,
@@ -13277,7 +13228,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -13331,7 +13281,6 @@
       "__id__": 279
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "4",
     "returnType": 1,
     "maxLength": 4,
@@ -13562,7 +13511,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "数据 1：",
     "_N$string": "数据 1：",
     "_fontSize": 25,
@@ -13857,7 +13805,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "0.8,0.5,0.6,0.5,0.8,0.6",
     "_N$string": "0.8,0.5,0.6,0.5,0.8,0.6",
     "_fontSize": 20,
@@ -13983,7 +13930,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -14037,7 +13983,6 @@
       "__id__": 295
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "0.8,0.5,0.6,0.5,0.8,0.6",
     "returnType": 1,
     "maxLength": 50,
@@ -14268,7 +14213,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "数据 2：",
     "_N$string": "数据 2：",
     "_fontSize": 25,
@@ -14563,7 +14507,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "0.5,0.9,0.5,0.8,0.5,0.9",
     "_N$string": "0.5,0.9,0.5,0.8,0.5,0.9",
     "_fontSize": 20,
@@ -14689,7 +14632,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -14743,7 +14685,6 @@
       "__id__": 311
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "0.5,0.9,0.5,0.8,0.5,0.9",
     "returnType": 1,
     "maxLength": 50,
@@ -14974,7 +14915,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "绘制数据节点：",
     "_N$string": "绘制数据节点：",
     "_fontSize": 25,
@@ -15560,7 +15500,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "显示空间有限，暂不开放新增或减少数据，请自行下载组件尝试~",
     "_N$string": "显示空间有限，暂不开放新增或减少数据，请自行下载组件尝试~",
     "_fontSize": 20,
@@ -15924,7 +15863,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸Sine Wave🔸",
     "_N$string": "🔸Sine Wave🔸",
     "_fontSize": 40,
@@ -16027,7 +15965,7 @@
     "urls": [
       "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/SineWave.ts",
       "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-sine-wave.effect",
-      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/cases/sineWave/SineWaveController.ts.meta"
+      "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/main/cases/sineWave/SineWaveController.ts.meta"
     ],
     "_id": "49Kz4e2BRF+L461gfGIBIc"
   },
@@ -16542,7 +16480,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "加满",
     "_N$string": "加满",
     "_fontSize": 45,
@@ -16919,7 +16856,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "振幅：",
     "_N$string": "振幅：",
     "_fontSize": 25,
@@ -17214,7 +17150,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "0.05",
     "_N$string": "0.05",
     "_fontSize": 20,
@@ -17340,7 +17275,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -17394,7 +17328,6 @@
       "__id__": 367
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "0.05",
     "returnType": 1,
     "maxLength": 4,
@@ -17625,7 +17558,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "角速度：",
     "_N$string": "角速度：",
     "_fontSize": 25,
@@ -17920,7 +17852,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "10",
     "_N$string": "10",
     "_fontSize": 20,
@@ -18046,7 +17977,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -18100,7 +18030,6 @@
       "__id__": 383
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "10",
     "returnType": 1,
     "maxLength": 4,
@@ -18331,7 +18260,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "频率：",
     "_N$string": "频率：",
     "_fontSize": 25,
@@ -18626,7 +18554,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "10",
     "_N$string": "10",
     "_fontSize": 20,
@@ -18752,7 +18679,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -18806,7 +18732,6 @@
       "__id__": 399
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "10",
     "returnType": 1,
     "maxLength": 4,
@@ -19037,7 +18962,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "高度：",
     "_N$string": "高度：",
     "_fontSize": 25,
@@ -19332,7 +19256,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "0.5",
     "_N$string": "0.5",
     "_fontSize": 20,
@@ -19458,7 +19381,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Enter text here...",
     "_N$string": "Enter text here...",
     "_fontSize": 20,
@@ -19512,7 +19434,6 @@
       "__id__": 415
     },
     "_enabled": true,
-    "_useOriginalSize": false,
     "_string": "0.5",
     "returnType": 1,
     "maxLength": 4,
@@ -19743,7 +19664,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "向左：",
     "_N$string": "向左：",
     "_fontSize": 25,
@@ -20266,25 +20186,25 @@
         "__id__": 444
       },
       {
-        "__id__": 450
+        "__id__": 449
       },
       {
-        "__id__": 469
+        "__id__": 468
       },
       {
-        "__id__": 476
+        "__id__": 475
       }
     ],
     "_active": false,
     "_components": [
       {
+        "__id__": 482
+      },
+      {
         "__id__": 483
       },
       {
         "__id__": 484
-      },
-      {
-        "__id__": 485
       }
     ],
     "_prefab": null,
@@ -20354,9 +20274,6 @@
       },
       {
         "__id__": 448
-      },
-      {
-        "__id__": 449
       }
     ],
     "_prefab": null,
@@ -20484,7 +20401,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🔸Avatar🔸",
     "_N$string": "🔸Avatar🔸",
     "_fontSize": 40,
@@ -20502,18 +20418,6 @@
     "_N$overflow": 0,
     "_N$cacheMode": 1,
     "_id": "09WFNnuslD5qOJZRrb9Xrj"
-  },
-  {
-    "__type__": "ea72dfs9ulL86r9WCWSk1ts",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 444
-    },
-    "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-avatar.effect",
-    "openInNewTap": true,
-    "_id": "03jIbMzptMjqH10qp45CYO"
   },
   {
     "__type__": "cc.Button",
@@ -20619,22 +20523,22 @@
     },
     "_children": [
       {
-        "__id__": 451
+        "__id__": 450
       },
       {
-        "__id__": 464
+        "__id__": 463
       },
       {
-        "__id__": 457
+        "__id__": 456
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 455
+        "__id__": 454
       },
       {
-        "__id__": 468
+        "__id__": 467
       }
     ],
     "_prefab": null,
@@ -20690,23 +20594,23 @@
     "_name": "scrollBar",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 450
+      "__id__": 449
     },
     "_children": [
       {
-        "__id__": 452
+        "__id__": 451
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 454
+        "__id__": 453
+      },
+      {
+        "__id__": 461
       },
       {
         "__id__": 462
-      },
-      {
-        "__id__": 463
       }
     ],
     "_prefab": null,
@@ -20762,13 +20666,13 @@
     "_name": "bar",
     "_objFlags": 512,
     "_parent": {
-      "__id__": 451
+      "__id__": 450
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 453
+        "__id__": 452
       }
     ],
     "_prefab": null,
@@ -20824,7 +20728,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 452
+      "__id__": 451
     },
     "_enabled": true,
     "_materials": [
@@ -20856,18 +20760,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 451
+      "__id__": 450
     },
     "_enabled": true,
     "_scrollView": {
-      "__id__": 455
+      "__id__": 454
     },
     "_touching": false,
     "_opacity": 255,
     "enableAutoHide": true,
     "autoHideTime": 1,
     "_N$handle": {
-      "__id__": 453
+      "__id__": 452
     },
     "_N$direction": 1,
     "_id": "dcul+oCmpO45IyoFCCZpZy"
@@ -20877,7 +20781,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 450
+      "__id__": 449
     },
     "_enabled": true,
     "horizontal": false,
@@ -20889,14 +20793,14 @@
     "scrollEvents": [],
     "cancelInnerEvents": true,
     "_N$content": {
-      "__id__": 456
+      "__id__": 455
     },
     "content": {
-      "__id__": 456
+      "__id__": 455
     },
     "_N$horizontalScrollBar": null,
     "_N$verticalScrollBar": {
-      "__id__": 454
+      "__id__": 453
     },
     "_id": "e8+NfegoFPU492JX/LufEq"
   },
@@ -20905,16 +20809,16 @@
     "_name": "content",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 457
+      "__id__": 456
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 460
+        "__id__": 459
       },
       {
-        "__id__": 461
+        "__id__": 460
       }
     ],
     "_prefab": null,
@@ -20970,20 +20874,20 @@
     "_name": "view",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 450
+      "__id__": 449
     },
     "_children": [
       {
-        "__id__": 456
+        "__id__": 455
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 458
+        "__id__": 457
       },
       {
-        "__id__": 459
+        "__id__": 458
       }
     ],
     "_prefab": null,
@@ -21039,7 +20943,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 457
+      "__id__": 456
     },
     "_enabled": true,
     "_materials": [
@@ -21059,7 +20963,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 457
+      "__id__": 456
     },
     "_enabled": true,
     "alignMode": 1,
@@ -21086,7 +20990,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 456
+      "__id__": 455
     },
     "_enabled": true,
     "_layoutSize": {
@@ -21118,7 +21022,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 456
+      "__id__": 455
     },
     "_enabled": true,
     "alignMode": 1,
@@ -21145,7 +21049,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 451
+      "__id__": 450
     },
     "_enabled": true,
     "alignMode": 0,
@@ -21172,7 +21076,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 451
+      "__id__": 450
     },
     "_enabled": true,
     "_materials": [
@@ -21204,17 +21108,17 @@
     "_name": "item",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 450
+      "__id__": 449
     },
     "_children": [
       {
-        "__id__": 465
+        "__id__": 464
       }
     ],
     "_active": false,
     "_components": [
       {
-        "__id__": 467
+        "__id__": 466
       }
     ],
     "_prefab": null,
@@ -21270,13 +21174,13 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 464
+      "__id__": 463
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 466
+        "__id__": 465
       }
     ],
     "_prefab": null,
@@ -21332,7 +21236,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 465
+      "__id__": 464
     },
     "_enabled": true,
     "_materials": [
@@ -21342,7 +21246,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "1",
     "_N$string": "1",
     "_fontSize": 35,
@@ -21366,7 +21269,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 464
+      "__id__": 463
     },
     "_enabled": true,
     "_materials": [
@@ -21398,7 +21301,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 450
+      "__id__": 449
     },
     "_enabled": true,
     "_materials": [
@@ -21434,13 +21337,13 @@
     },
     "_children": [
       {
-        "__id__": 470
+        "__id__": 469
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 475
+        "__id__": 474
       }
     ],
     "_prefab": null,
@@ -21496,20 +21399,20 @@
     "_name": "main",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 469
+      "__id__": 468
     },
     "_children": [
       {
-        "__id__": 471
+        "__id__": 470
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 473
+        "__id__": 472
       },
       {
-        "__id__": 474
+        "__id__": 473
       }
     ],
     "_prefab": null,
@@ -21565,13 +21468,13 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 470
+      "__id__": 469
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 472
+        "__id__": 471
       }
     ],
     "_prefab": null,
@@ -21627,7 +21530,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 471
+      "__id__": 470
     },
     "_enabled": true,
     "_materials": [
@@ -21637,7 +21540,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "普通加载",
     "_N$string": "普通加载",
     "_fontSize": 26,
@@ -21661,7 +21563,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 470
+      "__id__": 469
     },
     "_enabled": true,
     "_materials": [
@@ -21693,7 +21595,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 470
+      "__id__": 469
     },
     "_enabled": true,
     "alignMode": 1,
@@ -21720,7 +21622,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 469
+      "__id__": 468
     },
     "_enabled": true,
     "_normalMaterial": {
@@ -21783,7 +21685,7 @@
     "hoverSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 470
+      "__id__": 469
     },
     "_id": "0d2uBIzuRAUb3OOom+TGDm"
   },
@@ -21796,13 +21698,13 @@
     },
     "_children": [
       {
-        "__id__": 477
+        "__id__": 476
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 482
+        "__id__": 481
       }
     ],
     "_prefab": null,
@@ -21858,20 +21760,20 @@
     "_name": "main",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 476
+      "__id__": 475
     },
     "_children": [
       {
-        "__id__": 478
+        "__id__": 477
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 480
+        "__id__": 479
       },
       {
-        "__id__": 481
+        "__id__": 480
       }
     ],
     "_prefab": null,
@@ -21927,13 +21829,13 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 477
+      "__id__": 476
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 479
+        "__id__": 478
       }
     ],
     "_prefab": null,
@@ -21989,7 +21891,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 478
+      "__id__": 477
     },
     "_enabled": true,
     "_materials": [
@@ -21999,7 +21901,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "分帧加载",
     "_N$string": "分帧加载",
     "_fontSize": 26,
@@ -22023,7 +21924,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 477
+      "__id__": 476
     },
     "_enabled": true,
     "_materials": [
@@ -22055,7 +21956,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 477
+      "__id__": 476
     },
     "_enabled": true,
     "alignMode": 1,
@@ -22082,7 +21983,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 476
+      "__id__": 475
     },
     "_enabled": true,
     "_normalMaterial": {
@@ -22145,7 +22046,7 @@
     "hoverSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 477
+      "__id__": 476
     },
     "_id": "837ozpkNhCQpDNJpu4Rc66"
   },
@@ -22158,16 +22059,16 @@
     },
     "_enabled": true,
     "item": {
-      "__id__": 464
+      "__id__": 463
     },
     "content": {
-      "__id__": 456
+      "__id__": 455
     },
     "normalBtn": {
-      "__id__": 469
+      "__id__": 468
     },
     "frameBtn": {
-      "__id__": 476
+      "__id__": 475
     },
     "_id": "83UNM74jtFrYL8LIDYWfNn"
   },
@@ -22319,19 +22220,19 @@
     },
     "_children": [
       {
-        "__id__": 491
+        "__id__": 490
       },
       {
-        "__id__": 498
+        "__id__": 497
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 505
+        "__id__": 504
       },
       {
-        "__id__": 506
+        "__id__": 505
       }
     ],
     "_prefab": null,
@@ -22387,20 +22288,20 @@
     "_name": "homeBtn",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 490
+      "__id__": 489
     },
     "_children": [
       {
-        "__id__": 492
+        "__id__": 491
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 496
+        "__id__": 495
       },
       {
-        "__id__": 497
+        "__id__": 496
       }
     ],
     "_prefab": null,
@@ -22456,17 +22357,17 @@
     "_name": "main",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 491
+      "__id__": 490
     },
     "_children": [
       {
-        "__id__": 493
+        "__id__": 492
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 495
+        "__id__": 494
       }
     ],
     "_prefab": null,
@@ -22522,13 +22423,13 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 492
+      "__id__": 491
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 494
+        "__id__": 493
       }
     ],
     "_prefab": null,
@@ -22584,7 +22485,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 493
+      "__id__": 492
     },
     "_enabled": true,
     "_materials": [
@@ -22594,7 +22495,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "首页",
     "_N$string": "首页",
     "_fontSize": 30,
@@ -22618,7 +22518,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 492
+      "__id__": 491
     },
     "_enabled": true,
     "_materials": [
@@ -22650,7 +22550,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 491
+      "__id__": 490
     },
     "_enabled": true,
     "_normalMaterial": null,
@@ -22723,7 +22623,7 @@
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
     },
     "_N$target": {
-      "__id__": 492
+      "__id__": 491
     },
     "_id": "a7GPBFUtlFrJWsm7uFCORt"
   },
@@ -22732,7 +22632,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 491
+      "__id__": 490
     },
     "_enabled": true,
     "alignMode": 1,
@@ -22759,20 +22659,20 @@
     "_name": "titleTip",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 490
+      "__id__": 489
     },
     "_children": [
       {
-        "__id__": 499
+        "__id__": 498
       },
       {
-        "__id__": 502
+        "__id__": 501
       }
     ],
     "_active": false,
     "_components": [
       {
-        "__id__": 504
+        "__id__": 503
       }
     ],
     "_prefab": null,
@@ -22828,16 +22728,16 @@
     "_name": "background",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 498
+      "__id__": 497
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 500
+        "__id__": 499
       },
       {
-        "__id__": 501
+        "__id__": 500
       }
     ],
     "_prefab": null,
@@ -22893,7 +22793,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 499
+      "__id__": 498
     },
     "_enabled": true,
     "_materials": [
@@ -22925,7 +22825,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 499
+      "__id__": 498
     },
     "_enabled": true,
     "alignMode": 1,
@@ -22952,13 +22852,13 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 498
+      "__id__": 497
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 503
+        "__id__": 502
       }
     ],
     "_prefab": null,
@@ -23014,7 +22914,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 502
+      "__id__": 501
     },
     "_enabled": true,
     "_materials": [
@@ -23024,7 +22924,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "点击示例界面顶部的标题\n即可跳转至相应的组件或资源\n（点击这里关闭该提示）",
     "_N$string": "点击示例界面顶部的标题\n即可跳转至相应的组件或资源\n（点击这里关闭该提示）",
     "_fontSize": 20,
@@ -23048,7 +22947,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 498
+      "__id__": 497
     },
     "_enabled": true,
     "alignMode": 1,
@@ -23075,14 +22974,14 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 490
+      "__id__": 489
     },
     "_enabled": true,
     "homeBtn": {
-      "__id__": 491
+      "__id__": 490
     },
     "titleTip": {
-      "__id__": 498
+      "__id__": 497
     },
     "_id": "77RnnbsBpKbIsbvpfb2rGX"
   },
@@ -23091,7 +22990,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 490
+      "__id__": 489
     },
     "_enabled": true,
     "alignMode": 1,
@@ -23169,78 +23068,6 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Main",
-    "_objFlags": 512,
-    "_parent": {
-      "__id__": 1
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 511
-      }
-    ],
-    "_prefab": null,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": "3a+/hZROJJArkfBw1U/YuB"
-  },
-  {
-    "__type__": "25566cocBlKmoVdf7n3NiKX",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 510
-    },
-    "_enabled": true,
-    "_id": "d31E9hk4RFUrCfS2AHEeXK"
-  },
-  {
-    "__type__": "cc.Node",
     "_name": "LoadingTip",
     "_objFlags": 512,
     "_parent": {
@@ -23248,16 +23075,16 @@
     },
     "_children": [
       {
-        "__id__": 513
+        "__id__": 510
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 516
+        "__id__": 513
       },
       {
-        "__id__": 517
+        "__id__": 514
       }
     ],
     "_prefab": null,
@@ -23313,16 +23140,16 @@
     "_name": "main",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 512
+      "__id__": 509
     },
     "_children": [],
     "_active": false,
     "_components": [
       {
-        "__id__": 514
+        "__id__": 511
       },
       {
-        "__id__": 515
+        "__id__": 512
       }
     ],
     "_prefab": null,
@@ -23378,7 +23205,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 513
+      "__id__": 510
     },
     "_enabled": true,
     "_id": "d1uv3aVExNgY5Vs7mniXgv"
@@ -23388,7 +23215,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 513
+      "__id__": 510
     },
     "_enabled": true,
     "alignMode": 1,
@@ -23415,11 +23242,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 512
+      "__id__": 509
     },
     "_enabled": true,
     "main": {
-      "__id__": 513
+      "__id__": 510
     },
     "_id": "c0LCtZaRtH047IuuTp9NYv"
   },
@@ -23428,7 +23255,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 512
+      "__id__": 509
     },
     "_enabled": true,
     "alignMode": 1,
@@ -23449,5 +23276,77 @@
     "_originalWidth": 720,
     "_originalHeight": 1280,
     "_id": "6b+UwypktBO74ZN19by+IM"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "Main",
+    "_objFlags": 512,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 516
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "3a+/hZROJJArkfBw1U/YuB"
+  },
+  {
+    "__type__": "25566cocBlKmoVdf7n3NiKX",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 515
+    },
+    "_enabled": true,
+    "_id": "d31E9hk4RFUrCfS2AHEeXK"
   }
 ]
