@@ -1,11 +1,11 @@
 const { ccclass, property } = cc._decorator;
 
 /**
- * 果冻缓动效果
- * @see JellyTween.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/tweens/JellyTween.ts
+ * 弹性缩放效果
+ * @see BounceScaleTween.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/tweens/BounceScaleTween.ts
  */
 @ccclass
-export default class JellyTween extends cc.Component {
+export default class BounceScaleTween extends cc.Component {
 
     @property({ tooltip: CC_DEV && '频率（弹跳次数）' })
     public frequency: number = 4;
@@ -13,8 +13,8 @@ export default class JellyTween extends cc.Component {
     @property({ tooltip: CC_DEV && '衰退指数' })
     public decay: number = 2;
 
-    @property({ tooltip: CC_DEV && '下压缩放' })
-    public pressScale: number = 0.2;
+    @property({ tooltip: CC_DEV && '目标值' })
+    public targetScale: number = 1;
 
     @property({ tooltip: CC_DEV && '效果总时长' })
     public totalTime: number = 1;
@@ -34,37 +34,31 @@ export default class JellyTween extends cc.Component {
         // 记录缩放值
         this.originalScale = this.node.scale;
         // 播放
-        if (this.playOnLoad) this.play();
+        if (this.playOnLoad) this.play(this.targetScale);
     }
 
     /**
      * 播放
+     * @param targetScale 目标缩放
      * @param repeatTimes 重复次数
      */
-    public play(repeatTimes?: number) {
+    public play(targetScale: number, repeatTimes?: number) {
         // 重复次数
-        const times = (repeatTimes != undefined && repeatTimes > 0) ? repeatTimes : 10e8;
+        const times = (repeatTimes != undefined && repeatTimes > 0) ? repeatTimes : 1;
         // 时长
-        const pressTime = this.totalTime * 0.2;         // 收缩时长
-        const scaleBackTime = this.totalTime * 0.15;    // 缩放至原始大小时长
-        const bouncingTime = this.totalTime * 0.65;     // 弹动时长
+        const scalingTime = this.totalTime * 0.25;   // 缩放时长
+        const bouncingTime = this.totalTime * 0.75;  // 弹跳时长
         // 振幅
-        const amplitude = this.pressScale / scaleBackTime;
+        const amplitude = (targetScale - this.originalScale) / scalingTime;
         // 播放
         this.tween = cc.tween(this.node)
             .repeat(times,
                 cc.tween()
-                    .to(pressTime, { scaleX: this.originalScale + this.pressScale, scaleY: this.originalScale - this.pressScale }, { easing: 'sineOut' })
-                    .to(scaleBackTime, { scaleX: this.originalScale, scaleY: this.originalScale })
+                    .set({ scale: this.originalScale })
+                    .to(scalingTime, { scale: targetScale })
                     .to(bouncingTime, {
-                        scaleX: {
-                            value: this.originalScale,
-                            progress: (start: number, end: number, current: number, t: number) => {
-                                return end - this.getDifference(amplitude, t);
-                            }
-                        },
-                        scaleY: {
-                            value: this.originalScale,
+                        scale: {
+                            value: targetScale,
                             progress: (start: number, end: number, current: number, t: number) => {
                                 return end + this.getDifference(amplitude, t);
                             }

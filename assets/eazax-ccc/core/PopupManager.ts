@@ -13,8 +13,8 @@ export default class PopupManager {
     private static nodeMap: Map<string, cc.Node> = new Map<string, cc.Node>();
 
     /** 等待队列 */
-    public static get queue() { return this._queue; }
-    private static _queue: PopupRequest[] = [];
+    public static get waitList() { return this._waitList; }
+    private static _waitList: PopupRequest[] = [];
 
     /** 当前弹窗 */
     public static get curPopup() { return this._curPopup; }
@@ -35,8 +35,8 @@ export default class PopupManager {
     public static async show(path: string, options: any = null, mode: PopupRecycleMode = PopupRecycleMode.Temporary): Promise<boolean> {
         const request = { path, options, mode };
         if (this._curPopup) {
-            this._queue.push(request);
-            cc.log('[PopupManager]', '弹窗已加入等待队列', this._queue);
+            this._waitList.push(request);
+            cc.log('[PopupManager]', '弹窗已加入等待列表', this._waitList);
             return false;
         }
 
@@ -113,8 +113,8 @@ export default class PopupManager {
      * 展示等待队列中的下一个弹窗
      */
     public static next() {
-        if (this._curPopup || this._queue.length === 0) return;
-        const request = this._queue.shift();
+        if (this._curPopup || this._waitList.length === 0) return;
+        const request = this._waitList.shift();
         this.show(request.path, request.options, request.mode);
     }
 
