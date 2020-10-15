@@ -1,3 +1,4 @@
+import EventManager from "../../eazax-ccc/core/EventManager";
 import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
 
 const { ccclass, property } = cc._decorator;
@@ -26,10 +27,17 @@ export default class MainContent extends cc.Component {
         }
     }
 
+    /**
+     * 是否有指定示例
+     * @param name 名称
+     */
     public static hasCase(name: string) {
         return MainContent.casesMap.has(name);
     }
 
+    /**
+     * 前往首页
+     */
     public static goHome() {
         eazax.log('[Go Home]');
 
@@ -38,8 +46,14 @@ export default class MainContent extends cc.Component {
 
         this.instance.home.active = true;
         this.instance.casesContainer.active = false;
+
+        EventManager.emit(SWITCH_PAGE, 'home');
     }
 
+    /**
+     * 前往示例
+     * @param name 名称
+     */
     public static goCase(name: string) {
         if (!this.hasCase(name)) return;
         eazax.log('[Go Case]', name);
@@ -52,6 +66,11 @@ export default class MainContent extends cc.Component {
         }
         this.instance.home.active = false;
         this.instance.casesContainer.active = true;
+
+        EventManager.emit(SWITCH_PAGE, name);
     }
 
 }
+
+/** 页面切换 */
+export const SWITCH_PAGE: string = 'switch-page';

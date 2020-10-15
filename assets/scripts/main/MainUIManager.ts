@@ -1,4 +1,5 @@
-import MainContent from "./MainContent";
+import EventManager from "../../eazax-ccc/core/EventManager";
+import MainContent, { SWITCH_PAGE } from "./MainContent";
 
 const { ccclass, property } = cc._decorator;
 
@@ -12,17 +13,29 @@ export default class MainUIManager extends cc.Component {
     private titleTip: cc.Node = null
 
     protected onLoad() {
-        this.homeBtn.on(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
-        this.titleTip.on(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
+        this.registerEvent();
     }
 
     protected onDestroy() {
-        this.homeBtn.off(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
-        this.titleTip.off(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
+        this.unregisterEvent();
     }
 
     protected start() {
         this.titleTip.active = true;
+    }
+
+    private registerEvent() {
+        this.homeBtn.on(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
+        this.titleTip.on(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
+
+        EventManager.on(SWITCH_PAGE, this.onPageSwitch, this);
+    }
+
+    private unregisterEvent() {
+        this.homeBtn.off(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
+        this.titleTip.off(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
+
+        EventManager.off(SWITCH_PAGE, this.onPageSwitch, this);
     }
 
     private onHomeBtnClick() {
@@ -31,6 +44,10 @@ export default class MainUIManager extends cc.Component {
 
     private onTitleTipClick() {
         this.titleTip.active = false;
+    }
+
+    private onPageSwitch(name: string) {
+        this.homeBtn.active = (name !== 'home');
     }
 
 }

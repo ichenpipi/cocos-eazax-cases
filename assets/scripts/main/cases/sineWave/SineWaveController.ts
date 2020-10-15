@@ -1,4 +1,5 @@
 import SineWave, { SineWaveDirection } from "../../../../eazax-ccc/components/effects/SineWave";
+import JellyTween from "../../../../eazax-ccc/components/tweens/JellyTween";
 
 const { ccclass, property } = cc._decorator;
 
@@ -26,6 +27,10 @@ export default class SineWaveController extends cc.Component {
     @property(cc.Toggle)
     private toLeftToggle: cc.Toggle = null;
 
+    private interactable: boolean = true;
+
+    private status: number = 0;
+
     protected onLoad() {
         this.fillBtn.on(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
 
@@ -47,12 +52,36 @@ export default class SineWaveController extends cc.Component {
     }
 
     public onFillBtnClick() {
-        cc.tween(this.sineWave)
-            .to(3, { height: 1 })
-            .call(() => { this.heightEditBox.string = '1.0'; })
-            .to(0.5, { amplitude: 0 })
-            .call(() => { this.amplitudeEditBox.string = '0.0'; })
-            .start();
+        if (!this.interactable) return;
+        this.interactable = false;
+
+        if (this.status === 0) {
+            this.status = 1;
+            const button = this.fillBtn.getComponent(cc.Button);
+            button.interactable = false;
+            const jelly = this.fillBtn.getComponent(JellyTween);
+            jelly.stop();
+            cc.tween(this.sineWave)
+                .to(3, { height: 1 })
+                .call(() => this.heightEditBox.string = '1.0')
+                .to(0.5, { amplitude: 0 })
+                .call(() => this.amplitudeEditBox.string = '0.0')
+                .call(() => {
+                    this.interactable = true;
+                    this.fillBtn.getComponentInChildren(cc.Label).string = '恢复';
+                    button.interactable = true;
+                    jelly.play();
+                })
+                .start();
+        } else {
+            this.status = 0;
+            this.sineWave.height = 0.5;
+            this.heightEditBox.string = '0.5';
+            this.sineWave.amplitude = 0.05;
+            this.amplitudeEditBox.string = '0.05';
+            this.interactable = true;
+            this.fillBtn.getComponentInChildren(cc.Label).string = '加满';
+        }
     }
 
     public onAmplitudeChanged(editbox: cc.EditBox) {
