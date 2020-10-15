@@ -2,7 +2,7 @@ const { ccclass, property } = cc._decorator;
 
 /**
  * 弹窗基类
- * @see PopupBase.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/popup/PopupBase.ts
+ * @see PopupBase.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/popups/PopupBase.ts
  */
 @ccclass
 export default class PopupBase<Options> extends cc.Component {
