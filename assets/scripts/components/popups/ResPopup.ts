@@ -3,9 +3,7 @@ import ResPopupItem from "./ResPopupItem";
 
 const { ccclass, property } = cc._decorator;
 
-/**
- * 资源弹窗
- */
+/** 资源弹窗 */
 @ccclass
 export default class ResPopup extends PopupBase<Options> {
 
@@ -20,11 +18,22 @@ export default class ResPopup extends PopupBase<Options> {
 
     private items: ResPopupItem[] = [];
 
+    /** 资源弹窗路径 */
+    public static get path() { return 'prefabs/ResPopup'; }
+
     protected onLoad() {
-        this.closeBtn.on(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
+        this.registerEvent();
     }
 
     protected onDestroy() {
+        this.unregisterEvent();
+    }
+
+    private registerEvent() {
+        this.closeBtn.on(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
+    }
+
+    private unregisterEvent() {
         this.closeBtn.off(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
     }
 
@@ -58,6 +67,3 @@ export default class ResPopup extends PopupBase<Options> {
 interface Options {
     items: { name: string; url: string }[];
 }
-
-/** 资源弹窗路径 */
-export const ResPopupPath = 'prefabs/ResPopup';
