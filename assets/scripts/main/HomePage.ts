@@ -11,13 +11,21 @@ export default class HomePage extends cc.Component {
     private btns: cc.Node[] = null;
 
     protected onLoad() {
+        this.registerEvent();
+    }
+
+    protected onDestroy() {
+        this.unregisterEvent();
+    }
+
+    private registerEvent() {
         this.btns = this.btnsContainer.children;
         for (let i = 0; i < this.btns.length; i++) {
             this.btns[i].on(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
         }
     }
 
-    protected onDestroy() {
+    private unregisterEvent() {
         for (let i = 0; i < this.btns.length; i++) {
             this.btns[i].off(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
         }

@@ -30,13 +30,13 @@ export default class PopupManager {
     public static loadFinishCallback: Function = null;
 
     /**
-     * 展示弹窗
-     * @param path 弹窗预制体相对路径（如：prefabs/popup）
+     * 展示弹窗，如果当前已有弹窗在展示中则加入等待队列
+     * @param path 弹窗预制体相对路径（如：prefabs/MyPopup）
      * @param options 弹窗选项
      * @param mode 缓存模式
      * @param priority 是否优先展示
      */
-    public static async show(path: string, options: any = null, mode: PopupCacheMode = PopupCacheMode.Temporary, priority: boolean = false): Promise<boolean> {
+    public static async show<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Temporary, priority: boolean = false): Promise<boolean> {
         return new Promise(async res => {
             // 当前已有弹窗在展示中则加入等待队列
             if (this._curPopup) {
@@ -114,8 +114,8 @@ export default class PopupManager {
                 // 设置完成回调
                 popup.setFinishCallback(() => {
                     this._curPopup = null;
-                    res(true);
                     this.recycle(path, node, mode);
+                    res(true);
                     this.next();
                 });
                 popup.show(options);
@@ -136,6 +136,27 @@ export default class PopupManager {
         }
         const request = this._queue.shift();
         return this.show(request.path, request.options, request.mode);
+    }
+
+    /**
+     * 添加一个弹窗请求到等待队列中，如果当前没有展示中的弹窗则直接展示该弹窗。
+     * @param path 弹窗预制体相对路径（如：prefabs/MyPopup）
+     * @param options 弹窗选项
+     * @param mode 缓存模式
+     * @param priority 是否优先展示
+     */
+    public static push<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Temporary, priority: boolean = false): Promise<boolean> {
+        // 直接展示
+        if (!this._curPopup) {
+            return this.show(path, options, mode);
+        }
+        // 加入队列
+        if (priority) {
+            this._queue.unshift({ path, options, mode });
+        } else {
+            this._queue.push({ path, options, mode });
+        }
+        return Promise.resolve(true);
     }
 
     /**
@@ -169,27 +190,6 @@ export default class PopupManager {
     }
 
     /**
-     * 添加一个弹窗请求到等待队列中，如果当前没有展示中的弹窗则直接展示该弹窗。
-     * @param path 弹窗预制体相对路径（如：prefabs/popup）
-     * @param options 弹窗选项
-     * @param mode 缓存模式
-     * @param priority 是否优先展示
-     */
-    public static push(path: string, options: any = null, mode: PopupCacheMode = PopupCacheMode.Temporary, priority: boolean = false): Promise<boolean> {
-        // 直接展示
-        if (!this._curPopup) {
-            return this.show(path, options, mode);
-        }
-        // 加入队列
-        if (priority) {
-            this._queue.unshift({ path, options, mode });
-        } else {
-            this._queue.push({ path, options, mode });
-        }
-        return Promise.resolve(true);
-    }
-
-    /**
      * 尝试释放弹窗资源（注意：弹窗内部动态加载的资源请自行释放）
      * @param path 弹窗路径
      */
@@ -216,10 +216,10 @@ export interface PopupRequest {
 
 /** 弹窗缓存模式 */
 export enum PopupCacheMode {
-    /** 一次性（立即销毁，不保留预制体） */
+    /** 一次性（立即销毁节点，预制体随即释放） */
     Once = 1,
-    /** 短期（立即销毁，保留预制体） */
+    /** 短期（立即销毁节点，缓存预制体） */
     Temporary = 2,
-    /** 频繁（关闭节点，保留预制体） */
+    /** 频繁（只关闭节点，缓存预制体） */
     Frequent = 3
 }

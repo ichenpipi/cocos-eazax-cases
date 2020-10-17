@@ -38,14 +38,16 @@ export default class PopupBase<Options> extends cc.Component {
     public show(options?: Options): void {
         // 储存选项
         this.options = options;
-        // 初始化节点
+        // 重置节点
         this.background.opacity = 0;
         this.background.active = true;
         this.main.scale = 0;
         this.main.active = true;
         this.node.active = true;
-        // 更新弹窗样式
-        this.updateDisplay(options);
+        // 初始化
+        this.init(this.options);
+        // 更新样式
+        this.updateDisplay(this.options);
         // 播放背景动画
         cc.tween(this.background)
             .to(this.animTime * 0.8, { opacity: 200 })
@@ -100,6 +102,11 @@ export default class PopupBase<Options> extends cc.Component {
             })
             .start();
     }
+
+    /**
+     * 初始化弹窗（子类请重写此函数以实现自定义逻辑）
+     */
+    protected init(options: Options): void { }
 
     /**
      * 更新弹窗样式（子类请重写此函数以实现自定义样式）

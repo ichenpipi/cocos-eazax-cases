@@ -1,5 +1,5 @@
-import PopupManager, { PopupCacheMode } from "../../../eazax-ccc/core/PopupManager";
-import ResPopup from "./ResPopup";
+import PopupManager, { PopupCacheMode } from "../../eazax-ccc/core/PopupManager";
+import ResPopup, { ResPopupOptions } from "./popups/ResPopup";
 
 const { ccclass, property } = cc._decorator;
 
@@ -17,7 +17,7 @@ export default class ClickToShowResPopup extends cc.Component {
     }
 
     private onClick() {
-        let options = { items: [] };
+        let options: ResPopupOptions = { items: [] };
         for (let i = 0; i < this.urls.length; i++) {
             options.items.push({ name: this.names[i], url: this.urls[i] });
         }

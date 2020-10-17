@@ -5,7 +5,7 @@ const { ccclass, property } = cc._decorator;
 
 /** 资源弹窗 */
 @ccclass
-export default class ResPopup extends PopupBase<Options> {
+export default class ResPopup extends PopupBase<ResPopupOptions> {
 
     @property(cc.Node)
     private closeBtn: cc.Node = null;
@@ -37,7 +37,7 @@ export default class ResPopup extends PopupBase<Options> {
         this.closeBtn.off(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
     }
 
-    protected updateDisplay(options: Options) {
+    protected updateDisplay(options: ResPopupOptions) {
         const count = Math.max(options.items.length, this.items.length);
         for (let i = 0; i < count; i++) {
             if (options.items[i] && !this.items[i]) {
@@ -64,6 +64,9 @@ export default class ResPopup extends PopupBase<Options> {
 }
 
 /** 资源弹窗选项类型 */
-interface Options {
-    items: { name: string; url: string }[];
+export interface ResPopupOptions {
+    items: {
+        name: string;
+        url: string
+    }[];
 }
