@@ -13,10 +13,10 @@ export default class PopupBase<Options> extends cc.Component {
     @property({ type: cc.Node, tooltip: CC_DEV && '弹窗主体' })
     public main: cc.Node = null;
 
-    /** 点击拦截节点 */
+    /** 用于拦截点击的节点 */
     private blocker: cc.Node = null;
 
-    /** 弹窗动画时间 */
+    /** 动画时长 */
     public animTime: number = 0.3;
 
     /** 弹窗选项 */
@@ -25,10 +25,14 @@ export default class PopupBase<Options> extends cc.Component {
     /** 弹窗流程结束回调（注意：该回调为 PopupManager 专用，重写 hide 函数时记得调用该回调） */
     protected finishCallback: Function = null;
 
-    /** 弹窗已完全打开（子类请重写此函数以实现自定义逻辑） */
+    /**
+     * 弹窗已完全展示（子类请重写此函数以实现自定义逻辑）
+     */
     protected onShow(): void { }
 
-    /** 弹窗已完全关闭（子类请重写此函数以实现自定义逻辑） */
+    /**
+     * 弹窗已完全隐藏（子类请重写此函数以实现自定义逻辑）
+     */
     protected onHide(): void { }
 
     /**
@@ -36,7 +40,7 @@ export default class PopupBase<Options> extends cc.Component {
      * @param options 弹窗选项
      */
     public show(options?: Options): void {
-        // 储存选项
+        // 保存弹窗选项
         this.options = options;
         // 重置节点
         this.background.opacity = 0;
@@ -56,8 +60,8 @@ export default class PopupBase<Options> extends cc.Component {
         cc.tween(this.main)
             .to(this.animTime, { scale: 1 }, { easing: 'backOut' })
             .call(() => {
-                // 弹窗已打开（动画完毕）
-                this.onShow && this.onShow();
+                // 弹窗已完全展示（动画完毕）
+                this.onShow();
             })
             .start();
     }
@@ -91,8 +95,8 @@ export default class PopupBase<Options> extends cc.Component {
                 // 关闭节点
                 this.main.active = false;
                 this.node.active = false;
-                // 弹窗已关闭（动画完毕）
-                this.onHide && this.onHide();
+                // 弹窗已完全隐藏（动画完毕）
+                this.onHide();
                 // 弹窗完成回调（该回调为 PopupManager 专用）
                 // 注意：重写 hide 函数时记得调用该回调
                 if (this.finishCallback) {
@@ -104,12 +108,12 @@ export default class PopupBase<Options> extends cc.Component {
     }
 
     /**
-     * 初始化弹窗（子类请重写此函数以实现自定义逻辑）
+     * 初始化（子类请重写此函数以实现自定义逻辑）
      */
     protected init(options: Options): void { }
 
     /**
-     * 更新弹窗样式（子类请重写此函数以实现自定义样式）
+     * 更新样式（子类请重写此函数以实现自定义样式）
      * @param options 弹窗选项
      */
     protected updateDisplay(options: Options): void { }
