@@ -40,7 +40,7 @@ export default class PopupBase<Options> extends cc.Component {
      * @param options 弹窗选项
      */
     public show(options?: Options): void {
-        // 保存弹窗选项
+        // 储存选项
         this.options = options;
         // 重置节点
         this.background.opacity = 0;
