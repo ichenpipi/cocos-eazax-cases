@@ -6,13 +6,13 @@ import PopupBase from "../components/popups/PopupBase";
  */
 export default class PopupManager {
 
-    /** 预制表 */
+    /** 预制体表 */
     private static prefabMap: Map<string, cc.Prefab> = new Map<string, cc.Prefab>();
 
     /** 节点表 */
     private static nodeMap: Map<string, cc.Node> = new Map<string, cc.Node>();
 
-    /** 模式表 */
+    /** 缓存模式表 */
     private static modeMap: Map<string, PopupCacheMode> = new Map<string, PopupCacheMode>();
 
     /** 等待队列 */
@@ -48,27 +48,8 @@ export default class PopupManager {
             // 保存为当前弹窗，阻止新的弹窗请求
             this._curPopup = { path, options, mode };
 
-            // 先在缓存中查找
-            let node: cc.Node = null;
-            const lastMode: PopupCacheMode = this.modeMap.get(path);
-            switch (lastMode) {
-                // 从预制表中获取
-                case PopupCacheMode.Temporary:
-                    const prefab = this.prefabMap.get(path);
-                    if (cc.isValid(prefab)) {
-                        node = cc.instantiate(prefab);
-                    } else {
-                        this.prefabMap.delete(path);
-                    }
-                    break;
-                // 从节点表中获取
-                case PopupCacheMode.Frequent:
-                    node = this.nodeMap.get(path);
-                    if (!cc.isValid(node)) {
-                        this.nodeMap.delete(path);
-                    }
-                    break;
-            }
+            // 先在缓存中获取
+            let node: cc.Node = this.getNodeFromCache(path);
 
             // 缓存中没有，动态加载预制体资源
             if (!cc.isValid(node)) {
@@ -125,6 +106,31 @@ export default class PopupManager {
                 res(true);
             }
         });
+    }
+
+    /**
+     * 从缓存中获取节点
+     * @param path 路径
+     */
+    private static getNodeFromCache(path: string): cc.Node {
+        switch (this.modeMap.get(path)) {
+            // 从预制体表中获取
+            case PopupCacheMode.Temporary:
+                const prefab = this.prefabMap.get(path);
+                if (cc.isValid(prefab)) {
+                    return cc.instantiate(prefab);
+                }
+                this.prefabMap.delete(path);
+                return null;
+            // 从节点表中获取
+            case PopupCacheMode.Frequent:
+                const node = this.nodeMap.get(path);
+                if (cc.isValid(node)) {
+                    return node;
+                }
+                this.nodeMap.delete(path);
+                return null;
+        }
     }
 
     /**
@@ -210,7 +216,7 @@ export interface PopupRequest {
     path: string;
     /** 弹窗选项 */
     options: any;
-    /** 优化模式 */
+    /** 缓存模式 */
     mode: PopupCacheMode,
 }
 
