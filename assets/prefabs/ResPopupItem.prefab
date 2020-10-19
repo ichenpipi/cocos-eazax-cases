@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "item",
+    "_name": "ResPopupItem",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -165,7 +165,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "🎨",
     "_N$string": "🎨",
     "_fontSize": 25,
@@ -277,7 +276,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "Label",
     "_N$string": "Label",
     "_fontSize": 30,
@@ -405,7 +403,7 @@
     "asset": {
       "__uuid__": "834273ad-2e3d-48fa-9e4d-9b6198866a79"
     },
-    "fileId": "32OT8s729KxrzgPXeZncZj",
+    "fileId": "",
     "sync": false
   }
 ]
