@@ -36,7 +36,7 @@ export default class PopupManager {
      * @param mode 缓存模式
      * @param priority 是否优先展示
      */
-    public static async show<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Temporary, priority: boolean = false): Promise<boolean> {
+    public static async show<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Occasionally, priority: boolean = false): Promise<boolean> {
         return new Promise(async res => {
             // 当前已有弹窗在展示中则加入等待队列
             if (this._curPopup) {
@@ -49,7 +49,7 @@ export default class PopupManager {
             this._curPopup = { path, options, mode };
 
             // 先在缓存中获取
-            let node: cc.Node = this.getNodeFromCache(path);
+            let node = this.getNodeFromCache(path);
 
             // 缓存中没有，动态加载预制体资源
             if (!cc.isValid(node)) {
@@ -65,7 +65,6 @@ export default class PopupManager {
                             prefab.addRef();                    // 增加引用计数
                             node = cc.instantiate(prefab);      // 实例化节点
                             this.prefabMap.set(path, prefab);   // 保存预制体
-                            this.modeMap.set(path, mode);       // 记录缓存模式
                         }
                         res();
                     });
@@ -83,6 +82,9 @@ export default class PopupManager {
                 this._curPopup = null;
                 return res(false);
             }
+
+            // 记录缓存模式
+            this.modeMap.set(path, mode);
 
             // 添加到场景中
             node.setParent(cc.Canvas.instance.node);
@@ -115,7 +117,7 @@ export default class PopupManager {
     private static getNodeFromCache(path: string): cc.Node {
         switch (this.modeMap.get(path)) {
             // 从预制体表中获取
-            case PopupCacheMode.Temporary:
+            case PopupCacheMode.Occasionally:
                 const prefab = this.prefabMap.get(path);
                 if (cc.isValid(prefab)) {
                     return cc.instantiate(prefab);
@@ -151,7 +153,7 @@ export default class PopupManager {
      * @param mode 缓存模式
      * @param priority 是否优先展示
      */
-    public static push<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Temporary, priority: boolean = false): Promise<boolean> {
+    public static push<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Occasionally, priority: boolean = false): Promise<boolean> {
         // 直接展示
         if (!this._curPopup) {
             return this.show(path, options, mode);
@@ -180,17 +182,17 @@ export default class PopupManager {
                 }
                 this.release(path);
                 break;
-            case PopupCacheMode.Temporary:
+            case PopupCacheMode.Occasionally:
                 node.destroy();
                 if (this.nodeMap.has(path)) {
                     this.nodeMap.delete(path);
                 }
                 break;
             case PopupCacheMode.Frequent:
+                node.removeFromParent(false);
                 if (!this.nodeMap.has(path)) {
                     this.nodeMap.set(path, node);
                 }
-                node.removeFromParent(false);
                 break;
         }
     }
@@ -222,10 +224,10 @@ export interface PopupRequest {
 
 /** 弹窗缓存模式 */
 export enum PopupCacheMode {
-    /** 一次性（立即销毁节点，预制体随即释放） */
+    /** 一次性的（立即销毁节点，预制体资源随即释放） */
     Once = 1,
-    /** 短期（立即销毁节点，缓存预制体） */
-    Temporary = 2,
-    /** 频繁（只关闭节点，缓存预制体） */
+    /** 偶尔的（立即销毁节点，但是保留预制体资源） */
+    Occasionally = 2,
+    /** 频繁的（只关闭节点，且保留预制体资源） */
     Frequent = 3
 }
