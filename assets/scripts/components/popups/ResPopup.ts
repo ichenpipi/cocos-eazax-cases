@@ -64,7 +64,7 @@ export default class ResPopup extends PopupBase<ResPopupOptions> {
 }
 
 /** 资源弹窗选项类型 */
-export interface ResPopupOptions {
+export type ResPopupOptions = {
     items: {
         name: string;
         url: string
