@@ -47,4 +47,16 @@ export default class MathUtil {
         return angle * Math.PI / 180;
     }
 
+    /**
+     * 浮点数加法运算（避免浮点数加法精度问题）
+     * @param a 数
+     * @param b 数
+     */
+    public static addSafely(a: number, b: number): number {
+        const aDigits = (a.toString().split('.')[1] || '').length;
+        const bDigits = (b.toString().split('.')[1] || '').length;
+        const multiplier = Math.pow(10, Math.max(aDigits, bDigits));
+        return (a * multiplier + b * multiplier) / multiplier;
+    }
+
 }
