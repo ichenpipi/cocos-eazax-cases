@@ -14,17 +14,12 @@ export default class ClickToShowResPopup extends cc.Component {
         this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
-    private async onClick() {
+    private onClick() {
         let options: ResPopupOptions = { items: [] };
         for (let i = 0; i < this.items.length; i++) {
             options.items.push({ name: this.items[i].title, url: this.items[i].url });
         }
-
-        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
-        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
-        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
-        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
-
+        PopupManager.show(ResPopup.path, options, PopupCacheMode.Frequent);
     }
 
 }
