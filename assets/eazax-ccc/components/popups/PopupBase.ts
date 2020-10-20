@@ -16,7 +16,7 @@ export default class PopupBase<Options> extends cc.Component {
     /** 用于拦截点击的节点 */
     private blocker: cc.Node = null;
 
-    /** 动画时长 */
+    /** 展示和隐藏动画的时长 */
     public animTime: number = 0.3;
 
     /** 弹窗选项 */
