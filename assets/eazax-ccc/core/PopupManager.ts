@@ -23,6 +23,12 @@ export default class PopupManager {
     public static get curPopup() { return this._curPopup; }
     private static _curPopup: PopupRequest = null;
 
+    /** 是否已有候选弹窗 */
+    private static locked: boolean = false;
+
+    /** 连续展示弹窗的时间间隔（秒） */
+    public static interval: number = 0.1;
+
     /** 弹窗动态加载开始回调 */
     public static loadStartCallback: Function = null;
 
@@ -36,13 +42,15 @@ export default class PopupManager {
      * @param mode 缓存模式
      * @param priority 是否优先展示
      */
-    public static async show<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Occasionally, priority: boolean = false): Promise<boolean> {
+    public static show<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Occasionally, priority: boolean = false): Promise<boolean> {
         return new Promise(async res => {
             // 当前已有弹窗在展示中则加入等待队列
-            if (this._curPopup) {
+            cc.log('this._curPopup', this._curPopup)
+            cc.log('this.locked', this.locked)
+            if (this._curPopup || this.locked) {
                 this.push(path, options, mode, priority);
-                cc.log('[PopupManager]', '弹窗已加入等待队列', this._queue);
-                return res(false);
+                res(false);
+                return;
             }
 
             // 保存为当前弹窗，阻止新的弹窗请求
@@ -59,14 +67,14 @@ export default class PopupManager {
                 // }
                 this.loadStartCallback && this.loadStartCallback();
                 // 等待加载
-                await new Promise(res => {
+                await new Promise(_res => {
                     cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
                         if (!error) {
                             prefab.addRef();                    // 增加引用计数
                             node = cc.instantiate(prefab);      // 实例化节点
                             this.prefabMap.set(path, prefab);   // 保存预制体
                         }
-                        res();
+                        _res();
                     });
                 });
                 // 加载完成后隐藏加载提示，如下：
@@ -95,10 +103,17 @@ export default class PopupManager {
             const popup = node.getComponent(PopupBase);
             if (popup) {
                 // 设置完成回调
-                popup.setFinishCallback(() => {
-                    this._curPopup = null;
+                popup.setFinishCallback(async () => {
                     this.recycle(path, node, mode);
+                    this.locked = (this._queue.length > 0);
+                    this._curPopup = null;
                     res(true);
+                    // // 延迟一小段时间
+                    await new Promise(res => {
+                        cc.Canvas.instance.scheduleOnce(res, this.interval);
+                    });
+                    // 下一个弹窗
+                    this.locked = false;
                     this.next();
                 });
                 popup.show(options);
@@ -133,12 +148,14 @@ export default class PopupManager {
                 this.nodeMap.delete(path);
                 return null;
         }
+        return null;
     }
 
     /**
      * 展示等待队列中的下一个弹窗
      */
     public static next(): Promise<boolean> {
+        cc.log('next', this._queue)
         if (this._curPopup || this._queue.length === 0) {
             return Promise.resolve(false);
         }
@@ -153,10 +170,11 @@ export default class PopupManager {
      * @param mode 缓存模式
      * @param priority 是否优先展示
      */
-    public static push<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Occasionally, priority: boolean = false): Promise<boolean> {
+    public static push<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Occasionally, priority: boolean = false): void {
+        cc.log('push')
         // 直接展示
-        if (!this._curPopup) {
-            return this.show(path, options, mode);
+        if (!this._curPopup && !this.locked) {
+            this.show(path, options, mode);
         }
         // 加入队列
         if (priority) {
@@ -164,7 +182,6 @@ export default class PopupManager {
         } else {
             this._queue.push({ path, options, mode });
         }
-        return Promise.resolve(true);
     }
 
     /**
@@ -174,6 +191,7 @@ export default class PopupManager {
      * @param mode 缓存模式
      */
     private static recycle(path: string, node: cc.Node, mode: PopupCacheMode): void {
+        cc.log('recycle')
         switch (mode) {
             case PopupCacheMode.Once:
                 node.destroy();
