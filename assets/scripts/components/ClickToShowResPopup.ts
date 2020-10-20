@@ -20,10 +20,10 @@ export default class ClickToShowResPopup extends cc.Component {
             options.items.push({ name: this.items[i].title, url: this.items[i].url });
         }
 
-        PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
-        PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
-        PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
-        PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
+        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
+        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
+        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
+        await PopupManager.show(ResPopup.path, options, PopupCacheMode.Once);
 
     }
 

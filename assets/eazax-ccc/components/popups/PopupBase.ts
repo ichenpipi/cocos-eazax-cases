@@ -120,7 +120,6 @@ export default class PopupBase<Options> extends cc.Component {
      * @param callback 回调
      */
     public setFinishCallback(callback: Function): void {
-        cc.log('[PopupBase]', 'setFinishCallback', callback);
         this.finishCallback = callback;
     }
 

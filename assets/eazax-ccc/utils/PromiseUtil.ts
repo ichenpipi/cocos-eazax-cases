@@ -9,7 +9,7 @@ export default class PromiseUtil {
      * @param time 时间（单位：秒）
      */
     public static delay(time: number): Promise<void> {
-        return new Promise(res => setTimeout(res, time * 1000));
+        return new Promise(res => cc.Canvas.instance.scheduleOnce(res, time));
     }
 
 }
