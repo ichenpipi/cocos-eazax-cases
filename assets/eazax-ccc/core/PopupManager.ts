@@ -7,13 +7,16 @@ import PopupBase from "../components/popups/PopupBase";
 export default class PopupManager {
 
     /** 预制体表 */
-    private static prefabMap: Map<string, cc.Prefab> = new Map<string, cc.Prefab>();
+    public static get prefabMap() { return this._prefabMap; }
+    private static _prefabMap: Map<string, cc.Prefab> = new Map<string, cc.Prefab>();
 
     /** 节点表 */
-    private static nodeMap: Map<string, cc.Node> = new Map<string, cc.Node>();
+    public static get nodeMap() { return this._nodeMap; }
+    private static _nodeMap: Map<string, cc.Node> = new Map<string, cc.Node>();
 
     /** 缓存模式表 */
-    private static modeMap: Map<string, PopupCacheMode> = new Map<string, PopupCacheMode>();
+    public static get modeMap() { return this._modeMap; }
+    private static _modeMap: Map<string, PopupCacheMode> = new Map<string, PopupCacheMode>();
 
     /** 等待队列 */
     public static get queue() { return this._queue; }
@@ -69,7 +72,7 @@ export default class PopupManager {
                         if (!error) {
                             prefab.addRef();                    // 增加引用计数
                             node = cc.instantiate(prefab);      // 实例化节点
-                            this.prefabMap.set(path, prefab);   // 保存预制体
+                            this._prefabMap.set(path, prefab);   // 保存预制体
                         }
                         res();
                     });
@@ -89,7 +92,7 @@ export default class PopupManager {
             }
 
             // 记录缓存模式
-            this.modeMap.set(path, mode);
+            this._modeMap.set(path, mode);
 
             // 添加到场景中
             node.setParent(cc.Canvas.instance.node);
@@ -126,22 +129,22 @@ export default class PopupManager {
      * @param path 路径
      */
     private static getNodeFromCache(path: string): cc.Node {
-        switch (this.modeMap.get(path)) {
+        switch (this._modeMap.get(path)) {
             // 从预制体表中获取
             case PopupCacheMode.Occasionally:
-                const prefab = this.prefabMap.get(path);
+                const prefab = this._prefabMap.get(path);
                 if (cc.isValid(prefab)) {
                     return cc.instantiate(prefab);
                 }
-                this.prefabMap.delete(path);
+                this._prefabMap.delete(path);
                 return null;
             // 从节点表中获取
             case PopupCacheMode.Frequent:
-                const node = this.nodeMap.get(path);
+                const node = this._nodeMap.get(path);
                 if (cc.isValid(node)) {
                     return node;
                 }
-                this.nodeMap.delete(path);
+                this._nodeMap.delete(path);
                 return null;
         }
         return null;
@@ -190,21 +193,21 @@ export default class PopupManager {
         switch (mode) {
             case PopupCacheMode.Once:
                 node.destroy();
-                if (this.nodeMap.has(path)) {
-                    this.nodeMap.delete(path);
+                if (this._nodeMap.has(path)) {
+                    this._nodeMap.delete(path);
                 }
                 this.release(path);
                 break;
             case PopupCacheMode.Occasionally:
                 node.destroy();
-                if (this.nodeMap.has(path)) {
-                    this.nodeMap.delete(path);
+                if (this._nodeMap.has(path)) {
+                    this._nodeMap.delete(path);
                 }
                 break;
             case PopupCacheMode.Frequent:
                 node.removeFromParent(false);
-                if (!this.nodeMap.has(path)) {
-                    this.nodeMap.set(path, node);
+                if (!this._nodeMap.has(path)) {
+                    this._nodeMap.set(path, node);
                 }
                 break;
         }
@@ -215,9 +218,9 @@ export default class PopupManager {
      * @param path 弹窗路径
      */
     public static release(path: string): void {
-        let prefab = this.prefabMap.get(path);
+        let prefab = this._prefabMap.get(path);
         if (prefab) {
-            this.prefabMap.delete(path);
+            this._prefabMap.delete(path);
             prefab.decRef();
             prefab = null;
         }
