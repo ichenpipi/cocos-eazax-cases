@@ -20,7 +20,7 @@
 
 ## 环境
 
-引擎：Cocos Creator 2.4.2
+引擎：Cocos Creator 2.4.3
 
 语言：TypeScript
 
