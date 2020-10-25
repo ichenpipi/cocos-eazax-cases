@@ -32,14 +32,16 @@ export default class PopupBase<Options> extends cc.Component {
 
     /**
      * 弹窗已完全隐藏（子类请重写此函数以实现自定义逻辑）
+     * @param hidByForce 是否被强制隐藏
      */
-    protected onHide(): void { }
+    protected onHide(hidByForce: boolean = false): void { }
 
     /**
      * 展示弹窗
      * @param options 弹窗选项
+     * @param time 动画时长
      */
-    public show(options?: Options): void {
+    public show(options?: Options, time: number = this.animTime): void {
         // 储存选项
         this.options = options;
         // 重置节点
@@ -52,6 +54,13 @@ export default class PopupBase<Options> extends cc.Component {
         this.init(this.options);
         // 更新样式
         this.updateDisplay(this.options);
+        // 动画时长为 0 时直接展示
+        if (time === 0) {
+            this.background.opacity = 200;
+            this.main.scale = 1;
+            this.onShow && this.onShow();
+            return;
+        }
         // 播放背景动画
         cc.tween(this.background)
             .to(this.animTime * 0.8, { opacity: 200 })
@@ -68,9 +77,18 @@ export default class PopupBase<Options> extends cc.Component {
 
     /**
      * 隐藏弹窗
+     * @param time 动画时长
+     * @param hidByForce 是否被强制隐藏
      */
-    public hide(): void {
-        // 拦截点击事件
+    public hide(time: number = this.animTime, hidByForce: boolean = false): void {
+        // 动画时长为 0 时直接关闭
+        if (time === 0) {
+            this.node.active = false;
+            this.onHide && this.onHide(hidByForce);
+            this.finishCallback && this.finishCallback(hidByForce);
+            return;
+        }
+        // 拦截点击事件（避免误操作）
         if (!this.blocker) {
             this.blocker = new cc.Node('blocker');
             this.blocker.addComponent(cc.BlockInputEvents);
