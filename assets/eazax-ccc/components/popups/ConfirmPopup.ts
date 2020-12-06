@@ -30,7 +30,7 @@ export default class ConfirmPopup extends PopupBase<ConfirmPopupOptions> {
     }
 
     private unregisterEvent() {
-        this.confirmBtn.off(cc.Node.EventType.TOUCH_END, this.onConfirmBtnClick, this);
+        this.confirmBtn.targetOff(this);
     }
 
     protected init() {
@@ -42,13 +42,14 @@ export default class ConfirmPopup extends PopupBase<ConfirmPopupOptions> {
         this.contentLabel.string = options.content;
     }
 
-    public onConfirmBtnClick() {
+    protected onConfirmBtnClick() {
         this.options.confirmCallback && this.options.confirmCallback();
         this.hide();
     }
 
 }
 
+/** 确认弹窗选项 */
 export interface ConfirmPopupOptions {
     title: string;
     content: string;
