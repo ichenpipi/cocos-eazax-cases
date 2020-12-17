@@ -44,7 +44,6 @@ CCProgram fs %{
   in vec4 v_color;
 
   uniform sampler2D texture;
-
   uniform Properties {
     vec4 outlineColor;
     vec2 size;
@@ -55,29 +54,19 @@ CCProgram fs %{
     vec4 color = v_color;
     color *= texture(texture, v_uv0);
 
-    // if(color.a < 1.0){
-      float ratio = size.x / size.y;
-      const float WIDTH = 15.0;
-      float hasColorAround = 0.0;
-      for (float i = 0.0; i < WIDTH; i++) {
-       hasColorAround = texture(texture, v_uv0 + vec2(0.0, (1.0 + i) / size.y)).a *
-          texture(texture, v_uv0 + vec2(0.0, (-1.0 - i) / size.y)).a *
-          texture(texture, v_uv0 + vec2((-1.0 - i) / size.x, 0.0)).a *
-          texture(texture, v_uv0 + vec2((1.0 + i) / size.x, 0.0)).a;
-        if(
-          hasColorAround > 0.0
-        ) {
-          break;
-        }
+    const float OUTLINE_WIDTH = 15.0;
+
+    float arroundAlpha = 0.0;
+    for (float i = 0.0; i < OUTLINE_WIDTH; i++) {
+      arroundAlpha = texture(texture, v_uv0 + vec2(0.0, (1.0 + i) / size.y)).a *
+        texture(texture, v_uv0 + vec2(0.0, (-1.0 - i) / size.y)).a *
+        texture(texture, v_uv0 + vec2((-1.0 - i) / size.x, 0.0)).a *
+        texture(texture, v_uv0 + vec2((1.0 + i) / size.x, 0.0)).a;
+      if (arroundAlpha > 0.0) {
+        break;
       }
-        color.rgb = mix(outlineColor.rgb, color.rgb, hasColorAround);
-        // color.rgb = outlineColor.rgb;
-        // float dis = distance(v_uv0, v_uv0 + vec2(0.1, 0.1));
-        // color.a = smoothstep(0.5, 0.5 - 0.1, dis);
-      
-    // } else {
-    //   // color.rgb = vec3(1, 1, 1);
-    // }
+    }
+    color.rgb = mix(outlineColor.rgb, color.rgb, arroundAlpha);
 
     gl_FragColor = color;
   }
