@@ -18,15 +18,15 @@ export default class PopupManager {
     public static get queue() { return this._queue; }
     private static _queue: PopupRequest[] = [];
 
-    /** 当前展示中的弹窗信息 */
-    public static get currents() { return this._currents; }
-    private static _currents: Current[] = [];
+    /** 当前弹窗 */
+    public static get current() { return this._current; }
+    private static _current: PopupRequest = null;
 
-    /** 保留状态（是否已有候选弹窗） */
-    private static reserved: boolean = false;
+    /** 锁定状态（已有候选弹窗） */
+    private static lockedForNext: boolean = false;
 
-    /** 挂起状态（有弹窗强制展示） */
-    private static hidByForce: boolean = false;
+    /** 用于存放弹窗节点的容器节点（默认为 Canvas） */
+    public static container: cc.Node = null;
 
     /** 连续展示弹窗的时间间隔（秒） */
     public static interval: number = 0.1;
@@ -39,156 +39,109 @@ export default class PopupManager {
 
     /**
      * 展示弹窗，如果当前已有弹窗在展示中则加入等待队列
-     * @param pathOrPrefab 弹窗预制体相对路径（如：prefabs/MyPopup）或预制体资源（不支持缓存模式和自动释放）
+     * @param path 弹窗预制体相对路径（如：prefabs/MyPopup）
      * @param options 弹窗选项
-     * @param cacheMode 缓存模式
-     * @param priority 优先级
-     * @example 
+     * @param mode 缓存模式
+     * @param priority 是否优先展示
+     * @example
      * const options = {
-     *     title: 'Hello',
-     *     content: 'How are you?'
+     *     title: 'hello',
+     *     content: 'world'
      * }
-     * PopupManager.show('prefabs/GreetPopup', options, PopupCacheMode.Once);
+     * PopupManager.show('prefabs/MyPopup', options);
      */
-    public static show<Options>(pathOrPrefab: string | cc.Prefab, options: Options = null, cacheMode: PopupCacheMode = PopupCacheMode.Normal, priority: PopupShowPriority = PopupShowPriority.None): Promise<PopupShowResult> {
+    public static show<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Normal, priority: boolean = false): Promise<PopupShowResult> {
         return new Promise(async res => {
-            cc.log('show', pathOrPrefab, options, cacheMode, priority);
-            // 当前已有弹窗在展示中
-            if (this._currents.length > 0 || this.reserved) {
-                cc.log('当前已有弹窗在展示中')
-                cc.log('currents', this._currents);
-                if (priority === PopupShowPriority.Cover) {
-                    cc.log('展示在当前弹窗上层')
-
-                } else if (priority === PopupShowPriority.Force) {
-                    cc.log('立即强制展示目标弹窗')
-                    // 立即强制展示目标弹窗
-                    while (this._currents.length > 0) {
-                        const current = this._currents[0];
-                        cc.log('hide', current)
-                        if (current.popup) {
-                            // 强制关闭当前弹窗
-                            this.hidByForce = true;
-                            current.popup.hide(0, true);
-                            this.hidByForce = false;
-                        } else if (current.node) {
-                            // 没有组件直接关闭并销毁
-                            current.node.active = false;
-                            current.node.destroy();
-                            current.node = null;
-                        }
-                    }
-                    // 清空列表
-                    // this._currents.length = 0;
-                } else {
-                    // 加入等待队列
-                    this.push(pathOrPrefab, options, cacheMode, priority);
-                    cc.log('加入等待队列', this._currents);
-                    return res(PopupShowResult.Wait);
-                }
+            // 当前已有弹窗在展示中则加入等待队列
+            if (this._current || this.lockedForNext) {
+                this.push(path, options, mode, priority);
+                return res(PopupShowResult.Wait);
             }
 
             // 保存为当前弹窗，阻止新的弹窗请求
-            let cur: Current = {
-                request: { pathOrPrefab, options, cacheMode: cacheMode },
-                popup: null,
-                node: null
-            };
-            this._currents.push(cur);
-            cc.log('currents push', this._currents);
+            this._current = { path, options, mode };
 
-            if (typeof pathOrPrefab === 'string') {
-                // 先在缓存中获取
-                if (this._currents.length > 0 && priority === PopupShowPriority.Cover) {
-                    // 覆盖展示不能从节点表中获取
-                    if (this._prefabMap.has(pathOrPrefab)) {
-                        cur.node = cc.instantiate(this._prefabMap.get(pathOrPrefab));
-                    }
-                } else {
-                    cur.node = this.getNodeFromCache(pathOrPrefab);
-                }
+            // 先在缓存中获取
+            let node = this.getNodeFromCache(path);
 
-                // 缓存中没有，动态加载预制体资源
-                if (!cc.isValid(cur.node)) {
-                    // 建议在动态加载时添加加载提示并屏蔽用户点击，避免多次点击，如下：
-                    // PopupManager.loadStartCallback = () => {
-                    //     LoadingTip.show();
-                    // }
-                    this.loadStartCallback && this.loadStartCallback();
-                    // 等待加载
-                    await new Promise(res => {
-                        cc.resources.load(pathOrPrefab, (error: Error, prefab: cc.Prefab) => {
-                            if (!error) {
-                                cur.node = cc.instantiate(prefab);         // 实例化节点
-                                prefab.addRef();                            // 增加引用计数
-                                this._prefabMap.set(pathOrPrefab, prefab);  // 保存预制体
-                            }
-                            res();
-                        });
-                    });
-                    // 加载完成后隐藏加载提示，如下：
-                    // PopupManager.loadFinishCallback = () => {
-                    //     LoadingTip.hide();
-                    // }
-                    this.loadFinishCallback && this.loadFinishCallback();
-                }
+            // 缓存中没有，动态加载预制体资源
+            if (!cc.isValid(node)) {
+                // 建议在动态加载时添加加载提示并屏蔽用户点击，避免多次点击，如下：
+                // PopupManager.loadStartCallback = () => {
+                //     LoadingTip.show();
+                // }
+                this.loadStartCallback && this.loadStartCallback();
+
+                // 等待加载
+                const prefab = await this.load(path);
+
+                // 加载完成后隐藏加载提示，如下：
+                // PopupManager.loadFinishCallback = () => {
+                //     LoadingTip.hide();
+                // }
+                this.loadFinishCallback && this.loadFinishCallback();
 
                 // 加载失败（一般是路径错误导致的）
-                if (!cc.isValid(cur.node)) {
-                    cc.warn('[PopupManager]', '弹窗加载失败', pathOrPrefab);
-                    this._currents.splice(this._currents.indexOf(cur));
+                if (!cc.isValid(prefab)) {
+                    cc.warn('[PopupManager]', '弹窗加载失败', path);
+                    this._current = null;
                     return res(PopupShowResult.Fail);
                 }
-            } else {
-                // 预制体资源会直接实例化
-                cur.node = cc.instantiate(pathOrPrefab);
+
+                // 实例化节点
+                node = cc.instantiate(prefab);
             }
 
+            // 保存节点
+            this._current.node = node;
+
             // 添加到场景中
-            cur.node.setParent(cc.Canvas.instance.node);
+            node.setParent(this.container || cc.Canvas.instance.node);
             // 显示在最上层
-            cur.node.setSiblingIndex(cc.macro.MAX_ZINDEX);
+            node.setSiblingIndex(cc.macro.MAX_ZINDEX);
 
             // 获取继承自 PopupBase 的弹窗组件
-            cur.popup = cur.node.getComponent(PopupBase);
-            if (cur.popup) {
-                // 找到 Popup 组件
+            const popup = node.getComponent(PopupBase);
+            if (popup) {
+                this._current.popup = popup;
                 // 设置完成回调
-                cur.popup.setFinishCallback(async () => {
-                    cc.log('finish', options)
-                    cc.log('完成回调', cur);
-                    // 回收弹窗
-                    this.recycle(cur.request.pathOrPrefab, cur.node, cur.request.cacheMode);
-                    // 锁定状态
-                    this.reserved = (this._queue.length > 0);
-                    // 周期结束
-                    this._currents.splice(this._currents.indexOf(cur));
-                    cur = null;
-                    cc.log('currents', this._currents);
+                popup.setFinishCallback(async () => {
+                    this.lockedForNext = (this._queue.length > 0);
+                    this.recycle(path, node, mode);
+                    this._current = null;
                     res(PopupShowResult.Done);
                     // 延迟
                     await new Promise(res => {
                         cc.Canvas.instance.scheduleOnce(res, this.interval);
                     });
                     // 下一个弹窗
-                    if (!this.hidByForce) {
-                        this.next();
-                    }
+                    this.next();
                 });
-                // 展示弹窗
-                cur.popup.show(options);
+                popup.show(options);
             } else {
-                // 没有 PopupBase 组件则直接打开节点
-                // 注意自行释放资源
-                cur.node.active = true;
+                // 没有弹窗组件则直接打开节点
+                node.active = true;
                 res(PopupShowResult.Dirty);
             }
         });
     }
 
     /**
+     * 隐藏当前弹窗
+     */
+    public static hideCurrent() {
+        if (this._current.popup) {
+            this._current.popup.hide();
+        } else if (this._current.node) {
+            this._current.node.destroy();
+            this.release(this._current.path);
+            this._current = null;
+        }
+    }
+
+    /**
      * 从缓存中获取节点
-     * @param path 路径
+     * @param path 弹窗路径
      */
     private static getNodeFromCache(path: string): cc.Node {
         // 从节点表中获取
@@ -215,85 +168,101 @@ export default class PopupManager {
      * 展示等待队列中的下一个弹窗
      */
     private static next(): void {
-        if (this._currents.length > 0 || this._queue.length === 0) {
+        if (this._current || this._queue.length === 0) {
             return;
         }
-        cc.log('下一个弹窗', this._queue);
         const request = this._queue.shift();
-        this.reserved = false;
-        this.show(request.pathOrPrefab, request.options, request.cacheMode);
+        this.lockedForNext = false;
+        this.show(request.path, request.options, request.mode);
     }
 
     /**
      * 添加一个弹窗请求到等待队列中，如果当前没有展示中的弹窗则直接展示该弹窗。
-     * @param pathOrPrefab 弹窗预制体相对路径（如：prefabs/MyPopup）或预制体资源（不支持缓存模式和自动释放）
+     * @param path 弹窗预制体相对路径（如：prefabs/MyPopup）
      * @param options 弹窗选项
-     * @param cacheMode 缓存模式
+     * @param mode 缓存模式
      * @param priority 是否优先展示
      */
-    public static push<Options>(pathOrPrefab: string | cc.Prefab, options: Options = null, cacheMode: PopupCacheMode = PopupCacheMode.Normal, priority: PopupShowPriority = PopupShowPriority.None): void {
+    public static push<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Normal, priority: boolean = false): void {
         // 直接展示
-        if (this._currents.length === 0 && !this.reserved) {
-            this.show(pathOrPrefab, options, cacheMode);
+        if (!this._current && !this.lockedForNext) {
+            this.show(path, options, mode);
             return;
         }
         // 加入队列
-        if (priority === PopupShowPriority.Prior) {
-            this._queue.unshift({ pathOrPrefab, options, cacheMode: cacheMode });
+        if (priority) {
+            this._queue.unshift({ path, options, mode });
         } else {
-            this._queue.push({ pathOrPrefab, options, cacheMode: cacheMode });
+            this._queue.push({ path, options, mode });
         }
     }
 
     /**
      * 回收弹窗
-     * @param pathOrPrefab 弹窗预制体相对路径或预制体资源
+     * @param path 弹窗路径
      * @param node 弹窗节点
-     * @param cacheMode 缓存模式
+     * @param mode 缓存模式
      */
-    private static recycle(pathOrPrefab: string | cc.Prefab, node: cc.Node, cacheMode: PopupCacheMode): void {
-        cc.log('回收弹窗');
-        // 预制体资源
-        if (typeof pathOrPrefab !== 'string') {
-            node.destroy();
-            return;
-        }
-        // 预制体路径
-        switch (cacheMode) {
+    private static recycle(path: string, node: cc.Node, mode: PopupCacheMode): void {
+        switch (mode) {
             case PopupCacheMode.Once:
                 node.destroy();
-                if (this._nodeMap.has(pathOrPrefab)) {
-                    this._nodeMap.delete(pathOrPrefab);
+                if (this._nodeMap.has(path)) {
+                    this._nodeMap.delete(path);
                 }
-                // 如果当前还有弹窗在使用资源则不释放
-                for (let i = 0; i < this._currents.length; i++) {
-                    if (this._currents[i].request.pathOrPrefab === pathOrPrefab) {
-                        return;
-                    }
-                }
-                this.release(pathOrPrefab);
+                this.release(path);
                 break;
             case PopupCacheMode.Normal:
                 node.destroy();
-                if (this._nodeMap.has(pathOrPrefab)) {
-                    this._nodeMap.delete(pathOrPrefab);
+                if (this._nodeMap.has(path)) {
+                    this._nodeMap.delete(path);
                 }
                 break;
             case PopupCacheMode.Frequent:
                 node.removeFromParent(false);
-                if (!this._nodeMap.has(pathOrPrefab)) {
-                    this._nodeMap.set(pathOrPrefab, node);
+                if (!this._nodeMap.has(path)) {
+                    this._nodeMap.set(path, node);
                 }
                 break;
         }
     }
 
     /**
+     * 加载并缓存弹窗预制体资源
+     * @param path 弹窗路径
+     */
+    public static load(path: string): Promise<cc.Prefab> {
+        return new Promise(res => {
+            if (this._prefabMap.has(path)) {
+                return res(this._prefabMap.get(path));
+            }
+            cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
+                if (error) {
+                    res(null);
+                } else {
+                    prefab.addRef();                    // 增加引用计数
+                    this._prefabMap.set(path, prefab);  // 缓存预制体
+                    res(prefab);
+                }
+            });
+        });
+    }
+
+    /**
      * 尝试释放弹窗资源（注意：弹窗内部动态加载的资源请自行释放）
-     * @param path 弹窗预制体相对路径
+     * @param path 弹窗路径
      */
     public static release(path: string): void {
-        cc.log('释放弹窗资源');
+        // 移除节点
+        let node = this._nodeMap.get(path);
+        if (node) {
+            this._nodeMap.delete(path);
+            if (cc.isValid(node)) {
+                node.destroy();
+            }
+            node = null;
+        }
+        // 移除预制体
         let prefab = this._prefabMap.get(path);
         if (prefab) {
             this._prefabMap.delete(path);
@@ -302,48 +271,20 @@ export default class PopupManager {
         }
     }
 
-    public static hasCurrent(): boolean {
-        if (this._currents.length === 0) {
-            return false;
-        } else {
-            for (let i = 0; i < this._currents.length; i++) {
-                if (this._currents[i] !== null) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 }
 
 /** 弹窗请求 */
-export type PopupRequest = {
+export interface PopupRequest {
     /** 弹窗预制体相对路径 */
-    pathOrPrefab: string | cc.Prefab;
+    path: string;
     /** 弹窗选项 */
     options: any;
     /** 缓存模式 */
-    cacheMode: PopupCacheMode,
-}
-
-/** 展示中的弹窗信息 */
-export type Current = {
-    popup?: PopupBase<any>;
-    node?: cc.Node;
-    request?: PopupRequest;
-}
-
-/** 弹窗请求优先级 */
-export enum PopupShowPriority {
-    /** 无（正常展示或排队） */
-    None = 1,
-    /** 优先（当前有弹窗则下一个展示目标弹窗） */
-    Prior = 2,
-    /** 立刻（关闭当前弹窗并立刻展示目标弹窗） */
-    Force = 3,
-    /** 覆盖（当前有弹窗时会覆盖展示在其上层） */
-    Cover = 4
+    mode: PopupCacheMode,
+    /** 弹窗组件 */
+    popup?: PopupBase,
+    /** 弹窗节点 */
+    node?: cc.Node
 }
 
 /** 弹窗请求结果 */
