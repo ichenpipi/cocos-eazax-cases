@@ -1,7 +1,7 @@
 /**
  * Cocos Creator 编辑器模块
  * @author 陈皮皮（ifaswind）
- * @version 20200804
+ * @version 20210117
  * @see https://gitee.com/ifaswind/eazax-ccc/blob/master/declarations/editor.d.ts
  */
 declare module Editor {
