@@ -2,9 +2,9 @@ import PopupBase from "../components/popups/PopupBase";
 
 /**
  * 弹窗管理器
- * @see PopupManager.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/PopupManager.ts
+ * @see PopupManager_dev.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/PopupManager_dev.ts
  */
-export default class PopupManager {
+export default class PopupManager_dev {
 
     /** 预制体表 */
     public static get prefabMap() { return this._prefabMap; }
@@ -48,7 +48,7 @@ export default class PopupManager {
      *     title: 'Hello',
      *     content: 'How are you?'
      * }
-     * PopupManager.show('prefabs/GreetPopup', options, PopupCacheMode.Once);
+     * PopupManager_dev.show('prefabs/GreetPopup', options, PopupCacheMode.Once);
      */
     public static show<Options>(pathOrPrefab: string | cc.Prefab, options: Options = null, cacheMode: PopupCacheMode = PopupCacheMode.Normal, priority: PopupShowPriority = PopupShowPriority.None): Promise<PopupShowResult> {
         return new Promise(async res => {
@@ -111,7 +111,7 @@ export default class PopupManager {
                 // 缓存中没有，动态加载预制体资源
                 if (!cc.isValid(cur.node)) {
                     // 建议在动态加载时添加加载提示并屏蔽用户点击，避免多次点击，如下：
-                    // PopupManager.loadStartCallback = () => {
+                    // PopupManager_dev.loadStartCallback = () => {
                     //     LoadingTip.show();
                     // }
                     this.loadStartCallback && this.loadStartCallback();
@@ -127,7 +127,7 @@ export default class PopupManager {
                         });
                     });
                     // 加载完成后隐藏加载提示，如下：
-                    // PopupManager.loadFinishCallback = () => {
+                    // PopupManager_dev.loadFinishCallback = () => {
                     //     LoadingTip.hide();
                     // }
                     this.loadFinishCallback && this.loadFinishCallback();
@@ -135,7 +135,7 @@ export default class PopupManager {
 
                 // 加载失败（一般是路径错误导致的）
                 if (!cc.isValid(cur.node)) {
-                    cc.warn('[PopupManager]', '弹窗加载失败', pathOrPrefab);
+                    cc.warn('[PopupManager_dev]', '弹窗加载失败', pathOrPrefab);
                     this._currents.splice(this._currents.indexOf(cur));
                     return res(PopupShowResult.Fail);
                 }

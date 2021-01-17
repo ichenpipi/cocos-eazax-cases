@@ -36,6 +36,43 @@ declare namespace cc {
 
     }
 
+    interface RenderComponent {
+
+        _materials: cc.Material,
+
+        _assembler: any;
+
+        _vertsDirty: any;
+
+        _resetAssembler();
+
+        __preload();
+
+        setVertsDirty();
+
+        _on3DNodeChanged();
+
+        _validateRender();
+
+        markForValidate();
+
+        markForRender();
+
+        disableRender();
+
+        _getDefaultMaterial();
+
+        _activateMaterial();
+
+        _updateMaterial();
+
+        _updateColor();
+
+        _checkBacth();
+
+
+    }
+
     /**
      * 资源库类（cc.AssetLibrary 在 v2.4 中被移除）
      * @deprecated

@@ -4,24 +4,24 @@ import MainContent, { SWITCH_PAGE } from "./MainContent";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class MainUIManager extends cc.Component {
+export default class MainUI extends cc.Component {
 
     @property(cc.Node)
-    private homeBtn: cc.Node = null;
+    protected homeBtn: cc.Node = null;
 
     @property(cc.Node)
-    private titleTip: cc.Node = null
+    protected titleTip: cc.Node = null
 
     protected onLoad() {
         this.registerEvent();
     }
 
-    protected onDestroy() {
-        this.unregisterEvent();
+    protected start() {
+        this.reset();
     }
 
-    protected start() {
-        this.titleTip.active = true;
+    protected onDestroy() {
+        this.unregisterEvent();
     }
 
     private registerEvent() {
@@ -36,6 +36,10 @@ export default class MainUIManager extends cc.Component {
         this.titleTip.off(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
 
         EventManager.off(SWITCH_PAGE, this.onPageSwitch, this);
+    }
+
+    protected reset() {
+        this.titleTip.active = true;
     }
 
     private onHomeBtnClick() {

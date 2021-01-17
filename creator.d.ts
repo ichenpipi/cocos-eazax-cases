@@ -22655,7 +22655,7 @@ declare let cc: {
     [x: string]: any;
 }
 
-declare let Editor: any;
+// declare let Editor: any;
 
 // https://medium.com/dailyjs/typescript-create-a-condition-based-subset-types-9d902cea5b8c
 type FlagExcludedType<Base, Type> = { [Key in keyof Base]: Base[Key] extends Type ? never : Key };
