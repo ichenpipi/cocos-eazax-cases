@@ -14,12 +14,13 @@ export default class TweenUtil {
     public static flip(node: cc.Node, duration: number, middleCallback?: Function, finishCallback?: Function): Promise<void> {
         return new Promise<void>(res => {
             const time = duration / 2;
+            const skew = 10;
             cc.tween(node)
                 .parallel(
                     cc.tween().to(time, { scaleX: 0 }, { easing: 'sineIn' }),
-                    cc.tween().to(time, { skewY: -10 }),
+                    cc.tween().to(time, { skewY: -skew }),
                 )
-                .set({ skewY: 10 })
+                .set({ skewY: skew })
                 .call(() => {
                     middleCallback && middleCallback();
                 })
@@ -28,8 +29,8 @@ export default class TweenUtil {
                     cc.tween().to(time, { skewY: 0 }),
                 )
                 .call(() => {
-                    res();
                     finishCallback && finishCallback();
+                    res();
                 })
                 .start();
         });
