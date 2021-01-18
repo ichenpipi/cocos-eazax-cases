@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "ffHZIUpJxIbI9lm5SjkvTs"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "btn_bg_rect",
+      "rect": [
+        0,
+        0,
+        128,
+        97
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        128,
+        97
+      ],
+      "capInsets": [
+        35,
+        31,
+        34,
+        32
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

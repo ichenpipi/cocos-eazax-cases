@@ -1,0 +1,137 @@
+[
+  1,
+  [
+    "d2kHe6FidKcpV5e1aiNTQM",
+    "73oJA92A5OPKpn+ZlUPAj1",
+    "ed0hW5J5ZKBar1gflskoHO"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    [
+      [
+        {
+          "name": "default_toggle_normal",
+          "rect": [
+            0,
+            0,
+            28,
+            28
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "originalSize": [
+            28,
+            28
+          ],
+          "capInsets": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      [
+        0
+      ],
+      0,
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        0
+      ]
+    ],
+    [
+      [
+        {
+          "name": "default_toggle_checkmark",
+          "rect": [
+            4,
+            5,
+            20,
+            18
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "originalSize": [
+            28,
+            28
+          ],
+          "capInsets": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      [
+        0
+      ],
+      0,
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      [
+        {
+          "name": "default_editbox_bg",
+          "rect": [
+            0,
+            0,
+            40,
+            40
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "originalSize": [
+            40,
+            40
+          ],
+          "capInsets": [
+            12,
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      [
+        0
+      ],
+      0,
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        2
+      ]
+    ]
+  ]
+]
