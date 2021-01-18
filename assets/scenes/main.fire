@@ -24739,7 +24739,7 @@
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "TweenUtils.ts",
+    "title": "TweenUtil.ts",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/TweenUtil.ts"
   },
   {
@@ -24898,7 +24898,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 150,
+      "width": 200,
       "height": 80
     },
     "_anchorPoint": {
