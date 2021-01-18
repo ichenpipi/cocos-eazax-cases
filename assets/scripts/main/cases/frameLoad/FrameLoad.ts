@@ -19,12 +19,20 @@ export default class FrameLoad extends cc.Component {
     private frameBtn: cc.Node = null;
 
     protected onLoad() {
+        this.registerEvent();
+    }
+
+    protected onDestroy() {
+        this.unregisterEvent();
+    }
+
+    private registerEvent() {
         this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
         this.clearBtn.on(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
         this.frameBtn.on(cc.Node.EventType.TOUCH_END, this.onFrameBtnClick, this);
     }
 
-    protected onDestroy() {
+    private unregisterEvent() {
         this.normalBtn.off(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
         this.clearBtn.off(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
         this.frameBtn.off(cc.Node.EventType.TOUCH_END, this.onFrameBtnClick, this);
@@ -73,7 +81,7 @@ export default class FrameLoad extends cc.Component {
         const total = 2000;
         const countPerFrame = 30;
         let index = 0;
-        let load = () => {
+        const load = () => {
             // 加载
             if (index < total) {
                 const count = Math.min(total - (index + 1), countPerFrame);

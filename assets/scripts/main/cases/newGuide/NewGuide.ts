@@ -25,24 +25,41 @@ export default class NewGuide extends cc.Component {
     private threeBtn: cc.Node = null;
 
     protected onLoad() {
-        this.startBtn.on('touchend', this.onStartBtnClick, this);
-        this.oneBtn.on('touchend', this.onOneBtnClick, this);
-        this.twoBtn.on('touchend', this.onTwoBtnClick, this);
-        this.threeBtn.on('touchend', this.onThreeBtnClick, this);
+        this.registerEvent();
+    }
+
+    private registerEvent() {
+        this.startBtn.on(cc.Node.EventType.TOUCH_END, this.onStartBtnClick, this);
+        this.oneBtn.on(cc.Node.EventType.TOUCH_END, this.onOneBtnClick, this);
+        this.twoBtn.on(cc.Node.EventType.TOUCH_END, this.onTwoBtnClick, this);
+        this.threeBtn.on(cc.Node.EventType.TOUCH_END, this.onThreeBtnClick, this);
     }
 
     protected start() {
+        this.reset();
+    }
+
+    /**
+     * 重置
+     */
+    private reset() {
         this.hollowOut.node.active = true;
         this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
         this.touchBlocker.passAll(); // 放行所有点击
     }
 
+    /**
+     * 开始
+     */
     private async onStartBtnClick() {
         this.touchBlocker.blockAll(); // 屏蔽所有点击
         await this.hollowOut.rectTo(0.5, this.oneBtn.getPosition(), this.oneBtn.width + 10, this.oneBtn.height + 10, 5, 5);
         this.touchBlocker.setTarget(this.oneBtn); // 设置可点击节点
     }
 
+    /**
+     * 一
+     */
     private async onOneBtnClick() {
         this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
         this.touchBlocker.blockAll(); // 屏蔽所有点击
@@ -50,6 +67,9 @@ export default class NewGuide extends cc.Component {
         this.touchBlocker.setTarget(this.twoBtn); // 设置可点击节点
     }
 
+    /**
+     * 二
+     */
     private async onTwoBtnClick() {
         this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
         this.touchBlocker.blockAll(); // 屏蔽所有点击
@@ -57,6 +77,9 @@ export default class NewGuide extends cc.Component {
         this.touchBlocker.setTarget(this.threeBtn); // 设置可点击节点
     }
 
+    /**
+     * 三
+     */
     private onThreeBtnClick() {
         this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
         this.touchBlocker.passAll(); // 放行所有点击

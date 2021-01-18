@@ -1,4 +1,4 @@
-import ClickToLoadUrl from "../ClickToLoadUrl";
+import ClickToLoadUrl from "../../ClickToLoadUrl";
 
 const { ccclass, property } = cc._decorator;
 

@@ -1,5 +1,6 @@
 import EventManager from "../../eazax-ccc/core/EventManager";
-import MainContent, { SWITCH_PAGE } from "./MainContent";
+import { SWITCH_PAGE } from "../common/constants/CustomEvents";
+import MainContent from "./MainContent";
 
 const { ccclass, property } = cc._decorator;
 

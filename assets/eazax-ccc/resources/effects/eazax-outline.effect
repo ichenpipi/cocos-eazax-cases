@@ -12,8 +12,7 @@ CCEffect %{
         cullMode: none
       properties:
         size: { value: [500.0, 500.0], editor: { tooltip: '节点尺寸' } }
-        outlineColor: { value: [1.0, 0.0, 0.0, 1], editor: { type: color, tooltip: '颜色' } }
-        outlineWidth: { value: 5.0, editor: { tooltip: '宽度' } }
+        outlineColor: { value: [1.0, 0.0, 0.0, 1], editor: { type: color, tooltip: '描边颜色' } }
 }%
 
 
@@ -47,26 +46,27 @@ CCProgram fs %{
   uniform Properties {
     vec4 outlineColor;
     vec2 size;
-    float outlineWidth;
   };
 
   void main () {
     vec4 color = v_color;
     color *= texture(texture, v_uv0);
+    
+    // 描边宽度
+    const float OUTLINE_WIDTH = 2.0;
 
-    const float OUTLINE_WIDTH = 15.0;
-
-    float arroundAlpha = 0.0;
+    float sampledAlpha = 0.0;
     for (float i = 0.0; i < OUTLINE_WIDTH; i++) {
-      arroundAlpha = texture(texture, v_uv0 + vec2(0.0, (1.0 + i) / size.y)).a *
+      sampledAlpha = 
+        texture(texture, v_uv0 + vec2(0.0, (1.0 + i) / size.y)).a *
         texture(texture, v_uv0 + vec2(0.0, (-1.0 - i) / size.y)).a *
         texture(texture, v_uv0 + vec2((-1.0 - i) / size.x, 0.0)).a *
         texture(texture, v_uv0 + vec2((1.0 + i) / size.x, 0.0)).a;
-      if (arroundAlpha > 0.0) {
+      if (sampledAlpha > 1.0) {
         break;
       }
     }
-    color.rgb = mix(outlineColor.rgb, color.rgb, arroundAlpha);
+    color.rgb = mix(outlineColor.rgb, color.rgb, sampledAlpha);
 
     gl_FragColor = color;
   }

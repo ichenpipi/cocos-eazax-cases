@@ -32,6 +32,14 @@ export default class SineWaveController extends cc.Component {
     private status: number = 0;
 
     protected onLoad() {
+        this.registerEvent();
+    }
+
+    protected onDestroy() {
+        this.unregisterEvent();
+    }
+
+    private registerEvent() {
         this.fillBtn.on(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
 
         this.amplitudeEditBox.node.on('text-changed', this.onAmplitudeChanged, this);
@@ -41,7 +49,7 @@ export default class SineWaveController extends cc.Component {
         this.toLeftToggle.node.on('toggle', this.onToLeftChanged, this);
     }
 
-    protected onDestroy() {
+    private unregisterEvent() {
         this.fillBtn.off(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
 
         this.amplitudeEditBox.node.off('text-changed', this.onAmplitudeChanged, this);

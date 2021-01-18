@@ -42,6 +42,14 @@ export default class RadarChartController extends cc.Component {
     private data2EditBox: cc.EditBox = null;
 
     protected onLoad() {
+        this.registerEvent();
+    }
+
+    protected onDestroy() {
+        this.unregisterEvent();
+    }
+
+    protected registerEvent() {
         this.randomBtn.on(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
 
         this.lengthEditBox.node.on('text-changed', this.onAxixLengthChanged, this);
@@ -56,7 +64,7 @@ export default class RadarChartController extends cc.Component {
         this.data2EditBox.node.on('text-changed', this.onDataChanged, this);
     }
 
-    protected onDestroy() {
+    protected unregisterEvent() {
         this.randomBtn.off(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
 
         this.lengthEditBox.node.off('text-changed', this.onAxixLengthChanged, this);

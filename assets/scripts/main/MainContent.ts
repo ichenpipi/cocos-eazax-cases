@@ -1,5 +1,6 @@
 import EventManager from "../../eazax-ccc/core/EventManager";
 import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
+import { SWITCH_PAGE } from "../common/constants/CustomEvents";
 
 const { ccclass, property } = cc._decorator;
 
@@ -19,6 +20,13 @@ export default class MainContent extends cc.Component {
     private static casesMap: Map<string, number> = new Map<string, number>();
 
     protected onLoad() {
+        this.init();
+    }
+
+    /**
+     * 初始化
+     */
+    protected init() {
         MainContent.instance = this;
 
         this.cases = this.casesContainer.children;
@@ -55,7 +63,10 @@ export default class MainContent extends cc.Component {
      * @param name 名称
      */
     public static goCase(name: string) {
-        if (!this.hasCase(name)) return;
+        if (!this.hasCase(name)) {
+            return this.goHome();
+        }
+
         eazax.log('[Go Case]', name);
 
         // 设置当前 URL 的参数
@@ -71,6 +82,3 @@ export default class MainContent extends cc.Component {
     }
 
 }
-
-/** 页面切换 */
-export const SWITCH_PAGE: string = 'switch-page';

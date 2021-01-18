@@ -6,9 +6,9 @@ const { ccclass, property } = cc._decorator;
 export default class HomePage extends cc.Component {
 
     @property(cc.Node)
-    private btnsContainer: cc.Node = null;
+    private container: cc.Node = null;
 
-    private btns: cc.Node[] = null;
+    private buttons: cc.Node[] = null;
 
     protected onLoad() {
         this.registerEvent();
@@ -19,20 +19,21 @@ export default class HomePage extends cc.Component {
     }
 
     private registerEvent() {
-        this.btns = this.btnsContainer.children;
-        for (let i = 0; i < this.btns.length; i++) {
-            this.btns[i].on(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
+        this.buttons = this.container.children;
+        for (let i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].on(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
         }
     }
 
     private unregisterEvent() {
-        for (let i = 0; i < this.btns.length; i++) {
-            this.btns[i].off(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
+        for (let i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].off(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
         }
     }
 
     private onBtnClick(event: cc.Event.EventTouch) {
-        MainContent.goCase(event.target.name);
+        const name = event.target.name;
+        MainContent.goCase(name);
     }
 
 }

@@ -10,10 +10,18 @@ export default class ClickToLoadUrl extends cc.Component {
     public openInNewTap: boolean = true;
 
     protected onLoad() {
-        this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
+        this.registerEvent();
     }
 
     protected onDestroy() {
+        this.unregisterEvent();
+    }
+
+    private registerEvent() {
+        this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
+    }
+
+    private unregisterEvent() {
         this.node.off(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
