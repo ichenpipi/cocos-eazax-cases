@@ -5,7 +5,7 @@ const { ccclass, property } = cc._decorator;
  * @see PopupBase.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/popups/PopupBase.ts
  */
 @ccclass
-export default class PopupBase<Options = any> extends cc.Component {
+export default class PopupBase_dev<Options = any> extends cc.Component {
 
     @property({ type: cc.Node, tooltip: CC_DEV && '背景遮罩' })
     public background: cc.Node = null;
@@ -14,7 +14,7 @@ export default class PopupBase<Options = any> extends cc.Component {
     public main: cc.Node = null;
 
     /** 用于拦截点击的节点 */
-    protected blocker: cc.Node = null;
+    private blocker: cc.Node = null;
 
     /** 展示和隐藏动画的时长 */
     public animTime: number = 0.3;
@@ -26,31 +26,48 @@ export default class PopupBase<Options = any> extends cc.Component {
     protected finishCallback: Function = null;
 
     /**
+     * 弹窗已完全展示（子类请重写此函数以实现自定义逻辑）
+     */
+    protected onShow(): void { }
+
+    /**
+     * 弹窗已完全隐藏（子类请重写此函数以实现自定义逻辑）
+     * @param hidByForce 是否被强制隐藏
+     */
+    protected onHide(hidByForce: boolean = false): void { }
+
+    /**
      * 展示弹窗
      * @param options 弹窗选项
+     * @param time 动画时长
      */
-    public show(options?: Options): void {
+    public show(options?: Options, time: number = this.animTime): void {
         // 储存选项
         this.options = options;
         // 重置节点
         this.background.opacity = 0;
         this.background.active = true;
         this.main.scale = 0;
-        this.main.opacity = 0;
         this.main.active = true;
-        // 开启节点
         this.node.active = true;
         // 初始化
         this.init(this.options);
         // 更新样式
         this.updateDisplay(this.options);
-        // 播放动画
-        const time = this.animTime;
+        // 动画时长为 0 时直接展示
+        if (time === 0) {
+            this.background.opacity = 200;
+            this.main.scale = 1;
+            this.onShow && this.onShow();
+            return;
+        }
+        // 播放背景动画
         cc.tween(this.background)
-            .to(time * 0.8, { opacity: 200 })
+            .to(this.animTime * 0.8, { opacity: 200 })
             .start();
+        // 播放主体动画
         cc.tween(this.main)
-            .to(time, { scale: 1, opacity: 255 }, { easing: 'backOut' })
+            .to(this.animTime, { scale: 1 }, { easing: 'backOut' })
             .call(() => {
                 // 弹窗已完全展示（动画完毕）
                 this.onShow && this.onShow();
@@ -60,9 +77,18 @@ export default class PopupBase<Options = any> extends cc.Component {
 
     /**
      * 隐藏弹窗
+     * @param time 动画时长
+     * @param hidByForce 是否被强制隐藏
      */
-    public hide(): void {
-        // 拦截点击事件
+    public hide(time: number = this.animTime, hidByForce: boolean = false): void {
+        // 动画时长为 0 时直接关闭
+        if (time === 0) {
+            this.node.active = false;
+            this.onHide && this.onHide(hidByForce);
+            this.finishCallback && this.finishCallback(hidByForce);
+            return;
+        }
+        // 拦截点击事件（避免误操作）
         if (!this.blocker) {
             this.blocker = new cc.Node('blocker');
             this.blocker.addComponent(cc.BlockInputEvents);
@@ -70,19 +96,19 @@ export default class PopupBase<Options = any> extends cc.Component {
             this.blocker.setContentSize(this.node.getContentSize());
         }
         this.blocker.active = true;
-        // 播放动画
-        const time = this.animTime;
+        // 播放背景动画
         cc.tween(this.background)
-            .delay(time * 0.2)
-            .to(time * 0.8, { opacity: 0 })
+            .delay(this.animTime * 0.2)
+            .to(this.animTime * 0.8, { opacity: 0 })
             .call(() => {
                 this.background.active = false;
             })
             .start();
+        // 播放主体动画
         cc.tween(this.main)
-            .to(time, { scale: 0, opacity: 255 }, { easing: 'backIn' })
+            .to(this.animTime, { scale: 0 }, { easing: 'backIn' })
             .call(() => {
-                // 关闭拦截节点
+                // 取消拦截
                 this.blocker.active = false;
                 // 关闭节点
                 this.main.active = false;
@@ -95,16 +121,6 @@ export default class PopupBase<Options = any> extends cc.Component {
             })
             .start();
     }
-
-    /**
-     * 弹窗已完全展示（子类请重写此函数以实现自定义逻辑）
-     */
-    protected onShow(): void { }
-
-    /**
-     * 弹窗已完全隐藏（子类请重写此函数以实现自定义逻辑）
-     */
-    protected onHide(): void { }
 
     /**
      * 初始化（子类请重写此函数以实现自定义逻辑）
