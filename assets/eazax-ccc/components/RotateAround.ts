@@ -48,7 +48,7 @@ export default class RotateAround extends cc.Component {
     public radius: number = 0;
 
     /** 标志位，是否正在旋转 */
-    private isRotating: boolean = false;
+    protected isRotating: boolean = false;
 
     protected start() {
         this.autoStart && this.run();
@@ -57,8 +57,8 @@ export default class RotateAround extends cc.Component {
     protected update(dt: number) {
         if (!this.isRotating || !this.target) return;
         // 将角度转换为弧度
-        const angle = this.angle,
-            radian = (Math.PI / 180) * angle;
+        let angle = this.angle;
+        const radian = (Math.PI / 180) * angle;
         // 更新节点的位置
         const node = this.node,
             target = this.target,
@@ -84,11 +84,11 @@ export default class RotateAround extends cc.Component {
         }
         // 计算下一帧的角度
         const anglePerFrame = dt * (360 / this.timePerRound);
-        this.angle += (this.clockwise ? -anglePerFrame : anglePerFrame);
+        angle = this.angle += (this.clockwise ? -anglePerFrame : anglePerFrame);
         // 重置角度，避免数值过大
-        if (this.angle >= 720) {
+        if (angle >= 720) {
             this.angle %= 360;
-        } else if (this.angle <= -720) {
+        } else if (angle <= -720) {
             this.angle %= -360;
         }
     }

@@ -1,14 +1,14 @@
-import MainContent from "./MainContent";
+import Home_Content from "./Home_Content";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class HomePage extends cc.Component {
+export default class Home_ContentPage extends cc.Component {
 
     @property(cc.Node)
-    private container: cc.Node = null;
+    protected container: cc.Node = null;
 
-    private buttons: cc.Node[] = null;
+    protected buttons: cc.Node[] = null;
 
     protected onLoad() {
         this.registerEvent();
@@ -18,22 +18,22 @@ export default class HomePage extends cc.Component {
         this.unregisterEvent();
     }
 
-    private registerEvent() {
+    protected registerEvent() {
         this.buttons = this.container.children;
         for (let i = 0; i < this.buttons.length; i++) {
             this.buttons[i].on(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
         }
     }
 
-    private unregisterEvent() {
+    protected unregisterEvent() {
         for (let i = 0; i < this.buttons.length; i++) {
             this.buttons[i].off(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
         }
     }
 
-    private onBtnClick(event: cc.Event.EventTouch) {
+    protected onBtnClick(event: cc.Event.EventTouch) {
         const name = event.target.name;
-        MainContent.goCase(name);
+        Home_Content.goCase(name);
     }
 
 }

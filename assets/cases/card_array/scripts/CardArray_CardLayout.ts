@@ -1,12 +1,13 @@
-import CardArrayCard from './CardArrayCard';
+import CardArray_Card from './CardArray_Card';
 
 const { ccclass, property, executeInEditMode } = cc._decorator;
 
 @ccclass
 @executeInEditMode
-export default class CardArrayLayout extends cc.Component {
+export default class CardArray_Layout extends cc.Component {
 
-    @property protected _radius: number = 350;
+    @property
+    protected _radius: number = 350;
     @property({ displayName: CC_DEV && '半径' })
     public get radius() {
         return this._radius
@@ -17,7 +18,7 @@ export default class CardArrayLayout extends cc.Component {
     }
 
     /** 卡片组件 */
-    protected cards: CardArrayCard[] = [];
+    protected cards: CardArray_Card[] = null;
 
     protected onLoad() {
         this.init();
@@ -31,7 +32,7 @@ export default class CardArrayLayout extends cc.Component {
      * 初始化
      */
     protected init() {
-        this.cards = this.getComponentsInChildren(CardArrayCard);
+        this.cards = this.getComponentsInChildren(CardArray_Card);
         this.updateLayout();
     }
 

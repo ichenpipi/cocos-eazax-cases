@@ -1,11 +1,11 @@
 import EventManager from "../../eazax-ccc/core/EventManager";
 import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
-import { SWITCH_PAGE } from "../common/constants/CustomEvents";
+import { SWITCH_CASE } from "../common/constants/CustomEvents";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class MainContent extends cc.Component {
+export default class Home_Content extends cc.Component {
 
     @property(cc.Node)
     private home: cc.Node = null;
@@ -15,7 +15,7 @@ export default class MainContent extends cc.Component {
 
     private cases: cc.Node[] = null;
 
-    private static instance: MainContent = null;
+    private static instance: Home_Content = null;
 
     private static casesMap: Map<string, number> = new Map<string, number>();
 
@@ -27,11 +27,11 @@ export default class MainContent extends cc.Component {
      * 初始化
      */
     protected init() {
-        MainContent.instance = this;
+        Home_Content.instance = this;
 
         this.cases = this.casesContainer.children;
         for (let i = 0; i < this.cases.length; i++) {
-            MainContent.casesMap.set(this.cases[i].name, i);
+            Home_Content.casesMap.set(this.cases[i].name, i);
         }
     }
 
@@ -40,7 +40,7 @@ export default class MainContent extends cc.Component {
      * @param name 名称
      */
     public static hasCase(name: string) {
-        return MainContent.casesMap.has(name);
+        return Home_Content.casesMap.has(name);
     }
 
     /**
@@ -55,7 +55,7 @@ export default class MainContent extends cc.Component {
         this.instance.home.active = true;
         this.instance.casesContainer.active = false;
 
-        EventManager.emit(SWITCH_PAGE, 'home');
+        EventManager.emit(SWITCH_CASE, 'home');
     }
 
     /**
@@ -78,7 +78,7 @@ export default class MainContent extends cc.Component {
         this.instance.home.active = false;
         this.instance.casesContainer.active = true;
 
-        EventManager.emit(SWITCH_PAGE, name);
+        EventManager.emit(SWITCH_CASE, name);
     }
 
 }

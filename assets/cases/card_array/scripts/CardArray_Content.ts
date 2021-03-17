@@ -1,9 +1,7 @@
-import CardArrayCard from "./CardArrayCard";
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class CardArrayContent extends cc.Component {
+export default class CardArray_Content extends cc.Component {
 
     @property(cc.Node)
     protected cardContainer: cc.Node = null;
@@ -12,11 +10,17 @@ export default class CardArrayContent extends cc.Component {
         this.init();
     }
 
+    /**
+     * 初始化
+     */
     protected init() {
-        this.rotate();
+        this.rotateForever();
     }
 
-    protected rotate() {
+    /**
+     * 无限旋转
+     */
+    public rotateForever() {
         const node = this.cardContainer;
         cc.tween(node)
             .by(2, { eulerAngles: cc.v3(0, 90, 0) })

@@ -1,4 +1,4 @@
-import PopupManager, { PopupCacheMode } from "../../eazax-ccc/core/PopupManager";
+import PopupManager, { PopupCacheMode } from "../../../eazax-ccc/core/PopupManager";
 import ResPopup, { ResPopupOptions } from "./popups/resPopup/ResPopup";
 import ResPopupItemInfo from "./popups/resPopup/ResPopupItemInfo";
 

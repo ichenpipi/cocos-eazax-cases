@@ -1,7 +1,7 @@
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class CardArrayCard extends cc.Component {
+export default class CardArray_Card extends cc.Component {
 
     @property(cc.Node)
     protected front: cc.Node = null;
