@@ -25,18 +25,20 @@ export default class CardArrayCard extends cc.Component {
      * 更新样式
      */
     protected updateDisplay() {
-        const front = this.isFrontView();
+        const front = this.isFacingScreen();
         this.front.active = front;
         this.back.active = !front;
     }
 
     /**
-     * 是否为前面
+     * 是否面向屏幕
      */
-    protected isFrontView() {
-        // const worldPos = this.node.parent.convertToWorldSpaceAR(this.node.position);
-        // return worldPos.z > 0;
-        return this._z > 0;
+    protected isFacingScreen() {
+        const node = this.node,
+            container = node.getParent(),
+            worldPos = container.convertToWorldSpaceAR(node.position),
+            localPos = container.parent.convertToNodeSpaceAR(worldPos);
+        return localPos.z > 0;
     }
 
     /**
