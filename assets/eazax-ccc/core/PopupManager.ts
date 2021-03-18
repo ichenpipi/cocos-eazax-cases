@@ -291,7 +291,7 @@ export default class PopupManager {
      * @param params 参数
      */
     private static parseParams(params: PopupParams) {
-        if (!params) {
+        if (params == undefined) {
             params = Object.create(null);
         }
         // 缓存模式

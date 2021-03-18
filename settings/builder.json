@@ -2,9 +2,7 @@
   "title": "eazax-cases",
   "packageName": "org.cocos2d.demo",
   "startScene": "c96a7da9-0270-4350-9dc3-15efc23eb456",
-  "excludeScenes": [
-    "17662ac4-0c6a-4c89-8dd2-10e021469884"
-  ],
+  "excludeScenes": [],
   "includeSDKBox": false,
   "orientation": {
     "landscapeLeft": true,
@@ -28,6 +26,7 @@
   },
   "ios": {
     "REMOTE_SERVER_ROOT": "",
+    "ios_enable_jit": true,
     "packageName": "org.cocos2d.demo"
   },
   "mac": {
@@ -53,5 +52,6 @@
   "appBundle": false,
   "mainCompressionType": "default",
   "mainIsRemote": false,
-  "nativeMd5Cache": true
+  "nativeMd5Cache": true,
+  "agreements": {}
 }

@@ -1,0 +1,86 @@
+{
+    "paths": {
+        "5f2GogUidOJ7LbGWRYsLEg": [
+            "prefabs/ResPopup",
+            "cc.Prefab"
+        ],
+        "d7ZEw0hM1HCa9puisYx3/1": [
+            "prefabs/TestPopup",
+            "cc.Prefab"
+        ]
+    },
+    "uuids": [
+        "070YsmK25G2r7OgZIjQ7Nf",
+        "11cRO60ZNBCK6Zo3KZUV8n",
+        "5cO7kybDxGj4ipyMYdRYZB",
+        "5f2GogUidOJ7LbGWRYsLEg",
+        "5f5dyqtRNNxaFmVzYns6FZ",
+        "61cyPdEfRN047sDK9rO0W5",
+        "7adHaHP29D06frNfczsmRM",
+        "83QnOtLj1I+p5Nm2GYhmp5",
+        "9avzK8IzZCyaQvWhFuoVGl",
+        "b5+EAtY8VPD4ZCRi4J9Bz7",
+        "d608qFRoFHwbXd0Dap056i",
+        "d7ZEw0hM1HCa9puisYx3/1",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "ffHZIUpJxIbI9lm5SjkvTs"
+    ],
+    "scenes": {},
+    "redirect": [
+        "ecpdLyjvZBwrvm+cedCcQy",
+        0
+    ],
+    "deps": [
+        "internal"
+    ],
+    "packs": {
+        "02437457a": [
+            "61cyPdEfRN047sDK9rO0W5",
+            "7adHaHP29D06frNfczsmRM",
+            "9avzK8IzZCyaQvWhFuoVGl",
+            "d608qFRoFHwbXd0Dap056i",
+            "ffHZIUpJxIbI9lm5SjkvTs"
+        ],
+        "06326f96c": [
+            "070YsmK25G2r7OgZIjQ7Nf",
+            "11cRO60ZNBCK6Zo3KZUV8n",
+            "b5+EAtY8VPD4ZCRi4J9Bz7"
+        ],
+        "094c937c6": [
+            "5cO7kybDxGj4ipyMYdRYZB",
+            "5f2GogUidOJ7LbGWRYsLEg",
+            "5f5dyqtRNNxaFmVzYns6FZ",
+            "83QnOtLj1I+p5Nm2GYhmp5"
+        ]
+    },
+    "name": "resources",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false,
+    "versions": {
+        "import": [
+            "02437457a",
+            "7117e",
+            "06326f96c",
+            "98584",
+            "094c937c6",
+            "cd4e3",
+            "d7ZEw0hM1HCa9puisYx3/1",
+            "fba38"
+        ],
+        "native": [
+            "61cyPdEfRN047sDK9rO0W5",
+            "6d707",
+            "7adHaHP29D06frNfczsmRM",
+            "cea68",
+            "9avzK8IzZCyaQvWhFuoVGl",
+            "1d6ae",
+            "d608qFRoFHwbXd0Dap056i",
+            "d55c2",
+            "ffHZIUpJxIbI9lm5SjkvTs",
+            "076a6"
+        ]
+    }
+}
