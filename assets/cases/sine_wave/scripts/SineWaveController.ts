@@ -51,12 +51,6 @@ export default class SineWaveController extends cc.Component {
 
     protected unregisterEvent() {
         this.fillBtn.off(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
-
-        this.amplitudeEditBox.node.off('text-changed', this.onAmplitudeChanged, this);
-        this.angularVelocityEditBox.node.off('text-changed', this.onAngularVelocityChanged, this);
-        this.frequencyEditBox.node.off('text-changed', this.onFrequencyChanged, this);
-        this.heightEditBox.node.off('text-changed', this.onHeightChanged, this);
-        this.toLeftToggle.node.off('toggle', this.onToLeftChanged, this);
     }
 
     public onFillBtnClick() {

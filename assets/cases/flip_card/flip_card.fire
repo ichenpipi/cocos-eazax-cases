@@ -698,7 +698,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        100,
+        50,
         0,
         0,
         0,
@@ -799,7 +799,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -300,
+        -350,
         0,
         0,
         0,
@@ -1509,8 +1509,8 @@
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "[示例] Case_FlipCard.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/main/cases/flipCard/Case_FlipCard.ts"
+    "title": "[示例] FlipCard.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/flip_card/scripts/FlipCard.ts"
   },
   {
     "__type__": "ResPopupItemInfo",

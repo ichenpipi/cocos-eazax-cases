@@ -1,6 +1,9 @@
-import EventManager from "../../eazax-ccc/core/EventManager";
-import { SceneName } from "./constants/Constants";
-import { CHANGE_SCENE, SWITCH_CASE } from "./constants/CustomEvents";
+import EventManager from "../../../eazax-ccc/core/EventManager";
+import PopupManager from "../../../eazax-ccc/core/PopupManager";
+import SceneNavigator from "../../../eazax-ccc/core/SceneNavigator";
+import CaseManager from "../CaseManager";
+import { SceneName } from "../constants/Constants";
+import { CHANGE_SCENE, SWITCH_CASE } from "../constants/CustomEvents";
 
 const { ccclass, property } = cc._decorator;
 
@@ -22,48 +25,81 @@ export default class CommonUI extends cc.Component {
         this.reset();
     }
 
+    protected onEnable() {
+        this.onCaseSwitch();
+    }
+
     protected onDestroy() {
         this.unregisterEvent();
     }
 
+    /**
+     * 订阅事件
+     */
     protected registerEvent() {
+        // 点击
         this.homeBtn.on(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
         this.titleTip.on(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
-
+        // 切换
         EventManager.on(CHANGE_SCENE, this.onSceneChange, this);
         EventManager.on(SWITCH_CASE, this.onCaseSwitch, this);
     }
 
+    /**
+     * 取消事件订阅
+     */
     protected unregisterEvent() {
+        // 点击
         this.homeBtn.off(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
         this.titleTip.off(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
-
+        // 切换
         EventManager.off(CHANGE_SCENE, this.onSceneChange, this);
         EventManager.off(SWITCH_CASE, this.onCaseSwitch, this);
     }
 
+    /**
+     * 初始化
+     */
     protected init() {
+        // 设为常驻节点
         cc.game.addPersistRootNode(this.node);
+        // 弹窗容器
+        PopupManager.container = this.node;
     }
 
+    /**
+     * 重置
+     */
     protected reset() {
         this.titleTip.active = true;
     }
 
+    /**
+     * 首页按钮点击回调
+     */
     protected onHomeBtnClick() {
-
+        CaseManager.goHome();
     }
 
+    /**
+     * 提示点击回调
+     */
     protected onTitleTipClick() {
         this.titleTip.active = false;
     }
 
-    protected onSceneChange(name: string) {
-        this.homeBtn.active = (name !== SceneName.Home);
+    /**
+     * 场景切换回调
+     */
+    protected onSceneChange() {
+
     }
 
-    protected onCaseSwitch(name: string) {
-
+    /**
+     * 示例切换回调
+     */
+    protected onCaseSwitch() {
+        this.homeBtn.active = (SceneNavigator.curScene !== SceneName.Home);
     }
 
 }

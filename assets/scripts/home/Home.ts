@@ -1,9 +1,9 @@
 import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
 import PopupManager from "../../eazax-ccc/core/PopupManager";
-import LoadingTip from "../../eazax-ccc/components/LoadingTip";
 import SceneNavigator from "../../eazax-ccc/core/SceneNavigator";
 import { SceneName } from "../common/constants/Constants";
 import CaseManager from "../common/CaseManager";
+import LoadingTip from "../common/components/LoadingTip";
 
 const { ccclass, property, executionOrder } = cc._decorator;
 
@@ -15,7 +15,7 @@ export default class Home extends cc.Component {
         this.init();
     }
 
-    protected onEnable() {
+    protected start() {
         this.detectCaseParam();
     }
 
@@ -23,17 +23,18 @@ export default class Home extends cc.Component {
         // 设置首页
         SceneNavigator.setHome(SceneName.Home);
         // 设置弹窗加载回调
-        PopupManager.loadStartCallback = LoadingTip.show;
-        PopupManager.loadFinishCallback = LoadingTip.hide;
+        PopupManager.loadStartCallback = () => LoadingTip.show();
+        PopupManager.loadFinishCallback = () => LoadingTip.hide();
     }
 
+    /**
+     * 检测 URL 参数跳转示例
+     */
     protected detectCaseParam() {
-        // 检查链接中是否有示例参数
+        // 获取链接中的示例参数
         const caseName = BrowserUtil.getUrlParam('case');
         if (caseName && CaseManager.hasCase(caseName)) {
             CaseManager.goCase(caseName);
-        } else {
-            CaseManager.goHome();
         }
     }
 

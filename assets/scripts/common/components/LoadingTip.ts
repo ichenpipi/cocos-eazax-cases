@@ -2,25 +2,36 @@ const { ccclass, property, executionOrder } = cc._decorator;
 
 /**
  * 加载提示组件
- * @see LoadingTip.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/LoadingTip.ts
  */
 @ccclass
-@executionOrder(-10)
+@executionOrder(-100)
 export default class LoadingTip extends cc.Component {
 
     @property({ type: cc.Node, tooltip: CC_DEV && '主节点' })
     protected main: cc.Node = null;
 
+    /** 静态实例 */
     protected static instance: LoadingTip = null;
 
     protected onLoad() {
+        this.init();
+    }
+
+    protected start() {
+        this.reset();
+    }
+
+    protected init() {
         // 设为常驻节点
         cc.game.addPersistRootNode(this.node);
         // 保存静态实例
         LoadingTip.instance = this;
     }
 
-    protected start() {
+    /**
+     * 重置
+     */
+    protected reset() {
         LoadingTip.hide();
     }
 

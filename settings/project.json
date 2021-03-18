@@ -22,10 +22,10 @@
     "SafeArea"
   ],
   "last-module-event-record-time": 1610957825776,
-  "design-resolution-width": 960,
-  "design-resolution-height": 640,
-  "fit-width": false,
-  "fit-height": true,
+  "design-resolution-width": 1440,
+  "design-resolution-height": 960,
+  "fit-width": true,
+  "fit-height": false,
   "use-project-simulator-setting": false,
   "simulator-orientation": false,
   "use-customize-simulator": true,
@@ -48,5 +48,6 @@
     "cloud-function"
   ],
   "preview-port": 7456,
-  "start-scene": "current"
+  "start-scene": "c96a7da9-0270-4350-9dc3-15efc23eb456",
+  "clear-simulator-cache": true
 }

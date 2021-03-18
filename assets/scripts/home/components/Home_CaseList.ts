@@ -1,4 +1,5 @@
-import CaseManager from "../../common/CaseManager";
+import { CaseInfoMap } from "../../common/CaseManager";
+import Home_CaseBtn from "./Home_CaseBtn";
 
 const { ccclass, property } = cc._decorator;
 
@@ -8,49 +9,27 @@ export default class Home_CaseList extends cc.Component {
     @property(cc.Node)
     protected container: cc.Node = null;
 
-    protected onLoad() {
-        this.init();
-        this.registerEvent();
-    }
+    @property(cc.Prefab)
+    protected btnPrefab: cc.Prefab = null;
 
-    protected onDestroy() {
-        this.unregisterEvent();
-    }
-
-    /**
-     * 初始化
-     */
-    protected init() {
-
+    protected start() {
+        this.generate();
     }
 
     /**
-     * 订阅事件
+     * 生成按钮
      */
-    protected registerEvent() {
-        const nodes = this.container.children;
-        for (let i = 0, l = nodes.length; i < l; i++) {
-            nodes[i].on(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
+    protected generate() {
+        const container = this.container,
+            prefab = this.btnPrefab;
+        // 销毁当前的按钮
+        container.destroyAllChildren();
+        // 遍历示例 key
+        for (const key in CaseInfoMap) {
+            const node = cc.instantiate(prefab);
+            node.getComponent(Home_CaseBtn).set(key, CaseInfoMap[key]);
+            node.setParent(container);
         }
-    }
-
-    /**
-     * 取消事件订阅
-     */
-    protected unregisterEvent() {
-        const nodes = this.container.children;
-        for (let i = 0, l = nodes.length; i < l; i++) {
-            nodes[i].off(cc.Node.EventType.TOUCH_END, this.onBtnClick, this)
-        }
-    }
-
-    /**
-     * 按钮点击回调
-     * @param event 点击事件
-     */
-    protected onBtnClick(event: cc.Event.EventTouch) {
-        const caseName = event.target.name;
-        CaseManager.goCase(caseName);
     }
 
 }

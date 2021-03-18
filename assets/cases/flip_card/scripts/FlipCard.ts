@@ -50,7 +50,7 @@ export default class FlipCard extends cc.Component {
     protected async onFlipBtnClick() {
         if (!this.button.interactable) return;
         this.setButtonState(false);
-        await TweenUtil.flip(this.card, 1, () => {
+        await TweenUtil.flip(this.card, 2, () => {
             if (this.card.color.equals(this.frontColor)) {
                 this.card.color = this.backColor;
             } else {

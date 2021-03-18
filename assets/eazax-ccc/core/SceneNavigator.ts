@@ -40,6 +40,9 @@ export default class SceneNavigator {
     public static goHome(param?: any, coverHistory?: boolean, onLaunched?: Function) {
         this._param = null;
         const name = this._home;
+        if (this._curScene === name) {
+            return;
+        }
         cc.director.loadScene(name, () => {
             if (coverHistory) {
                 this._history.length = 0;
