@@ -1,3 +1,5 @@
+import CaseManager from "../../common/CaseManager";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -42,9 +44,13 @@ export default class Home_CaseList extends cc.Component {
         }
     }
 
+    /**
+     * 按钮点击回调
+     * @param event 点击事件
+     */
     protected onBtnClick(event: cc.Event.EventTouch) {
-        const name = event.target.name;
-
+        const caseName = event.target.name;
+        CaseManager.goCase(caseName);
     }
 
 }

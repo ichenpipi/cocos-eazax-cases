@@ -5,7 +5,7 @@ export enum SceneName {
 }
 
 /** 示例名称到场景名的映射表 */
-export const CaseMap = {
+export const CaseSceneNameMap = {
     /** 卡片阵列 */
-    cardArray: 'card-array'
+    cardArray: 'card-array',
 }

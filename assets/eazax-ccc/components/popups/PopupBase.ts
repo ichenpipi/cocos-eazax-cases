@@ -4,6 +4,7 @@ const { ccclass, property } = cc._decorator;
  * 弹窗基类
  * @see PopupBase.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/popups/PopupBase.ts
  * @see PopupManager.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/PopupManager.ts
+ * @version 20210318
  */
 @ccclass
 export default class PopupBase<Options = any> extends cc.Component {
@@ -15,7 +16,7 @@ export default class PopupBase<Options = any> extends cc.Component {
     public main: cc.Node = null;
 
     /** 用于拦截点击的节点 */
-    private blocker: cc.Node = null;
+    protected blocker: cc.Node = null;
 
     /** 展示和隐藏动画的时长 */
     public animTime: number = 0.3;
@@ -82,8 +83,9 @@ export default class PopupBase<Options = any> extends cc.Component {
                     easing: 'backOut'
                 })
                 .call(() => {
-                    // 弹窗已完全展示
+                    // Done
                     res();
+                    // 弹窗已完全展示
                     this.onShow && this.onShow();
                 })
                 .start();
@@ -135,6 +137,7 @@ export default class PopupBase<Options = any> extends cc.Component {
                     this.node.active = false;
                     // 弹窗已完全隐藏（动画完毕）
                     this.onHide && this.onHide(force);
+                    // Done
                     res();
                     // 弹窗完成回调（该回调为 PopupManager 专用）
                     // 注意：重写 hide 函数时记得调用该回调

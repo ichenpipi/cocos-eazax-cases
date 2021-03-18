@@ -4,6 +4,7 @@ import PopupBase from "../components/popups/PopupBase";
  * 弹窗管理器
  * @see PopupManager.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/PopupManager.ts
  * @see PopupBase.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/popups/PopupBase.ts
+ * @version 20210318
  */
 export default class PopupManager {
 
@@ -33,37 +34,46 @@ export default class PopupManager {
     public static interval: number = 0.1;
 
     /** 弹窗动态加载开始回调 */
-    public static loadStartCallback: Function = null;
+    public static loadStartCallback: () => void = null;
 
     /** 弹窗动态加载结束回调 */
-    public static loadFinishCallback: Function = null;
+    public static loadFinishCallback: () => void = null;
 
     /**
      * 展示弹窗，如果当前已有弹窗在展示中则加入等待队列
      * @param path 弹窗预制体相对路径（如：prefabs/MyPopup）
-     * @param options 弹窗选项
-     * @param mode 缓存模式
-     * @param priority 是否优先展示
+     * @param options 弹窗选项（将传递给弹窗的组件）
+     * @param params 弹窗展示参数
      * @example
      * const options = {
      *     title: 'hello',
      *     content: 'world'
      * }
-     * PopupManager.show('prefabs/MyPopup', options);
+     * const params = {
+     *     mode: PopupCacheMode.Normal,
+     *     priority: false
+     * }
+     * PopupManager.show('prefabs/MyPopup', options, params);
      */
-    public static show<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Normal, priority: boolean = false): Promise<PopupShowResult> {
+    public static show<Options>(path: string, options?: Options, params?: PopupParams): Promise<PopupShowResult> {
         return new Promise(async res => {
             // 当前已有弹窗在展示中则加入等待队列
             if (this._current || this.lockedForNext) {
-                this.push(path, options, mode, priority);
+                this.push(path, options, params);
                 res(PopupShowResult.Wait);
                 return;
             }
 
+            // 解析参数
+            params = this.parseParams(params);
             // 保存为当前弹窗，阻止新的弹窗请求
-            this._current = { path, options, mode };
+            this._current = {
+                path,
+                options,
+                params
+            };
 
-            // 先在缓存中获取
+            // 先在缓存中获取弹窗节点
             let node = this.getNodeFromCache(path);
 
             // 缓存中没有，动态加载预制体资源
@@ -110,7 +120,7 @@ export default class PopupManager {
                 // 设置完成回调
                 popup.setFinishCallback(async () => {
                     this.lockedForNext = (this._queue.length > 0);
-                    this.recycle(path, node, mode);
+                    this.recycle(path, node, params.mode);
                     this._current = null;
                     res(PopupShowResult.Done);
                     // 延迟
@@ -135,7 +145,9 @@ export default class PopupManager {
     public static hideCurrent() {
         if (this._current.popup) {
             this._current.popup.hide();
-        } else if (this._current.node) {
+            return;
+        }
+        if (this._current.node) {
             this._current.node.destroy();
             this.release(this._current.path);
             this._current = null;
@@ -176,7 +188,7 @@ export default class PopupManager {
         }
         const request = this._queue.shift();
         this.lockedForNext = false;
-        this.show(request.path, request.options, request.mode);
+        this.show(request.path, request.options, request.params);
     }
 
     /**
@@ -186,18 +198,18 @@ export default class PopupManager {
      * @param mode 缓存模式
      * @param priority 是否优先展示
      */
-    public static push<Options>(path: string, options: Options = null, mode: PopupCacheMode = PopupCacheMode.Normal, priority: boolean = false): void {
+    public static push<Options>(path: string, options?: Options, params?: PopupParams): void {
         // 直接展示
         if (!this._current && !this.lockedForNext) {
-            this.show(path, options, mode);
+            this.show(path, options, params);
             return;
         }
         // 加入队列
-        if (priority) {
-            this._queue.unshift({ path, options, mode });
-        } else {
-            this._queue.push({ path, options, mode });
-        }
+        // if (priority) {
+        //     this._queue.unshift({ path, options, params });
+        // } else {
+        //     this._queue.push({ path, options, params });
+        // }
     }
 
     /**
@@ -208,6 +220,7 @@ export default class PopupManager {
      */
     private static recycle(path: string, node: cc.Node, mode: PopupCacheMode): void {
         switch (mode) {
+            // 一次性
             case PopupCacheMode.Once:
                 node.destroy();
                 if (this._nodeMap.has(path)) {
@@ -215,12 +228,14 @@ export default class PopupManager {
                 }
                 this.release(path);
                 break;
+            // 正常
             case PopupCacheMode.Normal:
                 node.destroy();
                 if (this._nodeMap.has(path)) {
                     this._nodeMap.delete(path);
                 }
                 break;
+            // 频繁
             case PopupCacheMode.Frequent:
                 node.removeFromParent(false);
                 if (!this._nodeMap.has(path)) {
@@ -239,11 +254,11 @@ export default class PopupManager {
             cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
                 if (error) {
                     res(null);
-                } else {
-                    prefab.addRef();                    // 增加引用计数
-                    this._prefabMap.set(path, prefab);  // 缓存预制体
-                    res(prefab);
+                    return;
                 }
+                prefab.addRef();                    // 增加引用计数
+                this._prefabMap.set(path, prefab);  // 缓存预制体
+                res(prefab);
             });
         });
     }
@@ -271,16 +286,43 @@ export default class PopupManager {
         }
     }
 
+    /**
+     * 解析弹窗展示参数
+     * @param params 参数
+     */
+    private static parseParams(params: PopupParams) {
+        if (!params) {
+            params = Object.create(null);
+        }
+        // 缓存模式
+        if (params.mode == undefined) {
+            params.mode = PopupCacheMode.Normal;
+        }
+        // 优先级
+        if (params.priority == undefined) {
+            params.priority = false;
+        }
+        return params;
+    }
+
 }
 
-/** 弹窗请求 */
+/** 弹窗展示参数 */
+export type PopupParams = {
+    /** 缓存模式 */
+    mode?: PopupCacheMode;
+    /** 优先级 */
+    priority?: boolean;
+}
+
+/** 弹窗展示请求 */
 export interface PopupRequest {
     /** 弹窗预制体相对路径 */
     path: string;
     /** 弹窗选项 */
     options: any;
     /** 缓存模式 */
-    mode: PopupCacheMode,
+    params: PopupParams,
     /** 弹窗组件 */
     popup?: PopupBase,
     /** 弹窗节点 */
