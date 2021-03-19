@@ -17,6 +17,17 @@ export default class CardArray_Layout extends cc.Component {
         this.updateLayout();
     }
 
+    @property
+    protected _offset: number = 90;
+    @property({ displayName: CC_DEV && '偏移' })
+    public get offset() {
+        return this._offset
+    }
+    public set offset(value: number) {
+        this._offset = value;
+        this.updateLayout();
+    }
+
     /** 卡片组件 */
     protected cards: CardArray_Card[] = null;
 
@@ -24,16 +35,56 @@ export default class CardArray_Layout extends cc.Component {
         this.init();
     }
 
+    protected onEnable() {
+        this.registerEvent();
+    }
+
     protected update(dt: number) {
-        this.updateHierarchy();
+        // this.updateHierarchy();
+    }
+
+    protected onDisable() {
+        this.unregisterEvent();
     }
 
     /**
      * 初始化
      */
     protected init() {
+        this.onChildChange();
+    }
+
+    /**
+     * 订阅事件
+     */
+    protected registerEvent() {
+        this.node.on(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);
+        this.node.on(cc.Node.EventType.CHILD_REMOVED, this.onChildChange, this);
+        this.node.on(cc.Node.EventType.ROTATION_CHANGED, this.onRotationChange, this);
+    }
+
+    /**
+     * 取消事件订阅
+     */
+    protected unregisterEvent() {
+        this.node.off(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);
+        this.node.off(cc.Node.EventType.CHILD_REMOVED, this.onChildChange, this);
+        this.node.off(cc.Node.EventType.ROTATION_CHANGED, this.onRotationChange, this);
+    }
+
+    /**
+     * 子节点变化回调
+     */
+    protected onChildChange() {
         this.cards = this.getComponentsInChildren(CardArray_Card);
         this.updateLayout();
+    }
+
+    /**
+     * 旋转变化回调
+     */
+    protected onRotationChange() {
+        this.updateHierarchy();
     }
 
     /**
@@ -41,21 +92,31 @@ export default class CardArray_Layout extends cc.Component {
      */
     public updateLayout() {
         const nodes = this.node.children,
-            radius = this._radius;
-        for (let i = 0, l = nodes.length; i < l; i++) {
+            count = nodes.length,
+            radius = this._radius,
+            offset = this._offset,
+            delta = 360 / count;
+        for (let i = 0; i < count; i++) {
             const node = nodes[i],
-                radian = (Math.PI / 180) * (node.eulerAngles.y - 90);
+                angleY = -(delta * i),
+                radian = (Math.PI / 180) * (angleY - offset);
+            // 位置
             node.x = radius * Math.cos(radian);
             node.z = -(radius * Math.sin(radian));
+            // 角度
+            // node.rotationY = angleY;
+            node.eulerAngles = cc.v3(0, angleY, 0)
+            // node.eulerAngles.y = angleY;
         }
+        this.updateHierarchy();
     }
 
     /**
      * 更新层级
      */
     public updateHierarchy() {
-        const cards = this.cards;
-        length = cards.length;
+        const cards = this.cards,
+            length = cards.length;
         // 更新卡片在世界坐标系中的 z 值
         for (let i = 0; i < length; i++) {
             cards[i].updateWorldZ();

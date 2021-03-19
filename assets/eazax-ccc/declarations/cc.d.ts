@@ -1,16 +1,18 @@
 /**
  * 扩展 cc 模块，声明一些 creator.d.ts 中没有声明（但实际上有）的东西~
  * @author 陈皮皮（ifaswind）
- * @version 20210125
  * @see https://gitee.com/ifaswind/eazax-ccc/blob/master/declarations/cc.d.ts
+ * @version 20210319
  */
- declare module cc {
+declare module cc {
 
     interface Node {
 
         _renderFlag: number;
 
         _touchListener?: TouchOneByOne;
+
+        setLocalDirty(flag: Node._LocalDirtyFlag): void;
 
     }
 

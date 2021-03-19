@@ -1,6 +1,7 @@
-const { ccclass, property } = cc._decorator;
+const { ccclass, property, executeInEditMode } = cc._decorator;
 
 @ccclass
+@executeInEditMode
 export default class CardArray_Card extends cc.Component {
 
     @property(cc.Node)
