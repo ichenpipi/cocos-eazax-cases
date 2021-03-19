@@ -4,7 +4,7 @@ const { ccclass, property } = cc._decorator;
  * 弹窗基类
  * @see PopupBase.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/popups/PopupBase.ts
  * @see PopupManager.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/PopupManager.ts
- * @version 20210318
+ * @version 20210319
  */
 @ccclass
 export default class PopupBase<Options = any> extends cc.Component {
@@ -15,11 +15,11 @@ export default class PopupBase<Options = any> extends cc.Component {
     @property({ type: cc.Node, tooltip: CC_DEV && '弹窗主体' })
     public main: cc.Node = null;
 
-    /** 用于拦截点击的节点 */
-    protected blocker: cc.Node = null;
-
     /** 展示和隐藏动画的时长 */
     public animTime: number = 0.3;
+
+    /** 用于拦截点击的节点 */
+    protected blocker: cc.Node = null;
 
     /** 弹窗选项 */
     protected options: Options = null;
@@ -46,9 +46,10 @@ export default class PopupBase<Options = any> extends cc.Component {
     public show(options?: Options, time: number = this.animTime): Promise<void> {
         return new Promise<void>(res => {
             // 储存选项
-            this.options = options || Object.create(null);
+            this.options = options;
             // 开启节点
-            const background = this.background, main = this.main;
+            const background = this.background,
+                main = this.main;
             this.node.active = true;
             background.active = true;
             main.active = true;
@@ -65,8 +66,9 @@ export default class PopupBase<Options = any> extends cc.Component {
                 background.opacity = 200;
                 main.scale = 1;
                 main.opacity = 255;
-                // 弹窗已完全展示
+                // Done
                 res();
+                // 弹窗已完全展示
                 this.onShow && this.onShow();
                 return;
             }
@@ -94,17 +96,21 @@ export default class PopupBase<Options = any> extends cc.Component {
 
     /**
      * 隐藏弹窗
-     * @param time 动画时长
      * @param force 强制隐藏
+     * @param time 动画时长
      */
-    public hide(time: number = this.animTime, force: boolean = false): Promise<void> {
+    public hide(force: boolean = false, time: number = this.animTime): Promise<void> {
         return new Promise<void>(res => {
+            const node = this.node;
             // 动画时长为 0 时直接关闭
             if (time === 0) {
-                this.node.active = false;
+                node.active = false;
                 // 弹窗已完全隐藏
                 this.onHide && this.onHide(force);
+                // Done
                 res();
+                // 弹窗完成回调（该回调为 PopupManager 专用）
+                // 注意：重写 hide 函数时记得调用该回调
                 this.finishCallback && this.finishCallback(force);
                 return;
             }
@@ -113,8 +119,8 @@ export default class PopupBase<Options = any> extends cc.Component {
             if (!blocker) {
                 blocker = this.blocker = new cc.Node('blocker');
                 blocker.addComponent(cc.BlockInputEvents);
-                blocker.setParent(this.node);
-                blocker.setContentSize(this.node.getContentSize());
+                blocker.setParent(node);
+                blocker.setContentSize(node.getContentSize());
             }
             blocker.active = true;
             // 播放背景遮罩动画
@@ -134,7 +140,7 @@ export default class PopupBase<Options = any> extends cc.Component {
                     // 取消拦截
                     blocker.active = false;
                     // 关闭节点
-                    this.node.active = false;
+                    node.active = false;
                     // 弹窗已完全隐藏（动画完毕）
                     this.onHide && this.onHide(force);
                     // Done

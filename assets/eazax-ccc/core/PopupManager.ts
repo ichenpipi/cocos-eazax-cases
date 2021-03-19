@@ -4,17 +4,17 @@ import PopupBase from "../components/popups/PopupBase";
  * 弹窗管理器
  * @see PopupManager.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/PopupManager.ts
  * @see PopupBase.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/popups/PopupBase.ts
- * @version 20210318
+ * @version 20210319
  */
 export default class PopupManager {
 
-    /** 预制体表 */
-    public static get prefabMap() { return this._prefabMap; }
-    private static _prefabMap: Map<string, cc.Prefab> = new Map<string, cc.Prefab>();
+    /** 预制体缓存 */
+    public static get prefabCache() { return this._prefabCache; }
+    private static _prefabCache: Map<string, cc.Prefab> = new Map<string, cc.Prefab>();
 
-    /** 节点表 */
-    public static get nodeMap() { return this._nodeMap; }
-    private static _nodeMap: Map<string, cc.Node> = new Map<string, cc.Node>();
+    /** 节点缓存 */
+    public static get nodeCache() { return this._nodeCache; }
+    private static _nodeCache: Map<string, cc.Node> = new Map<string, cc.Node>();
 
     /** 等待队列 */
     public static get queue() { return this._queue; }
@@ -23,6 +23,9 @@ export default class PopupManager {
     /** 当前弹窗 */
     public static get current() { return this._current; }
     private static _current: PopupRequest = null;
+
+    /** 被挂起的弹窗列表 */
+    private static suspended: PopupRequest[] = [];
 
     /** 锁定状态（已有候选弹窗） */
     private static lockedForNext: boolean = false;
@@ -143,13 +146,14 @@ export default class PopupManager {
      * 隐藏当前弹窗
      */
     public static hideCurrent() {
-        if (this._current.popup) {
-            this._current.popup.hide();
+        const current = this._current;
+        if (current.popup) {
+            current.popup.hide(true);
             return;
         }
-        if (this._current.node) {
-            this._current.node.destroy();
-            this.release(this._current.path);
+        if (current.node) {
+            current.node.destroy();
+            this.release(current.path);
             this._current = null;
         }
     }
@@ -159,21 +163,23 @@ export default class PopupManager {
      * @param path 弹窗路径
      */
     private static getNodeFromCache(path: string): cc.Node {
-        // 从节点表中获取
-        if (this._nodeMap.has(path)) {
-            const node = this._nodeMap.get(path);
+        // 从节点缓存中获取
+        const nodeCache = this._nodeCache;
+        if (nodeCache.has(path)) {
+            const node = nodeCache.get(path);
             if (cc.isValid(node)) {
                 return node;
             }
-            this._nodeMap.delete(path);
+            nodeCache.delete(path);
         }
-        // 从预制体表中获取
-        if (this._prefabMap.has(path)) {
-            const prefab = this._prefabMap.get(path);
+        // 从预制体缓存中获取
+        const prefabCache = this._prefabCache;
+        if (prefabCache.has(path)) {
+            const prefab = prefabCache.get(path);
             if (cc.isValid(prefab)) {
                 return cc.instantiate(prefab);
             }
-            this._prefabMap.delete(path);
+            prefabCache.delete(path);
         }
         // 无
         return null;
@@ -219,27 +225,28 @@ export default class PopupManager {
      * @param mode 缓存模式
      */
     private static recycle(path: string, node: cc.Node, mode: PopupCacheMode): void {
+        const nodeCache = this._nodeCache;
         switch (mode) {
             // 一次性
             case PopupCacheMode.Once:
                 node.destroy();
-                if (this._nodeMap.has(path)) {
-                    this._nodeMap.delete(path);
+                if (nodeCache.has(path)) {
+                    nodeCache.delete(path);
                 }
                 this.release(path);
                 break;
             // 正常
             case PopupCacheMode.Normal:
                 node.destroy();
-                if (this._nodeMap.has(path)) {
-                    this._nodeMap.delete(path);
+                if (nodeCache.has(path)) {
+                    nodeCache.delete(path);
                 }
                 break;
             // 频繁
             case PopupCacheMode.Frequent:
                 node.removeFromParent(false);
-                if (!this._nodeMap.has(path)) {
-                    this._nodeMap.set(path, node);
+                if (!nodeCache.has(path)) {
+                    nodeCache.set(path, node);
                 }
                 break;
         }
@@ -251,13 +258,24 @@ export default class PopupManager {
      */
     public static load(path: string): Promise<cc.Prefab> {
         return new Promise(res => {
+            const prefabMap = this._prefabCache;
+            // 先看下缓存里有没有，避免重复加载
+            if (prefabMap.has(path)) {
+                const prefab = prefabMap.get(path);
+                // 缓存是否有效
+                if (cc.isValid(prefab)) {
+                    res(prefab);
+                    return;
+                }
+            }
+            // 动态加载
             cc.resources.load(path, (error: Error, prefab: cc.Prefab) => {
                 if (error) {
                     res(null);
                     return;
                 }
-                prefab.addRef();                    // 增加引用计数
-                this._prefabMap.set(path, prefab);  // 缓存预制体
+                prefabMap.set(path, prefab);  // 缓存预制体
+                prefab.addRef();              // 增加引用计数
                 res(prefab);
             });
         });
@@ -269,18 +287,20 @@ export default class PopupManager {
      */
     public static release(path: string): void {
         // 移除节点
-        let node = this._nodeMap.get(path);
+        const nodeCache = this._nodeCache;
+        let node = nodeCache.get(path);
         if (node) {
-            this._nodeMap.delete(path);
+            nodeCache.delete(path);
             if (cc.isValid(node)) {
                 node.destroy();
             }
             node = null;
         }
         // 移除预制体
-        let prefab = this._prefabMap.get(path);
+        const prefabCache = this._prefabCache;
+        let prefab = prefabCache.get(path);
         if (prefab) {
-            this._prefabMap.delete(path);
+            prefabCache.delete(path);
             prefab.decRef();
             prefab = null;
         }
@@ -292,7 +312,12 @@ export default class PopupManager {
      */
     private static parseParams(params: PopupParams) {
         if (params == undefined) {
-            params = Object.create(null);
+            return new PopupParams();
+        }
+        // 是否为对象
+        if (Object.prototype.toString.call(params) !== '[object Object]') {
+            cc.warn('[PopupManager]', '弹窗参数无效，已使用默认参数');
+            return new PopupParams();
         }
         // 缓存模式
         if (params.mode == undefined) {
@@ -308,11 +333,11 @@ export default class PopupManager {
 }
 
 /** 弹窗展示参数 */
-export type PopupParams = {
+export class PopupParams {
     /** 缓存模式 */
-    mode?: PopupCacheMode;
+    mode?: PopupCacheMode = PopupCacheMode.Normal;
     /** 优先级 */
-    priority?: boolean;
+    priority?: boolean = false;
 }
 
 /** 弹窗展示请求 */
@@ -334,19 +359,19 @@ export enum PopupShowResult {
     /** 展示成功（已关闭） */
     Done = 1,
     /** 展示失败（加载失败） */
-    Fail = 2,
+    Fail,
     /** 等待中（已加入等待队列） */
-    Wait = 3,
+    Wait,
     /** 直接展示（未找到弹窗组件） */
-    Dirty = 4
+    Dirty
 }
 
 /** 弹窗缓存模式 */
 export enum PopupCacheMode {
     /** 一次性的（立即销毁节点，预制体资源随即释放） */
     Once = 1,
-    /** 正常的（立即销毁节点，但是保留预制体资源） */
-    Normal = 2,
-    /** 频繁的（只关闭节点，且保留预制体资源） */
-    Frequent = 3
+    /** 正常的（立即销毁节点，但是缓存预制体资源） */
+    Normal,
+    /** 频繁的（只关闭节点，且缓存预制体资源） */
+    Frequent
 }
