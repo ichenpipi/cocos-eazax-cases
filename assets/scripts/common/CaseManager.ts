@@ -72,13 +72,13 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '卡片阵列',
         scene: 'card_array'
     },
+    cardFlip: {
+        name: '卡片翻转',
+        scene: 'card_flip'
+    },
     colorBrush: {
         name: '彩色画笔',
         scene: 'color_brush'
-    },
-    flipCard: {
-        name: '卡片翻转',
-        scene: 'flip_card'
     },
     frameLoading: {
         name: '分帧加载',

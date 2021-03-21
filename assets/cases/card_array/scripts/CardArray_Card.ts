@@ -39,7 +39,7 @@ export default class CardArray_Card extends cc.Component {
             container = node.getParent(),
             worldPos = container.convertToWorldSpaceAR(node.position),
             localPos = container.parent.convertToNodeSpaceAR(worldPos);
-        return localPos.z > 0;
+        return localPos.z >= 0;
     }
 
     /**

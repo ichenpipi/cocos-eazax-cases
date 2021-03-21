@@ -1,11 +1,12 @@
 /**
  * Tween 工具
  * @see TweenUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/TweenUtil.ts
+ * @version 20200320
  */
 export default class TweenUtil {
 
     /**
-     * 水平翻转（翻牌）
+     * 水平翻转（卡片翻转）
      * @param node 节点
      * @param duration 总时长
      * @param onMiddle 中间状态回调
@@ -15,7 +16,7 @@ export default class TweenUtil {
         return new Promise<void>(res => {
             const tween = cc.tween,
                 time = duration / 2,
-                scaleX = node.scale,
+                scaleX = -node.scale,
                 skewY = scaleX > 0 ? 20 : -20;
             tween(node)
                 .parallel(
