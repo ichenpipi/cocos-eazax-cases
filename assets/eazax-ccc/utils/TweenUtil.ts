@@ -16,7 +16,7 @@ export default class TweenUtil {
         return new Promise<void>(res => {
             const tween = cc.tween,
                 time = duration / 2,
-                scaleX = -node.scale,
+                scaleX = node.scale,
                 skewY = scaleX > 0 ? 20 : -20;
             tween(node)
                 .parallel(
