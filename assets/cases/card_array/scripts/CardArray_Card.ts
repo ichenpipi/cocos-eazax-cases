@@ -14,6 +14,11 @@ export default class CardArray_Card extends cc.Component {
     public get z() { return this._z; }
     protected _z: number = 0;
 
+    /** 是否面向屏幕 */
+    protected get facingScreen() {
+        return this.node.forward.z >= 0;
+    }
+
     protected onEnable() {
         this.updateWorldZ();
     }
@@ -26,20 +31,9 @@ export default class CardArray_Card extends cc.Component {
      * 更新样式
      */
     protected updateDisplay() {
-        const front = this.isFacingScreen();
+        const front = this.facingScreen;
         this.front.active = front;
         this.back.active = !front;
-    }
-
-    /**
-     * 是否面向屏幕
-     */
-    protected isFacingScreen() {
-        const node = this.node,
-            container = node.getParent(),
-            worldPos = container.convertToWorldSpaceAR(node.position),
-            localPos = container.parent.convertToNodeSpaceAR(worldPos);
-        return localPos.z >= 0;
     }
 
     /**
