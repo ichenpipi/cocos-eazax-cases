@@ -16,8 +16,7 @@ export default class CardArray_Card extends cc.Component {
 
     /** 是否面向屏幕 */
     protected get facingScreen() {
-        const z = this.node.forward.z
-        return z >= 0.25;
+        return this.node.forward.z >= 0;
     }
 
     protected onEnable() {

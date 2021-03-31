@@ -39,10 +39,6 @@ export default class CardArray_Layout extends cc.Component {
         this.registerEvent();
     }
 
-    protected update(dt: number) {
-        // this.updateHierarchy();
-    }
-
     protected onDisable() {
         this.unregisterEvent();
     }
@@ -99,13 +95,14 @@ export default class CardArray_Layout extends cc.Component {
         for (let i = 0; i < count; i++) {
             const node = nodes[i],
                 angleY = -(delta * i),
-                radian = (Math.PI / 180) * (angleY - offset);
+                radian = (Math.PI / 180) * (angleY - offset),
+                eulerAngles = node.eulerAngles;
             // 位置
             node.x = radius * Math.cos(radian);
             node.z = -(radius * Math.sin(radian));
             // 角度
+            node.eulerAngles = cc.v3(eulerAngles.x, angleY, eulerAngles.z);
             // node.rotationY = angleY;
-            node.eulerAngles = cc.v3(0, angleY, 0)
             // node.eulerAngles.y = angleY;
         }
         this.updateHierarchy();
