@@ -1,6 +1,8 @@
 {
   "group-list": [
     "default",
+    "background",
+    "orthographic",
     "perspective"
   ],
   "collision-matrix": [
@@ -8,6 +10,17 @@
       true
     ],
     [
+      false,
+      false
+    ],
+    [
+      false,
+      false,
+      false
+    ],
+    [
+      false,
+      false,
       false,
       false
     ]
