@@ -28,8 +28,7 @@ export default class PopupTest extends cc.Component {
     private onClick() {
         const options = (Math.random() * 10000).toFixed(0).padStart(5, '0');
         const params: PopupParams = {
-            mode: PopupCacheMode.Frequent,
-            priority: false
+            mode: PopupCacheMode.Frequent
         }
         PopupManager.show(TestPopup.path, options, params);
     }

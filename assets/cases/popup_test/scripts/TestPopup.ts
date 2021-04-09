@@ -8,27 +8,29 @@ const { ccclass, property } = cc._decorator;
 export default class TestPopup extends PopupBase<string> {
 
     @property(cc.Node)
-    private closeBtn: cc.Node = null;
+    protected closeBtn: cc.Node = null;
 
     @property(cc.Label)
-    private curFlagLabel: cc.Label = null;
+    protected curFlagLabel: cc.Label = null;
 
     @property(cc.Label)
-    private newFlagLabel: cc.Label = null;
+    protected newFlagLabel: cc.Label = null;
 
     @property(cc.Node)
-    private normalBtn: cc.Node = null;
+    protected normalBtn: cc.Node = null;
 
     @property(cc.Node)
-    private forceBtn: cc.Node = null;
+    protected priorityBtn: cc.Node = null;
 
     @property(cc.Node)
-    private coverBtn: cc.Node = null;
+    protected immediatelyBtn: cc.Node = null;
 
-    private newFlag: string = null;
+    protected newFlag: string = null;
 
-    /** 资源弹窗路径 */
-    public static get path() { return 'prefabs/TestPopup'; }
+    /** 弹窗路径 */
+    public static get path() {
+        return 'prefabs/TestPopup';
+    }
 
     protected onLoad() {
         this.registerEvent();
@@ -38,55 +40,54 @@ export default class TestPopup extends PopupBase<string> {
         this.unregisterEvent();
     }
 
-    private registerEvent() {
+    protected registerEvent() {
         this.closeBtn.on(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
+
         this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
-        this.forceBtn.on(cc.Node.EventType.TOUCH_END, this.onForceBtnClick, this);
-        this.coverBtn.on(cc.Node.EventType.TOUCH_END, this.onCoverBtnClick, this);
+        this.priorityBtn.on(cc.Node.EventType.TOUCH_END, this.onPriorityBtnClick, this);
+        this.immediatelyBtn.on(cc.Node.EventType.TOUCH_END, this.onImmediatelyBtnClick, this);
     }
 
-    private unregisterEvent() {
-        this.closeBtn.off(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
-        this.normalBtn.off(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
-        this.forceBtn.off(cc.Node.EventType.TOUCH_END, this.onForceBtnClick, this);
-        this.coverBtn.off(cc.Node.EventType.TOUCH_END, this.onCoverBtnClick, this);
+    protected unregisterEvent() {
+
     }
 
     protected updateDisplay(options: string) {
         this.curFlagLabel.string = options;
-        this.updateNewFlag();
+        this.updateFlag();
     }
 
-    private updateNewFlag() {
+    protected updateFlag() {
         this.newFlag = (Math.random() * 10000).toFixed(0).padStart(5, '0');
         this.newFlagLabel.string = this.newFlag;
     }
 
-    private onCloseBtnClick() {
+    protected onCloseBtnClick() {
         this.hide();
     }
 
-    private onNormalBtnClick() {
+    protected onNormalBtnClick() {
         const params: PopupParams = {
-            mode: PopupCacheMode.Frequent,
-            priority: false
+            mode: PopupCacheMode.Normal,
+            priority: 0
         }
         PopupManager.show(TestPopup.path, this.newFlag, params);
-        this.updateNewFlag();
+        this.updateFlag();
     }
 
-    private onForceBtnClick() {
+    protected onPriorityBtnClick() {
         const params: PopupParams = {
-            mode: PopupCacheMode.Frequent,
-            priority: false
+            mode: PopupCacheMode.Normal,
+            priority: -1
         }
         PopupManager.show(TestPopup.path, this.newFlag, params);
+        this.updateFlag();
     }
 
-    private onCoverBtnClick() {
+    protected onImmediatelyBtnClick() {
         const params: PopupParams = {
-            mode: PopupCacheMode.Frequent,
-            priority: false
+            mode: PopupCacheMode.Normal,
+            immediately: true
         }
         PopupManager.show(TestPopup.path, this.newFlag, params);
     }

@@ -351,7 +351,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 250,
-      "height": 80
+      "height": 70
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -427,7 +427,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        4,
+        0,
         0,
         0,
         0,
@@ -511,7 +511,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "b5f8402d-63c5-4f0f-8642-462e09f41cfb"
+      "__uuid__": "a6690cfa-e884-4af9-aef4-9d395901f73c"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -540,7 +540,7 @@
     "_alignFlags": 1,
     "_left": 0,
     "_right": 0,
-    "_top": -30,
+    "_top": -25,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -1637,15 +1637,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 173,
-      "g": 173,
-      "b": 173,
+      "r": 255,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 220,
-      "height": 127.8
+      "width": 200,
+      "height": 97.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1696,9 +1696,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "【新标志】即为新的弹窗请求的标识，用于辨别不同的弹窗",
-    "_N$string": "【新标志】即为新的弹窗请求的标识，用于辨别不同的弹窗",
-    "_fontSize": 25,
+    "_string": "【新标识】即为新的弹窗请求的标识（ID），用于辨别不同的弹窗",
+    "_N$string": "【新标识】即为新的弹窗请求的标识（ID），用于辨别不同的弹窗",
+    "_fontSize": 20,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": null,
@@ -1981,7 +1981,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        4,
         0,
         0,
         0,
@@ -2020,11 +2020,11 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "正常展示（下一个）",
-    "_N$string": "正常展示（下一个）",
+    "_string": "正常展示（优先级 0）",
+    "_N$string": "正常展示（优先级 0）",
     "_fontSize": 25,
     "_lineHeight": 25,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
@@ -2130,7 +2130,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
@@ -2229,7 +2229,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "forceBtn",
+    "_name": "priorityBtn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 46
@@ -2409,7 +2409,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        4,
         0,
         0,
         0,
@@ -2448,11 +2448,11 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "强制展示（关闭其他）",
-    "_N$string": "强制展示（关闭其他）",
+    "_string": "正常展示（优先级 -1）",
+    "_N$string": "正常展示（优先级 -1）",
     "_fontSize": 25,
     "_lineHeight": 25,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
@@ -2474,7 +2474,7 @@
     "asset": {
       "__uuid__": "d7644c34-84cd-4709-af69-ba2b18c77ff5"
     },
-    "fileId": "9d9eUhLAtBibZnQdTMX6NQ",
+    "fileId": "12LVOycjlNw4xdzhzbDlLB",
     "sync": false
   },
   {
@@ -2544,7 +2544,7 @@
     "asset": {
       "__uuid__": "d7644c34-84cd-4709-af69-ba2b18c77ff5"
     },
-    "fileId": "fdx/yr5bdDQq0kaFtsQheB",
+    "fileId": "a0oWx9M95GjpmU1KHpgiIz",
     "sync": false
   },
   {
@@ -2558,7 +2558,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
@@ -2652,12 +2652,12 @@
     "asset": {
       "__uuid__": "d7644c34-84cd-4709-af69-ba2b18c77ff5"
     },
-    "fileId": "e8/AhwgNNHZoMymAscl1eR",
+    "fileId": "60g3FotwtDX42B3Gb0tfEW",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "coverBtn",
+    "_name": "immediatelyBtn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 46
@@ -2837,7 +2837,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        4,
         0,
         0,
         0,
@@ -2876,11 +2876,11 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "覆盖展示（同时展示）",
-    "_N$string": "覆盖展示（同时展示）",
+    "_string": "立即展示（挂起当前弹窗）",
+    "_N$string": "立即展示（挂起当前弹窗）",
     "_fontSize": 25,
     "_lineHeight": 25,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
@@ -2902,7 +2902,7 @@
     "asset": {
       "__uuid__": "d7644c34-84cd-4709-af69-ba2b18c77ff5"
     },
-    "fileId": "dfO37g6+FAeLy1kkKSVByc",
+    "fileId": "9d9eUhLAtBibZnQdTMX6NQ",
     "sync": false
   },
   {
@@ -2972,7 +2972,7 @@
     "asset": {
       "__uuid__": "d7644c34-84cd-4709-af69-ba2b18c77ff5"
     },
-    "fileId": "88bSk/QLhACq5pJKm+eCY5",
+    "fileId": "fdx/yr5bdDQq0kaFtsQheB",
     "sync": false
   },
   {
@@ -2986,7 +2986,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
@@ -3080,7 +3080,7 @@
     "asset": {
       "__uuid__": "d7644c34-84cd-4709-af69-ba2b18c77ff5"
     },
-    "fileId": "81hulD1TFObKhkKfF9Q6rq",
+    "fileId": "e8/AhwgNNHZoMymAscl1eR",
     "sync": false
   },
   {
@@ -3195,10 +3195,10 @@
     "normalBtn": {
       "__id__": 47
     },
-    "forceBtn": {
+    "priorityBtn": {
       "__id__": 58
     },
-    "coverBtn": {
+    "immediatelyBtn": {
       "__id__": 69
     },
     "_id": ""

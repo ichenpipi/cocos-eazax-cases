@@ -26,8 +26,7 @@ export default class ClickToShowResPopup extends cc.Component {
             options.items.push({ name: item.title, url: item.url });
         }
         const params: PopupParams = {
-            mode: PopupCacheMode.Frequent,
-            priority: false
+            mode: PopupCacheMode.Frequent
         }
         PopupManager.show(ResPopup.path, options, params);
     }
