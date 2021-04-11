@@ -96,12 +96,12 @@ export default class CardArray_Layout extends cc.Component {
             const node = nodes[i],
                 angleY = -(delta * i),
                 radian = (Math.PI / 180) * (angleY - offset),
-                eulerAngles = node.eulerAngles;
+                { x, z } = node.eulerAngles;
             // 位置
             node.x = radius * Math.cos(radian);
             node.z = -(radius * Math.sin(radian));
             // 角度
-            node.eulerAngles = cc.v3(eulerAngles.x, angleY, eulerAngles.z);
+            node.eulerAngles = cc.v3(x, angleY, z);
             // node.rotationY = angleY;
             // node.eulerAngles.y = angleY;
         }
