@@ -1,6 +1,7 @@
-const { ccclass, property } = cc._decorator;
+const { ccclass, property, executionOrder } = cc._decorator;
 
 @ccclass
+@executionOrder(-101)
 export default class Toast extends cc.Component {
 
     @property({ displayName: CC_DEV && '主节点', type: cc.Node })
@@ -49,9 +50,9 @@ export default class Toast extends cc.Component {
 
     /**
      * 展示
-     * @param text 内容 
+     * @param texts 内容 
      */
-    public static show(text: string) {
+    public static show(...texts: string[]) {
         return new Promise<void>(res => {
             const instance = this.instance;
             if (!instance) {
@@ -63,7 +64,7 @@ export default class Toast extends cc.Component {
             cc.Tween.stopAllByTarget(main);
             main.opacity = 0;
             main.active = true;
-            label.string = text;
+            label.string = texts.join(' ');
             cc.tween(main)
                 .to(0.2, { opacity: 200 })
                 .delay(2)

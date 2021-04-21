@@ -8265,7 +8265,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 408.95,
+      "width": 423.55,
       "height": 80
     },
     "_anchorPoint": {
@@ -8327,7 +8327,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 308.95,
+      "width": 323.55,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -8491,7 +8491,7 @@
   {
     "__type__": "ResPopupItemInfo",
     "title": "[示例] RadarChartController.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/radar_chart/scripts/RadarChartController.ts"
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/radarChart/scripts/RadarChartController.ts"
   },
   {
     "__type__": "cc.Layout",
@@ -8503,7 +8503,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 408.95,
+      "width": 423.55,
       "height": 80
     },
     "_resize": 1,

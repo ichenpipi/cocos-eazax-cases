@@ -4,6 +4,7 @@ import SceneNavigator from "../../../eazax-ccc/core/SceneNavigator";
 import CaseManager from "../CaseManager";
 import { SceneName } from "../constants/Constants";
 import { CHANGE_SCENE, SWITCH_CASE } from "../constants/CustomEvents";
+import Toast from "./Toast";
 
 const { ccclass, property } = cc._decorator;
 
@@ -83,6 +84,7 @@ export default class CommonUI extends cc.Component {
      */
     protected onTitleTipClick() {
         this.titleTip.active = false;
+        Toast.show('^_^');
     }
 
     /**

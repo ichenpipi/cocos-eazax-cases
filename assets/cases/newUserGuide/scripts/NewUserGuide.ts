@@ -72,7 +72,7 @@ export default class NewUserGuide extends cc.Component {
         const node = this.oneBtn,
             x = node.width + 10,
             y = node.height + 10;
-        await this.hollowOut.rectTo(0.5, node.getPosition(), x, y + 10, 5, 5);
+        await this.hollowOut.rectTo(0.5, node.getPosition(), x, y, 5, 5);
         // 设置可点击节点
         this.touchBlocker.setTarget(node);
     }

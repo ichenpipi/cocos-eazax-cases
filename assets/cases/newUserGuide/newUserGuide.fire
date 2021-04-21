@@ -2253,7 +2253,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 486.76,
+      "width": 501.37,
       "height": 80
     },
     "_anchorPoint": {
@@ -2315,7 +2315,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 386.76,
+      "width": 401.37,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2480,7 +2480,7 @@
   {
     "__type__": "ResPopupItemInfo",
     "title": "[示例] NewUserGuide.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/new_user_guide/scripts/NewUserGuide.ts"
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/newUserGuide/scripts/NewUserGuide.ts"
   },
   {
     "__type__": "ResPopupItemInfo",
@@ -2507,7 +2507,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 486.76,
+      "width": 501.37,
       "height": 80
     },
     "_resize": 1,

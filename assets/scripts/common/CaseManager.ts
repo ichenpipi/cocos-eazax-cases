@@ -43,7 +43,7 @@ export default class CaseManager {
      * @param caseName 示例名称
      */
     public static hasCase(caseName: string) {
-        return this.getCaseInfo(caseName) != null;
+        return !!this.getCaseInfo(caseName);
     }
 
     /**
@@ -70,42 +70,42 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
     },
     cardArray: {
         name: '卡片阵列',
-        scene: 'card_array'
+        scene: 'cardArray'
     },
     cardFlip: {
         name: '卡片翻转',
-        scene: 'card_flip'
+        scene: 'cardFlip'
     },
     colorBrush: {
         name: '彩色画笔',
-        scene: 'color_brush'
+        scene: 'colorBrush'
     },
     frameLoading: {
         name: '分帧加载',
-        scene: 'frame_loading'
+        scene: 'frameLoading'
     },
     gaussianBlur: {
         name: '高斯模糊',
-        scene: 'gaussian_blur'
+        scene: 'gaussianBlur'
     },
     gradientColor: {
         name: '渐变色',
-        scene: 'gradient_color'
+        scene: 'gradientColor'
     },
     newUserGuide: {
         name: '新手引导',
-        scene: 'new_user_guide'
+        scene: 'newUserGuide'
     },
     popupTest: {
         name: '弹窗测试',
-        scene: 'popup_test'
+        scene: 'popupTest'
     },
     rotateAround: {
         name: '围绕旋转',
-        scene: 'rotate_around'
+        scene: 'rotateAround'
     },
     sineWave: {
         name: '正弦波浪',
-        scene: 'sine_wave'
+        scene: 'sineWave'
     },
 }

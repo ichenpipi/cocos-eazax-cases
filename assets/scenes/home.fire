@@ -1504,7 +1504,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 191.13,
+      "width": 205.74,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1783,7 +1783,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 270,
+      "width": 281.79,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -3297,7 +3297,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
+      "width": 84.84,
       "height": 60
     },
     "_anchorPoint": {
@@ -3359,8 +3359,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 50.4
+      "width": 44.84,
+      "height": 37.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3372,7 +3372,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        2,
         0,
         0,
         0,
@@ -3411,10 +3411,10 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "阿巴阿巴",
-    "_N$string": "阿巴阿巴",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_string": "^_^",
+    "_N$string": "^_^",
+    "_fontSize": 30,
+    "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -3471,7 +3471,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 200,
+      "width": 84.84,
       "height": 60
     },
     "_resize": 1,
