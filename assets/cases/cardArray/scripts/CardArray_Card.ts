@@ -10,14 +10,16 @@ export default class CardArray_Card extends cc.Component {
     @property(cc.Node)
     protected back: cc.Node = null;
 
+    @property()
+    protected k: number = 0;
+
     /** 节点在世界坐标中的 z 值 */
     public get z() { return this._z; }
     protected _z: number = 0;
 
     /** 是否面向屏幕 */
     protected get facingScreen() {
-        const z = this.node.forward.z
-        return z >= 0.25;
+        return this.node.forward.z >= this.k;
     }
 
     protected onEnable() {
