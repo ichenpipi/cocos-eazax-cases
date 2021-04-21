@@ -34,6 +34,7 @@ export default class Home extends cc.Component {
         // 获取链接中的示例参数
         const caseName = BrowserUtil.getUrlParam('case');
         if (caseName && CaseManager.hasCase(caseName)) {
+            // 跳转到指定示例
             CaseManager.goCase(caseName);
         }
     }

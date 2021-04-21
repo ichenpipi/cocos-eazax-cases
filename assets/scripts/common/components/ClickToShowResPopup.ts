@@ -14,16 +14,26 @@ export default class ClickToShowResPopup extends cc.Component {
         this.registerEvent();
     }
 
+    /**
+     * 订阅事件
+     */
     private registerEvent() {
         this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
+    /**
+     * 点击回调
+     */
     private onClick() {
         const options: ResPopupOptions = { items: [] },
             items = this.items;
         for (let i = 0, l = items.length; i < l; i++) {
-            const item = items[i];
-            options.items.push({ name: item.title, url: item.url });
+            const item = items[i],
+                info = {
+                    name: item.title,
+                    url: item.url
+                };
+            options.items.push(info);
         }
         const params: PopupParams = {
             mode: PopupCacheMode.Frequent

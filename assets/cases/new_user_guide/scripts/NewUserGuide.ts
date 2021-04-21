@@ -3,6 +3,14 @@ import TouchBlocker from "../../../eazax-ccc/components/TouchBlocker";
 
 const { ccclass, property } = cc._decorator;
 
+/**
+ * [示例] 新手引导
+ * @see NewUserGuide.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/new_user_guide/scripts/NewUserGuide.ts
+ * @see HollowOut.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts
+ * @see eazax-hollowout.effect https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect
+ * @see TouchBlocker.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts
+ * @version 20210421
+ */
 @ccclass
 export default class NewUserGuide extends cc.Component {
 
@@ -28,6 +36,13 @@ export default class NewUserGuide extends cc.Component {
         this.registerEvent();
     }
 
+    protected start() {
+        this.reset();
+    }
+
+    /**
+     * 订阅事件
+     */
     protected registerEvent() {
         this.startBtn.on(cc.Node.EventType.TOUCH_END, this.onStartBtnClick, this);
         this.oneBtn.on(cc.Node.EventType.TOUCH_END, this.onOneBtnClick, this);
@@ -35,54 +50,73 @@ export default class NewUserGuide extends cc.Component {
         this.threeBtn.on(cc.Node.EventType.TOUCH_END, this.onThreeBtnClick, this);
     }
 
-    protected start() {
-        this.reset();
-    }
-
     /**
      * 重置
      */
     protected reset() {
+        // 打开遮罩
         this.hollowOut.node.active = true;
-        this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
-        this.touchBlocker.passAll(); // 放行所有点击
+        // 将遮罩镂空设为节点大小
+        this.hollowOut.nodeSize();
+        // 放行所有点击
+        this.touchBlocker.passAll();
     }
 
     /**
      * 开始
      */
     protected async onStartBtnClick() {
-        this.touchBlocker.blockAll(); // 屏蔽所有点击
-        await this.hollowOut.rectTo(0.5, this.oneBtn.getPosition(), this.oneBtn.width + 10, this.oneBtn.height + 10, 5, 5);
-        this.touchBlocker.setTarget(this.oneBtn); // 设置可点击节点
+        // 屏蔽所有点击
+        this.touchBlocker.blockAll();
+        // 遮罩动起来
+        const node = this.oneBtn,
+            x = node.width + 10,
+            y = node.height + 10;
+        await this.hollowOut.rectTo(0.5, node.getPosition(), x, y + 10, 5, 5);
+        // 设置可点击节点
+        this.touchBlocker.setTarget(node);
     }
 
     /**
-     * 一
+     * 按钮 1 点击回调
      */
     protected async onOneBtnClick() {
-        this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
-        this.touchBlocker.blockAll(); // 屏蔽所有点击
-        await this.hollowOut.rectTo(0.5, this.twoBtn.getPosition(), this.twoBtn.width + 10, this.twoBtn.height + 10, 5, 5);
-        this.touchBlocker.setTarget(this.twoBtn); // 设置可点击节点
+        // 将遮罩镂空设为节点大小
+        this.hollowOut.nodeSize();
+        // 屏蔽所有点击
+        this.touchBlocker.blockAll();
+        // 遮罩动起来
+        const node = this.twoBtn,
+            x = node.width + 10,
+            y = node.height + 10;
+        await this.hollowOut.rectTo(0.5, node.getPosition(), x, y, 5, 5);
+        // 设置可点击节点
+        this.touchBlocker.setTarget(node);
     }
 
     /**
-     * 二
+     * 按钮 2 点击回调
      */
     protected async onTwoBtnClick() {
-        this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
-        this.touchBlocker.blockAll(); // 屏蔽所有点击
-        await this.hollowOut.circleTo(0.5, this.threeBtn.getPosition(), this.threeBtn.width / 2, 0);
-        this.touchBlocker.setTarget(this.threeBtn); // 设置可点击节点
+        // 将遮罩镂空设为节点大小
+        this.hollowOut.nodeSize();
+        // 屏蔽所有点击
+        this.touchBlocker.blockAll();
+        // 遮罩动起来
+        const node = this.threeBtn;
+        await this.hollowOut.circleTo(0.5, node.getPosition(), node.width / 2, 0);
+        // 设置可点击节点
+        this.touchBlocker.setTarget(node);
     }
 
     /**
-     * 三
+     * 按钮 3 点击回调
      */
     protected onThreeBtnClick() {
-        this.hollowOut.nodeSize(); // 将遮罩镂空设为节点大小
-        this.touchBlocker.passAll(); // 放行所有点击
+        // 将遮罩镂空设为节点大小
+        this.hollowOut.nodeSize();
+        // 放行所有点击
+        this.touchBlocker.passAll();
     }
 
 }

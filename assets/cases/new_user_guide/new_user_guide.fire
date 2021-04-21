@@ -2253,7 +2253,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 401.31,
+      "width": 486.76,
       "height": 80
     },
     "_anchorPoint": {
@@ -2315,7 +2315,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 301.31,
+      "width": 386.76,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2367,8 +2367,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "🔸New Guide🔸",
-    "_N$string": "🔸New Guide🔸",
+    "_string": "🔸New User Guide🔸",
+    "_N$string": "🔸New User Guide🔸",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2479,6 +2479,11 @@
   },
   {
     "__type__": "ResPopupItemInfo",
+    "title": "[示例] NewUserGuide.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/new_user_guide/scripts/NewUserGuide.ts"
+  },
+  {
+    "__type__": "ResPopupItemInfo",
     "title": "HollowOut.ts",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts"
   },
@@ -2493,11 +2498,6 @@
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts"
   },
   {
-    "__type__": "ResPopupItemInfo",
-    "title": "[示例] NewGuide.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/main/cases/newGuide/NewGuide.ts"
-  },
-  {
     "__type__": "cc.Layout",
     "_name": "",
     "_objFlags": 0,
@@ -2507,7 +2507,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 401.31,
+      "width": 486.76,
       "height": 80
     },
     "_resize": 1,

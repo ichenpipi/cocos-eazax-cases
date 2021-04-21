@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 31
+      },
+      {
         "__id__": 32
       },
       {
         "__id__": 33
-      },
-      {
-        "__id__": 34
       }
     ],
     "_prefab": null,
@@ -254,7 +254,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 31
+        "__id__": 30
       }
     ],
     "_prefab": null,
@@ -959,7 +959,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 30
+        "__id__": 29
       }
     ],
     "_prefab": null,
@@ -1031,7 +1031,7 @@
         "__id__": 26
       },
       {
-        "__id__": 29
+        "__id__": 28
       }
     ],
     "_prefab": null,
@@ -1107,7 +1107,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 314.61,
+      "width": 300,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1256,22 +1256,14 @@
     "items": [
       {
         "__id__": 27
-      },
-      {
-        "__id__": 28
       }
     ],
     "_id": "13S+SmO3BMaaepW4OpgKEs"
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "ColorBrush.ts",
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/ColorBrush.ts"
-  },
-  {
-    "__type__": "ResPopupItemInfo",
     "title": "eazax-color-brush.effect",
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-color-brush.effect"
+    "url": "https://gitee.com/ifaswind/eazax-ccc/tree/master/resources/effects/eazax-color-brush.effect"
   },
   {
     "__type__": "cc.Widget",

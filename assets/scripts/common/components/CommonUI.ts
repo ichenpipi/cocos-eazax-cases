@@ -49,9 +49,6 @@ export default class CommonUI extends cc.Component {
      * 取消事件订阅
      */
     protected unregisterEvent() {
-        // 点击
-        this.homeBtn.off(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
-        this.titleTip.off(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
         // 切换
         EventManager.off(CHANGE_SCENE, this.onSceneChange, this);
         EventManager.off(SWITCH_CASE, this.onCaseSwitch, this);
