@@ -10,7 +10,7 @@ export default class CardArray_Layout extends cc.Component {
     protected _radius: number = 350;
     @property({ displayName: CC_DEV && '半径' })
     public get radius() {
-        return this._radius
+        return this._radius;
     }
     public set radius(value: number) {
         this._radius = value;
@@ -21,7 +21,7 @@ export default class CardArray_Layout extends cc.Component {
     protected _offset: number = 90;
     @property({ displayName: CC_DEV && '偏移' })
     public get offset() {
-        return this._offset
+        return this._offset;
     }
     public set offset(value: number) {
         this._offset = value;
@@ -33,9 +33,6 @@ export default class CardArray_Layout extends cc.Component {
 
     protected onLoad() {
         this.init();
-    }
-
-    protected onEnable() {
         this.registerEvent();
     }
 
@@ -54,8 +51,10 @@ export default class CardArray_Layout extends cc.Component {
      * 订阅事件
      */
     protected registerEvent() {
+        // 节点增删
         this.node.on(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);
         this.node.on(cc.Node.EventType.CHILD_REMOVED, this.onChildChange, this);
+        // 旋转改变
         this.node.on(cc.Node.EventType.ROTATION_CHANGED, this.onRotationChange, this);
     }
 
@@ -63,8 +62,10 @@ export default class CardArray_Layout extends cc.Component {
      * 取消事件订阅
      */
     protected unregisterEvent() {
+        // 节点增删
         this.node.off(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);
         this.node.off(cc.Node.EventType.CHILD_REMOVED, this.onChildChange, this);
+        // 旋转改变
         this.node.off(cc.Node.EventType.ROTATION_CHANGED, this.onRotationChange, this);
     }
 
@@ -72,7 +73,9 @@ export default class CardArray_Layout extends cc.Component {
      * 子节点变化回调
      */
     protected onChildChange() {
+        // 重新获取组件
         this.cards = this.getComponentsInChildren(CardArray_Card);
+        // 更新布局
         this.updateLayout();
     }
 
@@ -80,6 +83,7 @@ export default class CardArray_Layout extends cc.Component {
      * 旋转变化回调
      */
     protected onRotationChange() {
+        // 更新层级
         this.updateHierarchy();
     }
 
@@ -102,9 +106,10 @@ export default class CardArray_Layout extends cc.Component {
             node.z = -(radius * Math.sin(radian));
             // 角度
             node.eulerAngles = cc.v3(x, angleY, z);
-            // node.rotationY = angleY;
-            // node.eulerAngles.y = angleY;
+            // node.rotationY = angleY;      // keep warning
+            // node.eulerAngles.y = angleY;  // not working
         }
+        // 更新层级
         this.updateHierarchy();
     }
 
@@ -114,7 +119,7 @@ export default class CardArray_Layout extends cc.Component {
     public updateHierarchy() {
         const cards = this.cards,
             length = cards.length;
-        // 更新卡片在世界坐标系中的 z 值
+        // 更新卡片节点在世界坐标系中的 z 值
         for (let i = 0; i < length; i++) {
             cards[i].updateWorldZ();
         }
