@@ -9,7 +9,7 @@ const { ccclass, property } = cc._decorator;
  * @see HollowOut.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts
  * @see eazax-hollowout.effect https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect
  * @see TouchBlocker.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts
- * @version 20210421
+ * @version 20210429
  */
 @ccclass
 export default class NewUserGuide extends cc.Component {
@@ -57,7 +57,7 @@ export default class NewUserGuide extends cc.Component {
         // 打开遮罩
         this.hollowOut.node.active = true;
         // 将遮罩镂空设为节点大小
-        this.hollowOut.nodeSize();
+        this.hollowOut.setNodeSize();
         // 放行所有点击
         this.touchBlocker.passAll();
     }
@@ -82,7 +82,7 @@ export default class NewUserGuide extends cc.Component {
      */
     protected async onOneBtnClick() {
         // 将遮罩镂空设为节点大小
-        this.hollowOut.nodeSize();
+        this.hollowOut.setNodeSize();
         // 屏蔽所有点击
         this.touchBlocker.blockAll();
         // 遮罩动起来
@@ -99,7 +99,7 @@ export default class NewUserGuide extends cc.Component {
      */
     protected async onTwoBtnClick() {
         // 将遮罩镂空设为节点大小
-        this.hollowOut.nodeSize();
+        this.hollowOut.setNodeSize();
         // 屏蔽所有点击
         this.touchBlocker.blockAll();
         // 遮罩动起来
@@ -114,7 +114,7 @@ export default class NewUserGuide extends cc.Component {
      */
     protected onThreeBtnClick() {
         // 将遮罩镂空设为节点大小
-        this.hollowOut.nodeSize();
+        this.hollowOut.setNodeSize();
         // 放行所有点击
         this.touchBlocker.passAll();
     }
