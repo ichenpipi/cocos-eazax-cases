@@ -1,0 +1,24 @@
+{
+  "__type__": "cc.Material",
+  "_name": "blur",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "c473fbfd-2f9d-4782-911a-20a55d7a7c01"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": true
+      },
+      "props": {
+        "size": {
+          "__type__": "cc.Vec2",
+          "x": 500,
+          "y": 500
+        }
+      }
+    }
+  }
+}
