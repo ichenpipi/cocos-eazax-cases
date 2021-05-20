@@ -100,6 +100,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '弹窗测试',
         scene: 'popupTest'
     },
+    radarChart: {
+        name: '雷达图',
+        scene: 'radarChart'
+    },
     rotateAround: {
         name: '围绕旋转',
         scene: 'rotateAround'

@@ -45,10 +45,9 @@ export default class RadarChartController extends cc.Component {
         this.registerEvent();
     }
 
-    protected onDestroy() {
-        this.unregisterEvent();
-    }
-
+    /**
+     * 订阅事件
+     */
     protected registerEvent() {
         this.randomBtn.on(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
 
@@ -62,21 +61,6 @@ export default class RadarChartController extends cc.Component {
 
         this.data1EditBox.node.on('text-changed', this.onDataChanged, this);
         this.data2EditBox.node.on('text-changed', this.onDataChanged, this);
-    }
-
-    protected unregisterEvent() {
-        this.randomBtn.off(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
-
-        this.lengthEditBox.node.off('text-changed', this.onAxixLengthChanged, this);
-        this.axesEditBox.node.off('text-changed', this.onAxesChanged, this);
-        this.drawAxesToggle.node.off('toggle', this.onDrawAxesChanged, this);
-        this.drawDataJoinToggle.node.off('toggle', this.onDrawDataJoinChanged, this);
-        this.nodesEditBox.node.off('text-changed', this.onAxisScalesChanged, this);
-        this.lineWidthEditBox.node.off('text-changed', this.onLineWidthChanged, this);
-        this.innerLineWidthEditBox.node.off('text-changed', this.onInnerLineWidthChanged, this);
-
-        this.data1EditBox.node.off('text-changed', this.onDataChanged, this);
-        this.data2EditBox.node.off('text-changed', this.onDataChanged, this);
     }
 
     public async onRandomBtnClick() {
