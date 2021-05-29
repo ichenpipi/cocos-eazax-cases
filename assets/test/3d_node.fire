@@ -694,7 +694,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "3D Card",
+    "_name": "Blue Card",
     "_objFlags": 0,
     "_parent": {
       "__id__": 13
@@ -732,7 +732,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
+        -75,
         0,
         0,
         0,
@@ -1007,7 +1007,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "3D Card",
+    "_name": "Red Card",
     "_objFlags": 0,
     "_parent": {
       "__id__": 13
@@ -1045,7 +1045,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        200,
+        75,
         0,
         -500,
         0,

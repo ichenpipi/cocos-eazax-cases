@@ -799,7 +799,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -350,
+        -400,
         0,
         0,
         0,
@@ -914,8 +914,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 50,
-      "height": 37.8
+      "width": 70,
+      "height": 44.1
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -968,8 +968,8 @@
     "_dstBlendFactor": 771,
     "_string": "翻转",
     "_N$string": "翻转",
-    "_fontSize": 25,
-    "_lineHeight": 30,
+    "_fontSize": 35,
+    "_lineHeight": 35,
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1027,9 +1027,9 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "117113ba-d193-4108-ae99-a37299515f27"
+      "__uuid__": "a6690cfa-e884-4af9-aef4-9d395901f73c"
     },
-    "_type": 0,
+    "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
@@ -1039,7 +1039,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_atlas": null,
     "_id": "adRI2X08pHooJqi632hGwx"
   },
@@ -1056,7 +1056,7 @@
     },
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
@@ -1289,7 +1289,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 367.95,
+      "width": 434.94,
       "height": 80
     },
     "_anchorPoint": {
@@ -1509,8 +1509,8 @@
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "[示例] FlipCard.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/flipCard/scripts/FlipCard.ts"
+    "title": "[示例] CardFlip.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/cardFlip/scripts/CardFlip.ts"
   },
   {
     "__type__": "ResPopupItemInfo",
@@ -1527,7 +1527,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 367.95,
+      "width": 434.94,
       "height": 80
     },
     "_resize": 1,

@@ -1,6 +1,9 @@
 import EventManager from "../../eazax-ccc/core/EventManager";
 import SceneNavigator from "../../eazax-ccc/core/SceneNavigator";
 import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
+import { CaseInfo, CaseInfoMap } from "./CaseList";
+import CaseLoading from "./components/CaseLoading";
+import Toast from "./components/Toast";
 import { SceneName } from "./constants/Constants";
 import { SWITCH_CASE } from "./constants/CustomEvents";
 
@@ -29,13 +32,24 @@ export default class CaseManager {
      */
     public static goCase(caseName: string) {
         eazax.log('[Go Case]', caseName);
-        const sceneName = this.getCaseInfo(caseName).scene;
+        // 展示遮罩
+        CaseLoading.show();
+        // 示例信息
+        const info = this.getCaseInfo(caseName);
+        if (!info) {
+            Toast.show('啊哦，没有找到这个示例', caseName);
+            return false;
+        }
+        const sceneName = info.scene;
         SceneNavigator.go(sceneName, null, () => {
             // 设置当前 URL 的参数
             BrowserUtil.setUrlParam(`case=${caseName}`);
             // 事件
             EventManager.emit(SWITCH_CASE, sceneName);
+            // 隐藏遮罩
+            CaseLoading.hide();
         });
+        return true;
     }
 
     /**
@@ -54,62 +68,4 @@ export default class CaseManager {
         return CaseInfoMap[caseName];
     }
 
-}
-
-/** 关卡信息 */
-export type CaseInfo = {
-    name: string;
-    scene: string;
-}
-
-/** 示例名称到示例信息的映射表 */
-export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
-    avatar: {
-        name: '头像',
-        scene: 'avatar'
-    },
-    cardArray: {
-        name: '卡片阵列',
-        scene: 'cardArray'
-    },
-    cardFlip: {
-        name: '卡片翻转',
-        scene: 'cardFlip'
-    },
-    colorBrush: {
-        name: '彩色画笔',
-        scene: 'colorBrush'
-    },
-    frameLoading: {
-        name: '分帧加载',
-        scene: 'frameLoading'
-    },
-    gaussianBlur: {
-        name: '高斯模糊',
-        scene: 'gaussianBlur'
-    },
-    gradientColor: {
-        name: '渐变色',
-        scene: 'gradientColor'
-    },
-    newUserGuide: {
-        name: '新手引导',
-        scene: 'newUserGuide'
-    },
-    popupTest: {
-        name: '弹窗测试',
-        scene: 'popupTest'
-    },
-    radarChart: {
-        name: '雷达图',
-        scene: 'radarChart'
-    },
-    rotateAround: {
-        name: '围绕旋转',
-        scene: 'rotateAround'
-    },
-    sineWave: {
-        name: '正弦波浪',
-        scene: 'sineWave'
-    },
 }

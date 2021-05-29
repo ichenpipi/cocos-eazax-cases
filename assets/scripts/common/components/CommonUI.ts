@@ -6,9 +6,10 @@ import { SceneName } from "../constants/Constants";
 import { CHANGE_SCENE, SWITCH_CASE } from "../constants/CustomEvents";
 import Toast from "./Toast";
 
-const { ccclass, property } = cc._decorator;
+const { ccclass, property, executionOrder } = cc._decorator;
 
 @ccclass
+@executionOrder(-100)
 export default class CommonUI extends cc.Component {
 
     @property(cc.Node)

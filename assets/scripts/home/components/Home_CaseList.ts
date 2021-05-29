@@ -1,4 +1,4 @@
-import { CaseInfoMap } from "../../common/CaseManager";
+import { CaseInfoMap } from "../../common/CaseList";
 import Home_CaseBtn from "./Home_CaseBtn";
 
 const { ccclass, property } = cc._decorator;

@@ -1,4 +1,5 @@
-import CaseManager, { CaseInfo } from "../../common/CaseManager";
+import { CaseInfo } from "../../common/CaseList";
+import CaseManager from "../../common/CaseManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -55,18 +56,18 @@ export default class Home_CaseBtn extends cc.Component {
      * 点击
      */
     protected onClick() {
+        // 跳转
         CaseManager.goCase(this.caseName);
     }
 
     /**
      * 设置
-     * @param caseName 
-     * @param info 
+     * @param caseName 名称
+     * @param info 信息
      */
     public set(caseName: string, info: CaseInfo) {
         this.caseName = caseName;
         this.nameLabel.string = info.name;
-
     }
 
 }

@@ -35,12 +35,8 @@ export default class Home extends cc.Component {
         // 获取链接中的示例参数
         const caseName = BrowserUtil.getUrlParam('case');
         if (caseName) {
-            if (CaseManager.hasCase(caseName)) {
-                // 跳转到指定示例
-                CaseManager.goCase(caseName);
-            } else {
-                Toast.show('啊哦，没有找到这个示例', caseName);
-            }
+            // 跳转到指定示例
+            CaseManager.goCase(caseName);
         }
     }
 
