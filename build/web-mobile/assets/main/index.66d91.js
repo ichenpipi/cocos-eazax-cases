@@ -547,9 +547,664 @@ window.__require = function e(t, n, r) {
     exports.default = BrowserUtil;
     cc._RF.pop();
   }, {} ],
-  CardArray_CardArray: [ function(require, module, exports) {
+  CardArrayFlip_CardLayout: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "b03eeW/0L9M85qS0tEmzZyL", "CardArray_CardArray");
+    cc._RF.push(module, "38df63Fp/9M7L5YZ2bpVvg0", "CardArrayFlip_CardLayout");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var CardArrayFlip_Card_1 = require("./CardArrayFlip_Card");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property, executeInEditMode = _a.executeInEditMode;
+    var CardArrayFlip_Layout = function(_super) {
+      __extends(CardArrayFlip_Layout, _super);
+      function CardArrayFlip_Layout() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this._radius = 350;
+        _this._offset = 90;
+        _this._k = 0;
+        _this.cards = null;
+        return _this;
+      }
+      Object.defineProperty(CardArrayFlip_Layout.prototype, "radius", {
+        get: function() {
+          return this._radius;
+        },
+        set: function(value) {
+          this._radius = value;
+          this.updateLayout();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(CardArrayFlip_Layout.prototype, "offset", {
+        get: function() {
+          return this._offset;
+        },
+        set: function(value) {
+          this._offset = value;
+          this.updateLayout();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(CardArrayFlip_Layout.prototype, "k", {
+        get: function() {
+          return this._k;
+        },
+        set: function(value) {
+          this._k = value;
+          this.updateKValue();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      CardArrayFlip_Layout.prototype.onLoad = function() {
+        this.init();
+        this.registerEvent();
+      };
+      CardArrayFlip_Layout.prototype.onDisable = function() {
+        this.unregisterEvent();
+      };
+      CardArrayFlip_Layout.prototype.init = function() {
+        this.onChildChange();
+      };
+      CardArrayFlip_Layout.prototype.registerEvent = function() {
+        this.node.on(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);
+        this.node.on(cc.Node.EventType.CHILD_REMOVED, this.onChildChange, this);
+        this.node.on(cc.Node.EventType.ROTATION_CHANGED, this.onRotationChange, this);
+      };
+      CardArrayFlip_Layout.prototype.unregisterEvent = function() {
+        this.node.off(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);
+        this.node.off(cc.Node.EventType.CHILD_REMOVED, this.onChildChange, this);
+        this.node.off(cc.Node.EventType.ROTATION_CHANGED, this.onRotationChange, this);
+      };
+      CardArrayFlip_Layout.prototype.onChildChange = function() {
+        this.cards = this.getComponentsInChildren(CardArrayFlip_Card_1.default);
+        this.updateKValue();
+        this.updateLayout();
+      };
+      CardArrayFlip_Layout.prototype.onRotationChange = function() {
+        this.updateHierarchy();
+      };
+      CardArrayFlip_Layout.prototype.updateLayout = function() {
+        var nodes = this.node.children, count = nodes.length, radius = this._radius, offset = this._offset, delta = 360 / count;
+        for (var i = 0; i < count; i++) {
+          var node = nodes[i], angleY = -delta * i, radian = Math.PI / 180 * (angleY - offset);
+          node.x = radius * Math.cos(radian);
+          node.z = -radius * Math.sin(radian);
+          var _a = node.eulerAngles, x = _a.x, z = _a.z;
+          node.eulerAngles = cc.v3(x, angleY, z);
+        }
+        this.updateHierarchy();
+      };
+      CardArrayFlip_Layout.prototype.updateHierarchy = function() {
+        var cards = this.cards, length = cards.length;
+        for (var i = 0; i < length; i++) cards[i].updateWorldZ();
+        cards.sort(function(a, b) {
+          return a.z - b.z;
+        });
+        for (var i = 0; i < length; i++) cards[i].setSiblingIndex(i);
+      };
+      CardArrayFlip_Layout.prototype.updateKValue = function() {
+        var cards = this.cards;
+        for (var i = 0, l = cards.length; i < l; i++) cards[i].k = this._k;
+      };
+      __decorate([ property ], CardArrayFlip_Layout.prototype, "_radius", void 0);
+      __decorate([ property({
+        displayName: false
+      }) ], CardArrayFlip_Layout.prototype, "radius", null);
+      __decorate([ property ], CardArrayFlip_Layout.prototype, "_offset", void 0);
+      __decorate([ property({
+        displayName: false
+      }) ], CardArrayFlip_Layout.prototype, "offset", null);
+      __decorate([ property ], CardArrayFlip_Layout.prototype, "_k", void 0);
+      __decorate([ property({
+        displayName: false
+      }) ], CardArrayFlip_Layout.prototype, "k", null);
+      CardArrayFlip_Layout = __decorate([ ccclass, executeInEditMode ], CardArrayFlip_Layout);
+      return CardArrayFlip_Layout;
+    }(cc.Component);
+    exports.default = CardArrayFlip_Layout;
+    cc._RF.pop();
+  }, {
+    "./CardArrayFlip_Card": "CardArrayFlip_Card"
+  } ],
+  CardArrayFlip_Card: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "1df38a4sq1PLIWPe7vghQ6J", "CardArrayFlip_Card");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property, executeInEditMode = _a.executeInEditMode;
+    var CardArrayFlip_Card = function(_super) {
+      __extends(CardArrayFlip_Card, _super);
+      function CardArrayFlip_Card() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.back = null;
+        _this.front = null;
+        _this.k = 0;
+        _this._z = 0;
+        return _this;
+      }
+      Object.defineProperty(CardArrayFlip_Card.prototype, "z", {
+        get: function() {
+          return this._z;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(CardArrayFlip_Card.prototype, "facingScreen", {
+        get: function() {
+          return this.node.forward.z >= this.k;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      CardArrayFlip_Card.prototype.onEnable = function() {
+        this.updateWorldZ();
+      };
+      CardArrayFlip_Card.prototype.update = function(dt) {
+        this.updateDisplay();
+      };
+      CardArrayFlip_Card.prototype.updateDisplay = function() {
+        var front = this.facingScreen;
+        this.front.active = front;
+        this.back.active = !front;
+      };
+      CardArrayFlip_Card.prototype.updateWorldZ = function() {
+        var worldPos = this.node.parent.convertToWorldSpaceAR(this.node.position);
+        this._z = worldPos.z;
+      };
+      CardArrayFlip_Card.prototype.setSiblingIndex = function(index) {
+        this.node.setSiblingIndex(index);
+      };
+      __decorate([ property(cc.Node) ], CardArrayFlip_Card.prototype, "back", void 0);
+      __decorate([ property(cc.Node) ], CardArrayFlip_Card.prototype, "front", void 0);
+      __decorate([ property ], CardArrayFlip_Card.prototype, "k", void 0);
+      CardArrayFlip_Card = __decorate([ ccclass, executeInEditMode ], CardArrayFlip_Card);
+      return CardArrayFlip_Card;
+    }(cc.Component);
+    exports.default = CardArrayFlip_Card;
+    cc._RF.pop();
+  }, {} ],
+  CardArrayFlip_Controller: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "afb23B4XMJC+5DoKNtwVyh1", "CardArrayFlip_Controller");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var PromiseUtil_1 = require("../../../eazax-ccc/utils/PromiseUtil");
+    var CardArrayFlip_FrontCardBase_1 = require("./CardArrayFlip_FrontCardBase");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var CardArrayFlip_Controller = function(_super) {
+      __extends(CardArrayFlip_Controller, _super);
+      function CardArrayFlip_Controller() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.container = null;
+        _this.cardNode = null;
+        _this.card = null;
+        return _this;
+      }
+      Object.defineProperty(CardArrayFlip_Controller.prototype, "frontArrayCard", {
+        get: function() {
+          return this.container.children[this.container.childrenCount - 1];
+        },
+        enumerable: false,
+        configurable: true
+      });
+      CardArrayFlip_Controller.prototype.onLoad = function() {
+        this.init();
+      };
+      CardArrayFlip_Controller.prototype.init = function() {
+        this.card = this.cardNode.getComponent(CardArrayFlip_FrontCardBase_1.default);
+        this.play();
+      };
+      CardArrayFlip_Controller.prototype.play = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var frontCard;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              frontCard = this.card;
+              return [ 4, this.rotate(2) ];
+
+             case 1:
+              _a.sent();
+              return [ 4, PromiseUtil_1.default.wait(.2) ];
+
+             case 2:
+              _a.sent();
+              frontCard.show();
+              this.frontArrayCard.active = false;
+              return [ 4, frontCard.flipToFront() ];
+
+             case 3:
+              _a.sent();
+              return [ 4, PromiseUtil_1.default.wait(2) ];
+
+             case 4:
+              _a.sent();
+              return [ 4, frontCard.flipToBack() ];
+
+             case 5:
+              _a.sent();
+              this.frontArrayCard.active = true;
+              frontCard.hide();
+              return [ 4, PromiseUtil_1.default.wait(.2) ];
+
+             case 6:
+              _a.sent();
+              this.play();
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      CardArrayFlip_Controller.prototype.rotate = function(round) {
+        var _this = this;
+        return new Promise(function(res) {
+          var node = _this.container, time = 1 * round, _a = _this.node.eulerAngles, x = _a.x, z = _a.z, eulerAngles = cc.v3(x, 360 * round, z);
+          cc.tween(node).by(time, {
+            eulerAngles: eulerAngles
+          }, {
+            easing: "quadOut"
+          }).call(res).start();
+        });
+      };
+      __decorate([ property(cc.Node) ], CardArrayFlip_Controller.prototype, "container", void 0);
+      __decorate([ property(cc.Node) ], CardArrayFlip_Controller.prototype, "cardNode", void 0);
+      CardArrayFlip_Controller = __decorate([ ccclass ], CardArrayFlip_Controller);
+      return CardArrayFlip_Controller;
+    }(cc.Component);
+    exports.default = CardArrayFlip_Controller;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/utils/PromiseUtil": "PromiseUtil",
+    "./CardArrayFlip_FrontCardBase": "CardArrayFlip_FrontCardBase"
+  } ],
+  CardArrayFlip_FrontCard2D: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "5f44dz14RZHTpMdYvIF/kTY", "CardArrayFlip_FrontCard2D");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var CardArrayFlip_FrontCardBase_1 = require("./CardArrayFlip_FrontCardBase");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var CardArrayFlip_FrontCard2D = function(_super) {
+      __extends(CardArrayFlip_FrontCard2D, _super);
+      function CardArrayFlip_FrontCard2D() {
+        return null !== _super && _super.apply(this, arguments) || this;
+      }
+      CardArrayFlip_FrontCard2D.prototype.flipToFront = function() {
+        var _this = this;
+        return new Promise(function(res) {
+          var tween = cc.tween, duration = 1, half = duration / 2;
+          tween(_this.node).to(duration, {
+            scale: 1.1
+          }).start();
+          tween(_this.main).parallel(tween().to(half, {
+            scaleX: 0
+          }, {
+            easing: "quadIn"
+          }), tween().to(half, {
+            skewY: -20
+          }, {
+            easing: "quadOut"
+          })).call(function() {
+            _this.front.active = true;
+            _this.back.active = false;
+          }).parallel(tween().to(half, {
+            scaleX: -1
+          }, {
+            easing: "quadOut"
+          }), tween().to(half, {
+            skewY: 0
+          }, {
+            easing: "quadIn"
+          })).call(res).start();
+        });
+      };
+      CardArrayFlip_FrontCard2D.prototype.flipToBack = function() {
+        var _this = this;
+        return new Promise(function(res) {
+          var tween = cc.tween, duration = 1, half = duration / 2;
+          tween(_this.node).to(duration, {
+            scale: .8
+          }).start();
+          tween(_this.main).parallel(tween().to(half, {
+            scaleX: 0
+          }, {
+            easing: "quadIn"
+          }), tween().to(half, {
+            skewY: 20
+          }, {
+            easing: "quadOut"
+          })).call(function() {
+            _this.front.active = false;
+            _this.back.active = true;
+          }).parallel(tween().to(half, {
+            scaleX: 1
+          }, {
+            easing: "quadOut"
+          }), tween().to(half, {
+            skewY: 0
+          }, {
+            easing: "quadIn"
+          })).call(res).start();
+        });
+      };
+      CardArrayFlip_FrontCard2D = __decorate([ ccclass ], CardArrayFlip_FrontCard2D);
+      return CardArrayFlip_FrontCard2D;
+    }(CardArrayFlip_FrontCardBase_1.default);
+    exports.default = CardArrayFlip_FrontCard2D;
+    cc._RF.pop();
+  }, {
+    "./CardArrayFlip_FrontCardBase": "CardArrayFlip_FrontCardBase"
+  } ],
+  CardArrayFlip_FrontCard3D: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "a0882w0dqRIYJBc/e+K/GqQ", "CardArrayFlip_FrontCard3D");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var CardArrayFlip_FrontCardBase_1 = require("./CardArrayFlip_FrontCardBase");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var CardArrayFlip_FrontCard3D = function(_super) {
+      __extends(CardArrayFlip_FrontCard3D, _super);
+      function CardArrayFlip_FrontCard3D() {
+        return null !== _super && _super.apply(this, arguments) || this;
+      }
+      CardArrayFlip_FrontCard3D.prototype.flipToFront = function() {
+        var _this = this;
+        return new Promise(function(res) {
+          var tween = cc.tween, duration = 1, half = duration / 2;
+          tween(_this.node).to(duration, {
+            scale: 1.1,
+            eulerAngles: cc.v3(0, 0, 0)
+          }).start();
+          tween(_this.main).to(half, {
+            eulerAngles: cc.v3(0, -90, 0)
+          }).call(function() {
+            _this.front.active = true;
+            _this.back.active = false;
+          }).to(half, {
+            eulerAngles: cc.v3(0, -180, 0)
+          }).call(res).start();
+        });
+      };
+      CardArrayFlip_FrontCard3D.prototype.flipToBack = function() {
+        var _this = this;
+        return new Promise(function(res) {
+          var tween = cc.tween, duration = 1, half = duration / 2;
+          tween(_this.node).to(duration, {
+            scale: .8,
+            eulerAngles: cc.v3(10, 0, 0)
+          }).start();
+          tween(_this.main).to(half, {
+            eulerAngles: cc.v3(0, -270, 0)
+          }).call(function() {
+            _this.front.active = false;
+            _this.back.active = true;
+          }).to(half, {
+            eulerAngles: cc.v3(0, 0, 0)
+          }).call(res).start();
+        });
+      };
+      CardArrayFlip_FrontCard3D.prototype.update = function() {
+        console.log(this.main.eulerAngles.y);
+      };
+      CardArrayFlip_FrontCard3D = __decorate([ ccclass ], CardArrayFlip_FrontCard3D);
+      return CardArrayFlip_FrontCard3D;
+    }(CardArrayFlip_FrontCardBase_1.default);
+    exports.default = CardArrayFlip_FrontCard3D;
+    cc._RF.pop();
+  }, {
+    "./CardArrayFlip_FrontCardBase": "CardArrayFlip_FrontCardBase"
+  } ],
+  CardArrayFlip_FrontCardBase: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "19c2cbEZllLpou3BWIOrQjG", "CardArrayFlip_FrontCardBase");
     "use strict";
     var __extends = this && this.__extends || function() {
       var extendStatics = function(d, b) {
@@ -579,26 +1234,42 @@ window.__require = function e(t, n, r) {
       value: true
     });
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var CardArray_CardArray = function(_super) {
-      __extends(CardArray_CardArray, _super);
-      function CardArray_CardArray() {
+    var CardArrayFlip_FrontCardBase = function(_super) {
+      __extends(CardArrayFlip_FrontCardBase, _super);
+      function CardArrayFlip_FrontCardBase() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.container = null;
+        _this.main = null;
+        _this.back = null;
+        _this.front = null;
         return _this;
       }
-      CardArray_CardArray.prototype.start = function() {
-        this.rotateForever();
+      CardArrayFlip_FrontCardBase.prototype.onLoad = function() {
+        this.init();
       };
-      CardArray_CardArray.prototype.rotateForever = function() {
-        cc.tween(this.container).by(2, {
-          eulerAngles: cc.v3(0, 90, 0)
-        }).repeatForever().start();
+      CardArrayFlip_FrontCardBase.prototype.init = function() {
+        this.hide();
+        this.front.active = false;
+        this.back.active = true;
       };
-      __decorate([ property(cc.Node) ], CardArray_CardArray.prototype, "container", void 0);
-      CardArray_CardArray = __decorate([ ccclass ], CardArray_CardArray);
-      return CardArray_CardArray;
+      CardArrayFlip_FrontCardBase.prototype.show = function() {
+        this.main.active = true;
+      };
+      CardArrayFlip_FrontCardBase.prototype.hide = function() {
+        this.main.active = false;
+      };
+      CardArrayFlip_FrontCardBase.prototype.flipToFront = function() {
+        return null;
+      };
+      CardArrayFlip_FrontCardBase.prototype.flipToBack = function() {
+        return null;
+      };
+      __decorate([ property(cc.Node) ], CardArrayFlip_FrontCardBase.prototype, "main", void 0);
+      __decorate([ property(cc.Node) ], CardArrayFlip_FrontCardBase.prototype, "back", void 0);
+      __decorate([ property(cc.Node) ], CardArrayFlip_FrontCardBase.prototype, "front", void 0);
+      CardArrayFlip_FrontCardBase = __decorate([ ccclass ], CardArrayFlip_FrontCardBase);
+      return CardArrayFlip_FrontCardBase;
     }(cc.Component);
-    exports.default = CardArray_CardArray;
+    exports.default = CardArrayFlip_FrontCardBase;
     cc._RF.pop();
   }, {} ],
   CardArray_CardLayout: [ function(require, module, exports) {
@@ -784,8 +1455,8 @@ window.__require = function e(t, n, r) {
       __extends(CardArray_Card, _super);
       function CardArray_Card() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.front = null;
         _this.back = null;
+        _this.front = null;
         _this.k = 0;
         _this._z = 0;
         return _this;
@@ -822,13 +1493,68 @@ window.__require = function e(t, n, r) {
       CardArray_Card.prototype.setSiblingIndex = function(index) {
         this.node.setSiblingIndex(index);
       };
-      __decorate([ property(cc.Node) ], CardArray_Card.prototype, "front", void 0);
       __decorate([ property(cc.Node) ], CardArray_Card.prototype, "back", void 0);
-      __decorate([ property() ], CardArray_Card.prototype, "k", void 0);
+      __decorate([ property(cc.Node) ], CardArray_Card.prototype, "front", void 0);
+      __decorate([ property ], CardArray_Card.prototype, "k", void 0);
       CardArray_Card = __decorate([ ccclass, executeInEditMode ], CardArray_Card);
       return CardArray_Card;
     }(cc.Component);
     exports.default = CardArray_Card;
+    cc._RF.pop();
+  }, {} ],
+  CardArray_Controller: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "b03eeW/0L9M85qS0tEmzZyL", "CardArray_Controller");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var CardArray_Controller = function(_super) {
+      __extends(CardArray_Controller, _super);
+      function CardArray_Controller() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.container = null;
+        return _this;
+      }
+      CardArray_Controller.prototype.start = function() {
+        this.rotateForever();
+      };
+      CardArray_Controller.prototype.rotateForever = function() {
+        var node = this.container, _a = this.node.eulerAngles, x = _a.x, z = _a.z;
+        cc.tween(node).by(2, {
+          eulerAngles: cc.v3(x, 90, z)
+        }).repeatForever().start();
+      };
+      __decorate([ property(cc.Node) ], CardArray_Controller.prototype, "container", void 0);
+      CardArray_Controller = __decorate([ ccclass ], CardArray_Controller);
+      return CardArray_Controller;
+    }(cc.Component);
+    exports.default = CardArray_Controller;
     cc._RF.pop();
   }, {} ],
   CardFlip: [ function(require, module, exports) {
@@ -1074,6 +1800,10 @@ window.__require = function e(t, n, r) {
       cardFlip: {
         name: "\u5361\u7247\u7ffb\u8f6c",
         scene: "cardFlip"
+      },
+      cardArrayFlip: {
+        name: "\u5361\u7247\u9635\u5217 & \u7ffb\u8f6c",
+        scene: "cardArrayFlip"
       },
       colorBrush: {
         name: "\u5f69\u8272\u753b\u7b14",
@@ -7786,4 +8516,4 @@ window.__require = function e(t, n, r) {
     };
     cc._RF.pop();
   }, {} ]
-}, {}, [ "CardArray_Card", "CardArray_CardArray", "CardArray_CardLayout", "CardFlip", "FrameLoading", "NewUserGuide", "PopupTest", "TestPopup", "RadarChartController", "SineWaveController", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RadarChart", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ColorBrush", "GaussianBlur", "HollowOut", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "NetworkManager", "PoolManager", "PopupManager", "ResourceManager", "SceneNavigator", "eazax", "extension", "EditorAsset", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "ResPopupItemInfo", "Constants", "CustomEvents", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test" ]);
+}, {}, [ "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_Controller", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "CardArray_Card", "CardArray_CardLayout", "CardArray_Controller", "CardFlip", "FrameLoading", "NewUserGuide", "PopupTest", "TestPopup", "RadarChartController", "SineWaveController", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RadarChart", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ColorBrush", "GaussianBlur", "HollowOut", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "NetworkManager", "PoolManager", "PopupManager", "ResourceManager", "SceneNavigator", "eazax", "extension", "EditorAsset", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "ResPopupItemInfo", "Constants", "CustomEvents", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test" ]);

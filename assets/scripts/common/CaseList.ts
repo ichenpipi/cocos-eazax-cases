@@ -12,6 +12,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '卡片翻转',
         scene: 'cardFlip'
     },
+    cardArrayFlip: {
+        name: '卡片阵列 & 翻转',
+        scene: 'cardArrayFlip'
+    },
     colorBrush: {
         name: '彩色画笔',
         scene: 'colorBrush'

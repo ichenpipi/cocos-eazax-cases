@@ -2,7 +2,7 @@ const { ccclass, property, executeInEditMode } = cc._decorator;
 
 @ccclass
 @executeInEditMode
-export default class CardArray_Card extends cc.Component {
+export default class CardArrayFlip_Card extends cc.Component {
 
     @property(cc.Node)
     protected back: cc.Node = null;

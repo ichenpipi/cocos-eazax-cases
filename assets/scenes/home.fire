@@ -707,7 +707,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 510,
+      "width": 570,
       "height": 800
     },
     "_anchorPoint": {
@@ -776,7 +776,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 510,
+      "width": 570,
       "height": 800
     },
     "_anchorPoint": {
@@ -841,7 +841,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 510,
+      "width": 570,
       "height": 0
     },
     "_anchorPoint": {
@@ -888,7 +888,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 510,
+      "width": 570,
       "height": 0
     },
     "_resize": 1,
@@ -1031,7 +1031,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        255,
+        285,
         0,
         0,
         0,
@@ -2075,7 +2075,7 @@
   {
     "__type__": "cc.Node",
     "_name": "CommonUI",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -2615,7 +2615,7 @@
         "__id__": 66
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 68
@@ -2645,7 +2645,7 @@
       "ctor": "Float64Array",
       "array": [
         170,
-        435,
+        465,
         0,
         0,
         0,
@@ -2901,7 +2901,7 @@
     "_alignFlags": 33,
     "_left": 0,
     "_right": 50,
-    "_top": 150,
+    "_top": 120,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,

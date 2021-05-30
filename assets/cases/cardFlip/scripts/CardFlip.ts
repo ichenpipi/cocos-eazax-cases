@@ -4,7 +4,8 @@ const { ccclass, property } = cc._decorator;
 
 /**
  * 卡片翻转
- * @see RadarChart.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/card_flip/scripts/CardFlip.ts
+ * @see CardFlip.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/card_flip/scripts/CardFlip.ts
+ * @see TweenUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/TweenUtil.ts
  * @version 20210320
  */
 @ccclass
