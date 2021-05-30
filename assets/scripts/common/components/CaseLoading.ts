@@ -43,7 +43,7 @@ export default class CaseLoading extends cc.Component {
         node.opacity = 0;
         node.active = true;
         cc.tween(node)
-            .to(0.05, { opacity: 100 })
+            .to(0.2, { opacity: 255 })
             .start();
     }
 

@@ -11,7 +11,7 @@ export default class CardArray_Card extends cc.Component {
     protected back: cc.Node = null;
 
     @property()
-    protected k: number = 0;
+    public k: number = 0;
 
     /** 节点在世界坐标中的 z 值 */
     public get z() { return this._z; }

@@ -8,7 +8,7 @@ export default class CardArray_Layout extends cc.Component {
 
     @property
     protected _radius: number = 350;
-    @property({ displayName: CC_DEV && '半径' })
+    @property({ displayName: CC_DEV && '阵列半径' })
     public get radius() {
         return this._radius;
     }
@@ -19,13 +19,24 @@ export default class CardArray_Layout extends cc.Component {
 
     @property
     protected _offset: number = 90;
-    @property({ displayName: CC_DEV && '偏移' })
+    @property({ displayName: CC_DEV && '卡片角度偏移' })
     public get offset() {
         return this._offset;
     }
     public set offset(value: number) {
         this._offset = value;
         this.updateLayout();
+    }
+
+    @property
+    protected _k: number = 0;
+    @property({ displayName: CC_DEV && '正反面阈值' })
+    public get k() {
+        return this._k;
+    }
+    public set k(value: number) {
+        this._k = value;
+        this.updateKValue();
     }
 
     /** 卡片组件 */
@@ -62,10 +73,8 @@ export default class CardArray_Layout extends cc.Component {
      * 取消事件订阅
      */
     protected unregisterEvent() {
-        // 节点增删
         this.node.off(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);
         this.node.off(cc.Node.EventType.CHILD_REMOVED, this.onChildChange, this);
-        // 旋转改变
         this.node.off(cc.Node.EventType.ROTATION_CHANGED, this.onRotationChange, this);
     }
 
@@ -75,6 +84,8 @@ export default class CardArray_Layout extends cc.Component {
     protected onChildChange() {
         // 重新获取组件
         this.cards = this.getComponentsInChildren(CardArray_Card);
+        // 更新 k 值
+        this.updateKValue();
         // 更新布局
         this.updateLayout();
     }
@@ -99,12 +110,12 @@ export default class CardArray_Layout extends cc.Component {
         for (let i = 0; i < count; i++) {
             const node = nodes[i],
                 angleY = -(delta * i),
-                radian = (Math.PI / 180) * (angleY - offset),
-                { x, z } = node.eulerAngles;
+                radian = (Math.PI / 180) * (angleY - offset);
             // 位置
             node.x = radius * Math.cos(radian);
             node.z = -(radius * Math.sin(radian));
             // 角度
+            const { x, z } = node.eulerAngles;
             node.eulerAngles = cc.v3(x, angleY, z);
             // node.rotationY = angleY;      // keep warning
             // node.eulerAngles.y = angleY;  // not working
@@ -128,6 +139,16 @@ export default class CardArray_Layout extends cc.Component {
         // 调整节点层级
         for (let i = 0; i < length; i++) {
             cards[i].setSiblingIndex(i);
+        }
+    }
+
+    /**
+     * 更新卡片的 k 值
+     */
+    protected updateKValue() {
+        const cards = this.cards;
+        for (let i = 0, l = cards.length; i < l; i++) {
+            cards[i].k = this._k;
         }
     }
 
