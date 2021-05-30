@@ -16,7 +16,7 @@ export default class CardArrayFlip_FrontCard2D extends CardArrayFlip_FrontCardBa
             tween(this.main)
                 .parallel(
                     tween().to(half, { scaleX: 0 }, { easing: 'quadIn' }),
-                    tween().to(half, { skewY: -20 }, { easing: 'quadOut' }),
+                    tween().to(half, { skewY: -15 }, { easing: 'quadOut' }),
                 )
                 .call(() => {
                     this.front.active = true;
@@ -42,7 +42,7 @@ export default class CardArrayFlip_FrontCard2D extends CardArrayFlip_FrontCardBa
             tween(this.main)
                 .parallel(
                     tween().to(half, { scaleX: 0 }, { easing: 'quadIn' }),
-                    tween().to(half, { skewY: 20 }, { easing: 'quadOut' }),
+                    tween().to(half, { skewY: 15 }, { easing: 'quadOut' }),
                 )
                 .call(() => {
                     this.front.active = false;

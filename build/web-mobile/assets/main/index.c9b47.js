@@ -1063,7 +1063,7 @@ window.__require = function e(t, n, r) {
           }, {
             easing: "quadIn"
           }), tween().to(half, {
-            skewY: -20
+            skewY: -15
           }, {
             easing: "quadOut"
           })).call(function() {
@@ -1092,7 +1092,7 @@ window.__require = function e(t, n, r) {
           }, {
             easing: "quadIn"
           }), tween().to(half, {
-            skewY: 20
+            skewY: 15
           }, {
             easing: "quadOut"
           })).call(function() {
