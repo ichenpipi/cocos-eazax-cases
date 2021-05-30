@@ -640,6 +640,7 @@ window.__require = function e(t, n, r) {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this._radius = 350;
         _this._offset = 90;
+        _this._k = 0;
         _this.cards = null;
         return _this;
       }
@@ -661,6 +662,17 @@ window.__require = function e(t, n, r) {
         set: function(value) {
           this._offset = value;
           this.updateLayout();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(CardArray_Layout.prototype, "k", {
+        get: function() {
+          return this._k;
+        },
+        set: function(value) {
+          this._k = value;
+          this.updateKValue();
         },
         enumerable: false,
         configurable: true
@@ -687,6 +699,7 @@ window.__require = function e(t, n, r) {
       };
       CardArray_Layout.prototype.onChildChange = function() {
         this.cards = this.getComponentsInChildren(CardArray_Card_1.default);
+        this.updateKValue();
         this.updateLayout();
       };
       CardArray_Layout.prototype.onRotationChange = function() {
@@ -695,9 +708,10 @@ window.__require = function e(t, n, r) {
       CardArray_Layout.prototype.updateLayout = function() {
         var nodes = this.node.children, count = nodes.length, radius = this._radius, offset = this._offset, delta = 360 / count;
         for (var i = 0; i < count; i++) {
-          var node = nodes[i], angleY = -delta * i, radian = Math.PI / 180 * (angleY - offset), _a = node.eulerAngles, x = _a.x, z = _a.z;
+          var node = nodes[i], angleY = -delta * i, radian = Math.PI / 180 * (angleY - offset);
           node.x = radius * Math.cos(radian);
           node.z = -radius * Math.sin(radian);
+          var _a = node.eulerAngles, x = _a.x, z = _a.z;
           node.eulerAngles = cc.v3(x, angleY, z);
         }
         this.updateHierarchy();
@@ -710,6 +724,10 @@ window.__require = function e(t, n, r) {
         });
         for (var i = 0; i < length; i++) cards[i].setSiblingIndex(i);
       };
+      CardArray_Layout.prototype.updateKValue = function() {
+        var cards = this.cards;
+        for (var i = 0, l = cards.length; i < l; i++) cards[i].k = this._k;
+      };
       __decorate([ property ], CardArray_Layout.prototype, "_radius", void 0);
       __decorate([ property({
         displayName: false
@@ -718,6 +736,10 @@ window.__require = function e(t, n, r) {
       __decorate([ property({
         displayName: false
       }) ], CardArray_Layout.prototype, "offset", null);
+      __decorate([ property ], CardArray_Layout.prototype, "_k", void 0);
+      __decorate([ property({
+        displayName: false
+      }) ], CardArray_Layout.prototype, "k", null);
       CardArray_Layout = __decorate([ ccclass, executeInEditMode ], CardArray_Layout);
       return CardArray_Layout;
     }(cc.Component);
@@ -807,101 +829,6 @@ window.__require = function e(t, n, r) {
       return CardArray_Card;
     }(cc.Component);
     exports.default = CardArray_Card;
-    cc._RF.pop();
-  }, {} ],
-  CardArray_Content: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "e1b90/rohdEk4SdmmEZANaD", "CardArray_Content");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var CardArray_Content = function(_super) {
-      __extends(CardArray_Content, _super);
-      function CardArray_Content() {
-        return null !== _super && _super.apply(this, arguments) || this;
-      }
-      CardArray_Content.prototype.onLoad = function() {
-        this.init();
-      };
-      CardArray_Content.prototype.init = function() {};
-      CardArray_Content = __decorate([ ccclass ], CardArray_Content);
-      return CardArray_Content;
-    }(cc.Component);
-    exports.default = CardArray_Content;
-    cc._RF.pop();
-  }, {} ],
-  CardArray_UI: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "eae8fLcp+VKh68szaWpbsHS", "CardArray_UI");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var CardArray_UI = function(_super) {
-      __extends(CardArray_UI, _super);
-      function CardArray_UI() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.loopBtn = null;
-        return _this;
-      }
-      CardArray_UI.prototype.onLoad = function() {};
-      CardArray_UI.prototype.start = function() {};
-      __decorate([ property(cc.Node) ], CardArray_UI.prototype, "loopBtn", void 0);
-      CardArray_UI = __decorate([ ccclass ], CardArray_UI);
-      return CardArray_UI;
-    }(cc.Component);
-    exports.default = CardArray_UI;
     cc._RF.pop();
   }, {} ],
   CardFlip: [ function(require, module, exports) {
@@ -1244,8 +1171,8 @@ window.__require = function e(t, n, r) {
         var node = this.instance.main;
         node.opacity = 0;
         node.active = true;
-        cc.tween(node).to(.05, {
-          opacity: 100
+        cc.tween(node).to(.2, {
+          opacity: 255
         }).start();
       };
       CaseLoading.hide = function() {
@@ -7859,4 +7786,4 @@ window.__require = function e(t, n, r) {
     };
     cc._RF.pop();
   }, {} ]
-}, {}, [ "CardArray_Card", "CardArray_CardArray", "CardArray_CardLayout", "CardArray_Content", "CardArray_UI", "CardFlip", "FrameLoading", "NewUserGuide", "PopupTest", "TestPopup", "RadarChartController", "SineWaveController", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RadarChart", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ColorBrush", "GaussianBlur", "HollowOut", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "NetworkManager", "PoolManager", "PopupManager", "ResourceManager", "SceneNavigator", "eazax", "extension", "EditorAsset", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "ResPopupItemInfo", "Constants", "CustomEvents", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test" ]);
+}, {}, [ "CardArray_Card", "CardArray_CardArray", "CardArray_CardLayout", "CardFlip", "FrameLoading", "NewUserGuide", "PopupTest", "TestPopup", "RadarChartController", "SineWaveController", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RadarChart", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ColorBrush", "GaussianBlur", "HollowOut", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "NetworkManager", "PoolManager", "PopupManager", "ResourceManager", "SceneNavigator", "eazax", "extension", "EditorAsset", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "ResPopupItemInfo", "Constants", "CustomEvents", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test" ]);
