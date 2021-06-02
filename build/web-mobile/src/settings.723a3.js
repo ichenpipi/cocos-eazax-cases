@@ -4,7 +4,9 @@ window._CCSettings = {
         "default",
         "background",
         "orthographic",
-        "perspective"
+        "perspective",
+        "after effect",
+        "common ui"
     ],
     collisionMatrix: [
         [
@@ -24,6 +26,21 @@ window._CCSettings = {
             false,
             false,
             false
+        ],
+        [
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
         ]
     ],
     hasResourcesBundle: true,
@@ -36,7 +53,7 @@ window._CCSettings = {
     jsList: [],
     bundleVers: {
         internal: "3e194",
-        resources: "c03c1",
-        main: "c9b47"
+        resources: "1e9c8",
+        main: "30c03"
     }
 };

@@ -1,0 +1,27 @@
+{
+  "__type__": "cc.Material",
+  "_name": "eazax-mosaic",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "a34dd185-6679-4c0f-aebc-7b7ebcc6c85d"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {},
+      "props": {
+        "size": {
+          "__type__": "cc.Vec2",
+          "x": 500,
+          "y": 500
+        },
+        "pixel": {
+          "__type__": "cc.Vec2",
+          "x": 50,
+          "y": 100
+        }
+      }
+    }
+  }
+}
