@@ -4,7 +4,8 @@
     "background",
     "orthographic",
     "perspective",
-    "after effect"
+    "after effect",
+    "common ui"
   ],
   "collision-matrix": [
     [
@@ -26,6 +27,14 @@
       false
     ],
     [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    [
+      false,
       false,
       false,
       false,

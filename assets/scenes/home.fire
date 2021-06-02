@@ -1507,7 +1507,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 205.74,
+      "width": 191.13,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1786,7 +1786,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 281.79,
+      "width": 270,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -2137,8 +2137,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "07oOh0RaZMIpDwHiKcqHNK"
   },
   {
@@ -2206,8 +2206,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "0bFqIDEzhCib9L1/Hpplq7"
   },
   {
@@ -2278,8 +2278,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "a3RFq5PxJCyJYc/JxVCoj7"
   },
   {
@@ -2344,8 +2344,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "adaVdTUcBPfZo2AJAhViug"
   },
   {
@@ -2406,8 +2406,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "12mFJ9HoROaINy5B+IVoX9"
   },
   {
@@ -2665,8 +2665,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "02qioZ6X9PZYhn5UCYHQG4"
   },
   {
@@ -2730,8 +2730,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "dboFdMphdJY5An1QCjW8ed"
   },
   {
@@ -2851,8 +2851,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 5,
+    "groupIndex": 5,
     "_id": "7dwFue66NIebpLkBeVdTbM"
   },
   {
