@@ -3,7 +3,8 @@
     "default",
     "background",
     "orthographic",
-    "perspective"
+    "perspective",
+    "after effect"
   ],
   "collision-matrix": [
     [
@@ -23,6 +24,13 @@
       false,
       false,
       false
+    ],
+    [
+      false,
+      false,
+      false,
+      false,
+      false
     ]
   ],
   "excluded-modules": [
@@ -37,8 +45,8 @@
   "simulator-orientation": false,
   "use-customize-simulator": true,
   "simulator-resolution": {
-    "height": 640,
-    "width": 960
+    "width": 960,
+    "height": 640
   },
   "assets-sort-type": "name",
   "facebook": {
