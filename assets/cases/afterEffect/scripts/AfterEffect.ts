@@ -21,6 +21,25 @@ export default class AfterEffect extends cc.Component {
 
     protected onLoad() {
         this.init();
+        this.registerEvent();
+    }
+
+    protected onDestroy() {
+        this.unregisterEvent();
+    }
+
+    /**
+     * 订阅事件
+     */
+    protected registerEvent() {
+        cc.Canvas.instance.node.on(cc.Node.EventType.SIZE_CHANGED, this.onCanvasSizeChanged, this);
+    }
+
+    /**
+     * 取消事件订阅
+     */
+    protected unregisterEvent() {
+        cc.Canvas.instance.node.off(cc.Node.EventType.SIZE_CHANGED, this.onCanvasSizeChanged, this);
     }
 
     /**
@@ -29,7 +48,8 @@ export default class AfterEffect extends cc.Component {
     protected init() {
         // 创建 RenderTexture
         const texture = this.targetTexture = new cc.RenderTexture();
-        texture.initWithSize(cc.visibleRect.width, cc.visibleRect.height);
+        const size = cc.view.getVisibleSizeInPixel();
+        texture.initWithSize(size.width, size.height);
 
         // 将摄像机的内容渲染到目标纹理上
         this.camera.targetTexture = texture;
@@ -44,6 +64,15 @@ export default class AfterEffect extends cc.Component {
         // texture.setFlipY(true);  // not working
         const scale = Math.abs(this.targetSprite.node.scaleY);
         this.targetSprite.node.scaleY = -scale;
+    }
+
+    /**
+     * Canvas 尺寸变化回调
+     */
+    protected onCanvasSizeChanged() {
+        cc.log('onSizeChanged')
+        const size = cc.view.getVisibleSizeInPixel();
+        this.targetTexture.updateSize(size.width, size.height);
     }
 
 }

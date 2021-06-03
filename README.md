@@ -1,8 +1,12 @@
 # Eazax-CCC 示例合集
 
+![cocos creator](https://img.shields.io/badge/cocos%20creator-2.4+-blue) ![typescript](https://img.shields.io/badge/typescript-4.2+-blue)
+
+
+
 ## 介绍
 
-[Cocos Creator] Eazax-CCC 功能模块示例合集
+**[Cocos Creator] Eazax Cocos 功能模块示例合集**
 
 - 在线预览：[https://ifaswind.gitee.io/eazax-cases](https://ifaswind.gitee.io/eazax-cases)
 
@@ -20,9 +24,9 @@
 
 ## 环境
 
-引擎：Cocos Creator 2.4.3
+引擎：Cocos Creator 2.4+
 
-语言：TypeScript
+编程语言：TypeScript 4.2+
 
 
 
@@ -30,11 +34,15 @@
 
 
 
-# 菜鸟小栈
+# 公众号
 
-我是陈皮皮，这是我的个人公众号，专注但不仅限于游戏开发、前端和后端技术记录与分享。
+## 菜鸟小栈
 
-每一篇原创都非常用心，你的关注就是我原创的动力！
+😺 我是陈皮皮，一个还在不断学习的游戏开发者，一个热爱分享的 Cocos Star Writer。
+
+🎨 这是我的个人公众号，专注但不仅限于游戏开发和前端技术分享。
+
+💖 每一篇原创都非常用心，你的关注就是我原创的动力！
 
 > Input and output.
 
@@ -48,6 +56,6 @@
 
 ## 交流群
 
-皮皮创建了一个游戏开发交流群，供大家交流经验、问题求助等。
+皮皮创建了一个开发交流群，供小伙伴们交流开发经验、问题求助和摸鱼（划掉）。
 
 感兴趣的小伙伴可以添加我微信 `im_chenpipi` 并留言 `加群`。
