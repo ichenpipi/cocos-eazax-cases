@@ -2539,7 +2539,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "AfterSprite",
+    "_name": "AfterEffectSprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -2707,7 +2707,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "AfterCamera",
+    "_name": "AfterEffectCamera",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2

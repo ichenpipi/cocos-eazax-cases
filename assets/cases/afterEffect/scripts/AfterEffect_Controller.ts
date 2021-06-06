@@ -64,6 +64,8 @@ export default class AfterEffect_Controller extends cc.Component {
     protected onMosaicBtnClick() {
         this.mosaic.enabled = true;
         this.mosaic.init();
+        this.mosaic.set(0, 0);
+        this.mosaic.to(15, 15, 0.5);
     }
 
 }
