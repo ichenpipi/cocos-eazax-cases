@@ -1356,9 +1356,6 @@ window.__require = function e(t, n, r) {
           }).call(res).start();
         });
       };
-      CardArrayFlip_FrontCard3D.prototype.update = function() {
-        console.log(this.main.eulerAngles.y);
-      };
       CardArrayFlip_FrontCard3D = __decorate([ ccclass ], CardArrayFlip_FrontCard3D);
       return CardArrayFlip_FrontCard3D;
     }(CardArrayFlip_FrontCardBase_1.default);
@@ -2588,7 +2585,7 @@ window.__require = function e(t, n, r) {
         } instanceof Array && function(d, b) {
           d.__proto__ = b;
         } || function(d, b) {
-          for (var p in b) b.hasOwnProperty(p) && (d[p] = b[p]);
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
         };
         return extendStatics(d, b);
       };
@@ -2613,21 +2610,32 @@ window.__require = function e(t, n, r) {
       __extends(Counter, _super);
       function Counter() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.time = 1;
-        _this.keepInteger = true;
         _this.label = null;
-        _this._value = 0;
-        _this.tween = null;
-        _this.lastTarget = 0;
+        _this.duration = .5;
+        _this.keepInteger = true;
+        _this.actualValue = 0;
+        _this._curValue = 0;
+        _this.tweenRes = null;
         return _this;
       }
       Object.defineProperty(Counter.prototype, "value", {
         get: function() {
-          return this._value;
+          return this.actualValue;
         },
         set: function(value) {
           this.keepInteger && (value = Math.floor(value));
-          this._value = value;
+          this.curValue = this.actualValue = value;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(Counter.prototype, "curValue", {
+        get: function() {
+          return this._curValue;
+        },
+        set: function(value) {
+          this.keepInteger && (value = Math.floor(value));
+          this._curValue = value;
           this.label.string = value.toString();
         },
         enumerable: false,
@@ -2637,57 +2645,42 @@ window.__require = function e(t, n, r) {
         this.init();
       };
       Counter.prototype.init = function() {
-        this.label = this.getComponent(cc.Label);
+        this.label || (this.label = this.getComponent(cc.Label));
         this.value = 0;
       };
-      Counter.prototype.setValue = function(value) {
+      Counter.prototype.set = function(value) {
         this.value = value;
       };
-      Counter.prototype.setTime = function(time) {
-        this.time = time;
+      Counter.prototype.setDuration = function(duration) {
+        this.duration = duration;
       };
-      Counter.prototype.to = function(target, time, callback) {
+      Counter.prototype.to = function(value, duration, callback) {
         var _this = this;
-        void 0 === time && (time = null);
         return new Promise(function(res) {
-          if (_this.tween) {
-            _this.tween.stop();
-            _this.tween = null;
+          if (_this.tweenRes) {
+            cc.Tween.stopAllByTarget(_this);
+            _this.tweenRes();
           }
-          null !== time && (_this.time = time);
-          _this.lastTarget = target;
-          _this.tween = cc.tween(_this).to(_this.time, {
-            value: target
+          _this.tweenRes = res;
+          _this.actualValue = value;
+          void 0 == duration && (duration = _this.duration);
+          cc.tween(_this).to(duration, {
+            curValue: value
           }).call(function() {
+            _this.tweenRes = null;
             callback && callback();
-            _this.tween = null;
             res();
           }).start();
         });
       };
-      Counter.prototype.by = function(diff, time, callback) {
-        var _this = this;
-        void 0 === time && (time = null);
-        return new Promise(function(res) {
-          if (_this.tween) {
-            _this.tween.stop();
-            _this.tween = null;
-            _this.value = _this.lastTarget;
-          }
-          null !== time && (_this.time = time);
-          _this.lastTarget = _this.value + diff;
-          _this.tween = cc.tween(_this).to(_this.time, {
-            value: _this.lastTarget
-          }).call(function() {
-            callback && callback();
-            _this.tween = null;
-            res();
-          }).start();
-        });
+      Counter.prototype.by = function(diff, duration, callback) {
+        var value = this.actualValue + diff;
+        return this.to(value, duration, callback);
       };
+      __decorate([ property(cc.Label) ], Counter.prototype, "label", void 0);
       __decorate([ property({
         tooltip: false
-      }) ], Counter.prototype, "time", void 0);
+      }) ], Counter.prototype, "duration", void 0);
       __decorate([ property({
         tooltip: false
       }) ], Counter.prototype, "keepInteger", void 0);
@@ -7541,14 +7534,18 @@ window.__require = function e(t, n, r) {
         angle >= 720 ? this.angle %= 360 : angle <= -720 && (this.angle %= -360);
       };
       RotateAround.prototype.run = function(target, clockwise, timePerRound, faceToTarget, faceAxis) {
-        target && (this.target = target);
-        clockwise && (this.clockwise = clockwise);
-        timePerRound && (this.timePerRound = timePerRound);
-        faceToTarget && (this.faceToTarget = faceToTarget);
-        faceAxis && (this.faceAxis = faceAxis);
-        if (!this.target) return cc.log("No target!");
-        this.angle = this.getAngle(this.target.getPosition(), this.node.getPosition());
-        this.radius = this.getDistance(this.target.getPosition(), this.node.getPosition());
+        void 0 != target && (this.target = target);
+        void 0 != clockwise && (this.clockwise = clockwise);
+        void 0 != timePerRound && (this.timePerRound = timePerRound);
+        void 0 != faceToTarget && (this.faceToTarget = faceToTarget);
+        void 0 != faceAxis && (this.faceAxis = faceAxis);
+        if (!this.target) {
+          cc.warn("[RotateAround]", "No target!");
+          return;
+        }
+        var p1 = this.target.getPosition(), p2 = this.node.getPosition();
+        this.angle = this.getAngle(p1, p2);
+        this.radius = this.getDistance(p1, p2);
         this.isRotating = true;
       };
       RotateAround.prototype.stop = function() {

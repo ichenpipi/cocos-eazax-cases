@@ -45,8 +45,4 @@ export default class CardArrayFlip_FrontCard3D extends CardArrayFlip_FrontCardBa
         });
     }
 
-    protected update() {
-        console.log(this.main.eulerAngles.y)
-    }
-
 }
