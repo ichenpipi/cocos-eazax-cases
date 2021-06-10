@@ -98,8 +98,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -110,8 +110,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        360,
-        640,
+        375,
+        667,
         0,
         0,
         0,
@@ -268,8 +268,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -334,8 +334,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -399,8 +399,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -551,8 +551,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -623,8 +623,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1214,8 +1214,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1289,7 +1289,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 434.94,
+      "width": 548.0699999999999,
       "height": 80
     },
     "_anchorPoint": {
@@ -1302,7 +1302,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        550,
+        577,
         0,
         0,
         0,
@@ -1351,7 +1351,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 267.95,
+      "width": 448.07,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1363,7 +1363,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
+        2.842170943040401e-14,
         4.618527782440651e-14,
         0,
         0,
@@ -1403,8 +1403,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "🔸Flip Card🔸",
-    "_N$string": "🔸Flip Card🔸",
+    "_string": "🔸Flip Card via Skew🔸",
+    "_N$string": "🔸Flip Card via Skew🔸",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1527,7 +1527,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 434.94,
+      "width": 548.0699999999999,
       "height": 80
     },
     "_resize": 1,
@@ -1640,8 +1640,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_fitWidth": true,
     "_fitHeight": false,

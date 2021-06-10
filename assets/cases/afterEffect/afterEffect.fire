@@ -107,8 +107,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -119,8 +119,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        360,
-        640,
+        375,
+        667,
         0,
         0,
         0,
@@ -283,8 +283,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -349,8 +349,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -414,8 +414,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -572,8 +572,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1000,8 +1000,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1085,7 +1085,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        550,
+        577,
         0,
         0,
         0,
@@ -2568,8 +2568,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2616,11 +2616,8 @@
     "_effect": {
       "__uuid__": "a34dd185-6679-4c0f-aebc-7b7ebcc6c85d"
     },
-    "_tileSize": {
-      "__type__": "cc.Vec2",
-      "x": 10,
-      "y": 10
-    },
+    "_width": 5,
+    "_height": 5,
     "_id": "86MKWsURRHu76A6sVs/h9B"
   },
   {
@@ -2911,8 +2908,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_fitWidth": true,
     "_fitHeight": false,
