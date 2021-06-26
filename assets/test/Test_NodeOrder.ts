@@ -2,7 +2,7 @@ const { ccclass, property, executeInEditMode } = cc._decorator;
 
 @ccclass
 @executeInEditMode
-export default class Test_RenderSequence extends cc.Component {
+export default class Test_NodeOrder extends cc.Component {
 
     @property
     protected get siblingIndex() {
