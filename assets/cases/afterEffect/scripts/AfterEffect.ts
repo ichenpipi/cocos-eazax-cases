@@ -70,7 +70,6 @@ export default class AfterEffect extends cc.Component {
      * Canvas 尺寸变化回调
      */
     protected onCanvasSizeChanged() {
-        cc.log('onSizeChanged')
         const size = cc.view.getVisibleSizeInPixel();
         this.targetTexture.updateSize(size.width, size.height);
     }
