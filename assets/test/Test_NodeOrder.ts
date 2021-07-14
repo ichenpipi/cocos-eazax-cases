@@ -31,11 +31,4 @@ export default class Test_NodeOrder extends cc.Component {
         return this.node._localZOrder.toString(2).padStart(32, 0);
     }
 
-    update() {
-        if (this.node.name === 'blue') {
-            Editor.log('localZOrder', this.localZOrder)
-            Editor.log('parent._childArrivalOrder', this.node.parent._childArrivalOrder)
-        }
-    }
-
 }
