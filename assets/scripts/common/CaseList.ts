@@ -56,6 +56,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '正弦波浪',
         scene: 'sineWave'
     },
+    arcProgressBar: {
+        name: '弧形进度条',
+        scene: 'arcProgressBar'
+    },
 }
 
 /** 关卡信息 */

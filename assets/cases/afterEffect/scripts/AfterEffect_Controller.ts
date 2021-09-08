@@ -29,6 +29,8 @@ export default class AfterEffect_Controller extends cc.Component {
     @property(cc.Node)
     protected mosaicBtn: cc.Node = null;
 
+    protected normalMaterial: cc.Material = cc.Material.getBuiltinMaterial('2d-sprite');
+
     protected onLoad() {
         this.registerEvent();
     }
@@ -47,7 +49,7 @@ export default class AfterEffect_Controller extends cc.Component {
      */
     protected onNormalBtnClick() {
         this.mosaic.enabled = false;
-        this.sprite.setMaterial(0, cc.Material.getBuiltinMaterial('2d-sprite'));
+        this.sprite.setMaterial(0, this.normalMaterial);
     }
 
     /**
@@ -62,10 +64,11 @@ export default class AfterEffect_Controller extends cc.Component {
      * 马赛克
      */
     protected onMosaicBtnClick() {
-        this.mosaic.enabled = true;
-        this.mosaic.init();
-        this.mosaic.set(0, 0);
-        this.mosaic.to(15, 15, 0.5);
+        const mosaic = this.mosaic;
+        mosaic.enabled = true;
+        mosaic.init();
+        mosaic.set(0, 0);
+        mosaic.to(15, 15, 0.5);
     }
 
 }

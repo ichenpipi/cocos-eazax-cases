@@ -1,6 +1,7 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.27",
   "uuid": "da590bd7-3d47-487d-a766-8aa22acc865b",
+  "importer": "effect",
   "compiledShaders": [
     {
       "glsl1": {

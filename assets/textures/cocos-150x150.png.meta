@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "fdd23fa2-3d81-4485-a911-86696c337480",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "cocos-150x150": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d3f60e03-a326-4540-8150-a61237bf1866",
+      "importer": "sprite-frame",
       "rawTextureUuid": "fdd23fa2-3d81-4485-a911-86696c337480",
       "trimType": "auto",
       "trimThreshold": 1,

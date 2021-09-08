@@ -1,6 +1,7 @@
 {
-  "ver": "1.0.3",
+  "ver": "1.0.5",
   "uuid": "1a7f729e-6a71-47a6-94d1-36f0fcc25278",
+  "importer": "material",
   "dataAsSubAsset": null,
   "subMetas": {}
 }

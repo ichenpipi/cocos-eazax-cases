@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "15ade27e-0212-4775-b5e4-8a8a258e8b63",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "YellowMonster": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "0a37fd50-dd9b-4330-b15c-32be85ecbe72",
+      "importer": "sprite-frame",
       "rawTextureUuid": "15ade27e-0212-4775-b5e4-8a8a258e8b63",
       "trimType": "auto",
       "trimThreshold": 1,

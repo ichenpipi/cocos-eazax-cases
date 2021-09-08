@@ -981,7 +981,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 217.64,
+      "width": 324.49,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1033,8 +1033,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "🔸Avatar🔸",
-    "_N$string": "🔸Avatar🔸",
+    "_string": "🔸Quick Finder🔸",
+    "_N$string": "🔸Quick Finder🔸",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1198,7 +1198,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 156.67,
+      "width": 105,
       "height": 40
     },
     "_anchorPoint": {
@@ -1253,15 +1253,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 150,
-      "g": 150,
-      "b": 150,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 156.67,
-      "height": 37.8
+      "width": 105,
+      "height": 44.1
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1312,10 +1312,10 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "示例功能待添加...",
-    "_N$string": "示例功能待添加...",
-    "_fontSize": 20,
-    "_lineHeight": 30,
+    "_string": "陈皮皮",
+    "_N$string": "陈皮皮",
+    "_fontSize": 35,
+    "_lineHeight": 35,
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1340,7 +1340,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 156.67,
+      "width": 105,
       "height": 40
     },
     "_resize": 1,
