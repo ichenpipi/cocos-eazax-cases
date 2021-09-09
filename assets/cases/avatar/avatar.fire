@@ -98,8 +98,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -110,8 +110,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        375,
-        667,
+        360,
+        640,
         0,
         0,
         0,
@@ -268,8 +268,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -334,8 +334,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -399,8 +399,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -551,8 +551,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -620,8 +620,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -847,8 +847,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -932,7 +932,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        577,
+        550,
         0,
         0,
         0,
@@ -981,7 +981,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 324.49,
+      "width": 217.64,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1033,8 +1033,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "🔸Quick Finder🔸",
-    "_N$string": "🔸Quick Finder🔸",
+    "_string": "🔸Avatar🔸",
+    "_N$string": "🔸Avatar🔸",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1198,7 +1198,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 105,
+      "width": 156.67,
       "height": 40
     },
     "_anchorPoint": {
@@ -1211,7 +1211,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        517,
+        490,
         0,
         0,
         0,
@@ -1253,15 +1253,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 150,
+      "g": 150,
+      "b": 150,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 105,
-      "height": 44.1
+      "width": 156.67,
+      "height": 37.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1312,10 +1312,10 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "陈皮皮",
-    "_N$string": "陈皮皮",
-    "_fontSize": 35,
-    "_lineHeight": 35,
+    "_string": "示例功能待添加...",
+    "_N$string": "示例功能待添加...",
+    "_fontSize": 20,
+    "_lineHeight": 30,
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1340,7 +1340,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 105,
+      "width": 156.67,
       "height": 40
     },
     "_resize": 1,
@@ -1453,8 +1453,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 720,
+      "height": 1280
     },
     "_fitWidth": true,
     "_fitHeight": false,

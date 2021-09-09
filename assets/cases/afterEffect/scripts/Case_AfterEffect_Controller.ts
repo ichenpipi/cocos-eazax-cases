@@ -3,13 +3,14 @@ import Mosaic from "../../../eazax-ccc/components/effects/Mosaic";
 const { ccclass, property } = cc._decorator;
 
 /**
- * 效果控制器
+ * 后期效果控制器
+ * @author 陈皮皮 (ifaswind)
+ * @version 20210603
  * @see Mosaic.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/Mosaic.ts
  * @see eazax-mosaic.effect https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-mosaic.effect
- * @version 20210603
  */
 @ccclass
-export default class AfterEffect_Controller extends cc.Component {
+export default class Case_AfterEffect_Controller extends cc.Component {
 
     @property(cc.Sprite)
     protected sprite: cc.Sprite = null;

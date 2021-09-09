@@ -4,7 +4,7 @@ import CardArrayFlip_FrontCardBase from "./CardArrayFlip_FrontCardBase";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class CardArrayFlip_Controller extends cc.Component {
+export default class Case_CardArrayFlip_Controller extends cc.Component {
 
     @property(cc.Node)
     protected container: cc.Node = null;

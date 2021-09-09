@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 43
-      },
-      {
-        "__id__": 44
-      },
-      {
         "__id__": 45
+      },
+      {
+        "__id__": 46
+      },
+      {
+        "__id__": 47
       }
     ],
     "_prefab": null,
@@ -254,10 +254,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 41
+        "__id__": 43
       },
       {
-        "__id__": 42
+        "__id__": 44
       }
     ],
     "_prefab": null,
@@ -1305,7 +1305,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 40
+        "__id__": 42
       }
     ],
     "_prefab": null,
@@ -1383,10 +1383,10 @@
         "__id__": 37
       },
       {
-        "__id__": 38
+        "__id__": 40
       },
       {
-        "__id__": 39
+        "__id__": 41
       }
     ],
     "_prefab": null,
@@ -1798,8 +1798,25 @@
       "__id__": 29
     },
     "_enabled": true,
-    "items": [],
+    "items": [
+      {
+        "__id__": 38
+      },
+      {
+        "__id__": 39
+      }
+    ],
     "_id": "d084dASHFFgpxFVXT0jSeL"
+  },
+  {
+    "__type__": "ResPopupItemInfo",
+    "title": "[示例] Case_ArcProgressBar.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/arcProgressBar/scripts/Case_ArcProgressBar.ts"
+  },
+  {
+    "__type__": "ResPopupItemInfo",
+    "title": "[组件] ArcProgressBar.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/ArcProgressBar.ts"
   },
   {
     "__type__": "cc.Layout",

@@ -1,7 +1,7 @@
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class FrameLoading extends cc.Component {
+export default class Case_FrameLoading extends cc.Component {
 
     @property(cc.Node)
     protected itemPrefab: cc.Node = null;

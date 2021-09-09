@@ -4,7 +4,7 @@ import TestPopup from "./TestPopup";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class PopupTest extends cc.Component {
+export default class Case_PopupTest extends cc.Component {
 
     @property(cc.Node)
     private btn: cc.Node = null;

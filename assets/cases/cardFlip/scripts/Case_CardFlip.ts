@@ -4,12 +4,11 @@ const { ccclass, property } = cc._decorator;
 
 /**
  * 卡片翻转
- * @see CardFlip.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/card_flip/scripts/CardFlip.ts
  * @see TweenUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/TweenUtil.ts
  * @version 20210320
  */
 @ccclass
-export default class CardFlip extends cc.Component {
+export default class Case_CardFlip extends cc.Component {
 
     @property({ displayName: CC_DEV && '卡片', type: cc.Node })
     protected card: cc.Node = null;

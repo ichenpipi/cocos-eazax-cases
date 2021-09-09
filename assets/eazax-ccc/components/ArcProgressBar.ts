@@ -4,7 +4,7 @@ const { ccclass, property, requireComponent, executeInEditMode, help } = cc._dec
  * 弧形进度条
  * @author 陈皮皮 (ifaswind)
  * @version 20210908
- * @see https://gitee.com/ifaswind/eazax-ccc/blob/master/components/ArcProgressBar.ts
+ * @see ArcProgressBar.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/ArcProgressBar.ts
  */
 @ccclass
 @requireComponent(cc.Graphics)
@@ -125,6 +125,9 @@ export default class ArcProgressBar extends cc.Component {
     /** 缓动的 Promise resolve */
     protected tweenRes: Function = null;
 
+    /** 缓动 */
+    protected tween: cc.Tween = null;
+
     protected onLoad() {
         this.init();
     }
@@ -221,10 +224,15 @@ export default class ArcProgressBar extends cc.Component {
      */
     public to(duration: number, progress: number) {
         return new Promise<void>(res => {
-            cc.tween<ArcProgressBar>(this)
+            this.stop();
+            this.tweenRes = res;
+            this.tween = cc.tween<ArcProgressBar>(this)
                 .to(duration, { progress })
+                .call(() => {
+                    this.tween = null;
+                    this.tweenRes = null;
+                })
                 .call(res)
-                .call(() => (this.tweenRes = null))
                 .start();
         });
     }
@@ -233,13 +241,20 @@ export default class ArcProgressBar extends cc.Component {
      * 停止当前缓动
      */
     public stop() {
-        cc.Tween.stopAllByTarget(this);
+        if (this.tween) {
+            this.tween.stop();
+            this.tween = null;
+        }
         if (this.tweenRes) {
             this.tweenRes();
             this.tweenRes = null;
         }
     }
 
+    /**
+     * 角度转弧度
+     * @param angle 角度
+     */
     public angleToRadians(angle: number) {
         return (Math.PI / 180) * angle;
     }

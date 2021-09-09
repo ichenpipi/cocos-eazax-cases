@@ -12,9 +12,10 @@ export enum HollowOutShape {
 
 /**
  * [Shader] 挖孔组件，该组件需要对应的 Effect 才能正常使用！
+ * @author 陈皮皮 (ifaswind)
+ * @version 20210429
  * @see HollowOut.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts
  * @see eazax-hollowout.effect https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect
- * @version 20210429
  */
 @ccclass
 @requireComponent(cc.Sprite)

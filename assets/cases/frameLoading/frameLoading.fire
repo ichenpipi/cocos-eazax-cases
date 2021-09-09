@@ -2903,7 +2903,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 381.31,
+      "width": 366.7,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3058,8 +3058,8 @@
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "FrameLoading.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/frameLoading/scripts/FrameLoading.ts"
+    "title": "Case_FrameLoading.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/frameLoading/scripts/Case_FrameLoading.ts"
   },
   {
     "__type__": "cc.Widget",

@@ -5,14 +5,13 @@ const { ccclass, property } = cc._decorator;
 
 /**
  * [示例] 新手引导
- * @see NewUserGuide.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/new_user_guide/scripts/NewUserGuide.ts
  * @see HollowOut.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts
  * @see eazax-hollowout.effect https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect
  * @see TouchBlocker.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts
  * @version 20210429
  */
 @ccclass
-export default class NewUserGuide extends cc.Component {
+export default class Case_NewUserGuide extends cc.Component {
 
     @property(HollowOut)
     protected hollowOut: HollowOut = null;

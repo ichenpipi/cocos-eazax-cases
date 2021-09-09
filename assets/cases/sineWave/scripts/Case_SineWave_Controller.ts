@@ -4,7 +4,7 @@ import JellyTween from "../../../eazax-ccc/components/tweens/JellyTween";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class SineWaveController extends cc.Component {
+export default class Case_SineWave_Controller extends cc.Component {
 
     @property(SineWave)
     protected sineWave: SineWave = null;
