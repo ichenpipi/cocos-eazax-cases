@@ -26,89 +26,6 @@ window.__require = function e(t, n, r) {
   for (var o = 0; o < r.length; o++) s(r[o]);
   return s;
 }({
-  AfterEffect_Controller: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "5d24fVSWGlC2KYSdGaaOGpu", "AfterEffect_Controller");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var Mosaic_1 = require("../../../eazax-ccc/components/effects/Mosaic");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var AfterEffect_Controller = function(_super) {
-      __extends(AfterEffect_Controller, _super);
-      function AfterEffect_Controller() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.sprite = null;
-        _this.grayMaterial = null;
-        _this.mosaic = null;
-        _this.normalBtn = null;
-        _this.grayBtn = null;
-        _this.mosaicBtn = null;
-        _this.normalMaterial = cc.Material.getBuiltinMaterial("2d-sprite");
-        return _this;
-      }
-      AfterEffect_Controller.prototype.onLoad = function() {
-        this.registerEvent();
-      };
-      AfterEffect_Controller.prototype.registerEvent = function() {
-        this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
-        this.grayBtn.on(cc.Node.EventType.TOUCH_END, this.onGrayBtnClick, this);
-        this.mosaicBtn.on(cc.Node.EventType.TOUCH_END, this.onMosaicBtnClick, this);
-      };
-      AfterEffect_Controller.prototype.onNormalBtnClick = function() {
-        this.mosaic.enabled = false;
-        this.sprite.setMaterial(0, this.normalMaterial);
-      };
-      AfterEffect_Controller.prototype.onGrayBtnClick = function() {
-        this.mosaic.enabled = false;
-        this.sprite.setMaterial(0, this.grayMaterial);
-      };
-      AfterEffect_Controller.prototype.onMosaicBtnClick = function() {
-        var mosaic = this.mosaic;
-        mosaic.enabled = true;
-        mosaic.init();
-        mosaic.set(0, 0);
-        mosaic.to(15, 15, .5);
-      };
-      __decorate([ property(cc.Sprite) ], AfterEffect_Controller.prototype, "sprite", void 0);
-      __decorate([ property(cc.Material) ], AfterEffect_Controller.prototype, "grayMaterial", void 0);
-      __decorate([ property(Mosaic_1.default) ], AfterEffect_Controller.prototype, "mosaic", void 0);
-      __decorate([ property(cc.Node) ], AfterEffect_Controller.prototype, "normalBtn", void 0);
-      __decorate([ property(cc.Node) ], AfterEffect_Controller.prototype, "grayBtn", void 0);
-      __decorate([ property(cc.Node) ], AfterEffect_Controller.prototype, "mosaicBtn", void 0);
-      AfterEffect_Controller = __decorate([ ccclass ], AfterEffect_Controller);
-      return AfterEffect_Controller;
-    }(cc.Component);
-    exports.default = AfterEffect_Controller;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/components/effects/Mosaic": "Mosaic"
-  } ],
   AfterEffect: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "13bb6FawLtHzph91dUR2qSA", "AfterEffect");
@@ -242,6 +159,7 @@ window.__require = function e(t, n, r) {
         _this.curStartRadians = 0;
         _this.curEndRadians = 0;
         _this.tweenRes = null;
+        _this.tween = null;
         return _this;
       }
       Object.defineProperty(ArcProgressBar.prototype, "radius", {
@@ -400,15 +318,21 @@ window.__require = function e(t, n, r) {
       ArcProgressBar.prototype.to = function(duration, progress) {
         var _this = this;
         return new Promise(function(res) {
-          cc.tween(_this).to(duration, {
+          _this.stop();
+          _this.tweenRes = res;
+          _this.tween = cc.tween(_this).to(duration, {
             progress: progress
-          }).call(res).call(function() {
-            return _this.tweenRes = null;
-          }).start();
+          }).call(function() {
+            _this.tween = null;
+            _this.tweenRes = null;
+          }).call(res).start();
         });
       };
       ArcProgressBar.prototype.stop = function() {
-        cc.Tween.stopAllByTarget(this);
+        if (this.tween) {
+          this.tween.stop();
+          this.tween = null;
+        }
         if (this.tweenRes) {
           this.tweenRes();
           this.tweenRes = null;
@@ -1216,242 +1140,6 @@ window.__require = function e(t, n, r) {
     exports.default = CardArrayFlip_Card;
     cc._RF.pop();
   }, {} ],
-  CardArrayFlip_Controller: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "afb23B4XMJC+5DoKNtwVyh1", "CardArrayFlip_Controller");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    var __generator = this && this.__generator || function(thisArg, body) {
-      var _ = {
-        label: 0,
-        sent: function() {
-          if (1 & t[0]) throw t[1];
-          return t[1];
-        },
-        trys: [],
-        ops: []
-      }, f, y, t, g;
-      return g = {
-        next: verb(0),
-        throw: verb(1),
-        return: verb(2)
-      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
-        return this;
-      }), g;
-      function verb(n) {
-        return function(v) {
-          return step([ n, v ]);
-        };
-      }
-      function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
-          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
-          switch (op[0]) {
-           case 0:
-           case 1:
-            t = op;
-            break;
-
-           case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-           case 5:
-            _.label++;
-            y = op[1];
-            op = [ 0 ];
-            continue;
-
-           case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-
-           default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
-              _ = 0;
-              continue;
-            }
-            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (6 === op[0] && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            t[2] && _.ops.pop();
-            _.trys.pop();
-            continue;
-          }
-          op = body.call(thisArg, _);
-        } catch (e) {
-          op = [ 6, e ];
-          y = 0;
-        } finally {
-          f = t = 0;
-        }
-        if (5 & op[0]) throw op[1];
-        return {
-          value: op[0] ? op[1] : void 0,
-          done: true
-        };
-      }
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var PromiseUtil_1 = require("../../../eazax-ccc/utils/PromiseUtil");
-    var CardArrayFlip_FrontCardBase_1 = require("./CardArrayFlip_FrontCardBase");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var CardArrayFlip_Controller = function(_super) {
-      __extends(CardArrayFlip_Controller, _super);
-      function CardArrayFlip_Controller() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.container = null;
-        _this.cardNode = null;
-        _this.card = null;
-        return _this;
-      }
-      Object.defineProperty(CardArrayFlip_Controller.prototype, "frontArrayCard", {
-        get: function() {
-          return this.container.children[this.container.childrenCount - 1];
-        },
-        enumerable: false,
-        configurable: true
-      });
-      CardArrayFlip_Controller.prototype.onLoad = function() {
-        this.init();
-      };
-      CardArrayFlip_Controller.prototype.init = function() {
-        this.card = this.cardNode.getComponent(CardArrayFlip_FrontCardBase_1.default);
-        this.play();
-      };
-      CardArrayFlip_Controller.prototype.play = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var frontCard;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              frontCard = this.card;
-              return [ 4, this.rotate(2) ];
-
-             case 1:
-              _a.sent();
-              return [ 4, PromiseUtil_1.default.wait(.2) ];
-
-             case 2:
-              _a.sent();
-              frontCard.show();
-              this.frontArrayCard.active = false;
-              return [ 4, frontCard.flipToFront() ];
-
-             case 3:
-              _a.sent();
-              return [ 4, PromiseUtil_1.default.wait(2) ];
-
-             case 4:
-              _a.sent();
-              return [ 4, frontCard.flipToBack() ];
-
-             case 5:
-              _a.sent();
-              this.frontArrayCard.active = true;
-              frontCard.hide();
-              return [ 4, PromiseUtil_1.default.wait(.2) ];
-
-             case 6:
-              _a.sent();
-              this.play();
-              return [ 2 ];
-            }
-          });
-        });
-      };
-      CardArrayFlip_Controller.prototype.rotate = function(round) {
-        var _this = this;
-        return new Promise(function(res) {
-          var node = _this.container, time = 1 * round, _a = _this.node.eulerAngles, x = _a.x, z = _a.z, eulerAngles = cc.v3(x, 360 * round, z);
-          cc.tween(node).by(time, {
-            eulerAngles: eulerAngles
-          }, {
-            easing: "quadOut"
-          }).call(res).start();
-        });
-      };
-      __decorate([ property(cc.Node) ], CardArrayFlip_Controller.prototype, "container", void 0);
-      __decorate([ property(cc.Node) ], CardArrayFlip_Controller.prototype, "cardNode", void 0);
-      CardArrayFlip_Controller = __decorate([ ccclass ], CardArrayFlip_Controller);
-      return CardArrayFlip_Controller;
-    }(cc.Component);
-    exports.default = CardArrayFlip_Controller;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/utils/PromiseUtil": "PromiseUtil",
-    "./CardArrayFlip_FrontCardBase": "CardArrayFlip_FrontCardBase"
-  } ],
   CardArrayFlip_FrontCard2D: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "5f44dz14RZHTpMdYvIF/kTY", "CardArrayFlip_FrontCard2D");
@@ -1938,284 +1626,6 @@ window.__require = function e(t, n, r) {
     exports.default = CardArray_Card;
     cc._RF.pop();
   }, {} ],
-  CardArray_Controller: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "b03eeW/0L9M85qS0tEmzZyL", "CardArray_Controller");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var CardArray_Controller = function(_super) {
-      __extends(CardArray_Controller, _super);
-      function CardArray_Controller() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.container = null;
-        return _this;
-      }
-      CardArray_Controller.prototype.start = function() {
-        this.rotateForever();
-      };
-      CardArray_Controller.prototype.rotateForever = function() {
-        var node = this.container, _a = this.node.eulerAngles, x = _a.x, z = _a.z;
-        cc.tween(node).by(2, {
-          eulerAngles: cc.v3(x, 90, z)
-        }).repeatForever().start();
-      };
-      __decorate([ property(cc.Node) ], CardArray_Controller.prototype, "container", void 0);
-      CardArray_Controller = __decorate([ ccclass ], CardArray_Controller);
-      return CardArray_Controller;
-    }(cc.Component);
-    exports.default = CardArray_Controller;
-    cc._RF.pop();
-  }, {} ],
-  CardFlip: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "3cf8arMOblOeL4UxCUU8QcT", "CardFlip");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    var __generator = this && this.__generator || function(thisArg, body) {
-      var _ = {
-        label: 0,
-        sent: function() {
-          if (1 & t[0]) throw t[1];
-          return t[1];
-        },
-        trys: [],
-        ops: []
-      }, f, y, t, g;
-      return g = {
-        next: verb(0),
-        throw: verb(1),
-        return: verb(2)
-      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
-        return this;
-      }), g;
-      function verb(n) {
-        return function(v) {
-          return step([ n, v ]);
-        };
-      }
-      function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
-          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
-          switch (op[0]) {
-           case 0:
-           case 1:
-            t = op;
-            break;
-
-           case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-           case 5:
-            _.label++;
-            y = op[1];
-            op = [ 0 ];
-            continue;
-
-           case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-
-           default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
-              _ = 0;
-              continue;
-            }
-            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (6 === op[0] && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            t[2] && _.ops.pop();
-            _.trys.pop();
-            continue;
-          }
-          op = body.call(thisArg, _);
-        } catch (e) {
-          op = [ 6, e ];
-          y = 0;
-        } finally {
-          f = t = 0;
-        }
-        if (5 & op[0]) throw op[1];
-        return {
-          value: op[0] ? op[1] : void 0,
-          done: true
-        };
-      }
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var TweenUtil_1 = require("../../../eazax-ccc/utils/TweenUtil");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var CardFlip = function(_super) {
-      __extends(CardFlip, _super);
-      function CardFlip() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.card = null;
-        _this.flipBtn = null;
-        _this.button = null;
-        _this.frontColor = cc.Color.WHITE;
-        _this.backColor = cc.Color.GRAY;
-        return _this;
-      }
-      CardFlip.prototype.onLoad = function() {
-        this.init();
-        this.registerEvent();
-      };
-      CardFlip.prototype.start = function() {
-        this.reset();
-      };
-      CardFlip.prototype.onDestroy = function() {
-        this.unregisterEvent();
-      };
-      CardFlip.prototype.registerEvent = function() {
-        this.flipBtn.on(cc.Node.EventType.TOUCH_END, this.onFlipBtnClick, this);
-      };
-      CardFlip.prototype.unregisterEvent = function() {
-        this.flipBtn.off(cc.Node.EventType.TOUCH_END, this.onFlipBtnClick, this);
-      };
-      CardFlip.prototype.init = function() {
-        this.button = this.flipBtn.getComponent(cc.Button) || this.flipBtn.addComponent(cc.Button);
-      };
-      CardFlip.prototype.reset = function() {
-        this.card.color = this.frontColor;
-        this.setButtonState(true);
-      };
-      CardFlip.prototype.onFlipBtnClick = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var _this = this;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              if (!this.button.interactable) return [ 2 ];
-              this.setButtonState(false);
-              return [ 4, TweenUtil_1.default.flip(this.card, 2, function() {
-                _this.card.color.equals(_this.frontColor) ? _this.card.color = _this.backColor : _this.card.color = _this.frontColor;
-              }) ];
-
-             case 1:
-              _a.sent();
-              this.setButtonState(true);
-              return [ 2 ];
-            }
-          });
-        });
-      };
-      CardFlip.prototype.setButtonState = function(interactable) {
-        this.button.interactable = interactable;
-        this.flipBtn.color = interactable ? cc.Color.WHITE : cc.Color.GRAY;
-      };
-      __decorate([ property({
-        displayName: false,
-        type: cc.Node
-      }) ], CardFlip.prototype, "card", void 0);
-      __decorate([ property({
-        displayName: false,
-        type: cc.Node
-      }) ], CardFlip.prototype, "flipBtn", void 0);
-      CardFlip = __decorate([ ccclass ], CardFlip);
-      return CardFlip;
-    }(cc.Component);
-    exports.default = CardFlip;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/utils/TweenUtil": "TweenUtil"
-  } ],
   CaseList: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "cfeb0zMzGxBCISE4TDJIs4C", "CaseList");
@@ -2428,6 +1838,89 @@ window.__require = function e(t, n, r) {
     "./components/Toast": "Toast",
     "./constants/Constants": "Constants",
     "./constants/CustomEvents": "CustomEvents"
+  } ],
+  Case_AfterEffect_Controller: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "5d24fVSWGlC2KYSdGaaOGpu", "Case_AfterEffect_Controller");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var Mosaic_1 = require("../../../eazax-ccc/components/effects/Mosaic");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_AfterEffect_Controller = function(_super) {
+      __extends(Case_AfterEffect_Controller, _super);
+      function Case_AfterEffect_Controller() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.sprite = null;
+        _this.grayMaterial = null;
+        _this.mosaic = null;
+        _this.normalBtn = null;
+        _this.grayBtn = null;
+        _this.mosaicBtn = null;
+        _this.normalMaterial = cc.Material.getBuiltinMaterial("2d-sprite");
+        return _this;
+      }
+      Case_AfterEffect_Controller.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_AfterEffect_Controller.prototype.registerEvent = function() {
+        this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
+        this.grayBtn.on(cc.Node.EventType.TOUCH_END, this.onGrayBtnClick, this);
+        this.mosaicBtn.on(cc.Node.EventType.TOUCH_END, this.onMosaicBtnClick, this);
+      };
+      Case_AfterEffect_Controller.prototype.onNormalBtnClick = function() {
+        this.mosaic.enabled = false;
+        this.sprite.setMaterial(0, this.normalMaterial);
+      };
+      Case_AfterEffect_Controller.prototype.onGrayBtnClick = function() {
+        this.mosaic.enabled = false;
+        this.sprite.setMaterial(0, this.grayMaterial);
+      };
+      Case_AfterEffect_Controller.prototype.onMosaicBtnClick = function() {
+        var mosaic = this.mosaic;
+        mosaic.enabled = true;
+        mosaic.init();
+        mosaic.set(0, 0);
+        mosaic.to(15, 15, .5);
+      };
+      __decorate([ property(cc.Sprite) ], Case_AfterEffect_Controller.prototype, "sprite", void 0);
+      __decorate([ property(cc.Material) ], Case_AfterEffect_Controller.prototype, "grayMaterial", void 0);
+      __decorate([ property(Mosaic_1.default) ], Case_AfterEffect_Controller.prototype, "mosaic", void 0);
+      __decorate([ property(cc.Node) ], Case_AfterEffect_Controller.prototype, "normalBtn", void 0);
+      __decorate([ property(cc.Node) ], Case_AfterEffect_Controller.prototype, "grayBtn", void 0);
+      __decorate([ property(cc.Node) ], Case_AfterEffect_Controller.prototype, "mosaicBtn", void 0);
+      Case_AfterEffect_Controller = __decorate([ ccclass ], Case_AfterEffect_Controller);
+      return Case_AfterEffect_Controller;
+    }(cc.Component);
+    exports.default = Case_AfterEffect_Controller;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/components/effects/Mosaic": "Mosaic"
   } ],
   Case_ArcProgressBar: [ function(require, module, exports) {
     "use strict";
@@ -2703,6 +2196,1368 @@ window.__require = function e(t, n, r) {
     cc._RF.pop();
   }, {
     "../../../eazax-ccc/components/ArcProgressBar": "ArcProgressBar"
+  } ],
+  Case_CardArrayFlip_Controller: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "afb23B4XMJC+5DoKNtwVyh1", "Case_CardArrayFlip_Controller");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var PromiseUtil_1 = require("../../../eazax-ccc/utils/PromiseUtil");
+    var CardArrayFlip_FrontCardBase_1 = require("./CardArrayFlip_FrontCardBase");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_CardArrayFlip_Controller = function(_super) {
+      __extends(Case_CardArrayFlip_Controller, _super);
+      function Case_CardArrayFlip_Controller() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.container = null;
+        _this.cardNode = null;
+        _this.card = null;
+        return _this;
+      }
+      Object.defineProperty(Case_CardArrayFlip_Controller.prototype, "frontArrayCard", {
+        get: function() {
+          return this.container.children[this.container.childrenCount - 1];
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Case_CardArrayFlip_Controller.prototype.onLoad = function() {
+        this.init();
+      };
+      Case_CardArrayFlip_Controller.prototype.init = function() {
+        this.card = this.cardNode.getComponent(CardArrayFlip_FrontCardBase_1.default);
+        this.play();
+      };
+      Case_CardArrayFlip_Controller.prototype.play = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var frontCard;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              frontCard = this.card;
+              return [ 4, this.rotate(2) ];
+
+             case 1:
+              _a.sent();
+              return [ 4, PromiseUtil_1.default.wait(.2) ];
+
+             case 2:
+              _a.sent();
+              frontCard.show();
+              this.frontArrayCard.active = false;
+              return [ 4, frontCard.flipToFront() ];
+
+             case 3:
+              _a.sent();
+              return [ 4, PromiseUtil_1.default.wait(2) ];
+
+             case 4:
+              _a.sent();
+              return [ 4, frontCard.flipToBack() ];
+
+             case 5:
+              _a.sent();
+              this.frontArrayCard.active = true;
+              frontCard.hide();
+              return [ 4, PromiseUtil_1.default.wait(.2) ];
+
+             case 6:
+              _a.sent();
+              this.play();
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_CardArrayFlip_Controller.prototype.rotate = function(round) {
+        var _this = this;
+        return new Promise(function(res) {
+          var node = _this.container, time = 1 * round, _a = _this.node.eulerAngles, x = _a.x, z = _a.z, eulerAngles = cc.v3(x, 360 * round, z);
+          cc.tween(node).by(time, {
+            eulerAngles: eulerAngles
+          }, {
+            easing: "quadOut"
+          }).call(res).start();
+        });
+      };
+      __decorate([ property(cc.Node) ], Case_CardArrayFlip_Controller.prototype, "container", void 0);
+      __decorate([ property(cc.Node) ], Case_CardArrayFlip_Controller.prototype, "cardNode", void 0);
+      Case_CardArrayFlip_Controller = __decorate([ ccclass ], Case_CardArrayFlip_Controller);
+      return Case_CardArrayFlip_Controller;
+    }(cc.Component);
+    exports.default = Case_CardArrayFlip_Controller;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/utils/PromiseUtil": "PromiseUtil",
+    "./CardArrayFlip_FrontCardBase": "CardArrayFlip_FrontCardBase"
+  } ],
+  Case_CardArray_Controller: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "b03eeW/0L9M85qS0tEmzZyL", "Case_CardArray_Controller");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_CardArray_Controller = function(_super) {
+      __extends(Case_CardArray_Controller, _super);
+      function Case_CardArray_Controller() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.container = null;
+        return _this;
+      }
+      Case_CardArray_Controller.prototype.start = function() {
+        this.rotateForever();
+      };
+      Case_CardArray_Controller.prototype.rotateForever = function() {
+        var node = this.container, _a = this.node.eulerAngles, x = _a.x, z = _a.z;
+        cc.tween(node).by(2, {
+          eulerAngles: cc.v3(x, 90, z)
+        }).repeatForever().start();
+      };
+      __decorate([ property(cc.Node) ], Case_CardArray_Controller.prototype, "container", void 0);
+      Case_CardArray_Controller = __decorate([ ccclass ], Case_CardArray_Controller);
+      return Case_CardArray_Controller;
+    }(cc.Component);
+    exports.default = Case_CardArray_Controller;
+    cc._RF.pop();
+  }, {} ],
+  Case_CardFlip: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "3cf8arMOblOeL4UxCUU8QcT", "Case_CardFlip");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var TweenUtil_1 = require("../../../eazax-ccc/utils/TweenUtil");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_CardFlip = function(_super) {
+      __extends(Case_CardFlip, _super);
+      function Case_CardFlip() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.card = null;
+        _this.flipBtn = null;
+        _this.button = null;
+        _this.frontColor = cc.Color.WHITE;
+        _this.backColor = cc.Color.GRAY;
+        return _this;
+      }
+      Case_CardFlip.prototype.onLoad = function() {
+        this.init();
+        this.registerEvent();
+      };
+      Case_CardFlip.prototype.start = function() {
+        this.reset();
+      };
+      Case_CardFlip.prototype.onDestroy = function() {
+        this.unregisterEvent();
+      };
+      Case_CardFlip.prototype.registerEvent = function() {
+        this.flipBtn.on(cc.Node.EventType.TOUCH_END, this.onFlipBtnClick, this);
+      };
+      Case_CardFlip.prototype.unregisterEvent = function() {
+        this.flipBtn.off(cc.Node.EventType.TOUCH_END, this.onFlipBtnClick, this);
+      };
+      Case_CardFlip.prototype.init = function() {
+        this.button = this.flipBtn.getComponent(cc.Button) || this.flipBtn.addComponent(cc.Button);
+      };
+      Case_CardFlip.prototype.reset = function() {
+        this.card.color = this.frontColor;
+        this.setButtonState(true);
+      };
+      Case_CardFlip.prototype.onFlipBtnClick = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var _this = this;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              if (!this.button.interactable) return [ 2 ];
+              this.setButtonState(false);
+              return [ 4, TweenUtil_1.default.flip(this.card, 2, function() {
+                _this.card.color.equals(_this.frontColor) ? _this.card.color = _this.backColor : _this.card.color = _this.frontColor;
+              }) ];
+
+             case 1:
+              _a.sent();
+              this.setButtonState(true);
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_CardFlip.prototype.setButtonState = function(interactable) {
+        this.button.interactable = interactable;
+        this.flipBtn.color = interactable ? cc.Color.WHITE : cc.Color.GRAY;
+      };
+      __decorate([ property({
+        displayName: false,
+        type: cc.Node
+      }) ], Case_CardFlip.prototype, "card", void 0);
+      __decorate([ property({
+        displayName: false,
+        type: cc.Node
+      }) ], Case_CardFlip.prototype, "flipBtn", void 0);
+      Case_CardFlip = __decorate([ ccclass ], Case_CardFlip);
+      return Case_CardFlip;
+    }(cc.Component);
+    exports.default = Case_CardFlip;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/utils/TweenUtil": "TweenUtil"
+  } ],
+  Case_FrameLoading: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "6a40au3FthMvYHjcvwK8lLd", "Case_FrameLoading");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_FrameLoading = function(_super) {
+      __extends(Case_FrameLoading, _super);
+      function Case_FrameLoading() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.itemPrefab = null;
+        _this.content = null;
+        _this.normalBtn = null;
+        _this.clearBtn = null;
+        _this.frameBtn = null;
+        return _this;
+      }
+      Case_FrameLoading.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_FrameLoading.prototype.onDestroy = function() {
+        this.unregisterEvent();
+      };
+      Case_FrameLoading.prototype.registerEvent = function() {
+        this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
+        this.clearBtn.on(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
+        this.frameBtn.on(cc.Node.EventType.TOUCH_END, this.onFrameBtnClick, this);
+      };
+      Case_FrameLoading.prototype.unregisterEvent = function() {
+        this.normalBtn.off(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
+        this.clearBtn.off(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
+        this.frameBtn.off(cc.Node.EventType.TOUCH_END, this.onFrameBtnClick, this);
+      };
+      Case_FrameLoading.prototype.onNormalBtnClick = function() {
+        this.clear();
+        this.loadAtOnce();
+      };
+      Case_FrameLoading.prototype.onClearBtnClick = function() {
+        this.clear();
+      };
+      Case_FrameLoading.prototype.onFrameBtnClick = function() {
+        this.clear();
+        this.loadByFrame();
+      };
+      Case_FrameLoading.prototype.clear = function() {
+        this.unscheduleAllCallbacks();
+        this.content.destroyAllChildren();
+      };
+      Case_FrameLoading.prototype.addItem = function(index) {
+        var node = cc.instantiate(this.itemPrefab);
+        node.setParent(this.content);
+        node.getComponentInChildren(cc.Label).string = "" + (index + 1);
+        node.active = true;
+      };
+      Case_FrameLoading.prototype.loadAtOnce = function() {
+        var total = 2e3;
+        for (var i = 0; i < total; i++) this.addItem(i);
+      };
+      Case_FrameLoading.prototype.loadByFrame = function() {
+        var _this = this;
+        var total = 2e3, countPerFrame = 30;
+        var index = 0;
+        var load = function() {
+          var count = Math.min(total - index, countPerFrame);
+          for (var i = 0; i < count; i++) {
+            _this.addItem(index);
+            index++;
+          }
+          index < total && _this.scheduleOnce(function() {
+            return load();
+          });
+        };
+        load();
+      };
+      __decorate([ property(cc.Node) ], Case_FrameLoading.prototype, "itemPrefab", void 0);
+      __decorate([ property(cc.Node) ], Case_FrameLoading.prototype, "content", void 0);
+      __decorate([ property(cc.Node) ], Case_FrameLoading.prototype, "normalBtn", void 0);
+      __decorate([ property(cc.Node) ], Case_FrameLoading.prototype, "clearBtn", void 0);
+      __decorate([ property(cc.Node) ], Case_FrameLoading.prototype, "frameBtn", void 0);
+      Case_FrameLoading = __decorate([ ccclass ], Case_FrameLoading);
+      return Case_FrameLoading;
+    }(cc.Component);
+    exports.default = Case_FrameLoading;
+    cc._RF.pop();
+  }, {} ],
+  Case_NewUserGuide: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "8a50fcdznlNkoYkMJatN+XL", "Case_NewUserGuide");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var HollowOut_1 = require("../../../eazax-ccc/components/effects/HollowOut");
+    var TouchBlocker_1 = require("../../../eazax-ccc/components/TouchBlocker");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_NewUserGuide = function(_super) {
+      __extends(Case_NewUserGuide, _super);
+      function Case_NewUserGuide() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.hollowOut = null;
+        _this.touchBlocker = null;
+        _this.startBtn = null;
+        _this.oneBtn = null;
+        _this.twoBtn = null;
+        _this.threeBtn = null;
+        return _this;
+      }
+      Case_NewUserGuide.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_NewUserGuide.prototype.start = function() {
+        this.reset();
+      };
+      Case_NewUserGuide.prototype.registerEvent = function() {
+        this.startBtn.on(cc.Node.EventType.TOUCH_END, this.onStartBtnClick, this);
+        this.oneBtn.on(cc.Node.EventType.TOUCH_END, this.onOneBtnClick, this);
+        this.twoBtn.on(cc.Node.EventType.TOUCH_END, this.onTwoBtnClick, this);
+        this.threeBtn.on(cc.Node.EventType.TOUCH_END, this.onThreeBtnClick, this);
+      };
+      Case_NewUserGuide.prototype.reset = function() {
+        this.hollowOut.node.active = true;
+        this.hollowOut.setNodeSize();
+        this.touchBlocker.passAll();
+      };
+      Case_NewUserGuide.prototype.onStartBtnClick = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var node, x, y;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              this.touchBlocker.blockAll();
+              node = this.oneBtn, x = node.width + 10, y = node.height + 10;
+              return [ 4, this.hollowOut.rectTo(.5, node.getPosition(), x, y, 5, 5) ];
+
+             case 1:
+              _a.sent();
+              this.touchBlocker.setTarget(node);
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_NewUserGuide.prototype.onOneBtnClick = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var node, x, y;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              this.hollowOut.setNodeSize();
+              this.touchBlocker.blockAll();
+              node = this.twoBtn, x = node.width + 10, y = node.height + 10;
+              return [ 4, this.hollowOut.rectTo(.5, node.getPosition(), x, y, 5, 5) ];
+
+             case 1:
+              _a.sent();
+              this.touchBlocker.setTarget(node);
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_NewUserGuide.prototype.onTwoBtnClick = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var node;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              this.hollowOut.setNodeSize();
+              this.touchBlocker.blockAll();
+              node = this.threeBtn;
+              return [ 4, this.hollowOut.circleTo(.5, node.getPosition(), node.width / 2, 0) ];
+
+             case 1:
+              _a.sent();
+              this.touchBlocker.setTarget(node);
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_NewUserGuide.prototype.onThreeBtnClick = function() {
+        this.hollowOut.setNodeSize();
+        this.touchBlocker.passAll();
+      };
+      __decorate([ property(HollowOut_1.default) ], Case_NewUserGuide.prototype, "hollowOut", void 0);
+      __decorate([ property(TouchBlocker_1.default) ], Case_NewUserGuide.prototype, "touchBlocker", void 0);
+      __decorate([ property(cc.Node) ], Case_NewUserGuide.prototype, "startBtn", void 0);
+      __decorate([ property(cc.Node) ], Case_NewUserGuide.prototype, "oneBtn", void 0);
+      __decorate([ property(cc.Node) ], Case_NewUserGuide.prototype, "twoBtn", void 0);
+      __decorate([ property(cc.Node) ], Case_NewUserGuide.prototype, "threeBtn", void 0);
+      Case_NewUserGuide = __decorate([ ccclass ], Case_NewUserGuide);
+      return Case_NewUserGuide;
+    }(cc.Component);
+    exports.default = Case_NewUserGuide;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/components/TouchBlocker": "TouchBlocker",
+    "../../../eazax-ccc/components/effects/HollowOut": "HollowOut"
+  } ],
+  Case_PopupTest: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "38e54J2q41JyIOt2ki5tkk4", "Case_PopupTest");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var PopupManager_1 = require("../../../eazax-ccc/core/PopupManager");
+    var TestPopup_1 = require("./TestPopup");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_PopupTest = function(_super) {
+      __extends(Case_PopupTest, _super);
+      function Case_PopupTest() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.btn = null;
+        return _this;
+      }
+      Case_PopupTest.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_PopupTest.prototype.onDestroy = function() {
+        this.unregisterEvent();
+      };
+      Case_PopupTest.prototype.registerEvent = function() {
+        this.btn.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
+      };
+      Case_PopupTest.prototype.unregisterEvent = function() {
+        this.btn.off(cc.Node.EventType.TOUCH_END, this.onClick, this);
+      };
+      Case_PopupTest.prototype.onClick = function() {
+        var options = (1e4 * Math.random()).toFixed(0).padStart(5, "0");
+        var params = {
+          mode: PopupManager_1.PopupCacheMode.Frequent
+        };
+        PopupManager_1.default.show(TestPopup_1.default.path, options, params);
+      };
+      __decorate([ property(cc.Node) ], Case_PopupTest.prototype, "btn", void 0);
+      Case_PopupTest = __decorate([ ccclass ], Case_PopupTest);
+      return Case_PopupTest;
+    }(cc.Component);
+    exports.default = Case_PopupTest;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/core/PopupManager": "PopupManager",
+    "./TestPopup": "TestPopup"
+  } ],
+  Case_RadarChart_Controller: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "76fc5oxGitDSogggrj2rphY", "Case_RadarChart_Controller");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    var __spreadArrays = this && this.__spreadArrays || function() {
+      for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+      for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, 
+      k++) r[k] = a[j];
+      return r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var RadarChart_1 = require("../../../eazax-ccc/components/RadarChart");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_RadarChart_Controller = function(_super) {
+      __extends(Case_RadarChart_Controller, _super);
+      function Case_RadarChart_Controller() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.radarChart = null;
+        _this.timeEditBox = null;
+        _this.randomBtn = null;
+        _this.lengthEditBox = null;
+        _this.axesEditBox = null;
+        _this.drawAxesToggle = null;
+        _this.drawDataJoinToggle = null;
+        _this.nodesEditBox = null;
+        _this.lineWidthEditBox = null;
+        _this.innerLineWidthEditBox = null;
+        _this.data1EditBox = null;
+        _this.data2EditBox = null;
+        return _this;
+      }
+      Case_RadarChart_Controller.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_RadarChart_Controller.prototype.registerEvent = function() {
+        this.randomBtn.on(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
+        this.lengthEditBox.node.on("text-changed", this.onAxixLengthChanged, this);
+        this.axesEditBox.node.on("text-changed", this.onAxesChanged, this);
+        this.drawAxesToggle.node.on("toggle", this.onDrawAxesChanged, this);
+        this.drawDataJoinToggle.node.on("toggle", this.onDrawDataJoinChanged, this);
+        this.nodesEditBox.node.on("text-changed", this.onAxisScalesChanged, this);
+        this.lineWidthEditBox.node.on("text-changed", this.onLineWidthChanged, this);
+        this.innerLineWidthEditBox.node.on("text-changed", this.onInnerLineWidthChanged, this);
+        this.data1EditBox.node.on("text-changed", this.onDataChanged, this);
+        this.data2EditBox.node.on("text-changed", this.onDataChanged, this);
+      };
+      Case_RadarChart_Controller.prototype.onRandomBtnClick = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var datas, i, numbers, j, data, time;
+          return __generator(this, function(_a) {
+            eazax.log("[RadarChartController]", "Random Data");
+            datas = [];
+            for (i = 0; i < this.radarChart.curDatas.length; i++) {
+              numbers = [];
+              for (j = 0; j < this.radarChart.curDatas[0].values.length; j++) numbers.push(.8 * Math.random() + .2);
+              data = {
+                values: i % 2 === 0 ? numbers : numbers.reverse(),
+                lineWidth: 6,
+                lineColor: this.getRandomColor(255),
+                fillColor: this.getRandomColor(100)
+              };
+              datas.push(data);
+            }
+            console.log(datas);
+            time = parseFloat(this.timeEditBox.string);
+            time < 0 || isNaN(time) ? time = .5 : time > 100 && (time = 100);
+            this.timeEditBox.string = time.toString();
+            this.radarChart.to(datas, time);
+            return [ 2 ];
+          });
+        });
+      };
+      Case_RadarChart_Controller.prototype.getRandomColor = function(a) {
+        var rgb = [ 205 * Math.random() + 50, 205 * Math.random() + 50, 205 * Math.random() + 50 ];
+        rgb.sort(function() {
+          return .5 - Math.random();
+        });
+        return cc.color.apply(cc, __spreadArrays(rgb, [ a ]));
+      };
+      Case_RadarChart_Controller.prototype.onAxixLengthChanged = function(editbox) {
+        var number = parseFloat(editbox.string);
+        (number < 10 || number > 1e3 || isNaN(number)) && (number = 300);
+        this.radarChart.axisLength = number;
+        editbox.string = this.radarChart.axisLength.toString();
+      };
+      Case_RadarChart_Controller.prototype.onAxesChanged = function(editbox) {
+        var number = parseFloat(editbox.string);
+        number < 3 || isNaN(number) ? number = 3 : number > 500 && (number = 500);
+        var axes = Math.floor(number);
+        this.radarChart.axes = axes;
+        editbox.string = this.radarChart.axes.toString();
+      };
+      Case_RadarChart_Controller.prototype.onDrawAxesChanged = function(toggle) {
+        this.radarChart.drawAxes = toggle.isChecked;
+      };
+      Case_RadarChart_Controller.prototype.onDrawDataJoinChanged = function(toggle) {
+        this.radarChart.drawDataJoin = toggle.isChecked;
+      };
+      Case_RadarChart_Controller.prototype.onAxisScalesChanged = function(editbox) {
+        var number = parseFloat(editbox.string);
+        number < 1 || isNaN(number) ? number = 1 : number > 200 && (number = 200);
+        var axes = Math.floor(number);
+        this.radarChart.axisScales = axes;
+        editbox.string = this.radarChart.axisScales.toString();
+      };
+      Case_RadarChart_Controller.prototype.onLineWidthChanged = function(editbox) {
+        var number = parseFloat(editbox.string);
+        number < .1 || isNaN(number) ? number = 4 : number > 100 && (number = 100);
+        this.radarChart.gridLineWidth = number;
+        editbox.string = this.radarChart.gridLineWidth.toString();
+      };
+      Case_RadarChart_Controller.prototype.onInnerLineWidthChanged = function(editbox) {
+        var number = parseFloat(editbox.string);
+        number < .1 || isNaN(number) ? number = 4 : number > 100 && (number = 100);
+        this.radarChart.innerGridLineWidth = number;
+        editbox.string = this.radarChart.innerGridLineWidth.toString();
+      };
+      Case_RadarChart_Controller.prototype.onDataChanged = function(editbox) {
+        this.radarChart.dataValuesStrings = [ this.data1EditBox.string, this.data2EditBox.string ];
+      };
+      __decorate([ property(RadarChart_1.default) ], Case_RadarChart_Controller.prototype, "radarChart", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "timeEditBox", void 0);
+      __decorate([ property(cc.Node) ], Case_RadarChart_Controller.prototype, "randomBtn", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "lengthEditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "axesEditBox", void 0);
+      __decorate([ property(cc.Toggle) ], Case_RadarChart_Controller.prototype, "drawAxesToggle", void 0);
+      __decorate([ property(cc.Toggle) ], Case_RadarChart_Controller.prototype, "drawDataJoinToggle", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "nodesEditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "lineWidthEditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "innerLineWidthEditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "data1EditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_RadarChart_Controller.prototype, "data2EditBox", void 0);
+      Case_RadarChart_Controller = __decorate([ ccclass ], Case_RadarChart_Controller);
+      return Case_RadarChart_Controller;
+    }(cc.Component);
+    exports.default = Case_RadarChart_Controller;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/components/RadarChart": "RadarChart"
+  } ],
+  Case_SineWave_Controller: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "d11caHtQJRPOKyBXwLEJ8Bc", "Case_SineWave_Controller");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var SineWave_1 = require("../../../eazax-ccc/components/effects/SineWave");
+    var JellyTween_1 = require("../../../eazax-ccc/components/tweens/JellyTween");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_SineWave_Controller = function(_super) {
+      __extends(Case_SineWave_Controller, _super);
+      function Case_SineWave_Controller() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.sineWave = null;
+        _this.fillBtn = null;
+        _this.amplitudeEditBox = null;
+        _this.angularVelocityEditBox = null;
+        _this.frequencyEditBox = null;
+        _this.heightEditBox = null;
+        _this.toLeftToggle = null;
+        _this.interactable = true;
+        _this.status = 0;
+        return _this;
+      }
+      Case_SineWave_Controller.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_SineWave_Controller.prototype.onDestroy = function() {
+        this.unregisterEvent();
+      };
+      Case_SineWave_Controller.prototype.registerEvent = function() {
+        this.fillBtn.on(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
+        this.amplitudeEditBox.node.on("text-changed", this.onAmplitudeChanged, this);
+        this.angularVelocityEditBox.node.on("text-changed", this.onAngularVelocityChanged, this);
+        this.frequencyEditBox.node.on("text-changed", this.onFrequencyChanged, this);
+        this.heightEditBox.node.on("text-changed", this.onHeightChanged, this);
+        this.toLeftToggle.node.on("toggle", this.onToLeftChanged, this);
+      };
+      Case_SineWave_Controller.prototype.unregisterEvent = function() {
+        this.fillBtn.off(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
+      };
+      Case_SineWave_Controller.prototype.onFillBtnClick = function() {
+        var _this = this;
+        if (!this.interactable) return;
+        this.interactable = false;
+        if (0 === this.status) {
+          this.status = 1;
+          var button_1 = this.fillBtn.getComponent(cc.Button);
+          button_1.interactable = false;
+          var jelly_1 = this.fillBtn.getComponent(JellyTween_1.default);
+          jelly_1.stop();
+          cc.tween(this.sineWave).to(3, {
+            height: 1
+          }).call(function() {
+            return _this.heightEditBox.string = "1.0";
+          }).to(.5, {
+            amplitude: 0
+          }).call(function() {
+            return _this.amplitudeEditBox.string = "0.0";
+          }).call(function() {
+            _this.interactable = true;
+            _this.fillBtn.getComponentInChildren(cc.Label).string = "\u6062\u590d";
+            button_1.interactable = true;
+            jelly_1.play();
+          }).start();
+        } else {
+          this.status = 0;
+          this.sineWave.height = .5;
+          this.heightEditBox.string = "0.5";
+          this.sineWave.amplitude = .05;
+          this.amplitudeEditBox.string = "0.05";
+          this.interactable = true;
+          this.fillBtn.getComponentInChildren(cc.Label).string = "\u52a0\u6ee1";
+        }
+      };
+      Case_SineWave_Controller.prototype.onAmplitudeChanged = function(editbox) {
+        this.sineWave.amplitude = parseFloat(editbox.string);
+      };
+      Case_SineWave_Controller.prototype.onAngularVelocityChanged = function(editbox) {
+        this.sineWave.angularVelocity = parseFloat(editbox.string);
+      };
+      Case_SineWave_Controller.prototype.onFrequencyChanged = function(editbox) {
+        this.sineWave.frequency = parseFloat(editbox.string);
+      };
+      Case_SineWave_Controller.prototype.onHeightChanged = function(editbox) {
+        this.sineWave.height = parseFloat(editbox.string);
+      };
+      Case_SineWave_Controller.prototype.onToLeftChanged = function(toggle) {
+        this.sineWave.direction = toggle.isChecked ? SineWave_1.SineWaveDirection.Left : SineWave_1.SineWaveDirection.Right;
+      };
+      __decorate([ property(SineWave_1.default) ], Case_SineWave_Controller.prototype, "sineWave", void 0);
+      __decorate([ property(cc.Node) ], Case_SineWave_Controller.prototype, "fillBtn", void 0);
+      __decorate([ property(cc.EditBox) ], Case_SineWave_Controller.prototype, "amplitudeEditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_SineWave_Controller.prototype, "angularVelocityEditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_SineWave_Controller.prototype, "frequencyEditBox", void 0);
+      __decorate([ property(cc.EditBox) ], Case_SineWave_Controller.prototype, "heightEditBox", void 0);
+      __decorate([ property(cc.Toggle) ], Case_SineWave_Controller.prototype, "toLeftToggle", void 0);
+      Case_SineWave_Controller = __decorate([ ccclass ], Case_SineWave_Controller);
+      return Case_SineWave_Controller;
+    }(cc.Component);
+    exports.default = Case_SineWave_Controller;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/components/effects/SineWave": "SineWave",
+    "../../../eazax-ccc/components/tweens/JellyTween": "JellyTween"
   } ],
   ClickToLoadUrl: [ function(require, module, exports) {
     "use strict";
@@ -3558,117 +4413,6 @@ window.__require = function e(t, n, r) {
       return EventManager;
     }();
     exports.default = EventManager;
-    cc._RF.pop();
-  }, {} ],
-  FrameLoading: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "6a40au3FthMvYHjcvwK8lLd", "FrameLoading");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var FrameLoading = function(_super) {
-      __extends(FrameLoading, _super);
-      function FrameLoading() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.itemPrefab = null;
-        _this.content = null;
-        _this.normalBtn = null;
-        _this.clearBtn = null;
-        _this.frameBtn = null;
-        return _this;
-      }
-      FrameLoading.prototype.onLoad = function() {
-        this.registerEvent();
-      };
-      FrameLoading.prototype.onDestroy = function() {
-        this.unregisterEvent();
-      };
-      FrameLoading.prototype.registerEvent = function() {
-        this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
-        this.clearBtn.on(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
-        this.frameBtn.on(cc.Node.EventType.TOUCH_END, this.onFrameBtnClick, this);
-      };
-      FrameLoading.prototype.unregisterEvent = function() {
-        this.normalBtn.off(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
-        this.clearBtn.off(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
-        this.frameBtn.off(cc.Node.EventType.TOUCH_END, this.onFrameBtnClick, this);
-      };
-      FrameLoading.prototype.onNormalBtnClick = function() {
-        this.clear();
-        this.loadAtOnce();
-      };
-      FrameLoading.prototype.onClearBtnClick = function() {
-        this.clear();
-      };
-      FrameLoading.prototype.onFrameBtnClick = function() {
-        this.clear();
-        this.loadByFrame();
-      };
-      FrameLoading.prototype.clear = function() {
-        this.unscheduleAllCallbacks();
-        this.content.destroyAllChildren();
-      };
-      FrameLoading.prototype.addItem = function(index) {
-        var node = cc.instantiate(this.itemPrefab);
-        node.setParent(this.content);
-        node.getComponentInChildren(cc.Label).string = "" + (index + 1);
-        node.active = true;
-      };
-      FrameLoading.prototype.loadAtOnce = function() {
-        var total = 2e3;
-        for (var i = 0; i < total; i++) this.addItem(i);
-      };
-      FrameLoading.prototype.loadByFrame = function() {
-        var _this = this;
-        var total = 2e3, countPerFrame = 30;
-        var index = 0;
-        var load = function() {
-          var count = Math.min(total - index, countPerFrame);
-          for (var i = 0; i < count; i++) {
-            _this.addItem(index);
-            index++;
-          }
-          index < total && _this.scheduleOnce(function() {
-            return load();
-          });
-        };
-        load();
-      };
-      __decorate([ property(cc.Node) ], FrameLoading.prototype, "itemPrefab", void 0);
-      __decorate([ property(cc.Node) ], FrameLoading.prototype, "content", void 0);
-      __decorate([ property(cc.Node) ], FrameLoading.prototype, "normalBtn", void 0);
-      __decorate([ property(cc.Node) ], FrameLoading.prototype, "clearBtn", void 0);
-      __decorate([ property(cc.Node) ], FrameLoading.prototype, "frameBtn", void 0);
-      FrameLoading = __decorate([ ccclass ], FrameLoading);
-      return FrameLoading;
-    }(cc.Component);
-    exports.default = FrameLoading;
     cc._RF.pop();
   }, {} ],
   GaussianBlur: [ function(require, module, exports) {
@@ -5876,260 +6620,6 @@ window.__require = function e(t, n, r) {
     exports.default = NetworkManager;
     cc._RF.pop();
   }, {} ],
-  NewUserGuide: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "8a50fcdznlNkoYkMJatN+XL", "NewUserGuide");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    var __generator = this && this.__generator || function(thisArg, body) {
-      var _ = {
-        label: 0,
-        sent: function() {
-          if (1 & t[0]) throw t[1];
-          return t[1];
-        },
-        trys: [],
-        ops: []
-      }, f, y, t, g;
-      return g = {
-        next: verb(0),
-        throw: verb(1),
-        return: verb(2)
-      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
-        return this;
-      }), g;
-      function verb(n) {
-        return function(v) {
-          return step([ n, v ]);
-        };
-      }
-      function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
-          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
-          switch (op[0]) {
-           case 0:
-           case 1:
-            t = op;
-            break;
-
-           case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-           case 5:
-            _.label++;
-            y = op[1];
-            op = [ 0 ];
-            continue;
-
-           case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-
-           default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
-              _ = 0;
-              continue;
-            }
-            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (6 === op[0] && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            t[2] && _.ops.pop();
-            _.trys.pop();
-            continue;
-          }
-          op = body.call(thisArg, _);
-        } catch (e) {
-          op = [ 6, e ];
-          y = 0;
-        } finally {
-          f = t = 0;
-        }
-        if (5 & op[0]) throw op[1];
-        return {
-          value: op[0] ? op[1] : void 0,
-          done: true
-        };
-      }
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var HollowOut_1 = require("../../../eazax-ccc/components/effects/HollowOut");
-    var TouchBlocker_1 = require("../../../eazax-ccc/components/TouchBlocker");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var NewUserGuide = function(_super) {
-      __extends(NewUserGuide, _super);
-      function NewUserGuide() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.hollowOut = null;
-        _this.touchBlocker = null;
-        _this.startBtn = null;
-        _this.oneBtn = null;
-        _this.twoBtn = null;
-        _this.threeBtn = null;
-        return _this;
-      }
-      NewUserGuide.prototype.onLoad = function() {
-        this.registerEvent();
-      };
-      NewUserGuide.prototype.start = function() {
-        this.reset();
-      };
-      NewUserGuide.prototype.registerEvent = function() {
-        this.startBtn.on(cc.Node.EventType.TOUCH_END, this.onStartBtnClick, this);
-        this.oneBtn.on(cc.Node.EventType.TOUCH_END, this.onOneBtnClick, this);
-        this.twoBtn.on(cc.Node.EventType.TOUCH_END, this.onTwoBtnClick, this);
-        this.threeBtn.on(cc.Node.EventType.TOUCH_END, this.onThreeBtnClick, this);
-      };
-      NewUserGuide.prototype.reset = function() {
-        this.hollowOut.node.active = true;
-        this.hollowOut.setNodeSize();
-        this.touchBlocker.passAll();
-      };
-      NewUserGuide.prototype.onStartBtnClick = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var node, x, y;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              this.touchBlocker.blockAll();
-              node = this.oneBtn, x = node.width + 10, y = node.height + 10;
-              return [ 4, this.hollowOut.rectTo(.5, node.getPosition(), x, y, 5, 5) ];
-
-             case 1:
-              _a.sent();
-              this.touchBlocker.setTarget(node);
-              return [ 2 ];
-            }
-          });
-        });
-      };
-      NewUserGuide.prototype.onOneBtnClick = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var node, x, y;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              this.hollowOut.setNodeSize();
-              this.touchBlocker.blockAll();
-              node = this.twoBtn, x = node.width + 10, y = node.height + 10;
-              return [ 4, this.hollowOut.rectTo(.5, node.getPosition(), x, y, 5, 5) ];
-
-             case 1:
-              _a.sent();
-              this.touchBlocker.setTarget(node);
-              return [ 2 ];
-            }
-          });
-        });
-      };
-      NewUserGuide.prototype.onTwoBtnClick = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var node;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              this.hollowOut.setNodeSize();
-              this.touchBlocker.blockAll();
-              node = this.threeBtn;
-              return [ 4, this.hollowOut.circleTo(.5, node.getPosition(), node.width / 2, 0) ];
-
-             case 1:
-              _a.sent();
-              this.touchBlocker.setTarget(node);
-              return [ 2 ];
-            }
-          });
-        });
-      };
-      NewUserGuide.prototype.onThreeBtnClick = function() {
-        this.hollowOut.setNodeSize();
-        this.touchBlocker.passAll();
-      };
-      __decorate([ property(HollowOut_1.default) ], NewUserGuide.prototype, "hollowOut", void 0);
-      __decorate([ property(TouchBlocker_1.default) ], NewUserGuide.prototype, "touchBlocker", void 0);
-      __decorate([ property(cc.Node) ], NewUserGuide.prototype, "startBtn", void 0);
-      __decorate([ property(cc.Node) ], NewUserGuide.prototype, "oneBtn", void 0);
-      __decorate([ property(cc.Node) ], NewUserGuide.prototype, "twoBtn", void 0);
-      __decorate([ property(cc.Node) ], NewUserGuide.prototype, "threeBtn", void 0);
-      NewUserGuide = __decorate([ ccclass ], NewUserGuide);
-      return NewUserGuide;
-    }(cc.Component);
-    exports.default = NewUserGuide;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/components/TouchBlocker": "TouchBlocker",
-    "../../../eazax-ccc/components/effects/HollowOut": "HollowOut"
-  } ],
   NodeUtil: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "55cdbUdSaNNaqWUdZx+xknk", "NodeUtil");
@@ -6156,6 +6646,62 @@ window.__require = function e(t, n, r) {
       return NodeUtil;
     }();
     exports.default = NodeUtil;
+    cc._RF.pop();
+  }, {} ],
+  NumberIncrement: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "eb1e2wPEKhNM4cP7n67TxZN", "NumberIncrement");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var NumberIncrement = function(_super) {
+      __extends(NumberIncrement, _super);
+      function NumberIncrement() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.label = null;
+        _this.duration = .25;
+        return _this;
+      }
+      NumberIncrement.prototype.onLoad = function() {
+        this.init();
+      };
+      NumberIncrement.prototype.init = function() {
+        this.label || (this.label = this.getComponent(cc.Label));
+      };
+      NumberIncrement.prototype.set = function(value) {};
+      NumberIncrement.prototype.to = function(value, duration) {};
+      __decorate([ property(cc.Label) ], NumberIncrement.prototype, "label", void 0);
+      __decorate([ property() ], NumberIncrement.prototype, "duration", void 0);
+      NumberIncrement = __decorate([ ccclass ], NumberIncrement);
+      return NumberIncrement;
+    }(cc.Component);
+    exports.default = NumberIncrement;
     cc._RF.pop();
   }, {} ],
   ObjectUtil: [ function(require, module, exports) {
@@ -6943,76 +7489,6 @@ window.__require = function e(t, n, r) {
   }, {
     "../components/popups/PopupBase": "PopupBase"
   } ],
-  PopupTest: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "38e54J2q41JyIOt2ki5tkk4", "PopupTest");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var PopupManager_1 = require("../../../eazax-ccc/core/PopupManager");
-    var TestPopup_1 = require("./TestPopup");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var PopupTest = function(_super) {
-      __extends(PopupTest, _super);
-      function PopupTest() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.btn = null;
-        return _this;
-      }
-      PopupTest.prototype.onLoad = function() {
-        this.registerEvent();
-      };
-      PopupTest.prototype.onDestroy = function() {
-        this.unregisterEvent();
-      };
-      PopupTest.prototype.registerEvent = function() {
-        this.btn.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
-      };
-      PopupTest.prototype.unregisterEvent = function() {
-        this.btn.off(cc.Node.EventType.TOUCH_END, this.onClick, this);
-      };
-      PopupTest.prototype.onClick = function() {
-        var options = (1e4 * Math.random()).toFixed(0).padStart(5, "0");
-        var params = {
-          mode: PopupManager_1.PopupCacheMode.Frequent
-        };
-        PopupManager_1.default.show(TestPopup_1.default.path, options, params);
-      };
-      __decorate([ property(cc.Node) ], PopupTest.prototype, "btn", void 0);
-      PopupTest = __decorate([ ccclass ], PopupTest);
-      return PopupTest;
-    }(cc.Component);
-    exports.default = PopupTest;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/core/PopupManager": "PopupManager",
-    "./TestPopup": "TestPopup"
-  } ],
   PromiseUtil: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "7c127O4BelOEJ0va+YPLUah", "PromiseUtil");
@@ -7032,288 +7508,6 @@ window.__require = function e(t, n, r) {
     exports.default = PromiseUtil;
     cc._RF.pop();
   }, {} ],
-  RadarChartController: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "76fc5oxGitDSogggrj2rphY", "RadarChartController");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    var __generator = this && this.__generator || function(thisArg, body) {
-      var _ = {
-        label: 0,
-        sent: function() {
-          if (1 & t[0]) throw t[1];
-          return t[1];
-        },
-        trys: [],
-        ops: []
-      }, f, y, t, g;
-      return g = {
-        next: verb(0),
-        throw: verb(1),
-        return: verb(2)
-      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
-        return this;
-      }), g;
-      function verb(n) {
-        return function(v) {
-          return step([ n, v ]);
-        };
-      }
-      function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
-          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
-          switch (op[0]) {
-           case 0:
-           case 1:
-            t = op;
-            break;
-
-           case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-           case 5:
-            _.label++;
-            y = op[1];
-            op = [ 0 ];
-            continue;
-
-           case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-
-           default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
-              _ = 0;
-              continue;
-            }
-            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (6 === op[0] && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            t[2] && _.ops.pop();
-            _.trys.pop();
-            continue;
-          }
-          op = body.call(thisArg, _);
-        } catch (e) {
-          op = [ 6, e ];
-          y = 0;
-        } finally {
-          f = t = 0;
-        }
-        if (5 & op[0]) throw op[1];
-        return {
-          value: op[0] ? op[1] : void 0,
-          done: true
-        };
-      }
-    };
-    var __spreadArrays = this && this.__spreadArrays || function() {
-      for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-      for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, 
-      k++) r[k] = a[j];
-      return r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var RadarChart_1 = require("../../../eazax-ccc/components/RadarChart");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var RadarChartController = function(_super) {
-      __extends(RadarChartController, _super);
-      function RadarChartController() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.radarChart = null;
-        _this.timeEditBox = null;
-        _this.randomBtn = null;
-        _this.lengthEditBox = null;
-        _this.axesEditBox = null;
-        _this.drawAxesToggle = null;
-        _this.drawDataJoinToggle = null;
-        _this.nodesEditBox = null;
-        _this.lineWidthEditBox = null;
-        _this.innerLineWidthEditBox = null;
-        _this.data1EditBox = null;
-        _this.data2EditBox = null;
-        return _this;
-      }
-      RadarChartController.prototype.onLoad = function() {
-        this.registerEvent();
-      };
-      RadarChartController.prototype.registerEvent = function() {
-        this.randomBtn.on(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);
-        this.lengthEditBox.node.on("text-changed", this.onAxixLengthChanged, this);
-        this.axesEditBox.node.on("text-changed", this.onAxesChanged, this);
-        this.drawAxesToggle.node.on("toggle", this.onDrawAxesChanged, this);
-        this.drawDataJoinToggle.node.on("toggle", this.onDrawDataJoinChanged, this);
-        this.nodesEditBox.node.on("text-changed", this.onAxisScalesChanged, this);
-        this.lineWidthEditBox.node.on("text-changed", this.onLineWidthChanged, this);
-        this.innerLineWidthEditBox.node.on("text-changed", this.onInnerLineWidthChanged, this);
-        this.data1EditBox.node.on("text-changed", this.onDataChanged, this);
-        this.data2EditBox.node.on("text-changed", this.onDataChanged, this);
-      };
-      RadarChartController.prototype.onRandomBtnClick = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var datas, i, numbers, j, data, time;
-          return __generator(this, function(_a) {
-            eazax.log("[RadarChartController]", "Random Data");
-            datas = [];
-            for (i = 0; i < this.radarChart.curDatas.length; i++) {
-              numbers = [];
-              for (j = 0; j < this.radarChart.curDatas[0].values.length; j++) numbers.push(.8 * Math.random() + .2);
-              data = {
-                values: i % 2 === 0 ? numbers : numbers.reverse(),
-                lineWidth: 6,
-                lineColor: this.getRandomColor(255),
-                fillColor: this.getRandomColor(100)
-              };
-              datas.push(data);
-            }
-            console.log(datas);
-            time = parseFloat(this.timeEditBox.string);
-            time < 0 || isNaN(time) ? time = .5 : time > 100 && (time = 100);
-            this.timeEditBox.string = time.toString();
-            this.radarChart.to(datas, time);
-            return [ 2 ];
-          });
-        });
-      };
-      RadarChartController.prototype.getRandomColor = function(a) {
-        var rgb = [ 205 * Math.random() + 50, 205 * Math.random() + 50, 205 * Math.random() + 50 ];
-        rgb.sort(function() {
-          return .5 - Math.random();
-        });
-        return cc.color.apply(cc, __spreadArrays(rgb, [ a ]));
-      };
-      RadarChartController.prototype.onAxixLengthChanged = function(editbox) {
-        var number = parseFloat(editbox.string);
-        (number < 10 || number > 1e3 || isNaN(number)) && (number = 300);
-        this.radarChart.axisLength = number;
-        editbox.string = this.radarChart.axisLength.toString();
-      };
-      RadarChartController.prototype.onAxesChanged = function(editbox) {
-        var number = parseFloat(editbox.string);
-        number < 3 || isNaN(number) ? number = 3 : number > 500 && (number = 500);
-        var axes = Math.floor(number);
-        this.radarChart.axes = axes;
-        editbox.string = this.radarChart.axes.toString();
-      };
-      RadarChartController.prototype.onDrawAxesChanged = function(toggle) {
-        this.radarChart.drawAxes = toggle.isChecked;
-      };
-      RadarChartController.prototype.onDrawDataJoinChanged = function(toggle) {
-        this.radarChart.drawDataJoin = toggle.isChecked;
-      };
-      RadarChartController.prototype.onAxisScalesChanged = function(editbox) {
-        var number = parseFloat(editbox.string);
-        number < 1 || isNaN(number) ? number = 1 : number > 200 && (number = 200);
-        var axes = Math.floor(number);
-        this.radarChart.axisScales = axes;
-        editbox.string = this.radarChart.axisScales.toString();
-      };
-      RadarChartController.prototype.onLineWidthChanged = function(editbox) {
-        var number = parseFloat(editbox.string);
-        number < .1 || isNaN(number) ? number = 4 : number > 100 && (number = 100);
-        this.radarChart.gridLineWidth = number;
-        editbox.string = this.radarChart.gridLineWidth.toString();
-      };
-      RadarChartController.prototype.onInnerLineWidthChanged = function(editbox) {
-        var number = parseFloat(editbox.string);
-        number < .1 || isNaN(number) ? number = 4 : number > 100 && (number = 100);
-        this.radarChart.innerGridLineWidth = number;
-        editbox.string = this.radarChart.innerGridLineWidth.toString();
-      };
-      RadarChartController.prototype.onDataChanged = function(editbox) {
-        this.radarChart.dataValuesStrings = [ this.data1EditBox.string, this.data2EditBox.string ];
-      };
-      __decorate([ property(RadarChart_1.default) ], RadarChartController.prototype, "radarChart", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "timeEditBox", void 0);
-      __decorate([ property(cc.Node) ], RadarChartController.prototype, "randomBtn", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "lengthEditBox", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "axesEditBox", void 0);
-      __decorate([ property(cc.Toggle) ], RadarChartController.prototype, "drawAxesToggle", void 0);
-      __decorate([ property(cc.Toggle) ], RadarChartController.prototype, "drawDataJoinToggle", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "nodesEditBox", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "lineWidthEditBox", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "innerLineWidthEditBox", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "data1EditBox", void 0);
-      __decorate([ property(cc.EditBox) ], RadarChartController.prototype, "data2EditBox", void 0);
-      RadarChartController = __decorate([ ccclass ], RadarChartController);
-      return RadarChartController;
-    }(cc.Component);
-    exports.default = RadarChartController;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/components/RadarChart": "RadarChart"
-  } ],
   RadarChart: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "37a55PFvLVK3bflj3g4a2rl", "RadarChart");
@@ -8361,137 +8555,6 @@ window.__require = function e(t, n, r) {
     cc._RF.pop();
   }, {
     "../core/EventManager": "EventManager"
-  } ],
-  SineWaveController: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "d11caHtQJRPOKyBXwLEJ8Bc", "SineWaveController");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var SineWave_1 = require("../../../eazax-ccc/components/effects/SineWave");
-    var JellyTween_1 = require("../../../eazax-ccc/components/tweens/JellyTween");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var SineWaveController = function(_super) {
-      __extends(SineWaveController, _super);
-      function SineWaveController() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.sineWave = null;
-        _this.fillBtn = null;
-        _this.amplitudeEditBox = null;
-        _this.angularVelocityEditBox = null;
-        _this.frequencyEditBox = null;
-        _this.heightEditBox = null;
-        _this.toLeftToggle = null;
-        _this.interactable = true;
-        _this.status = 0;
-        return _this;
-      }
-      SineWaveController.prototype.onLoad = function() {
-        this.registerEvent();
-      };
-      SineWaveController.prototype.onDestroy = function() {
-        this.unregisterEvent();
-      };
-      SineWaveController.prototype.registerEvent = function() {
-        this.fillBtn.on(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
-        this.amplitudeEditBox.node.on("text-changed", this.onAmplitudeChanged, this);
-        this.angularVelocityEditBox.node.on("text-changed", this.onAngularVelocityChanged, this);
-        this.frequencyEditBox.node.on("text-changed", this.onFrequencyChanged, this);
-        this.heightEditBox.node.on("text-changed", this.onHeightChanged, this);
-        this.toLeftToggle.node.on("toggle", this.onToLeftChanged, this);
-      };
-      SineWaveController.prototype.unregisterEvent = function() {
-        this.fillBtn.off(cc.Node.EventType.TOUCH_END, this.onFillBtnClick, this);
-      };
-      SineWaveController.prototype.onFillBtnClick = function() {
-        var _this = this;
-        if (!this.interactable) return;
-        this.interactable = false;
-        if (0 === this.status) {
-          this.status = 1;
-          var button_1 = this.fillBtn.getComponent(cc.Button);
-          button_1.interactable = false;
-          var jelly_1 = this.fillBtn.getComponent(JellyTween_1.default);
-          jelly_1.stop();
-          cc.tween(this.sineWave).to(3, {
-            height: 1
-          }).call(function() {
-            return _this.heightEditBox.string = "1.0";
-          }).to(.5, {
-            amplitude: 0
-          }).call(function() {
-            return _this.amplitudeEditBox.string = "0.0";
-          }).call(function() {
-            _this.interactable = true;
-            _this.fillBtn.getComponentInChildren(cc.Label).string = "\u6062\u590d";
-            button_1.interactable = true;
-            jelly_1.play();
-          }).start();
-        } else {
-          this.status = 0;
-          this.sineWave.height = .5;
-          this.heightEditBox.string = "0.5";
-          this.sineWave.amplitude = .05;
-          this.amplitudeEditBox.string = "0.05";
-          this.interactable = true;
-          this.fillBtn.getComponentInChildren(cc.Label).string = "\u52a0\u6ee1";
-        }
-      };
-      SineWaveController.prototype.onAmplitudeChanged = function(editbox) {
-        this.sineWave.amplitude = parseFloat(editbox.string);
-      };
-      SineWaveController.prototype.onAngularVelocityChanged = function(editbox) {
-        this.sineWave.angularVelocity = parseFloat(editbox.string);
-      };
-      SineWaveController.prototype.onFrequencyChanged = function(editbox) {
-        this.sineWave.frequency = parseFloat(editbox.string);
-      };
-      SineWaveController.prototype.onHeightChanged = function(editbox) {
-        this.sineWave.height = parseFloat(editbox.string);
-      };
-      SineWaveController.prototype.onToLeftChanged = function(toggle) {
-        this.sineWave.direction = toggle.isChecked ? SineWave_1.SineWaveDirection.Left : SineWave_1.SineWaveDirection.Right;
-      };
-      __decorate([ property(SineWave_1.default) ], SineWaveController.prototype, "sineWave", void 0);
-      __decorate([ property(cc.Node) ], SineWaveController.prototype, "fillBtn", void 0);
-      __decorate([ property(cc.EditBox) ], SineWaveController.prototype, "amplitudeEditBox", void 0);
-      __decorate([ property(cc.EditBox) ], SineWaveController.prototype, "angularVelocityEditBox", void 0);
-      __decorate([ property(cc.EditBox) ], SineWaveController.prototype, "frequencyEditBox", void 0);
-      __decorate([ property(cc.EditBox) ], SineWaveController.prototype, "heightEditBox", void 0);
-      __decorate([ property(cc.Toggle) ], SineWaveController.prototype, "toLeftToggle", void 0);
-      SineWaveController = __decorate([ ccclass ], SineWaveController);
-      return SineWaveController;
-    }(cc.Component);
-    exports.default = SineWaveController;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/components/effects/SineWave": "SineWave",
-    "../../../eazax-ccc/components/tweens/JellyTween": "JellyTween"
   } ],
   SineWave: [ function(require, module, exports) {
     "use strict";
@@ -9668,4 +9731,4 @@ window.__require = function e(t, n, r) {
     };
     cc._RF.pop();
   }, {} ]
-}, {}, [ "AfterEffect", "AfterEffect_Controller", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "CardArray_Controller", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_Controller", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "CardFlip", "FrameLoading", "NewUserGuide", "PopupTest", "TestPopup", "RadarChartController", "SineWaveController", "ArcProgressBar", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RadarChart", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "NetworkManager", "PoolManager", "PopupManager", "ResourceManager", "SceneNavigator", "eazax", "extension", "EditorAsset", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "ResPopupItemInfo", "Constants", "CustomEvents", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "TestCard", "Test_3DNode", "Test_NodeOrder" ]);
+}, {}, [ "AfterEffect", "Case_AfterEffect_Controller", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray_Controller", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip_Controller", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "NumberIncrement", "Case_PopupTest", "TestPopup", "Case_RadarChart_Controller", "Case_SineWave_Controller", "ArcProgressBar", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RadarChart", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "NetworkManager", "PoolManager", "PopupManager", "ResourceManager", "SceneNavigator", "eazax", "extension", "EditorAsset", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "ResPopupItemInfo", "Constants", "CustomEvents", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "TestCard", "Test_3DNode", "Test_NodeOrder" ]);

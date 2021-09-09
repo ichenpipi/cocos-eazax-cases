@@ -1107,8 +1107,8 @@
                 ],
                 [
                   23,
-                  "[示例] RadarChartController.ts",
-                  "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/radarChart/scripts/RadarChartController.ts"
+                  "[示例] Case_RadarChart_Controller.ts",
+                  "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/radarChart/scripts/Case_RadarChart_Controller.ts"
                 ]
               ]
             ],
@@ -1121,7 +1121,7 @@
               -36,
               [
                 5,
-                423.55,
+                408.95,
                 80
               ]
             ],
@@ -1134,7 +1134,7 @@
           ],
           [
             5,
-            423.55,
+            408.95,
             80
           ],
           [
@@ -4230,7 +4230,7 @@
           ],
           [
             5,
-            323.55,
+            308.95,
             50.4
           ],
           [

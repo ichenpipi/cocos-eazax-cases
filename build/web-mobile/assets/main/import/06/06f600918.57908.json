@@ -1002,8 +1002,8 @@
                 ],
                 [
                   18,
-                  "[示例] SineWaveController.ts",
-                  "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/sineWave/scripts/SineWaveController.ts"
+                  "[示例] Case_SineWave_Controller.ts",
+                  "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/sineWave/scripts/Case_SineWave_Controller.ts"
                 ]
               ]
             ],
@@ -1016,7 +1016,7 @@
               -27,
               [
                 5,
-                393.2,
+                378.59,
                 80
               ]
             ],
@@ -1029,7 +1029,7 @@
           ],
           [
             5,
-            393.2,
+            378.59,
             80
           ],
           [
@@ -2767,7 +2767,7 @@
           ],
           [
             5,
-            293.2,
+            278.59,
             50.4
           ],
           [

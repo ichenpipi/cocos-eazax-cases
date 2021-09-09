@@ -1115,8 +1115,8 @@
           [
             [
               38,
-              "FrameLoading.ts",
-              "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/frameLoading/scripts/FrameLoading.ts"
+              "Case_FrameLoading.ts",
+              "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/frameLoading/scripts/Case_FrameLoading.ts"
             ]
           ]
         ],
@@ -1682,7 +1682,7 @@
       ],
       [
         5,
-        381.31,
+        366.7,
         50.4
       ],
       [

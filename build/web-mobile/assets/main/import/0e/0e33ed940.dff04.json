@@ -713,8 +713,8 @@
               [
                 [
                   3,
-                  "[示例] NewUserGuide.ts",
-                  "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/newUserGuide/scripts/NewUserGuide.ts"
+                  "[示例] Case_NewUserGuide.ts",
+                  "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/newUserGuide/scripts/Case_NewUserGuide.ts"
                 ],
                 [
                   3,
@@ -742,7 +742,7 @@
               -21,
               [
                 5,
-                501.37,
+                486.76,
                 80
               ]
             ],
@@ -755,7 +755,7 @@
           ],
           [
             5,
-            501.37,
+            486.76,
             80
           ],
           [
@@ -1405,7 +1405,7 @@
           ],
           [
             5,
-            401.37,
+            386.76,
             50.4
           ],
           [
