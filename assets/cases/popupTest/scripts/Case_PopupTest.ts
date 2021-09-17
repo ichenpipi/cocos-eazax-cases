@@ -1,4 +1,4 @@
-import PopupManager, { PopupCacheMode, PopupParams } from "../../../eazax-ccc/core/PopupManager";
+import PopupManager from "../../../eazax-ccc/core/PopupManager";
 import TestPopup from "./TestPopup";
 
 const { ccclass, property } = cc._decorator;
@@ -27,8 +27,8 @@ export default class Case_PopupTest extends cc.Component {
 
     private onClick() {
         const options = (Math.random() * 10000).toFixed(0).padStart(5, '0');
-        const params: PopupParams = {
-            mode: PopupCacheMode.Frequent
+        const params = {
+            mode: PopupManager.CacheMode.Frequent
         }
         PopupManager.show(TestPopup.path, options, params);
     }

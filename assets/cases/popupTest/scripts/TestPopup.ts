@@ -1,5 +1,5 @@
 import PopupBase from "../../../eazax-ccc/components/popups/PopupBase";
-import PopupManager, { PopupCacheMode, PopupParams } from "../../../eazax-ccc/core/PopupManager";
+import PopupManager from "../../../eazax-ccc/core/PopupManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -67,8 +67,8 @@ export default class TestPopup extends PopupBase<string> {
     }
 
     protected onNormalBtnClick() {
-        const params: PopupParams = {
-            mode: PopupCacheMode.Normal,
+        const params = {
+            mode: PopupManager.CacheMode.Normal,
             priority: 0
         }
         PopupManager.show(TestPopup.path, this.newFlag, params);
@@ -76,8 +76,8 @@ export default class TestPopup extends PopupBase<string> {
     }
 
     protected onPriorityBtnClick() {
-        const params: PopupParams = {
-            mode: PopupCacheMode.Normal,
+        const params = {
+            mode: PopupManager.CacheMode.Normal,
             priority: -1
         }
         PopupManager.show(TestPopup.path, this.newFlag, params);
@@ -85,8 +85,8 @@ export default class TestPopup extends PopupBase<string> {
     }
 
     protected onImmediatelyBtnClick() {
-        const params: PopupParams = {
-            mode: PopupCacheMode.Normal,
+        const params = {
+            mode: PopupManager.CacheMode.Frequent,
             immediately: true
         }
         PopupManager.show(TestPopup.path, this.newFlag, params);
