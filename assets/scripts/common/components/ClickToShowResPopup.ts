@@ -1,4 +1,4 @@
-import PopupManager, { PopupCacheMode, PopupParams } from "../../../eazax-ccc/core/PopupManager";
+import PopupManager from "../../../eazax-ccc/core/PopupManager";
 import ResPopup, { ResPopupOptions } from "./popups/resPopup/ResPopup";
 import ResPopupItemInfo from "./popups/resPopup/ResPopupItemInfo";
 
@@ -35,8 +35,8 @@ export default class ClickToShowResPopup extends cc.Component {
                 };
             options.items.push(info);
         }
-        const params: PopupParams = {
-            mode: PopupCacheMode.Frequent
+        const params = {
+            mode: PopupManager.CacheMode.Frequent
         }
         PopupManager.show(ResPopup.path, options, params);
     }

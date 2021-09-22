@@ -1,0 +1,153 @@
+// Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs
+      frag: fs:pass0
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties: &props
+        texture: { value: white }
+        alphaThreshold: { value: 0.5 }
+        nodeSize: { value: [200.0, 200.0] }
+        pixelOffset: { value: 1.0 }
+    - vert: vs
+      frag: fs:pass1
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties: *props
+    - vert: vs
+      frag: fs:pass2
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties: *props
+    - vert: vs
+      frag: fs:pass3
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties: *props
+}%
+
+
+CCProgram vs %{
+  precision highp float;
+
+  #include <cc-global>
+  #include <cc-local>
+
+  in vec3 a_position;
+  in vec4 a_color;
+  out vec4 v_color;
+
+  #if USE_TEXTURE
+  in vec2 a_uv0;
+  out vec2 v_uv0;
+  #endif
+
+  void main () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if CC_USE_MODEL
+    pos = cc_matViewProj * cc_matWorld * pos;
+    #else
+    pos = cc_matViewProj * pos;
+    #endif
+
+    #if USE_TEXTURE
+    v_uv0 = a_uv0;
+    #endif
+
+    v_color = a_color;
+
+    gl_Position = pos;
+  }
+}%
+
+
+CCProgram fs %{
+  precision highp float;
+
+  #include <alpha-test>
+  #include <texture>
+
+  in vec4 v_color;
+
+  #if USE_TEXTURE
+  in vec2 v_uv0;
+  uniform sampler2D texture;
+  #endif
+
+  uniform Properties {
+    vec2 nodeSize;
+    float pixelOffset;
+  };
+
+  vec4 kawaseBlur(sampler2D texture, vec2 uv, float pixelOffset) {
+    vec4 color = vec4(0);
+    vec2 offset = (vec2(pixelOffset) + 0.5) / nodeSize;
+    color += texture2D(texture, uv + offset);
+    color += texture2D(texture,  uv - offset);
+    offset.x = -offset.x;
+    color += texture2D(texture, uv + offset);
+    color += texture2D(texture,  uv - offset);
+    return color * 0.25;
+  }
+
+  vec4 pass0 () {
+    vec4 color = vec4(1, 1, 1, 1);
+
+    #if USE_TEXTURE
+      color = kawaseBlur(texture, v_uv0, pixelOffset);
+    #endif
+
+    return color;
+  }
+
+  vec4 pass1 () {
+    vec4 color = vec4(1, 1, 1, 1);
+
+    #if USE_TEXTURE
+      color = kawaseBlur(texture, v_uv0, pixelOffset);
+    #endif
+
+    return color;
+  }
+
+  vec4 pass2 () {
+    vec4 color = vec4(1, 1, 1, 1);
+
+    #if USE_TEXTURE
+      color = kawaseBlur(texture, v_uv0, pixelOffset);
+    #endif
+
+    return color;
+  }
+
+  vec4 pass3 () {
+    vec4 color = vec4(1, 1, 1, 1);
+
+    #if USE_TEXTURE
+      color = kawaseBlur(texture, v_uv0, pixelOffset);
+    #endif
+
+    color *= v_color;
+
+    ALPHA_TEST(color);
+
+    return color;
+  }
+
+}%

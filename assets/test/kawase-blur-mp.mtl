@@ -1,0 +1,34 @@
+{
+  "__type__": "cc.Material",
+  "_name": "kawase-blur",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "f6d37d8b-4a5a-40a6-a4df-16e2113ff8a1"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "pixelOffset": 0
+      },
+      "defines": {}
+    },
+    "1": {
+      "props": {},
+      "defines": {}
+    },
+    "2": {
+      "props": {
+        "pixelOffset": 2
+      },
+      "defines": {}
+    },
+    "3": {
+      "props": {
+        "pixelOffset": 3
+      },
+      "defines": {}
+    }
+  }
+}
