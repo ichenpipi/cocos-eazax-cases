@@ -6,7 +6,7 @@ const { ccclass, property, executeInEditMode, help } = cc._decorator;
 /**
  * 远程图像
  * @author 陈皮皮 (ifaswind)
- * @version 20210923
+ * @version 20210924
  * @see RemoteTexture.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteTexture.ts
  * @see RemoteAsset.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteAsset.ts
  */
@@ -39,6 +39,11 @@ export default class RemoteTexture extends RemoteAsset {
 
     @property({ tooltip: CC_DEV && '加载失败后的重试次数' })
     protected retryTimes: number = 2;
+
+    /**
+     * 最后一个请求 ID（用来处理并发加载，仅保留最后一个请求）
+     */
+    protected lastRequestId: number = 0;
 
     protected onLoad() {
         this.init();
@@ -73,29 +78,40 @@ export default class RemoteTexture extends RemoteAsset {
      * 加载
      * @param url 资源地址
      */
-    public async load(url: string = this._url) {
+    public async load(url: string = this._url): Promise<LoadResult> {
         if (!cc.isValid(this._sprite)) {
             cc.warn('[RemoteTexture]', 'load', '->', '缺少 Sprite 组件');
-            return { url, loaded: false, component: this };
+            return { url, loaded: false, interrupted: false, component: this };
         }
+        // 保存地址
         this._url = url;
         if (!url || url === '') {
             this.set(null);
-            return { url, loaded: false, component: this };
+            return { url, loaded: false, interrupted: false, component: this };
         }
+        // 增加请求 ID 并记录当前的 ID
+        const curRequestId = ++this.lastRequestId;
+        // 开始加载
         let texture: cc.Texture2D = null,
-            loadCount = 0,
-            maxLoadTimes = this.retryTimes + 1;
+            loadCount = 0;
+        const maxLoadTimes = this.retryTimes + 1;
         while (!texture && loadCount < maxLoadTimes) {
             loadCount++;
             texture = await RemoteLoader.loadTexture(url);
+            // 当前加载请求是否已被覆盖
+            if (this.lastRequestId !== curRequestId) {
+                texture = null;
+                return { url, loaded: false, interrupted: true, component: this };
+            }
         }
+        // 加载失败？
         if (!texture) {
             cc.warn('[RemoteTexture]', 'load', '->', '远程资源加载失败', url);
-            return { url, loaded: false, component: this };
+            return { url, loaded: false, interrupted: false, component: this };
         }
+        // 加载成功
         this.set(texture);
-        return { url, loaded: true, component: this };
+        return { url, loaded: true, interrupted: false, component: this };
     }
 
     /**
@@ -151,3 +167,10 @@ export default class RemoteTexture extends RemoteAsset {
     }
 
 }
+
+interface LoadResult {
+    url: string;
+    loaded: boolean;
+    interrupted: boolean;
+    component: RemoteTexture;
+};

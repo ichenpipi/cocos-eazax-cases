@@ -16,14 +16,24 @@ export default class Case_RemoteAsset extends cc.Component {
         this.registerEvent();
     }
 
+    protected start() {
+        this.reloadTexture();
+    }
+
     protected registerEvent() {
         this.remoteTextureEditorBox.node.on('editing-did-ended', this.onRemoteTextureEditorBoxEnded, this);
     }
 
-    protected async onRemoteTextureEditorBoxEnded(editorBox: cc.EditBox) {
+    protected onRemoteTextureEditorBoxEnded(editorBox: cc.EditBox) {
+        this.reloadTexture();
+    }
+
+    protected async reloadTexture() {
+        let url = this.remoteTextureEditorBox.string;
+        if (url !== '') {
+            Toast.show('🌀 正在加载远程图像...');
+        }
         this.remoteTexture.set(null);
-        Toast.show('🌀 正在加载远程图像...');
-        let url = editorBox.string;
         const result = await this.remoteTexture.load(url);
         if (result.url !== '') {
             if (result.loaded) {

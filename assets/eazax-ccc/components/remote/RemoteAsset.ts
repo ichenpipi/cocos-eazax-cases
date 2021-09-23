@@ -8,8 +8,8 @@ export default class RemoteAsset extends cc.Component {
      * 加载
      * @param url 资源地址
      */
-    public async load(url?: string) {
-        return { url: '', loaded: false, component: this };
+    public async load(url?: string): Promise<LoadResult> {
+        return { url, loaded: false, interrupted: false, component: this };
     }
 
     /**
@@ -21,3 +21,10 @@ export default class RemoteAsset extends cc.Component {
     }
 
 }
+
+type LoadResult = {
+    url: string;
+    loaded: boolean;
+    interrupted: boolean;
+    component: any;
+};

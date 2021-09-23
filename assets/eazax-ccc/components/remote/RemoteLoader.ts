@@ -1,3 +1,9 @@
+/**
+ * 远程加载器
+ * @author 陈皮皮 (ifaswind)
+ * @version 20210924
+ * @see RemoteLoader.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteLoader.ts
+ */
 export default class RemoteLoader {
 
     /**
@@ -7,18 +13,16 @@ export default class RemoteLoader {
      */
     public static loadTexture(url: string, callback?: (error: Error, texture: cc.Texture2D) => void) {
         return new Promise<cc.Texture2D>(res => {
-            cc.assetManager.loadRemote(url, (_error: Error, _texture: cc.Texture2D) => {
-                if (_error) {
-                    callback && callback(_error, null);
+            cc.assetManager.loadRemote(url, (error: Error, texture: cc.Texture2D) => {
+                if (error || !(texture instanceof cc.Texture2D)) {
+                    callback && callback(error, null);
                     res(null);
                 } else {
-                    callback && callback(null, _texture);
-                    res(_texture);
+                    callback && callback(null, texture);
+                    res(texture);
                 }
             });
         });
     }
 
 }
-
-type Callback<T, K> = (error: T, result: K) => void;
