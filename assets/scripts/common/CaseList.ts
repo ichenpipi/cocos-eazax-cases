@@ -60,6 +60,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '弧形进度条',
         scene: 'arcProgressBar'
     },
+    remoteAsset: {
+        name: '远程资源',
+        scene: 'remoteAsset'
+    },
 }
 
 /** 关卡信息 */
