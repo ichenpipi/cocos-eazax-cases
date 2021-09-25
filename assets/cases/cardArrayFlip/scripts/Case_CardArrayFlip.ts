@@ -4,7 +4,7 @@ import CardArrayFlip_FrontCardBase from "./CardArrayFlip_FrontCardBase";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Case_CardArrayFlip_Controller extends cc.Component {
+export default class Case_CardArrayFlip extends cc.Component {
 
     @property(cc.Node)
     protected container: cc.Node = null;
@@ -39,21 +39,21 @@ export default class Case_CardArrayFlip_Controller extends cc.Component {
         // 旋转两圈
         await this.rotate(2);
         // 等一会
-        await PromiseUtil.wait(0.2);
+        await PromiseUtil.sleep(0.2);
         // 替换卡片
         frontCard.show();
         this.frontArrayCard.active = false;
         // 翻卡
         await frontCard.flipToFront();
         // 等一会
-        await PromiseUtil.wait(2);
+        await PromiseUtil.sleep(2);
         // 翻卡
         await frontCard.flipToBack();
         // 替换卡片
         this.frontArrayCard.active = true;
         frontCard.hide();
         // 等一会
-        await PromiseUtil.wait(0.2);
+        await PromiseUtil.sleep(0.2);
         // 继续
         this.play();
     }

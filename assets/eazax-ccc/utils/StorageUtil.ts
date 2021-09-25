@@ -1,5 +1,7 @@
 /**
  * 本地储存工具
+ * @author 陈皮皮 (ifaswind)
+ * @version 20201206
  * @see StorageUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/StorageUtil.ts
  */
 export default class StorageUtil {

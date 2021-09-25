@@ -1,9 +1,9 @@
-import RadarChart, { RadarChartData } from "../../../eazax-ccc/components/RadarChart";
+import RadarChart, { RadarChartData } from "../../../eazax-ccc/components/charts/RadarChart";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Case_RadarChart_Controller extends cc.Component {
+export default class Case_RadarChart extends cc.Component {
 
     @property(RadarChart)
     protected radarChart: RadarChart = null;

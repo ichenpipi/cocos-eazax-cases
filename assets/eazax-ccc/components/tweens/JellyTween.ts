@@ -2,6 +2,8 @@ const { ccclass, property } = cc._decorator;
 
 /**
  * 果冻缓动效果
+ * @author 陈皮皮 (ifaswind)
+ * @version 20201014
  * @see JellyTween.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/tweens/JellyTween.ts
  */
 @ccclass

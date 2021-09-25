@@ -1,4 +1,4 @@
-import RemoteAsset from "./RemoteAsset";
+import RemoteAsset from "../../../eazax-ccc/components/remote/RemoteAsset";
 
 const { ccclass, property, executeInEditMode } = cc._decorator;
 

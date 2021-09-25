@@ -1,5 +1,8 @@
 /**
  * 数学工具
+ * @author 陈皮皮 (ifaswind)
+ * @version 20201019
+ * @see MathUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/MathUtil.ts
  */
 export default class MathUtil {
 

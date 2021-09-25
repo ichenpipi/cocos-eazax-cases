@@ -36,7 +36,10 @@ export default class Home extends cc.Component {
         const caseName = BrowserUtil.getUrlParam('case');
         if (caseName) {
             // 跳转到指定示例
-            CaseManager.goCase(caseName);
+            const ok = CaseManager.goCase(caseName);
+            if (!ok && CC_PREVIEW) {
+                SceneNavigator.go(caseName)
+            }
         }
     }
 

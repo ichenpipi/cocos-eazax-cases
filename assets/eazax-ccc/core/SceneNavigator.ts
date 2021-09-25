@@ -1,7 +1,8 @@
 /**
  * 场景导航类
- * @see SceneNavigator.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/SceneNavigator.ts
+ * @author 陈皮皮 (ifaswind)
  * @version 20210318
+ * @see SceneNavigator.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/SceneNavigator.ts
  */
 export default class SceneNavigator {
 

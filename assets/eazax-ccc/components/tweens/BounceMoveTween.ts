@@ -2,6 +2,8 @@ const { ccclass, property } = cc._decorator;
 
 /**
  * 弹性移动效果
+ * @author 陈皮皮 (ifaswind)
+ * @version 20201014
  * @see BounceMoveTween.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/tweens/BounceMoveTween.ts
  */
 @ccclass
