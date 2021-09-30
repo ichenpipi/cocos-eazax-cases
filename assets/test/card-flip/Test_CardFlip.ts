@@ -3,7 +3,7 @@ const { ccclass, property, executeInEditMode, playOnFocus } = cc._decorator;
 @ccclass
 @executeInEditMode
 @playOnFocus
-export default class NewClass extends cc.Component {
+export default class Test_CardFlip extends cc.Component {
 
     @property(cc.Node)
     protected back: cc.Node = null;

@@ -1,28 +1,28 @@
-import RemoteLoader from "../../core/remote/RemoteLoader";
+import SpineLoader from "../../core/remote/SpineLoader";
 import RemoteAsset from "./RemoteAsset";
 
 const { ccclass, property, executeInEditMode, help } = cc._decorator;
 
 /**
- * 远程图像
+ * 远程 Spine
  * @author 陈皮皮 (ifaswind)
  * @version 20210930
- * @see RemoteTexture.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteTexture.ts
+ * @see RemoteSpine.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteSpine.ts
  * @see RemoteAsset.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteAsset.ts
  */
 @ccclass
 @executeInEditMode
-@help('https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteTexture.ts')
-export default class RemoteTexture extends RemoteAsset {
+@help('https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteSpine.ts')
+export default class RemoteSpine extends RemoteAsset {
 
     @property()
-    protected _sprite: cc.Sprite = null;
-    @property(cc.Sprite)
-    public get sprite() {
-        return this._sprite;
+    protected _spine: sp.Skeleton = null;
+    @property(sp.Skeleton)
+    public get spine() {
+        return this._spine;
     }
-    public set sprite(value) {
-        this._sprite = value;
+    public set spine(value) {
+        this._spine = value;
         this.onPropertyUpdated();
     }
 
@@ -34,6 +34,39 @@ export default class RemoteTexture extends RemoteAsset {
     }
     public set url(value) {
         this._url = value;
+        this.onPropertyUpdated();
+    }
+
+    @property()
+    protected _defaultSkin: string = '';
+    @property({ tooltip: CC_DEV && '默认皮肤' })
+    public get defaultSkin() {
+        return this._defaultSkin;
+    }
+    public set defaultSkin(value) {
+        this._defaultSkin = value;
+        this.onPropertyUpdated();
+    }
+
+    @property()
+    protected _defaultAnimation: string = '';
+    @property({ tooltip: CC_DEV && '默认动画' })
+    public get defaultAnimation() {
+        return this._defaultAnimation;
+    }
+    public set defaultAnimation(value) {
+        this._defaultAnimation = value;
+        this.onPropertyUpdated();
+    }
+
+    @property()
+    protected _premultipliedAlpha: boolean = false;
+    @property({ tooltip: CC_DEV && '开启预乘' })
+    public get premultipliedAlpha() {
+        return this._premultipliedAlpha;
+    }
+    public set premultipliedAlpha(value) {
+        this._premultipliedAlpha = value;
         this.onPropertyUpdated();
     }
 
@@ -57,8 +90,8 @@ export default class RemoteTexture extends RemoteAsset {
      * 初始化
      */
     protected init() {
-        if (!cc.isValid(this._sprite)) {
-            this._sprite = this.getComponent(cc.Sprite);
+        if (!cc.isValid(this._spine)) {
+            this._spine = this.getComponent(sp.Skeleton);
         }
         this.onPropertyUpdated();
     }
@@ -68,7 +101,7 @@ export default class RemoteTexture extends RemoteAsset {
      */
     public onPropertyUpdated() {
         if (CC_EDITOR) {
-            this.preview();
+            // this.preview();
         } else {
             this.load();
         }
@@ -79,8 +112,8 @@ export default class RemoteTexture extends RemoteAsset {
      * @param url 资源地址
      */
     public async load(url: string = this._url): Promise<LoadResult> {
-        if (!cc.isValid(this._sprite)) {
-            cc.warn('[RemoteTexture]', 'load', '->', '缺少 cc.Sprite 组件');
+        if (!cc.isValid(this._spine)) {
+            cc.warn('[RemoteSpine]', 'load', '->', '缺少 sp.Skeleton 组件');
             return { url, loaded: false, interrupted: false, component: this };
         }
         // 保存地址
@@ -92,49 +125,58 @@ export default class RemoteTexture extends RemoteAsset {
         // 增加请求 ID 并记录当前的 ID
         const curRequestId = ++this.lastRequestId;
         // 开始加载
-        let texture: cc.Texture2D = null,
+        let skeletonData: sp.SkeletonData = null,
             loadCount = 0;
         const maxLoadTimes = this.retryTimes + 1;
-        while (!texture && loadCount < maxLoadTimes) {
+        while (!skeletonData && loadCount < maxLoadTimes) {
             loadCount++;
-            texture = await RemoteLoader.loadTexture(url);
+            skeletonData = await SpineLoader.loadRemote(url);
             // 当前加载请求是否已被覆盖
             if (this.lastRequestId !== curRequestId) {
-                texture = null;
+                skeletonData = null;
                 return { url, loaded: false, interrupted: true, component: this };
             }
         }
         // 加载失败？
-        if (!texture) {
-            cc.warn('[RemoteTexture]', 'load', '->', '远程资源加载失败', url);
+        if (!skeletonData) {
+            cc.warn('[RemoteSpine]', 'load', '->', '远程资源加载失败', url);
             return { url, loaded: false, interrupted: false, component: this };
         }
         // 加载成功
-        this.set(texture);
+        this.set(skeletonData);
         return { url, loaded: true, interrupted: false, component: this };
     }
 
     /**
      * 设置
-     * @param texture 纹理
+     * @param skeletonData 纹理
      */
-    public set(texture: cc.Texture2D) {
-        if (texture) {
-            this._sprite.spriteFrame = new cc.SpriteFrame(texture);
-        } else {
-            this._sprite.spriteFrame = null;
+    public set(skeletonData: sp.SkeletonData) {
+        const spine = this._spine;
+        if (!spine) {
+            return;
         }
-        this.node.emit('sprite:sprite-frame-updated', this._sprite, texture);
+        spine.skeletonData = skeletonData;
+        if (skeletonData) {
+            if (this._defaultSkin !== '') {
+                spine.setSkin(this._defaultSkin);
+            }
+            spine.animation = this._defaultAnimation;
+            spine.premultipliedAlpha = this.premultipliedAlpha;
+        } else {
+            spine.animation = '';
+        }
+        this.node.emit('spine:skeleton-data-updated', this._spine, skeletonData);
     }
 
     /**
      * 在编辑器中预览
      */
     protected async preview() {
-        if (!CC_EDITOR || !this._sprite) {
+        if (!CC_EDITOR || !this._spine) {
             return;
         }
-        const actualSprite = this._sprite,
+        const actualSprite = this._spine,
             actualNode = actualSprite.node;
         // 移除旧的预览节点
         actualNode.children.forEach(node => {
@@ -145,25 +187,21 @@ export default class RemoteTexture extends RemoteAsset {
             return;
         }
         // 生成临时预览节点
-        // let previewNode = new cc.Node('temporary-preview-node');
         let previewNode = new cc.PrivateNode('temporary-preview-node');
-        previewNode['_objFlags'] |= cc.Object['Flags'].DontSave;        // 不保存
-        // previewNode['_objFlags'] |= cc.Object['Flags'].HideInHierarchy; // 在层级管理器中隐藏
+        previewNode['_objFlags'] |= cc.Object['Flags'].DontSave;  // 不保存
         previewNode.setParent(actualNode);
         previewNode.setContentSize(actualNode.getContentSize());
         // 加载纹理
-        const texture = await RemoteLoader.loadTexture(this._url);
-        if (!cc.isValid(previewNode) || !texture) {
+        const skeletonData = await SpineLoader.loadRemote(this._url);
+        if (!cc.isValid(previewNode) || !skeletonData) {
             previewNode.removeFromParent(true);
             previewNode = null;
             return;
         }
         // 设置图像
-        const previewSprite = previewNode.addComponent(cc.Sprite);
-        previewSprite.type = actualSprite.type;
-        previewSprite.sizeMode = actualSprite.sizeMode;
-        previewSprite.trim = actualSprite.trim;
-        previewSprite.spriteFrame = new cc.SpriteFrame(texture);
+        const previewSpine = previewNode.addComponent(sp.Skeleton);
+        previewSpine.skeletonData = skeletonData;
+        previewSpine.animation = this._defaultAnimation;
     }
 
 }
@@ -172,5 +210,7 @@ interface LoadResult {
     url: string;
     loaded: boolean;
     interrupted: boolean;
-    component: RemoteTexture;
+    component: RemoteSpine;
 };
+
+'https://chenpipi-storage.oss-cn-shenzhen.aliyuncs.com/spines/3.6/coin.zip'
