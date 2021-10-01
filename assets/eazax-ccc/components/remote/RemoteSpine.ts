@@ -6,9 +6,10 @@ const { ccclass, property, executeInEditMode, help } = cc._decorator;
 /**
  * 远程 Spine
  * @author 陈皮皮 (ifaswind)
- * @version 20210930
+ * @version 20211001
  * @see RemoteSpine.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteSpine.ts
  * @see RemoteAsset.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteAsset.ts
+ * @see SpineLoader.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/remote/SpineLoader.ts
  */
 @ccclass
 @executeInEditMode
@@ -16,13 +17,13 @@ const { ccclass, property, executeInEditMode, help } = cc._decorator;
 export default class RemoteSpine extends RemoteAsset {
 
     @property()
-    protected _spine: sp.Skeleton = null;
+    protected _skeleton: sp.Skeleton = null;
     @property(sp.Skeleton)
-    public get spine() {
-        return this._spine;
+    public get skeleton() {
+        return this._skeleton;
     }
-    public set spine(value) {
-        this._spine = value;
+    public set skeleton(value) {
+        this._skeleton = value;
         this.onPropertyUpdated();
     }
 
@@ -38,7 +39,7 @@ export default class RemoteSpine extends RemoteAsset {
     }
 
     @property()
-    protected _defaultSkin: string = '';
+    protected _defaultSkin: string = 'default';
     @property({ tooltip: CC_DEV && '默认皮肤' })
     public get defaultSkin() {
         return this._defaultSkin;
@@ -59,22 +60,11 @@ export default class RemoteSpine extends RemoteAsset {
         this.onPropertyUpdated();
     }
 
-    @property()
-    protected _premultipliedAlpha: boolean = false;
-    @property({ tooltip: CC_DEV && '开启预乘' })
-    public get premultipliedAlpha() {
-        return this._premultipliedAlpha;
-    }
-    public set premultipliedAlpha(value) {
-        this._premultipliedAlpha = value;
-        this.onPropertyUpdated();
-    }
-
     @property({ tooltip: CC_DEV && '加载失败后的重试次数' })
     protected retryTimes: number = 2;
 
     /**
-     * 最后一个请求 ID（用来处理并发加载，仅保留最后一个请求）
+     * 最后一个请求 ID（用来处理短时间内的重复加载，仅保留最后一个请求）
      */
     protected lastRequestId: number = 0;
 
@@ -90,8 +80,8 @@ export default class RemoteSpine extends RemoteAsset {
      * 初始化
      */
     protected init() {
-        if (!cc.isValid(this._spine)) {
-            this._spine = this.getComponent(sp.Skeleton);
+        if (!cc.isValid(this._skeleton)) {
+            this._skeleton = this.getComponent(sp.Skeleton);
         }
         this.onPropertyUpdated();
     }
@@ -101,7 +91,7 @@ export default class RemoteSpine extends RemoteAsset {
      */
     public onPropertyUpdated() {
         if (CC_EDITOR) {
-            // this.preview();
+            // this.updatePreview();
         } else {
             this.load();
         }
@@ -112,7 +102,7 @@ export default class RemoteSpine extends RemoteAsset {
      * @param url 资源地址
      */
     public async load(url: string = this._url): Promise<LoadResult> {
-        if (!cc.isValid(this._spine)) {
+        if (!cc.isValid(this._skeleton)) {
             cc.warn('[RemoteSpine]', 'load', '->', '缺少 sp.Skeleton 组件');
             return { url, loaded: false, interrupted: false, component: this };
         }
@@ -139,7 +129,7 @@ export default class RemoteSpine extends RemoteAsset {
         }
         // 加载失败？
         if (!skeletonData) {
-            cc.warn('[RemoteSpine]', 'load', '->', '远程资源加载失败', url);
+            cc.warn('[RemoteSpine]', 'load', '->', '资源加载失败', url);
             return { url, loaded: false, interrupted: false, component: this };
         }
         // 加载成功
@@ -149,35 +139,34 @@ export default class RemoteSpine extends RemoteAsset {
 
     /**
      * 设置
-     * @param skeletonData 纹理
+     * @param skeletonData 骨骼数据
      */
     public set(skeletonData: sp.SkeletonData) {
-        const spine = this._spine;
-        if (!spine) {
+        const skeleton = this._skeleton;
+        if (!skeleton) {
             return;
         }
-        spine.skeletonData = skeletonData;
+        skeleton.skeletonData = skeletonData;
         if (skeletonData) {
             if (this._defaultSkin !== '') {
-                spine.setSkin(this._defaultSkin);
+                skeleton.setSkin(this._defaultSkin);
             }
-            spine.animation = this._defaultAnimation;
-            spine.premultipliedAlpha = this.premultipliedAlpha;
+            skeleton.animation = this._defaultAnimation;
         } else {
-            spine.animation = '';
+            skeleton.animation = '';
         }
-        this.node.emit('spine:skeleton-data-updated', this._spine, skeletonData);
+        this.node.emit('skeleton:skeleton-data-updated', this._skeleton, skeletonData);
     }
 
     /**
-     * 在编辑器中预览
+     * 更新编辑器预览
      */
-    protected async preview() {
-        if (!CC_EDITOR || !this._spine) {
+    protected async updatePreview() {
+        if (!CC_EDITOR || !this._skeleton) {
             return;
         }
-        const actualSprite = this._spine,
-            actualNode = actualSprite.node;
+        const actualSkeleton = this._skeleton,
+            actualNode = actualSkeleton.node;
         // 移除旧的预览节点
         actualNode.children.forEach(node => {
             if (node.name === 'temporary-preview-node')
@@ -187,21 +176,31 @@ export default class RemoteSpine extends RemoteAsset {
             return;
         }
         // 生成临时预览节点
-        let previewNode = new cc.PrivateNode('temporary-preview-node');
-        previewNode['_objFlags'] |= cc.Object['Flags'].DontSave;  // 不保存
+        // const previewNode = new cc.Node('temporary-preview-node');
+        // previewNode['_objFlags'] |= cc.Object['Flags'].HideInHierarchy;
+        const previewNode = new cc.PrivateNode('temporary-preview-node');
+        previewNode['_objFlags'] |= cc.Object['Flags'].DontDestroy;
+        previewNode['_objFlags'] |= cc.Object['Flags'].DontSave;
         previewNode.setParent(actualNode);
         previewNode.setContentSize(actualNode.getContentSize());
-        // 加载纹理
+        // 加载资源
         const skeletonData = await SpineLoader.loadRemote(this._url);
         if (!cc.isValid(previewNode) || !skeletonData) {
             previewNode.removeFromParent(true);
-            previewNode = null;
             return;
         }
-        // 设置图像
-        const previewSpine = previewNode.addComponent(sp.Skeleton);
-        previewSpine.skeletonData = skeletonData;
-        previewSpine.animation = this._defaultAnimation;
+        // 设置资源
+        const previewSkeleton = previewNode.addComponent(sp.Skeleton);
+        previewSkeleton.loop = actualSkeleton.loop;
+        previewSkeleton.premultipliedAlpha = actualSkeleton.premultipliedAlpha;
+        previewSkeleton.timeScale = actualSkeleton.timeScale;
+        previewSkeleton.skeletonData = skeletonData;
+        if (this._defaultSkin !== '') {
+            previewSkeleton.setSkin(this._defaultSkin);
+        }
+        previewSkeleton.animation = this._defaultAnimation;
+        cc.log('[RemoteSpine]', 'Preview', '->', 'skins', Object.keys(skeletonData.skeletonJson.skins));
+        cc.log('[RemoteSpine]', 'Preview', '->', 'animations', Object.keys(skeletonData.skeletonJson.animations));
     }
 
 }

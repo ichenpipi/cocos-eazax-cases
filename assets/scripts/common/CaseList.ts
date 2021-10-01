@@ -40,9 +40,9 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '新手引导',
         scene: 'newUserGuide'
     },
-    popupTest: {
+    popupTesting: {
         name: '弹窗测试',
-        scene: 'popupTest'
+        scene: 'popupTesting'
     },
     radarChart: {
         name: '雷达图',
@@ -60,9 +60,13 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '弧形进度条',
         scene: 'arcProgressBar'
     },
-    remoteAsset: {
-        name: '远程资源',
-        scene: 'remoteAsset'
+    remoteTexture: {
+        name: '远程图像',
+        scene: 'remoteTexture'
+    },
+    remoteSpine: {
+        name: '远程骨骼',
+        scene: 'remoteSpine'
     },
 }
 

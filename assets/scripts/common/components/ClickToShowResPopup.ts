@@ -1,8 +1,18 @@
 import PopupManager from "../../../eazax-ccc/core/PopupManager";
 import ResPopup, { ResPopupOptions } from "./popups/resPopup/ResPopup";
-import ResPopupItemInfo from "./popups/resPopup/ResPopupItemInfo";
 
 const { ccclass, property } = cc._decorator;
+
+@ccclass('ResPopupItemInfo')
+class ResPopupItemInfo {
+
+    @property()
+    public title: string = '';
+
+    @property({ multiline: true })
+    public url: string = '';
+
+}
 
 @ccclass
 export default class ClickToShowResPopup extends cc.Component {

@@ -4,7 +4,7 @@ import Toast from "../../../scripts/common/components/Toast";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Case_RemoteAsset extends cc.Component {
+export default class Case_RemoteTexture extends cc.Component {
 
     @property(RemoteTexture)
     protected remoteTexture: RemoteTexture = null;

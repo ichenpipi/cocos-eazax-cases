@@ -3,14 +3,14 @@ import Mosaic from "../../../eazax-ccc/components/effects/Mosaic";
 const { ccclass, property } = cc._decorator;
 
 /**
- * 后期效果控制器
+ * 示例：后期效果
  * @author 陈皮皮 (ifaswind)
  * @version 20210603
  * @see Mosaic.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/Mosaic.ts
  * @see eazax-mosaic.effect https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-mosaic.effect
  */
 @ccclass
-export default class Case_AfterEffect_Controller extends cc.Component {
+export default class Case_AfterEffect extends cc.Component {
 
     @property(cc.Sprite)
     protected sprite: cc.Sprite = null;
@@ -30,8 +30,6 @@ export default class Case_AfterEffect_Controller extends cc.Component {
     @property(cc.Node)
     protected mosaicBtn: cc.Node = null;
 
-    protected normalMaterial: cc.Material = cc.Material.getBuiltinMaterial('2d-sprite');
-
     protected onLoad() {
         this.registerEvent();
     }
@@ -50,7 +48,7 @@ export default class Case_AfterEffect_Controller extends cc.Component {
      */
     protected onNormalBtnClick() {
         this.mosaic.enabled = false;
-        this.sprite.setMaterial(0, this.normalMaterial);
+        this.sprite.setMaterial(0, cc.Material.getBuiltinMaterial('2d-sprite'));
     }
 
     /**

@@ -7,7 +7,7 @@ cc.assetManager.downloader.register({
 
 /**
  * Zip 加载器
- * @version 20210930
+ * @version 20211001
  * @see ZipLoader.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/remote/ZipLoader.ts
  * @see jszip.js https://github.com/Stuk/jszip
  */
@@ -21,68 +21,97 @@ export default class ZipLoader {
     public static loadRemote(url: string, callback?: (error: Error, zip: JSZip) => void) {
         return new Promise<JSZip>(res => {
             cc.assetManager.loadRemote(url, (error: Error, asset: cc.Asset) => {
-                if (error || !(asset instanceof cc.Asset) || !asset['_nativeAsset']) {
+                if (error) {
                     cc.error(error);
                     callback && callback(error, null);
                     res(null);
-                } else {
-                    const jszip = new JSZip(),
-                        nativeAsset = asset['_nativeAsset'];
-                    jszip.loadAsync(nativeAsset)
-                        .then((zip: JSZip) => {
-                            callback && callback(null, zip);
-                            res(zip);
-                        })
-                        .catch((error: Error) => {
-                            cc.error(error);
-                            callback && callback(error, null);
-                            res(null);
-                        });
+                    return;
                 }
+                if (!(asset instanceof cc.Asset) || !asset['_nativeAsset']) {
+                    cc.error(new Error('invalid asset'));
+                    callback && callback(new Error('invalid asset'), null);
+                    res(null);
+                    return;
+                }
+                const jszip = new JSZip(),
+                    nativeAsset = asset['_nativeAsset'];
+                jszip.loadAsync(nativeAsset)
+                    .then((zip: JSZip) => {
+                        callback && callback(null, zip);
+                        res(zip);
+                    })
+                    .catch((error: Error) => {
+                        cc.error(error);
+                        callback && callback(error, null);
+                        res(null);
+                    });
             });
         });
     }
 
+    /**
+     * 转为文本
+     * @param file 
+     */
     public static toText(file: any) {
         return new Promise<any>(res => {
-            file.async('text')
-                .then((result: string) => {
-                    res(result);
-                })
-                .catch((error: Error) => {
-                    cc.error(error);
-                    res(null);
-                });
-        })
+            if (file) {
+                file.async('text')
+                    .then((result: string) => {
+                        res(result);
+                    })
+                    .catch((error: Error) => {
+                        cc.error(error);
+                        res(null);
+                    });
+            } else {
+                res(null);
+            }
+        });
     }
 
+    /**
+     * 转为 Json
+     * @param file 
+     */
     public static async toJson(file: any) {
         const text = await ZipLoader.toText(file);
         if (!text) {
             return null;
         }
-        let json = null;
         try {
-            json = JSON.parse(text);
+            return JSON.parse(text);
         } catch (error) {
             cc.error(error);
+            return null;
         }
-        return json;
     }
 
+    /**
+     * 转为 Base64
+     * @param file 
+     */
     public static toBase64(file: any) {
         return new Promise<string>(res => {
-            file.async('base64')
-                .then((result: string) => {
-                    res(result);
-                })
-                .catch((error: Error) => {
-                    cc.error(error);
-                    res(null);
-                });
-        })
+            if (file) {
+                file.async('base64')
+                    .then((result: string) => {
+                        res(result);
+                    })
+                    .catch((error: Error) => {
+                        cc.error(error);
+                        res(null);
+                    });
+            } else {
+                res(null);
+            }
+        });
     }
 
+    /**
+     * 转为 cc.Texture2D 资源
+     * @param file 
+     */
     public static async toCCTexture(file: any) {
         let base64 = await ZipLoader.toBase64(file);
         if (!base64) {
@@ -99,7 +128,7 @@ export default class ZipLoader {
      * @param base64 Base64 字符
      */
     private static base64ToTexture(base64: string): cc.Texture2D {
-        if (!window || !window.Image) {
+        if (!window || !window.document) {
             return null;
         }
         const image = new Image();

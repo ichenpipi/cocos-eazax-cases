@@ -3,6 +3,6 @@
   "uuid": "8ece4991-8442-47a2-970d-47599ba50054",
   "importer": "scene",
   "asyncLoadAssets": false,
-  "autoReleaseAssets": false,
+  "autoReleaseAssets": true,
   "subMetas": {}
 }

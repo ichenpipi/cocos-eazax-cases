@@ -1,4 +1,4 @@
-import ArcProgressBar from "../../../eazax-ccc/components/ArcProgressBar";
+import ArcProgressBar from "../../../eazax-ccc/components/charts/ArcProgressBar";
 
 const { ccclass, property } = cc._decorator;
 
@@ -21,47 +21,18 @@ export default class Case_ArcProgressBar extends cc.Component {
     protected progressBar5: ArcProgressBar = null;
 
     public onLoad() {
-        this.play1();
-        this.play2();
-        this.play3();
-        this.play4();
-        this.play5();
+        this.play(this.progressBar1);
+        this.play(this.progressBar2);
+        this.play(this.progressBar3);
+        this.play(this.progressBar4);
+        this.play(this.progressBar5);
     }
 
-    protected async play1() {
+    public async play(progressBar: ArcProgressBar) {
         while (1) {
-            this.progressBar1.progress = 0;
-            await this.progressBar1.to(2.5, 1);
+            progressBar.progress = 0;
+            await progressBar.to(2.5, 1);
         }
     }
-
-    protected async play2() {
-        while (1) {
-            this.progressBar2.progress = 0;
-            await this.progressBar2.to(2.5, 1);
-        }
-    }
-
-    protected async play3() {
-        while (1) {
-            this.progressBar3.progress = 0;
-            await this.progressBar3.to(2.5, 1);
-        }
-    }
-
-    protected async play4() {
-        while (1) {
-            this.progressBar4.progress = 0;
-            await this.progressBar4.to(2.5, 1);
-        }
-    }
-
-    protected async play5() {
-        while (1) {
-            this.progressBar5.progress = 0;
-            await this.progressBar5.to(2.5, 1);
-        }
-    }
-
 
 }

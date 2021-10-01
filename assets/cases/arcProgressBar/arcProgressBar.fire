@@ -63,7 +63,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Canvas",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -138,7 +138,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Main Camera",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 2
     },
@@ -311,7 +311,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Background",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 5
     },
@@ -605,7 +605,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "progress",
+    "_name": "progressBar1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 11
@@ -737,7 +737,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "progress",
+    "_name": "progressBar2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 11
@@ -869,7 +869,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "progress",
+    "_name": "progressBar3",
     "_objFlags": 0,
     "_parent": {
       "__id__": 11
@@ -1001,7 +1001,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "progress",
+    "_name": "progressBar4",
     "_objFlags": 0,
     "_parent": {
       "__id__": 11
@@ -1133,7 +1133,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "progress",
+    "_name": "progressBar5",
     "_objFlags": 0,
     "_parent": {
       "__id__": 11
@@ -1400,7 +1400,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 380,
+      "width": 394.6,
       "height": 80
     },
     "_anchorPoint": {
@@ -1440,7 +1440,7 @@
   {
     "__type__": "cc.Node",
     "_name": "decorator",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 29
     },
@@ -1462,7 +1462,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
+      "width": 47.3,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1474,7 +1474,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -120,
+        -123.65,
         4.618527782440651e-14,
         0,
         0,
@@ -1630,7 +1630,7 @@
   {
     "__type__": "cc.Node",
     "_name": "decorator",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 29
     },
@@ -1652,7 +1652,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
+      "width": 47.3,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1664,7 +1664,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        120,
+        123.65,
         4.618527782440651e-14,
         0,
         0,
@@ -1816,7 +1816,7 @@
   {
     "__type__": "ResPopupItemInfo",
     "title": "[组件] ArcProgressBar.ts",
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/ArcProgressBar.ts"
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/charts/ArcProgressBar.ts"
   },
   {
     "__type__": "cc.Layout",
@@ -1828,7 +1828,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 380,
+      "width": 394.6,
       "height": 80
     },
     "_resize": 1,
