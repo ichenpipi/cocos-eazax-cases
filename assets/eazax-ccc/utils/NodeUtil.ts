@@ -1,7 +1,7 @@
 /**
  * 节点工具
  * @author 陈皮皮 (ifaswind)
- * @version 20210116
+ * @version 20211009
  * @see NodeUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/NodeUtil.ts
  */
 export default class NodeUtil {
@@ -33,9 +33,28 @@ export default class NodeUtil {
      * @param contains 是否完全包含
      */
     public static areNodesOverlap(node1: cc.Node, node2: cc.Node, contains: boolean = false): boolean {
-        const rect2 = node2.getBoundingBoxToWorld();
-        const rect1 = node1.getBoundingBoxToWorld();
-        return contains ? rect2.containsRect(rect1) : rect2.intersects(rect1);
+        const rect1 = node1.getBoundingBoxToWorld(),
+            rect2 = node2.getBoundingBoxToWorld();
+        return contains ? rect1.containsRect(rect2) : rect1.intersects(rect2);
+    }
+
+    /**
+     * 获取节点本身在世界坐标系下的对齐轴向的包围盒（不包含子节点）
+     * @param node 节点
+     */
+    public static getNodeSelfBoundingBoxToWorld(node: cc.Node) {
+        node.parent['_updateWorldMatrix']();
+        const { width, height } = node.getContentSize(),
+            anchorPoint = node.getAnchorPoint(),
+            rect = cc.rect(
+                -anchorPoint.x * width,
+                -anchorPoint.y * height,
+                width,
+                height
+            );
+        node['_calculWorldMatrix']();
+        rect.transformMat4(rect, node['_worldMatrix']);
+        return rect;
     }
 
 }
