@@ -10,7 +10,7 @@ export default class Case_RemoteTexture extends cc.Component {
     protected remoteTexture: RemoteTexture = null;
 
     @property(cc.EditBox)
-    protected remoteTextureEditorBox: cc.EditBox = null;
+    protected urlEditorBox: cc.EditBox = null;
 
     protected onLoad() {
         this.registerEvent();
@@ -21,15 +21,15 @@ export default class Case_RemoteTexture extends cc.Component {
     }
 
     protected registerEvent() {
-        this.remoteTextureEditorBox.node.on('editing-did-ended', this.onRemoteTextureEditorBoxEnded, this);
+        this.urlEditorBox.node.on('editing-did-ended', this.onUrlEditorBoxEnded, this);
     }
 
-    protected onRemoteTextureEditorBoxEnded(editorBox: cc.EditBox) {
+    protected onUrlEditorBoxEnded(editorBox: cc.EditBox) {
         this.reloadTexture();
     }
 
     protected async reloadTexture() {
-        let url = this.remoteTextureEditorBox.string;
+        let url = this.urlEditorBox.string;
         if (url !== '') {
             Toast.show('🌀 正在加载远程图像...');
         }

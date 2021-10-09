@@ -343,14 +343,14 @@
       "__id__": 5
     },
     "_enabled": true,
-    "_spine": {
+    "_skeleton": {
       "__id__": 6
     },
     "_url": "https://chenpipi-storage.oss-cn-shenzhen.aliyuncs.com/spines/3.6/goblins.zip",
     "_defaultSkin": "goblin",
     "_defaultAnimation": "walk",
-    "_premultipliedAlpha": false,
     "retryTimes": 0,
+    "_previewInEditor": true,
     "_id": "40jeGQ915BbrrYEVXTdxy4"
   },
   {
