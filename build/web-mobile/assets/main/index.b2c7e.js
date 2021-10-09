@@ -10256,6 +10256,142 @@ window.__require = function e(t, n, r) {
     exports.default = LongPress;
     cc._RF.pop();
   }, {} ],
+  MarchingSquares: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "c1765/mh59PQ7K6SHAzqmO2", "MarchingSquares");
+    "use strict";
+    (function(window) {
+      var MarchingSquares = {};
+      MarchingSquares.NONE = 0;
+      MarchingSquares.UP = 1;
+      MarchingSquares.LEFT = 2;
+      MarchingSquares.DOWN = 3;
+      MarchingSquares.RIGHT = 4;
+      MarchingSquares.getBlobOutlinePoints = function(sourceCanvas) {
+        MarchingSquares.sourceCanvas = document.createElement("canvas");
+        MarchingSquares.sourceCanvas.width = sourceCanvas.width + 2;
+        MarchingSquares.sourceCanvas.height = sourceCanvas.height + 2;
+        MarchingSquares.sourceContext = MarchingSquares.sourceCanvas.getContext("2d");
+        MarchingSquares.sourceContext.drawImage(sourceCanvas, 1, 1);
+        var startingPoint = MarchingSquares.getFirstNonTransparentPixelTopDown(MarchingSquares.sourceCanvas);
+        return MarchingSquares.walkPerimeter(startingPoint.x, startingPoint.y);
+      };
+      MarchingSquares.getFirstNonTransparentPixelTopDown = function(canvas) {
+        var context = canvas.getContext("2d");
+        var y, i, rowData;
+        for (y = 0; y < canvas.height; y++) {
+          rowData = context.getImageData(0, y, canvas.width, 1).data;
+          for (i = 0; i < rowData.length; i += 4) if (rowData[i + 3] > 0) return {
+            x: i / 4,
+            y: y
+          };
+        }
+        return null;
+      };
+      MarchingSquares.walkPerimeter = function(startX, startY) {
+        startX < 0 && (startX = 0);
+        startX > MarchingSquares.sourceCanvas.width && (startX = MarchingSquares.sourceCanvas.width);
+        startY < 0 && (startY = 0);
+        startY > MarchingSquares.sourceCanvas.height && (startY = MarchingSquares.sourceCanvas.height);
+        var pointList = [];
+        var x = startX;
+        var y = startY;
+        var imageData = MarchingSquares.sourceContext.getImageData(0, 0, MarchingSquares.sourceCanvas.width, MarchingSquares.sourceCanvas.height);
+        var index, width4 = 4 * imageData.width;
+        do {
+          index = (y - 1) * width4 + 4 * (x - 1);
+          MarchingSquares.step(index, imageData.data, width4);
+          x >= 0 && x < MarchingSquares.sourceCanvas.width && y >= 0 && y < MarchingSquares.sourceCanvas.height && pointList.push(x - 2, y - 1);
+          switch (MarchingSquares.nextStep) {
+           case MarchingSquares.UP:
+            y--;
+            break;
+
+           case MarchingSquares.LEFT:
+            x--;
+            break;
+
+           case MarchingSquares.DOWN:
+            y++;
+            break;
+
+           case MarchingSquares.RIGHT:
+            x++;
+          }
+        } while (x != startX || y != startY);
+        pointList.push(x - 1, y - 1);
+        return pointList;
+      };
+      MarchingSquares.step = function(index, data, width4) {
+        MarchingSquares.upLeft = data[index + 3] > 0;
+        MarchingSquares.upRight = data[index + 7] > 0;
+        MarchingSquares.downLeft = data[index + width4 + 3] > 0;
+        MarchingSquares.downRight = data[index + width4 + 7] > 0;
+        MarchingSquares.previousStep = MarchingSquares.nextStep;
+        MarchingSquares.state = 0;
+        MarchingSquares.upLeft && (MarchingSquares.state |= 1);
+        MarchingSquares.upRight && (MarchingSquares.state |= 2);
+        MarchingSquares.downLeft && (MarchingSquares.state |= 4);
+        MarchingSquares.downRight && (MarchingSquares.state |= 8);
+        switch (MarchingSquares.state) {
+         case 1:
+          MarchingSquares.nextStep = MarchingSquares.UP;
+          break;
+
+         case 2:
+         case 3:
+          MarchingSquares.nextStep = MarchingSquares.RIGHT;
+          break;
+
+         case 4:
+          MarchingSquares.nextStep = MarchingSquares.LEFT;
+          break;
+
+         case 5:
+          MarchingSquares.nextStep = MarchingSquares.UP;
+          break;
+
+         case 6:
+          MarchingSquares.previousStep == MarchingSquares.UP ? MarchingSquares.nextStep = MarchingSquares.LEFT : MarchingSquares.nextStep = MarchingSquares.RIGHT;
+          break;
+
+         case 7:
+          MarchingSquares.nextStep = MarchingSquares.RIGHT;
+          break;
+
+         case 8:
+          MarchingSquares.nextStep = MarchingSquares.DOWN;
+          break;
+
+         case 9:
+          MarchingSquares.previousStep == MarchingSquares.RIGHT ? MarchingSquares.nextStep = MarchingSquares.UP : MarchingSquares.nextStep = MarchingSquares.DOWN;
+          break;
+
+         case 10:
+         case 11:
+          MarchingSquares.nextStep = MarchingSquares.DOWN;
+          break;
+
+         case 12:
+          MarchingSquares.nextStep = MarchingSquares.LEFT;
+          break;
+
+         case 13:
+          MarchingSquares.nextStep = MarchingSquares.UP;
+          break;
+
+         case 14:
+          MarchingSquares.nextStep = MarchingSquares.LEFT;
+          break;
+
+         default:
+          MarchingSquares.nextStep = MarchingSquares.NONE;
+        }
+      };
+      window.MarchingSquares = MarchingSquares;
+    })(window);
+    cc._RF.pop();
+  }, {} ],
   Marquee: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "fbc9dvqZdRO6rqKofACuje5", "Marquee");
@@ -10744,9 +10880,15 @@ window.__require = function e(t, n, r) {
       };
       NodeUtil.areNodesOverlap = function(node1, node2, contains) {
         void 0 === contains && (contains = false);
-        var rect2 = node2.getBoundingBoxToWorld();
-        var rect1 = node1.getBoundingBoxToWorld();
-        return contains ? rect2.containsRect(rect1) : rect2.intersects(rect1);
+        var rect1 = node1.getBoundingBoxToWorld(), rect2 = node2.getBoundingBoxToWorld();
+        return contains ? rect1.containsRect(rect2) : rect1.intersects(rect2);
+      };
+      NodeUtil.getNodeSelfBoundingBoxToWorld = function(node) {
+        node.parent["_updateWorldMatrix"]();
+        var _a = node.getContentSize(), width = _a.width, height = _a.height, anchorPoint = node.getAnchorPoint(), rect = cc.rect(-anchorPoint.x * width, -anchorPoint.y * height, width, height);
+        node["_calculWorldMatrix"]();
+        rect.transformMat4(rect, node["_worldMatrix"]);
+        return rect;
       };
       return NodeUtil;
     }();
@@ -12379,6 +12521,7 @@ window.__require = function e(t, n, r) {
         _this._defaultAnimation = "";
         _this.retryTimes = 2;
         _this._previewInEditor = true;
+        _this._showPreviewNode = false;
         _this.lastRequestId = 0;
         return _this;
       }
@@ -12432,6 +12575,17 @@ window.__require = function e(t, n, r) {
         },
         set: function(value) {
           this._previewInEditor = value;
+          this.onPropertyUpdated();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(RemoteSpine.prototype, "showPreviewNode", {
+        get: function() {
+          return this._showPreviewNode;
+        },
+        set: function(value) {
+          this._showPreviewNode = value;
           this.onPropertyUpdated();
         },
         enumerable: false,
@@ -12553,6 +12707,7 @@ window.__require = function e(t, n, r) {
               previewSkeleton.skeletonData = skeletonData;
               "" !== this._defaultSkin && previewSkeleton.setSkin(this._defaultSkin);
               previewSkeleton.animation = this._defaultAnimation;
+              this._showPreviewNode && cc.log("[RemoteSpine]", "Preview", "->", "\u4e34\u65f6\u9884\u89c8\u8282\u70b9\u4e0d\u4f1a\u88ab\u4fdd\u5b58\uff0c\u65e0\u9700\u624b\u52a8\u5220\u9664");
               cc.log("[RemoteSpine]", "Preview", "->", "skins", Object.keys(skeletonData.skeletonJson.skins));
               cc.log("[RemoteSpine]", "Preview", "->", "animations", Object.keys(skeletonData.skeletonJson.animations));
               return [ 2 ];
@@ -12581,6 +12736,13 @@ window.__require = function e(t, n, r) {
       __decorate([ property({
         tooltip: false
       }) ], RemoteSpine.prototype, "previewInEditor", null);
+      __decorate([ property() ], RemoteSpine.prototype, "_showPreviewNode", void 0);
+      __decorate([ property({
+        tooltip: false,
+        visible: function() {
+          return this["_previewInEditor"];
+        }
+      }) ], RemoteSpine.prototype, "showPreviewNode", null);
       RemoteSpine = __decorate([ ccclass, executeInEditMode, help("https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteSpine.ts") ], RemoteSpine);
       return RemoteSpine;
     }(RemoteAsset_1.default);
@@ -13410,6 +13572,12 @@ window.__require = function e(t, n, r) {
       return RunInBackground;
     }(cc.Component);
     exports.default = RunInBackground;
+    cc._RF.pop();
+  }, {} ],
+  RunSpineInEditor: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "b398dqir49DTr6hUG36CwOz", "RunSpineInEditor");
+    false;
     cc._RF.pop();
   }, {} ],
   SceneNavigator: [ function(require, module, exports) {
@@ -24217,4 +24385,4 @@ window.__require = function e(t, n, r) {
     "set-immediate-shim": void 0,
     stream: 28
   } ]
-}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "RunSpineInEditor", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
