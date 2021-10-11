@@ -1454,7 +1454,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 274.6,
+      "width": 260,
       "height": 80
     },
     "_anchorPoint": {
@@ -1516,7 +1516,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1528,7 +1528,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -63.65000000000001,
+        -60,
         4.618527782440651e-14,
         0,
         0,
@@ -1623,7 +1623,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -1.4210854715202004e-14,
+        0,
         4.618527782440651e-14,
         0,
         0,
@@ -1706,7 +1706,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1718,7 +1718,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        63.649999999999984,
+        60,
         4.618527782440651e-14,
         0,
         0,
@@ -1882,7 +1882,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 274.6,
+      "width": 260,
       "height": 80
     },
     "_resize": 1,
@@ -2025,7 +2025,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 281.79,
+      "width": 278.33,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -2077,8 +2077,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "🔗本项目源码在这里",
-    "_N$string": "🔗本项目源码在这里",
+    "_string": "🔗 本项目源码在这里",
+    "_N$string": "🔗 本项目源码在这里",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,

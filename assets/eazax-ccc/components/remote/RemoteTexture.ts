@@ -52,6 +52,17 @@ export default class RemoteTexture extends RemoteAsset {
         this.onPropertyUpdated();
     }
 
+    @property()
+    protected _showPreviewNode: boolean = false;
+    @property({ tooltip: CC_DEV && '展示预览节点（该节点不会被保存，无需手动删除）', visible() { return this['_previewInEditor']; } })
+    public get showPreviewNode() {
+        return this._showPreviewNode;
+    }
+    public set showPreviewNode(value) {
+        this._showPreviewNode = value;
+        this.onPropertyUpdated();
+    }
+
     /**
      * 最后一个请求 ID（用来处理短时间内的重复加载，仅保留最后一个请求）
      */
@@ -150,7 +161,7 @@ export default class RemoteTexture extends RemoteAsset {
             actualNode = actualSprite.node;
         // 移除旧的预览节点
         actualNode.children.forEach(node => {
-            if (node.name === 'temporary-preview-node')
+            if (node.name === 'PREVIEW_NODE')
                 node.removeFromParent(true);
         });
         // 是否开启预览
@@ -162,10 +173,15 @@ export default class RemoteTexture extends RemoteAsset {
             return;
         }
         // 生成临时预览节点
-        // const previewNode = new cc.Node('temporary-preview-node');
+        let previewNode: cc.Node = null;
+        if (this._showPreviewNode) {
+            previewNode = new cc.Node('PREVIEW_NODE');
+        } else {
+            previewNode = new cc.PrivateNode('PREVIEW_NODE');
+        }
         // previewNode['_objFlags'] |= cc.Object['Flags'].HideInHierarchy;
-        const previewNode = new cc.PrivateNode('temporary-preview-node');
         previewNode['_objFlags'] |= cc.Object['Flags'].DontSave;
+        previewNode['_objFlags'] |= cc.Object['Flags'].LockedInEditor;
         previewNode.setParent(actualNode);
         previewNode.setContentSize(actualNode.getContentSize());
         // 加载资源
@@ -180,6 +196,10 @@ export default class RemoteTexture extends RemoteAsset {
         previewSprite.sizeMode = actualSprite.sizeMode;
         previewSprite.trim = actualSprite.trim;
         previewSprite.spriteFrame = new cc.SpriteFrame(texture);
+        // tips
+        if (this._showPreviewNode) {
+            cc.log('[RemoteTexture]', 'Preview', '->', '预览节点（PREVIEW_NODE）不会被保存，无需手动删除');
+        }
     }
 
 }

@@ -711,6 +711,7 @@
     "_url": "https://image.chenpipi.cn/weixin/official-account-qrcode.jpg",
     "retryTimes": 2,
     "_previewInEditor": true,
+    "_showPreviewNode": false,
     "_id": "98ezaqIY1PPZE+A9YK+RI+"
   },
   {
@@ -822,6 +823,7 @@
     "_url": "",
     "retryTimes": 2,
     "_previewInEditor": true,
+    "_showPreviewNode": false,
     "_id": "80gNkOsDNP+LqiPzsoWgwx"
   },
   {
