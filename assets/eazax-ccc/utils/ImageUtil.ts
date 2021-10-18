@@ -43,7 +43,7 @@ export default class ImageUtil {
         }
         const pixelsData = ImageUtil.getPixelsData(texture),
             width = texture.width;
-        const index = (y * width * 4) + (x * 4),
+        const index = (width * 4 * Math.floor(y)) + (4 * Math.floor(x)),
             data = pixelsData.slice(index, index + 4),
             color = cc.color(data[0], data[1], data[2], data[3]);
         return color;

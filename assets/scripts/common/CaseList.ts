@@ -68,6 +68,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '远程骨骼',
         scene: 'remoteSpine'
     },
+    pixelClick: {
+        name: '像素点击',
+        scene: 'pixelClick'
+    },
 }
 
 /** 关卡信息 */
