@@ -5142,6 +5142,10 @@ window.__require = function e(t, n, r) {
       remoteSpine: {
         name: "\u8fdc\u7a0b\u9aa8\u9abc",
         scene: "remoteSpine"
+      },
+      pixelClick: {
+        name: "\u50cf\u7d20\u70b9\u51fb",
+        scene: "pixelClick"
       }
     };
     cc._RF.pop();
@@ -6499,6 +6503,99 @@ window.__require = function e(t, n, r) {
   }, {
     "../../../eazax-ccc/components/TouchBlocker": "TouchBlocker",
     "../../../eazax-ccc/components/effects/HollowOut": "HollowOut"
+  } ],
+  Case_PixelClick: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "31bfagXWgVLV4IZVa90tZra", "Case_PixelClick");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var NodeUtil_1 = require("../../../eazax-ccc/utils/NodeUtil");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_PixelClick = function(_super) {
+      __extends(Case_PixelClick, _super);
+      function Case_PixelClick() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.target = null;
+        _this.label = null;
+        _this.pixelsData = null;
+        return _this;
+      }
+      Case_PixelClick.prototype.onLoad = function() {
+        this.init();
+        this.registerEvent();
+      };
+      Case_PixelClick.prototype.start = function() {
+        this.pixelsData = NodeUtil_1.default.getPixelsData(this.target);
+      };
+      Case_PixelClick.prototype.init = function() {
+        this.label.string = "\u70b9\u51fb\u4e0a\u65b9\u56fe\u50cf\uff08\u6df1\u7070\u8272\u4e3a\u5e95\u56fe\u989c\u8272\uff09";
+      };
+      Case_PixelClick.prototype.registerEvent = function() {
+        this.target.on(cc.Node.EventType.TOUCH_END, this.onTargetClick, this);
+      };
+      Case_PixelClick.prototype.onTargetClick = function(event) {
+        var touchPos = event.getLocation();
+        cc.log("---------- \u70b9\u51fb\u4fe1\u606f ----------");
+        cc.log("\u57fa\u4e8e\u4e16\u754c\u7684\u5750\u6807\uff1a\t" + touchPos.toString());
+        var node = this.target, localPos = node.convertToNodeSpaceAR(touchPos);
+        cc.log("\u57fa\u4e8e\u951a\u70b9\u7684\u5750\u6807\uff1a\t" + localPos.toString());
+        var x = localPos.x + node.anchorX * node.width, y = -(localPos.y - node.anchorY * node.height);
+        cc.log("\u57fa\u4e8e\u5de6\u4e0a\u89d2\u7684\u5750\u6807\uff1a\t" + cc.v2(x, y).toString());
+        var index = 4 * node.width * Math.floor(y) + 4 * Math.floor(x), colors = this.pixelsData.slice(index, index + 4);
+        cc.log("\u50cf\u7d20\u4e0b\u6807\uff1a\t" + index);
+        cc.log("\u989c\u8272\u503c\uff1a");
+        cc.log("\t- R\uff1a" + colors[0]);
+        cc.log("\t- G\uff1a" + colors[1]);
+        cc.log("\t- B\uff1a" + colors[2]);
+        cc.log("\t- A\uff1a" + colors[3]);
+        cc.log("------------------------------");
+        this.label.string = "";
+        this.label.string += "\u57fa\u4e8e\u4e16\u754c\u7684\u5750\u6807\uff1a" + touchPos.toString() + "\n";
+        this.label.string += "\u57fa\u4e8e\u951a\u70b9\u7684\u5750\u6807\uff1a" + localPos.toString() + "\n";
+        this.label.string += "\u57fa\u4e8e\u5de6\u4e0a\u89d2\u7684\u5750\u6807\uff1a" + cc.v2(x, y).toString() + "\n";
+        this.label.string += "\u50cf\u7d20\u4e0b\u6807\uff1a" + index / 4 + "\n";
+        this.label.string += "\u989c\u8272\u4e0b\u6807\uff1a" + index + "\n";
+        this.label.string += "\u989c\u8272\u503c\uff1a\n";
+        this.label.string += "            - R\uff1a" + colors[0] + "\n";
+        this.label.string += "            - G\uff1a" + colors[1] + "\n";
+        this.label.string += "            - B\uff1a" + colors[2] + "\n";
+        this.label.string += "            - A\uff1a" + colors[3];
+      };
+      __decorate([ property(cc.Node) ], Case_PixelClick.prototype, "target", void 0);
+      __decorate([ property(cc.Label) ], Case_PixelClick.prototype, "label", void 0);
+      Case_PixelClick = __decorate([ ccclass ], Case_PixelClick);
+      return Case_PixelClick;
+    }(cc.Component);
+    exports.default = Case_PixelClick;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/utils/NodeUtil": "NodeUtil"
   } ],
   Case_PopupTesting: [ function(require, module, exports) {
     "use strict";
@@ -9405,19 +9502,23 @@ window.__require = function e(t, n, r) {
     });
     var ImageUtil = function() {
       function ImageUtil() {}
-      ImageUtil.getPixelColor = function(texture, x, y) {
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext("2d");
-        canvas.width = texture.width;
-        canvas.height = texture.height;
+      ImageUtil.getPixelsData = function(texture) {
+        if (!window || !window.document) return null;
+        var canvas = document.createElement("canvas"), ctx = canvas.getContext("2d");
+        var width = texture.width, height = texture.height;
+        canvas.width = width;
+        canvas.height = height;
         var image = texture.getHtmlElementObj();
-        ctx.drawImage(image, 0, 0, texture.width, texture.height);
-        var imageData = ctx.getImageData(0, 0, texture.width, texture.height);
-        var pixelIndex = (y - 1) * texture.width * 4 + 4 * (x - 1);
-        var pixelData = imageData.data.slice(pixelIndex, pixelIndex + 4);
-        var color = cc.color(pixelData[0], pixelData[1], pixelData[2], pixelData[3]);
+        ctx.drawImage(image, 0, 0, width, height);
+        var imageData = ctx.getImageData(0, 0, width, height);
         image.remove();
         canvas.remove();
+        return imageData.data;
+      };
+      ImageUtil.getPixelColor = function(texture, x, y) {
+        if (!window || !window.document) return null;
+        var pixelsData = ImageUtil.getPixelsData(texture), width = texture.width;
+        var index = 4 * width * Math.floor(y) + 4 * Math.floor(x), data = pixelsData.slice(index, index + 4), color = cc.color(data[0], data[1], data[2], data[3]);
         return color;
       };
       ImageUtil.imageToBase64 = function(url, callback) {
@@ -9467,6 +9568,24 @@ window.__require = function e(t, n, r) {
         return new Blob([ uint8Array ], {
           type: type
         });
+      };
+      ImageUtil.getTrim = function(pixelsData, width, height) {
+        var minX = 0, minY = 0, maxX = 0, maxY = 0;
+        var i = 0, j = 0;
+        left: for (i = 0; i < width; i++) for (j = 0; j < height; j++) {
+          var index = 4 * width * j + 4 * width * i - 1;
+          if (0 !== pixelsData[index]) break left;
+        }
+        minX = i;
+        top: for (i = 0; i < height; i++) for (j = 0; j < width; j++) {
+          var index = 4 * width * i + 4 * width * j - 1;
+          if (0 !== pixelsData[index]) break top;
+        }
+        maxY = i;
+        right: for (i = 0; i < width; i++) for (j = 0; j < height; j++) {
+          var index = 4 * width * j + 4 * width * i - 1;
+          if (0 !== pixelsData[index]) break right;
+        }
       };
       return ImageUtil;
     }();
@@ -10870,6 +10989,24 @@ window.__require = function e(t, n, r) {
     });
     var NodeUtil = function() {
       function NodeUtil() {}
+      NodeUtil.getPixelsData = function(node) {
+        if (!cc.isValid(node)) return null;
+        var cameraNode = new cc.Node();
+        cameraNode.parent = node;
+        var camera = cameraNode.addComponent(cc.Camera);
+        camera.cullingMask = 4294967295;
+        camera.backgroundColor = cc.color(0, 0, 0, 0);
+        camera.clearFlags = cc.Camera.ClearFlags.COLOR | cc.Camera.ClearFlags.DEPTH | cc.Camera.ClearFlags.STENCIL;
+        camera.zoomRatio = cc.winSize.height / node.height;
+        var renderTexture = new cc.RenderTexture();
+        renderTexture.initWithSize(node.width, node.height, cc["gfx"]["RB_FMT_S8"]);
+        camera.targetTexture = renderTexture;
+        camera.render(node);
+        var pixelsData = renderTexture.readPixels();
+        renderTexture.destroy();
+        cameraNode.destroy();
+        return pixelsData;
+      };
       NodeUtil.getRelativePosition = function(node, container) {
         var worldPos = (node.getParent() || node).convertToWorldSpaceAR(node.getPosition());
         return container.convertToNodeSpaceAR(worldPos);
@@ -11147,6 +11284,122 @@ window.__require = function e(t, n, r) {
       if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
@@ -11164,10 +11417,59 @@ window.__require = function e(t, n, r) {
         return _this;
       }
       PopupBase.prototype.show = function(options, duration) {
+        return __awaiter(this, void 0, void 0, function() {
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              this.options = options;
+              this.init(this.options);
+              this.updateDisplay(this.options);
+              (void 0 == duration || duration < 0) && (duration = this.animDuration);
+              return [ 4, this.playShowAnim(duration) ];
+
+             case 1:
+              _a.sent();
+              this.onShow && this.onShow();
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      PopupBase.prototype.hide = function(suspended, duration) {
+        void 0 === suspended && (suspended = false);
+        return __awaiter(this, void 0, void 0, function() {
+          var node, blocker;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              node = this.node;
+              if (0 !== duration) {
+                blocker = this.blocker;
+                if (!blocker) {
+                  blocker = this.blocker = new cc.Node("blocker");
+                  blocker.addComponent(cc.BlockInputEvents);
+                  blocker.setParent(node);
+                  blocker.setContentSize(node.getContentSize());
+                }
+                blocker.active = true;
+              }
+              (void 0 == duration || duration < 0) && (duration = this.animDuration);
+              return [ 4, this.playHideAnim(duration) ];
+
+             case 1:
+              _a.sent();
+              this.blocker && (this.blocker.active = false);
+              node.active = false;
+              this.onHide && this.onHide(suspended);
+              this.finishCallback && this.finishCallback(suspended);
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      PopupBase.prototype.playShowAnim = function(duration) {
         var _this = this;
-        void 0 === duration && (duration = this.animDuration);
         return new Promise(function(res) {
-          _this.options = options;
           var background = _this.background, main = _this.main;
           _this.node.active = true;
           background.active = true;
@@ -11175,39 +11477,21 @@ window.__require = function e(t, n, r) {
           main.active = true;
           main.scale = .5;
           main.opacity = 0;
-          _this.init(_this.options);
-          _this.updateDisplay(_this.options);
-          cc.tween(background).to(.8 * duration, {
-            opacity: 200
+          cc.tween(background).to(.5 * duration, {
+            opacity: 150
           }).start();
           cc.tween(main).to(duration, {
             scale: 1,
             opacity: 255
           }, {
             easing: "backOut"
-          }).call(function() {
-            _this.onShow && _this.onShow();
-            res();
-          }).start();
+          }).call(res).start();
         });
       };
-      PopupBase.prototype.hide = function(suspended, duration) {
+      PopupBase.prototype.playHideAnim = function(duration) {
         var _this = this;
-        void 0 === suspended && (suspended = false);
-        void 0 === duration && (duration = this.animDuration);
         return new Promise(function(res) {
-          var node = _this.node;
-          if (0 !== duration) {
-            var blocker = _this.blocker;
-            if (!blocker) {
-              blocker = _this.blocker = new cc.Node("blocker");
-              blocker.addComponent(cc.BlockInputEvents);
-              blocker.setParent(node);
-              blocker.setContentSize(node.getContentSize());
-            }
-            blocker.active = true;
-          }
-          cc.tween(_this.background).delay(.2 * duration).to(.8 * duration, {
+          cc.tween(_this.background).delay(.5 * duration).to(.5 * duration, {
             opacity: 0
           }).start();
           cc.tween(_this.main).to(duration, {
@@ -11215,13 +11499,7 @@ window.__require = function e(t, n, r) {
             opacity: 0
           }, {
             easing: "backIn"
-          }).call(function() {
-            _this.blocker && (_this.blocker.active = false);
-            node.active = false;
-            _this.onHide && _this.onHide(suspended);
-            res();
-            _this.finishCallback && _this.finishCallback(suspended);
-          }).start();
+          }).call(res).start();
         });
       };
       PopupBase.prototype.init = function(options) {};
@@ -12707,7 +12985,7 @@ window.__require = function e(t, n, r) {
               previewSkeleton.skeletonData = skeletonData;
               "" !== this._defaultSkin && previewSkeleton.setSkin(this._defaultSkin);
               previewSkeleton.animation = this._defaultAnimation;
-              this._showPreviewNode && cc.log("[RemoteSpine]", "Preview", "->", "\u4e34\u65f6\u9884\u89c8\u8282\u70b9\u4e0d\u4f1a\u88ab\u4fdd\u5b58\uff0c\u65e0\u9700\u624b\u52a8\u5220\u9664");
+              this._showPreviewNode && cc.log("[RemoteSpine]", "Preview", "->", "\u9884\u89c8\u8282\u70b9\uff08PREVIEW_NODE\uff09\u4e0d\u4f1a\u88ab\u4fdd\u5b58\uff0c\u65e0\u9700\u624b\u52a8\u5220\u9664");
               cc.log("[RemoteSpine]", "Preview", "->", "skins", Object.keys(skeletonData.skeletonJson.skins));
               cc.log("[RemoteSpine]", "Preview", "->", "animations", Object.keys(skeletonData.skeletonJson.animations));
               return [ 2 ];
@@ -12910,6 +13188,7 @@ window.__require = function e(t, n, r) {
         _this._url = "";
         _this.retryTimes = 2;
         _this._previewInEditor = true;
+        _this._showPreviewNode = false;
         _this.lastRequestId = 0;
         return _this;
       }
@@ -12941,6 +13220,17 @@ window.__require = function e(t, n, r) {
         },
         set: function(value) {
           this._previewInEditor = value;
+          this.onPropertyUpdated();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(RemoteTexture.prototype, "showPreviewNode", {
+        get: function() {
+          return this._showPreviewNode;
+        },
+        set: function(value) {
+          this._showPreviewNode = value;
           this.onPropertyUpdated();
         },
         enumerable: false,
@@ -13054,6 +13344,7 @@ window.__require = function e(t, n, r) {
               previewSprite.sizeMode = actualSprite.sizeMode;
               previewSprite.trim = actualSprite.trim;
               previewSprite.spriteFrame = new cc.SpriteFrame(texture);
+              this._showPreviewNode && cc.log("[RemoteTexture]", "Preview", "->", "\u9884\u89c8\u8282\u70b9\uff08PREVIEW_NODE\uff09\u4e0d\u4f1a\u88ab\u4fdd\u5b58\uff0c\u65e0\u9700\u624b\u52a8\u5220\u9664");
               return [ 2 ];
             }
           });
@@ -13072,6 +13363,13 @@ window.__require = function e(t, n, r) {
       __decorate([ property({
         tooltip: false
       }) ], RemoteTexture.prototype, "previewInEditor", null);
+      __decorate([ property() ], RemoteTexture.prototype, "_showPreviewNode", void 0);
+      __decorate([ property({
+        tooltip: false,
+        visible: function() {
+          return this["_previewInEditor"];
+        }
+      }) ], RemoteTexture.prototype, "showPreviewNode", null);
       RemoteTexture = __decorate([ ccclass, executeInEditMode, help("https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteTexture.ts") ], RemoteTexture);
       return RemoteTexture;
     }(RemoteAsset_1.default);
@@ -24385,4 +24683,4 @@ window.__require = function e(t, n, r) {
     "set-immediate-shim": void 0,
     stream: 28
   } ]
-}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "RunSpineInEditor", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "RunSpineInEditor", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);

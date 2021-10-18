@@ -27,7 +27,7 @@ export default class Case_PixelClick extends cc.Component {
      * 初始化
      */
     protected init() {
-        this.label.string = '点击上方图像';
+        this.label.string = '点击上方图像（深灰色为底图颜色）';
     }
 
     /**

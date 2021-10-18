@@ -284,10 +284,12 @@
         "_url",
         "_defaultSkin",
         "_defaultAnimation",
+        "_previewInEditor",
+        "_showPreviewNode",
         "node",
         "_skeleton"
       ],
-      0,
+      -2,
       1,
       1
     ]
@@ -694,7 +696,9 @@
       2,
       3,
       4,
-      4
+      5,
+      6,
+      6
     ],
     [
       7,
@@ -1682,6 +1686,8 @@
           "https://chenpipi-storage.oss-cn-shenzhen.aliyuncs.com/spines/3.6/goblins.zip",
           "goblin",
           "walk",
+          false,
+          true,
           14,
           27
         ],
