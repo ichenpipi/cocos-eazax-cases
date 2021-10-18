@@ -1,10 +1,35 @@
 /**
  * 节点工具
  * @author 陈皮皮 (ifaswind)
- * @version 20211009
+ * @version 20211018
  * @see NodeUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/NodeUtil.ts
  */
 export default class NodeUtil {
+
+    /**
+     * 获取像素数据
+     * @param node 节点
+     */
+    public static getPixelsData(node: cc.Node) {
+        if (!cc.isValid(node)) {
+            return null;
+        }
+        const cameraNode = new cc.Node();
+        cameraNode.parent = node;
+        const camera = cameraNode.addComponent(cc.Camera);
+        camera.cullingMask = 0xffffffff;
+        camera.backgroundColor = cc.color(0, 0, 0, 0);
+        camera.clearFlags = cc.Camera.ClearFlags.COLOR | cc.Camera.ClearFlags.DEPTH | cc.Camera.ClearFlags.STENCIL;
+        camera.zoomRatio = cc.winSize.height / node.height;
+        const renderTexture = new cc.RenderTexture();
+        renderTexture.initWithSize(node.width, node.height, cc['gfx']['RB_FMT_S8']);
+        camera.targetTexture = renderTexture;
+        camera.render(node);
+        const pixelsData = renderTexture.readPixels();
+        renderTexture.destroy();
+        cameraNode.destroy();
+        return pixelsData;
+    }
 
     /**
      * 获取节点在目标节点（容器）下的相对位置

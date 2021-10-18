@@ -1,39 +1,56 @@
 /**
  * 图像工具
  * @author 陈皮皮 (ifaswind)
- * @version 20211001
+ * @version 20211018
  * @see ImageUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/ImageUtil.ts
  */
 export default class ImageUtil {
 
     /**
-     * 获取纹理中指定像素的颜色，原点为左上角，从像素 (1, 1) 开始。
+     * (仅支持 Web 平台) 获取纹理的颜色数据。
+     * @param texture 纹理
+     */
+    public static getPixelsData(texture: cc.Texture2D) {
+        if (!window || !window.document) {
+            return null;
+        }
+        const canvas = document.createElement('canvas'),
+            ctx = canvas.getContext('2d');
+        const { width, height } = texture;
+        canvas.width = width;
+        canvas.height = height;
+        const image = texture.getHtmlElementObj();
+        ctx.drawImage(image, 0, 0, width, height);
+        const imageData = ctx.getImageData(0, 0, width, height);
+        image.remove();
+        canvas.remove();
+        return imageData.data;
+    }
+
+    /**
+     * (仅支持 Web 平台) 获取纹理中指定像素的颜色。原点为左上角，从像素 (0, 0) 开始。
      * @param texture 纹理
      * @param x x 坐标
      * @param y y 坐标
      * @example
      * // 获取纹理左上角第一个像素的颜色
-     * const color = ImageUtil.getPixelColor(texture, 1, 1);
+     * const color = ImageUtil.getPixelColor(texture, 0, 0);
      * // cc.color(50, 100, 123, 255);
      */
     public static getPixelColor(texture: cc.Texture2D, x: number, y: number): cc.Color {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = texture.width;
-        canvas.height = texture.height;
-        const image = texture.getHtmlElementObj();
-        ctx.drawImage(image, 0, 0, texture.width, texture.height);
-        const imageData = ctx.getImageData(0, 0, texture.width, texture.height);
-        const pixelIndex = ((y - 1) * texture.width * 4) + (x - 1) * 4;
-        const pixelData = imageData.data.slice(pixelIndex, pixelIndex + 4);
-        const color = cc.color(pixelData[0], pixelData[1], pixelData[2], pixelData[3]);
-        image.remove();
-        canvas.remove();
+        if (!window || !window.document) {
+            return null;
+        }
+        const pixelsData = ImageUtil.getPixelsData(texture),
+            width = texture.width;
+        const index = (y * width * 4) + (x * 4),
+            data = pixelsData.slice(index, index + 4),
+            color = cc.color(data[0], data[1], data[2], data[3]);
         return color;
     }
 
     /**
-     * 将图像转为 Base64 字符（仅 png、jpg 或 jpeg 格式资源）
+     * (仅支持 Web 平台) 将图像转为 Base64 字符（仅 png、jpg 或 jpeg 格式资源）
      * @param url 图像地址
      * @param callback 完成回调
      */
@@ -65,7 +82,7 @@ export default class ImageUtil {
     }
 
     /**
-     * 将 Base64 字符转为 cc.Texture2D 资源
+     * (仅支持 Web 平台) 将 Base64 字符转为 cc.Texture2D 资源
      * @param base64 Base64 字符
      */
     public static base64ToCCTexture(base64: string): cc.Texture2D {
@@ -81,7 +98,7 @@ export default class ImageUtil {
     }
 
     /**
-     * 将 Base64 字符转为二进制数据
+     * (仅支持 Web 平台) 将 Base64 字符转为二进制数据
      * @param base64 Base64 字符
      */
     public static base64ToBlob(base64: string): Blob {
