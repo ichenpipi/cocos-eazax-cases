@@ -72,6 +72,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '像素点击',
         scene: 'pixelClick'
     },
+    runtimeTrimming: {
+        name: '运行时图像裁剪',
+        scene: 'runtimeTrimming'
+    },
 }
 
 /** 关卡信息 */

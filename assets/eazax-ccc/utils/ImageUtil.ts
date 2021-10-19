@@ -1,13 +1,109 @@
 /**
  * 图像工具
  * @author 陈皮皮 (ifaswind)
- * @version 20211018
+ * @version 20211019
  * @see ImageUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/ImageUtil.ts
  */
 export default class ImageUtil {
 
     /**
-     * (仅支持 Web 平台) 获取纹理的颜色数据。
+     * 垂直翻转图像数据
+     * @param array 数据
+     * @param width 行宽
+     */
+    public static flipY(array: Uint8Array, width: number) {
+        // const height = Math.floor(array.length / width),
+        //     halfHeight = Math.floor(height / 2),
+        //     maxRowIndex = height - 1;
+        // for (let i = 0; i < halfHeight; i++) {
+        //     const a = i * width,
+        //         b = (maxRowIndex - i) * width;
+        //     for (let k = 0; k < width; k++) {
+        //         [array[a + k], array[b + k]] = [array[b + k], array[a + k]];
+        //     }
+        //     // const block = array.slice(a, a + width);
+        //     // for (let k = 0; k < width; k++) {
+        //     //     array[a + k] = array[b + k];
+        //     //     array[b + k] = block[k]
+        //     // }
+        // }
+        // return array;
+        const length = array.length,
+            flipped = new Uint8Array(length);
+        for (let i = 0, j = length - width; i < length; i += width, j -= width) {
+            for (let k = 0; k < width; k++) {
+                flipped[i + k] = array[j + k];
+            }
+        }
+        return flipped;
+    }
+
+    /**
+     * 获取图像的透明裁剪尺寸数据（结果基于左上角）
+     * @param data 图像数据
+     * @param width 图像宽度
+     * @param height 图像高度
+     */
+    public static getTrim(data: Uint8Array, width: number, height: number) {
+        let minX = 0, maxX = 0, minY = 0, maxY = 0;
+        let i = 0, j = 0;
+        const lineWidth = width * 4;
+        // 左 -> 右
+        left: {
+            for (i = 0; i < width; i++) {
+                for (j = 0; j < height; j++) {
+                    const index = (lineWidth * j) + (4 * i) + 3;
+                    if (data[index] !== 0) {
+                        break left;
+                    }
+                }
+            }
+        }
+        minX = i;
+        // 右 -> 左
+        right: {
+            for (i = width - 1; i >= 0; i--) {
+                for (j = 0; j < height; j++) {
+                    const index = (lineWidth * j) + (4 * i) + 3;
+                    if (data[index] !== 0) {
+                        break right;
+                    }
+                }
+            }
+        }
+        maxX = i + 1;
+        // 上 -> 下
+        top: {
+            for (i = 0; i < height; i++) {
+                for (j = 0; j < width; j++) {
+                    const index = (lineWidth * i) + (4 * j) + 3;
+                    if (data[index] !== 0) {
+                        break top;
+                    }
+                }
+            }
+        }
+        minY = i;
+        // 下 -> 上
+        bottom: {
+            for (i = height - 1; i >= 0; i--) {
+                for (j = 0; j < width; j++) {
+                    const index = (lineWidth * i) + (4 * j) + 3;
+                    if (data[index] !== 0) {
+                        break bottom;
+                    }
+                }
+            }
+        }
+        maxY = i + 1;
+        // 完成
+        return { minX, maxX, minY, maxY };
+    }
+
+    // ------------------------------ 以下 API 仅 Web 平台下可用 ------------------------------
+
+    /**
+     * (仅 Web 平台下可用) 获取纹理的颜色数据。
      * @param texture 纹理
      */
     public static getPixelsData(texture: cc.Texture2D) {
@@ -22,13 +118,12 @@ export default class ImageUtil {
         const image = texture.getHtmlElementObj();
         ctx.drawImage(image, 0, 0, width, height);
         const imageData = ctx.getImageData(0, 0, width, height);
-        image.remove();
         canvas.remove();
-        return imageData.data;
+        return new Uint8Array(imageData.data);
     }
 
     /**
-     * (仅支持 Web 平台) 获取纹理中指定像素的颜色。原点为左上角，从像素 (0, 0) 开始。
+     * (仅 Web 平台下可用) 获取纹理中指定像素的颜色。原点为左上角，从像素 (0, 0) 开始。
      * @param texture 纹理
      * @param x x 坐标
      * @param y y 坐标
@@ -50,7 +145,7 @@ export default class ImageUtil {
     }
 
     /**
-     * (仅支持 Web 平台) 将图像转为 Base64 字符（仅 png、jpg 或 jpeg 格式资源）
+     * (仅 Web 平台下可用) 将图像转为 Base64 字符（仅 png、jpg 或 jpeg 格式资源）
      * @param url 图像地址
      * @param callback 完成回调
      */
@@ -82,7 +177,7 @@ export default class ImageUtil {
     }
 
     /**
-     * (仅支持 Web 平台) 将 Base64 字符转为 cc.Texture2D 资源
+     * (仅 Web 平台下可用) 将 Base64 字符转为 cc.Texture2D 资源
      * @param base64 Base64 字符
      */
     public static base64ToCCTexture(base64: string): cc.Texture2D {
@@ -98,7 +193,7 @@ export default class ImageUtil {
     }
 
     /**
-     * (仅支持 Web 平台) 将 Base64 字符转为二进制数据
+     * (仅 Web 平台下可用) 将 Base64 字符转为二进制数据
      * @param base64 Base64 字符
      */
     public static base64ToBlob(base64: string): Blob {
