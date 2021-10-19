@@ -5146,6 +5146,10 @@ window.__require = function e(t, n, r) {
       pixelClick: {
         name: "\u50cf\u7d20\u70b9\u51fb",
         scene: "pixelClick"
+      },
+      runtimeTrimming: {
+        name: "\u8fd0\u884c\u65f6\u56fe\u50cf\u88c1\u526a",
+        scene: "runtimeTrimming"
       }
     };
     cc._RF.pop();
@@ -7368,6 +7372,132 @@ window.__require = function e(t, n, r) {
     "../../../eazax-ccc/components/remote/RemoteTexture": "RemoteTexture",
     "../../../scripts/common/components/Toast": "Toast"
   } ],
+  Case_RuntimeTriming: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "aaa56NP/+5MTokumB51Q+L1", "Case_RuntimeTriming");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var ImageUtil_1 = require("../../../eazax-ccc/utils/ImageUtil");
+    var NodeUtil_1 = require("../../../eazax-ccc/utils/NodeUtil");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_RuntimeTrimming = function(_super) {
+      __extends(Case_RuntimeTrimming, _super);
+      function Case_RuntimeTrimming() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.reference = null;
+        _this.target = null;
+        _this.texture = null;
+        _this.label = null;
+        return _this;
+      }
+      Case_RuntimeTrimming.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_RuntimeTrimming.prototype.start = function() {
+        this.test();
+      };
+      Case_RuntimeTrimming.prototype.registerEvent = function() {
+        this.target.on(cc.Node.EventType.TOUCH_END, this.onTargetClick, this);
+      };
+      Case_RuntimeTrimming.prototype.onTargetClick = function(event) {
+        this.trim(event.target);
+      };
+      Case_RuntimeTrimming.prototype.init = function() {
+        this.label.string = "\u70b9\u51fb\u4e0a\u65b9\u53f3\u4fa7\u56fe\u50cf\u8fdb\u884c\u526a\u88c1 \ud83d\udc46";
+      };
+      Case_RuntimeTrimming.prototype.trim = function(node) {
+        var pixelsData = NodeUtil_1.default.getPixelsData(node), trimInfo = ImageUtil_1.default.getTrim(pixelsData, node.width, node.height);
+        var sprite = node.getComponent(cc.Sprite);
+        cc.log(sprite.spriteFrame);
+        cc.log(sprite.spriteFrame.getOriginalSize());
+        cc.log(sprite.spriteFrame.getRect());
+        var originalSize = sprite.spriteFrame.getOriginalSize();
+        this.label.string = "\u88c1\u526a\u4fe1\u606f\uff1a\n";
+        this.label.string += "    - \u5de6\uff1a" + trimInfo.minX + "\n";
+        this.label.string += "    - \u53f3\uff1a" + (originalSize.width - trimInfo.maxX) + "\n";
+        this.label.string += "    - \u4e0a\uff1a" + trimInfo.minY + "\n";
+        this.label.string += "    - \u4e0b\uff1a" + (originalSize.height - trimInfo.maxY) + "\n";
+        this.label.string += "\u88c1\u526a\u540e\u5bbd\u5ea6\uff1a" + (trimInfo.maxX - trimInfo.minX) + "\n";
+        this.label.string += "\u88c1\u526a\u540e\u9ad8\u5ea6\uff1a" + (trimInfo.maxY - trimInfo.minY);
+        var min = cc.v2(trimInfo.minX, trimInfo.minY), max = cc.v2(trimInfo.maxX, trimInfo.maxY), newRect = cc.Rect.fromMinMax(min, max);
+        console.log("\u539f rect\uff1a" + sprite.spriteFrame.getRect());
+        console.log("\u65b0 rect\uff1a" + newRect);
+        console.log("\u65b0 rect\uff1a" + newRect);
+        sprite.spriteFrame.setRect(newRect);
+        sprite.trim = true;
+        sprite.sizeMode = cc.Sprite.SizeMode.TRIMMED;
+      };
+      Case_RuntimeTrimming.prototype.test = function() {
+        console.log("");
+        console.log("---------- NodeUtil.getPixelsData() ----------");
+        console.time("NodeUtil.getPixelsData()");
+        var data1 = NodeUtil_1.default.getPixelsData(this.target);
+        console.timeEnd("NodeUtil.getPixelsData()");
+        var trim1 = ImageUtil_1.default.getTrim(data1, this.target.width, this.target.height);
+        console.log(trim1);
+        console.log("\u88c1\u526a\u4fe1\u606f\uff1a");
+        console.log("    - \u5de6\uff1a" + trim1.minX);
+        console.log("    - \u53f3\uff1a" + (this.target.width - trim1.maxX));
+        console.log("    - \u4e0a\uff1a" + trim1.minY);
+        console.log("    - \u4e0b\uff1a" + (this.target.height - trim1.maxY));
+        console.log("\u88c1\u526a\u540e\u5bbd\u5ea6\uff1a" + (trim1.maxX - trim1.minX));
+        console.log("\u88c1\u526a\u540e\u9ad8\u5ea6\uff1a" + (trim1.maxY - trim1.minY));
+        console.log("");
+        console.log("---------- ImageUtil.getPixelsData() ----------");
+        console.time("ImageUtil.getPixelsData()");
+        var data2 = ImageUtil_1.default.getPixelsData(this.texture);
+        console.timeEnd("ImageUtil.getPixelsData()");
+        var trim2 = ImageUtil_1.default.getTrim(data2, this.texture.width, this.texture.height);
+        console.log(this.texture);
+        console.log(trim2);
+        console.log("\u88c1\u526a\u4fe1\u606f\uff1a");
+        console.log("    - \u5de6\uff1a" + trim2.minX);
+        console.log("    - \u53f3\uff1a" + (this.texture.width - trim2.maxX));
+        console.log("    - \u4e0a\uff1a" + trim2.minY);
+        console.log("    - \u4e0b\uff1a" + (this.texture.height - trim2.maxY));
+        console.log("\u88c1\u526a\u540e\u5bbd\u5ea6\uff1a" + (trim2.maxX - trim2.minX));
+        console.log("\u88c1\u526a\u540e\u9ad8\u5ea6\uff1a" + (trim2.maxY - trim2.minY));
+        console.log("");
+      };
+      __decorate([ property(cc.Node) ], Case_RuntimeTrimming.prototype, "reference", void 0);
+      __decorate([ property(cc.Node) ], Case_RuntimeTrimming.prototype, "target", void 0);
+      __decorate([ property(cc.Texture2D) ], Case_RuntimeTrimming.prototype, "texture", void 0);
+      __decorate([ property(cc.Label) ], Case_RuntimeTrimming.prototype, "label", void 0);
+      Case_RuntimeTrimming = __decorate([ ccclass ], Case_RuntimeTrimming);
+      return Case_RuntimeTrimming;
+    }(cc.Component);
+    exports.default = Case_RuntimeTrimming;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/utils/ImageUtil": "ImageUtil",
+    "../../../eazax-ccc/utils/NodeUtil": "NodeUtil"
+  } ],
   Case_SineWave: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "d11caHtQJRPOKyBXwLEJ8Bc", "Case_SineWave");
@@ -9502,6 +9632,42 @@ window.__require = function e(t, n, r) {
     });
     var ImageUtil = function() {
       function ImageUtil() {}
+      ImageUtil.flipY = function(array, width) {
+        var length = array.length, flipped = new Uint8Array(length);
+        for (var i = 0, j = length - width; i < length; i += width, j -= width) for (var k = 0; k < width; k++) flipped[i + k] = array[j + k];
+        return flipped;
+      };
+      ImageUtil.getTrim = function(data, width, height) {
+        var minX = 0, maxX = 0, minY = 0, maxY = 0;
+        var i = 0, j = 0;
+        var lineWidth = 4 * width;
+        left: for (i = 0; i < width; i++) for (j = 0; j < height; j++) {
+          var index = lineWidth * j + 4 * i + 3;
+          if (0 !== data[index]) break left;
+        }
+        minX = i;
+        right: for (i = width - 1; i >= 0; i--) for (j = 0; j < height; j++) {
+          var index = lineWidth * j + 4 * i + 3;
+          if (0 !== data[index]) break right;
+        }
+        maxX = i + 1;
+        top: for (i = 0; i < height; i++) for (j = 0; j < width; j++) {
+          var index = lineWidth * i + 4 * j + 3;
+          if (0 !== data[index]) break top;
+        }
+        minY = i;
+        bottom: for (i = height - 1; i >= 0; i--) for (j = 0; j < width; j++) {
+          var index = lineWidth * i + 4 * j + 3;
+          if (0 !== data[index]) break bottom;
+        }
+        maxY = i + 1;
+        return {
+          minX: minX,
+          maxX: maxX,
+          minY: minY,
+          maxY: maxY
+        };
+      };
       ImageUtil.getPixelsData = function(texture) {
         if (!window || !window.document) return null;
         var canvas = document.createElement("canvas"), ctx = canvas.getContext("2d");
@@ -9511,9 +9677,8 @@ window.__require = function e(t, n, r) {
         var image = texture.getHtmlElementObj();
         ctx.drawImage(image, 0, 0, width, height);
         var imageData = ctx.getImageData(0, 0, width, height);
-        image.remove();
         canvas.remove();
-        return imageData.data;
+        return new Uint8Array(imageData.data);
       };
       ImageUtil.getPixelColor = function(texture, x, y) {
         if (!window || !window.document) return null;
@@ -9568,24 +9733,6 @@ window.__require = function e(t, n, r) {
         return new Blob([ uint8Array ], {
           type: type
         });
-      };
-      ImageUtil.getTrim = function(pixelsData, width, height) {
-        var minX = 0, minY = 0, maxX = 0, maxY = 0;
-        var i = 0, j = 0;
-        left: for (i = 0; i < width; i++) for (j = 0; j < height; j++) {
-          var index = 4 * width * j + 4 * width * i - 1;
-          if (0 !== pixelsData[index]) break left;
-        }
-        minX = i;
-        top: for (i = 0; i < height; i++) for (j = 0; j < width; j++) {
-          var index = 4 * width * i + 4 * width * j - 1;
-          if (0 !== pixelsData[index]) break top;
-        }
-        maxY = i;
-        right: for (i = 0; i < width; i++) for (j = 0; j < height; j++) {
-          var index = 4 * width * j + 4 * width * i - 1;
-          if (0 !== pixelsData[index]) break right;
-        }
       };
       return ImageUtil;
     }();
@@ -10989,23 +11136,30 @@ window.__require = function e(t, n, r) {
     });
     var NodeUtil = function() {
       function NodeUtil() {}
-      NodeUtil.getPixelsData = function(node) {
+      NodeUtil.getPixelsData = function(node, flipY) {
+        void 0 === flipY && (flipY = true);
         if (!cc.isValid(node)) return null;
+        var nodeWidth = Math.floor(node.width), nodeHeight = Math.floor(node.height);
         var cameraNode = new cc.Node();
         cameraNode.parent = node;
         var camera = cameraNode.addComponent(cc.Camera);
         camera.cullingMask = 4294967295;
         camera.backgroundColor = cc.color(0, 0, 0, 0);
         camera.clearFlags = cc.Camera.ClearFlags.COLOR | cc.Camera.ClearFlags.DEPTH | cc.Camera.ClearFlags.STENCIL;
-        camera.zoomRatio = cc.winSize.height / node.height;
+        camera.zoomRatio = cc.winSize.height / nodeHeight;
         var renderTexture = new cc.RenderTexture();
-        renderTexture.initWithSize(node.width, node.height, cc["gfx"]["RB_FMT_S8"]);
+        renderTexture.initWithSize(nodeWidth, nodeHeight, cc["gfx"]["RB_FMT_S8"]);
         camera.targetTexture = renderTexture;
         camera.render(node);
-        var pixelsData = renderTexture.readPixels();
+        var data = renderTexture.readPixels();
         renderTexture.destroy();
         cameraNode.destroy();
-        return pixelsData;
+        if (flipY) {
+          var length = data.length, width = 4 * nodeWidth, flipped = new Uint8Array(length);
+          for (var i = 0, j = length - width; i < length; i += width, j -= width) for (var k = 0; k < width; k++) flipped[i + k] = data[j + k];
+          return flipped;
+        }
+        return data;
       };
       NodeUtil.getRelativePosition = function(node, container) {
         var worldPos = (node.getParent() || node).convertToWorldSpaceAR(node.getPosition());
@@ -15062,54 +15216,6 @@ window.__require = function e(t, n, r) {
       return Test_NodeOrder;
     }(cc.Component);
     exports.default = Test_NodeOrder;
-    cc._RF.pop();
-  }, {} ],
-  Test: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "aaa56NP/+5MTokumB51Q+L1", "Test");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var Test = function(_super) {
-      __extends(Test, _super);
-      function Test() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.texture = null;
-        _this.textures = [];
-        return _this;
-      }
-      __decorate([ property(cc.Texture2D) ], Test.prototype, "texture", void 0);
-      __decorate([ property([ cc.Texture2D ]) ], Test.prototype, "textures", void 0);
-      Test = __decorate([ ccclass ], Test);
-      return Test;
-    }(cc.Component);
-    exports.default = Test;
     cc._RF.pop();
   }, {} ],
   TimeUtil: [ function(require, module, exports) {
@@ -24683,4 +24789,4 @@ window.__require = function e(t, n, r) {
     "set-immediate-shim": void 0,
     stream: 28
   } ]
-}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "RunSpineInEditor", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTriming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "RunSpineInEditor", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
