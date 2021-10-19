@@ -7372,9 +7372,9 @@ window.__require = function e(t, n, r) {
     "../../../eazax-ccc/components/remote/RemoteTexture": "RemoteTexture",
     "../../../scripts/common/components/Toast": "Toast"
   } ],
-  Case_RuntimeTriming: [ function(require, module, exports) {
+  Case_RuntimeTrimming: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "aaa56NP/+5MTokumB51Q+L1", "Case_RuntimeTriming");
+    cc._RF.push(module, "aaa56NP/+5MTokumB51Q+L1", "Case_RuntimeTrimming");
     "use strict";
     var __extends = this && this.__extends || function() {
       var extendStatics = function(d, b) {
@@ -7433,10 +7433,7 @@ window.__require = function e(t, n, r) {
       };
       Case_RuntimeTrimming.prototype.trim = function(node) {
         var pixelsData = NodeUtil_1.default.getPixelsData(node), trimInfo = ImageUtil_1.default.getTrim(pixelsData, node.width, node.height);
-        var sprite = node.getComponent(cc.Sprite);
-        cc.log(sprite.spriteFrame);
-        cc.log(sprite.spriteFrame.getOriginalSize());
-        cc.log(sprite.spriteFrame.getRect());
+        var sprite = node.getComponent(cc.Sprite), lastRect = sprite.spriteFrame.getRect();
         var originalSize = sprite.spriteFrame.getOriginalSize();
         this.label.string = "\u88c1\u526a\u4fe1\u606f\uff1a\n";
         this.label.string += "    - \u5de6\uff1a" + trimInfo.minX + "\n";
@@ -7445,11 +7442,10 @@ window.__require = function e(t, n, r) {
         this.label.string += "    - \u4e0b\uff1a" + (originalSize.height - trimInfo.maxY) + "\n";
         this.label.string += "\u88c1\u526a\u540e\u5bbd\u5ea6\uff1a" + (trimInfo.maxX - trimInfo.minX) + "\n";
         this.label.string += "\u88c1\u526a\u540e\u9ad8\u5ea6\uff1a" + (trimInfo.maxY - trimInfo.minY);
-        var min = cc.v2(trimInfo.minX, trimInfo.minY), max = cc.v2(trimInfo.maxX, trimInfo.maxY), newRect = cc.Rect.fromMinMax(min, max);
-        console.log("\u539f rect\uff1a" + sprite.spriteFrame.getRect());
-        console.log("\u65b0 rect\uff1a" + newRect);
-        console.log("\u65b0 rect\uff1a" + newRect);
-        sprite.spriteFrame.setRect(newRect);
+        var min = cc.v2(trimInfo.minX, trimInfo.minY), max = cc.v2(trimInfo.maxX, trimInfo.maxY), trimRect = cc.Rect.fromMinMax(min, max);
+        console.log("\u539f Rect\uff1a" + lastRect);
+        console.log("\u65b0 Rect\uff1a" + trimRect);
+        sprite.spriteFrame.setRect(trimRect);
         sprite.trim = true;
         sprite.sizeMode = cc.Sprite.SizeMode.TRIMMED;
       };
@@ -24789,4 +24785,4 @@ window.__require = function e(t, n, r) {
     "set-immediate-shim": void 0,
     stream: 28
   } ]
-}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTriming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "RunSpineInEditor", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "jszip.min", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "CaseLoading", "ClickToLoadUrl", "ClickToShowResPopup", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "RunSpineInEditor", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);

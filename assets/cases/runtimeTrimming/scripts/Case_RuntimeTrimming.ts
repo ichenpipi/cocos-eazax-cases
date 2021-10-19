@@ -58,10 +58,8 @@ export default class Case_RuntimeTrimming extends cc.Component {
             trimInfo = ImageUtil.getTrim(pixelsData, node.width, node.height);
 
         // 精灵组件
-        const sprite = node.getComponent(cc.Sprite);
-        cc.log(sprite.spriteFrame);
-        cc.log(sprite.spriteFrame.getOriginalSize());
-        cc.log(sprite.spriteFrame.getRect());
+        const sprite = node.getComponent(cc.Sprite),
+            lastRect = sprite.spriteFrame.getRect();
 
         // 展示剪裁信息
         const originalSize = sprite.spriteFrame.getOriginalSize();
@@ -73,18 +71,16 @@ export default class Case_RuntimeTrimming extends cc.Component {
         this.label.string += `裁剪后宽度：${trimInfo.maxX - trimInfo.minX}\n`;
         this.label.string += `裁剪后高度：${trimInfo.maxY - trimInfo.minY}`;
 
-        // 组装 rect
+        // 组装裁剪 Rect
         const min = cc.v2(trimInfo.minX, trimInfo.minY),
             max = cc.v2(trimInfo.maxX, trimInfo.maxY),
-            newRect = cc.Rect.fromMinMax(min, max);
+            trimRect = cc.Rect.fromMinMax(min, max);
 
-        console.log(`原 rect：${sprite.spriteFrame.getRect()}`);
-        console.log(`新 rect：${newRect}`);
-
-        console.log(`新 rect：${newRect}`);
+        console.log(`原 Rect：${lastRect}`);
+        console.log(`新 Rect：${trimRect}`);
 
         // 设置精灵镇
-        sprite.spriteFrame.setRect(newRect);
+        sprite.spriteFrame.setRect(trimRect);
         sprite.trim = true;
         sprite.sizeMode = cc.Sprite.SizeMode.TRIMMED;
     }
