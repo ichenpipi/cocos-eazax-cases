@@ -73,7 +73,7 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         scene: 'pixelClick'
     },
     runtimeTrimming: {
-        name: '运行时图像裁剪',
+        name: '运行时图像剪裁',
         scene: 'runtimeTrimming'
     },
 }

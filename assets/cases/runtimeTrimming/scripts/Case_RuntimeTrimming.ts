@@ -3,6 +3,13 @@ import NodeUtil from "../../../eazax-ccc/utils/NodeUtil";
 
 const { ccclass, property } = cc._decorator;
 
+/**
+ * 运行时图像剪裁
+ * @version 20211019
+ * @see Case_RuntimeTrimming.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/runtimeTrimming/scripts/Case_RuntimeTrimming.ts
+ * @see ImageUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/ImageUtil.ts
+ * @see NodeUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/NodeUtil.ts
+ */
 @ccclass
 export default class Case_RuntimeTrimming extends cc.Component {
 
