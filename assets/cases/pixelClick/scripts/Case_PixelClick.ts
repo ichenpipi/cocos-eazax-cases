@@ -20,6 +20,7 @@ export default class Case_PixelClick extends cc.Component {
     @property(cc.Label)
     protected label: cc.Label = null;
 
+    /** 像素数据 */
     protected pixelsData: Uint8Array = null;
 
     protected onLoad() {
@@ -51,6 +52,11 @@ export default class Case_PixelClick extends cc.Component {
         const touchPos = event.getLocation(),
             node = this.target,
             localPos = node.convertToNodeSpaceAR(touchPos);
+
+        // 不在节点内
+        if (!node.getBoundingBoxToWorld().contains(touchPos)) {
+            return;
+        }
 
         // 获取像素数据
         if (!this.pixelsData) {

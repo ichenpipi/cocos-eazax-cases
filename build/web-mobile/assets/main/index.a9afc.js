@@ -6564,6 +6564,7 @@ window.__require = function e(t, n, r) {
       };
       Case_PixelClick.prototype.onTargetClick = function(event) {
         var touchPos = event.getLocation(), node = this.target, localPos = node.convertToNodeSpaceAR(touchPos);
+        if (!node.getBoundingBoxToWorld().contains(touchPos)) return;
         this.pixelsData || (this.pixelsData = NodeUtil_1.default.getPixelsData(this.target));
         var x = localPos.x + node.anchorX * node.width, y = -(localPos.y - node.anchorY * node.height);
         var index = 4 * node.width * Math.floor(y) + 4 * Math.floor(x), colors = this.pixelsData.slice(index, index + 4);
