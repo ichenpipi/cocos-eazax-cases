@@ -5,7 +5,7 @@ const { ccclass, property } = cc._decorator;
 
 /**
  * 运行时图像剪裁
- * @version 20211019
+ * @version 20211020
  * @see Case_RuntimeTrimming.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/runtimeTrimming/scripts/Case_RuntimeTrimming.ts
  * @see ImageUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/ImageUtil.ts
  * @see NodeUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/NodeUtil.ts
@@ -30,7 +30,7 @@ export default class Case_RuntimeTrimming extends cc.Component {
     }
 
     protected start() {
-        this.test();
+        // this.test();
     }
 
     /**
@@ -60,13 +60,19 @@ export default class Case_RuntimeTrimming extends cc.Component {
      * @param node 
      */
     protected trim(node: cc.Node) {
+        // 获取精灵组件
+        const sprite = node.getComponent(cc.Sprite),
+            lastRect = sprite.spriteFrame.getRect();
+
+        // 不重复剪裁
+        if (lastRect.xMin !== 0 && lastRect.yMin !== 0) {
+            console.log(`请勿重复剪裁`);
+            return;
+        }
+
         // 获取剪裁信息
         const pixelsData = NodeUtil.getPixelsData(node),
             trimInfo = ImageUtil.getTrim(pixelsData, node.width, node.height);
-
-        // 精灵组件
-        const sprite = node.getComponent(cc.Sprite),
-            lastRect = sprite.spriteFrame.getRect();
 
         // 展示剪裁信息
         const originalSize = sprite.spriteFrame.getOriginalSize();
@@ -92,41 +98,41 @@ export default class Case_RuntimeTrimming extends cc.Component {
         sprite.sizeMode = cc.Sprite.SizeMode.TRIMMED;
     }
 
-    protected test() {
-        console.log('');
+    // protected test() {
+    //     console.log('');
 
-        console.log('---------- NodeUtil.getPixelsData() ----------');
-        console.time('NodeUtil.getPixelsData()');
-        const data1 = NodeUtil.getPixelsData(this.target);
-        console.timeEnd('NodeUtil.getPixelsData()');
-        const trim1 = ImageUtil.getTrim(data1, this.target.width, this.target.height);
-        console.log(trim1);
-        console.log(`裁剪信息：`);
-        console.log(`    - 左：${trim1.minX}`);
-        console.log(`    - 右：${this.target.width - trim1.maxX}`);
-        console.log(`    - 上：${trim1.minY}`);
-        console.log(`    - 下：${this.target.height - trim1.maxY}`);
-        console.log(`裁剪后宽度：${trim1.maxX - trim1.minX}`);
-        console.log(`裁剪后高度：${trim1.maxY - trim1.minY}`);
+    //     console.log('---------- NodeUtil.getPixelsData() ----------');
+    //     console.time('NodeUtil.getPixelsData()');
+    //     const data1 = NodeUtil.getPixelsData(this.target);
+    //     console.timeEnd('NodeUtil.getPixelsData()');
+    //     const trim1 = ImageUtil.getTrim(data1, this.target.width, this.target.height);
+    //     console.log(trim1);
+    //     console.log(`裁剪信息：`);
+    //     console.log(`    - 左：${trim1.minX}`);
+    //     console.log(`    - 右：${this.target.width - trim1.maxX}`);
+    //     console.log(`    - 上：${trim1.minY}`);
+    //     console.log(`    - 下：${this.target.height - trim1.maxY}`);
+    //     console.log(`裁剪后宽度：${trim1.maxX - trim1.minX}`);
+    //     console.log(`裁剪后高度：${trim1.maxY - trim1.minY}`);
 
-        console.log('');
+    //     console.log('');
 
-        console.log('---------- ImageUtil.getPixelsData() ----------');
-        console.time('ImageUtil.getPixelsData()');
-        const data2 = ImageUtil.getPixelsData(this.texture);
-        console.timeEnd('ImageUtil.getPixelsData()');
-        const trim2 = ImageUtil.getTrim(data2, this.texture.width, this.texture.height);
-        console.log(this.texture);
-        console.log(trim2);
-        console.log(`裁剪信息：`);
-        console.log(`    - 左：${trim2.minX}`);
-        console.log(`    - 右：${this.texture.width - trim2.maxX}`);
-        console.log(`    - 上：${trim2.minY}`);
-        console.log(`    - 下：${this.texture.height - trim2.maxY}`);
-        console.log(`裁剪后宽度：${trim2.maxX - trim2.minX}`);
-        console.log(`裁剪后高度：${trim2.maxY - trim2.minY}`);
+    //     console.log('---------- ImageUtil.getPixelsData() ----------');
+    //     console.time('ImageUtil.getPixelsData()');
+    //     const data2 = ImageUtil.getPixelsData(this.texture);
+    //     console.timeEnd('ImageUtil.getPixelsData()');
+    //     const trim2 = ImageUtil.getTrim(data2, this.texture.width, this.texture.height);
+    //     console.log(this.texture);
+    //     console.log(trim2);
+    //     console.log(`裁剪信息：`);
+    //     console.log(`    - 左：${trim2.minX}`);
+    //     console.log(`    - 右：${this.texture.width - trim2.maxX}`);
+    //     console.log(`    - 上：${trim2.minY}`);
+    //     console.log(`    - 下：${this.texture.height - trim2.maxY}`);
+    //     console.log(`裁剪后宽度：${trim2.maxX - trim2.minX}`);
+    //     console.log(`裁剪后高度：${trim2.maxY - trim2.minY}`);
 
-        console.log('');
-    }
+    //     console.log('');
+    // }
 
 }
