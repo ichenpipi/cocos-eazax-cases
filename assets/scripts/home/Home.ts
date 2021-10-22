@@ -3,8 +3,7 @@ import PopupManager from "../../eazax-ccc/core/PopupManager";
 import SceneNavigator from "../../eazax-ccc/core/SceneNavigator";
 import { SceneName } from "../common/constants/Constants";
 import CaseManager from "../common/CaseManager";
-import LoadingTip from "../common/components/LoadingTip";
-import Toast from "../common/components/Toast";
+import LoadingTip from "../common/components/global/LoadingTip";
 
 const { ccclass, property, executionOrder } = cc._decorator;
 

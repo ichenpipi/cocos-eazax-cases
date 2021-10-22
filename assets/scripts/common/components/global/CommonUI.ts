@@ -1,9 +1,9 @@
-import EventManager from "../../../eazax-ccc/core/EventManager";
-import PopupManager from "../../../eazax-ccc/core/PopupManager";
-import SceneNavigator from "../../../eazax-ccc/core/SceneNavigator";
-import CaseManager from "../CaseManager";
-import { SceneName } from "../constants/Constants";
-import { CHANGE_SCENE, SWITCH_CASE } from "../constants/CustomEvents";
+import EventManager from "../../../../eazax-ccc/core/EventManager";
+import PopupManager from "../../../../eazax-ccc/core/PopupManager";
+import SceneNavigator from "../../../../eazax-ccc/core/SceneNavigator";
+import CaseManager from "../../CaseManager";
+import { SceneName } from "../../constants/Constants";
+import { CHANGE_SCENE, SWITCH_CASE } from "../../constants/CustomEvents";
 import Toast from "./Toast";
 
 const { ccclass, property, executionOrder } = cc._decorator;
@@ -39,12 +39,12 @@ export default class CommonUI extends cc.Component {
      * 订阅事件
      */
     protected registerEvent() {
-        // 点击
-        this.homeBtn.on(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
-        this.titleTip.on(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
         // 切换
         EventManager.on(CHANGE_SCENE, this.onSceneChange, this);
         EventManager.on(SWITCH_CASE, this.onCaseSwitch, this);
+        // 点击
+        this.homeBtn.on(cc.Node.EventType.TOUCH_END, this.onHomeBtnClick, this);
+        this.titleTip.on(cc.Node.EventType.TOUCH_END, this.onTitleTipClick, this);
     }
 
     /**
@@ -61,6 +61,7 @@ export default class CommonUI extends cc.Component {
      */
     protected init() {
         // 设为常驻节点
+        this.node.setParent(cc.director.getScene());
         cc.game.addPersistRootNode(this.node);
         // 弹窗容器
         PopupManager.container = this.node;

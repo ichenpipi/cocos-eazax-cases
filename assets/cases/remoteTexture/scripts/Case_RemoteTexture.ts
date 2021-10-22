@@ -1,5 +1,5 @@
 import RemoteTexture from "../../../eazax-ccc/components/remote/RemoteTexture";
-import Toast from "../../../scripts/common/components/Toast";
+import Toast from "../../../scripts/common/components/global/Toast";
 
 const { ccclass, property } = cc._decorator;
 

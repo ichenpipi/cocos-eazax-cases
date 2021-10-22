@@ -2,8 +2,8 @@ import EventManager from "../../eazax-ccc/core/EventManager";
 import SceneNavigator from "../../eazax-ccc/core/SceneNavigator";
 import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
 import { CaseInfo, CaseInfoMap } from "./CaseList";
-import CaseLoading from "./components/CaseLoading";
-import Toast from "./components/Toast";
+import CaseLoading from "./components/global/CaseLoading";
+import Toast from "./components/global/Toast";
 import { SceneName } from "./constants/Constants";
 import { SWITCH_CASE } from "./constants/CustomEvents";
 

@@ -4,7 +4,7 @@ const { ccclass, property, executionOrder } = cc._decorator;
  * 示例加载遮罩
  */
 @ccclass
-@executionOrder(-100)
+@executionOrder(-101)
 export default class CaseLoading extends cc.Component {
 
     @property({ type: cc.Node, tooltip: CC_DEV && '主节点' })
@@ -17,29 +17,44 @@ export default class CaseLoading extends cc.Component {
         this.init();
     }
 
-    protected start() {
-        this.reset();
+    protected onDestroy() {
+        this.release();
     }
 
+    /**
+     * 初始化
+     */
     protected init() {
         // 设为常驻节点
+        this.node.setParent(cc.director.getScene());
         cc.game.addPersistRootNode(this.node);
         // 保存静态实例
         CaseLoading.instance = this;
+        // 重置
+        this.reset();
+    }
+
+    /**
+     * 释放
+     */
+    protected release() {
+        if (CaseLoading.instance === this) {
+            CaseLoading.instance = null;
+        }
     }
 
     /**
      * 重置
      */
     protected reset() {
-        CaseLoading.hide();
+        this.main.active = false;
     }
 
     /**
      * 展示
      */
-    public static show() {
-        const node = this.instance.main
+    public show() {
+        const node = this.main
         node.opacity = 0;
         node.active = true;
         cc.tween(node)
@@ -50,12 +65,34 @@ export default class CaseLoading extends cc.Component {
     /**
      * 隐藏
      */
-    public static hide() {
-        const node = this.instance.main
+    public hide() {
+        const node = this.main
         cc.tween(node)
             .to(0.05, { opacity: 0 })
-            .call(() => (node.active = false))
+            .set({ active: false })
             .start();
+    }
+
+    // --------------------------------------------------
+
+    /**
+     * 展示
+     */
+    public static show() {
+        if (!this.instance) {
+            return;
+        }
+        this.instance.show();
+    }
+
+    /**
+     * 隐藏
+     */
+    public static hide() {
+        if (!this.instance) {
+            return;
+        }
+        this.instance.hide();
     }
 
 }

@@ -1,5 +1,5 @@
 import RemoteSpine from "../../../eazax-ccc/components/remote/RemoteSpine";
-import Toast from "../../../scripts/common/components/Toast";
+import Toast from "../../../scripts/common/components/global/Toast";
 
 const { ccclass, property } = cc._decorator;
 
