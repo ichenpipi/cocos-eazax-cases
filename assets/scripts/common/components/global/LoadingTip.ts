@@ -4,7 +4,7 @@ const { ccclass, property, executionOrder } = cc._decorator;
  * 加载提示组件
  */
 @ccclass
-@executionOrder(-100)
+@executionOrder(-101)
 export default class LoadingTip extends cc.Component {
 
     @property({ type: cc.Node, tooltip: CC_DEV && '主节点' })
@@ -17,36 +17,75 @@ export default class LoadingTip extends cc.Component {
         this.init();
     }
 
-    protected start() {
-        this.reset();
+    protected onDestroy() {
+        this.release();
     }
 
+    /**
+     * 初始化
+     */
     protected init() {
         // 设为常驻节点
+        this.node.setParent(cc.director.getScene());
         cc.game.addPersistRootNode(this.node);
         // 保存静态实例
         LoadingTip.instance = this;
+        // 重置
+        this.reset();
+    }
+
+    /**
+     * 释放
+     */
+    protected release() {
+        if (LoadingTip.instance) {
+            LoadingTip.instance = null;
+        }
     }
 
     /**
      * 重置
      */
     protected reset() {
-        LoadingTip.hide();
+        this.main.active = false;
     }
 
     /**
      * 展示
      */
+    public show() {
+        const node = this.main;
+        node.active = true;
+    }
+
+    /**
+     * 隐藏
+     */
+    public hide() {
+        const node = this.main;
+        node.active = false;
+    }
+
+    // --------------------------------------------------
+
+    /**
+     * 展示
+     */
     public static show() {
-        this.instance.main.active = true;
+        if (!this.instance) {
+            return;
+        }
+        this.instance.show();
     }
 
     /**
      * 隐藏
      */
     public static hide() {
-        this.instance.main.active = false;
+        if (!this.instance) {
+            return;
+        }
+        this.instance.hide();
     }
 
 }

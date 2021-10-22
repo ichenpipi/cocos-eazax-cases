@@ -1,3 +1,4 @@
+// 在编辑器内播放 Spine 动画
 if (CC_EDITOR) {
     sp.Skeleton.prototype['update'] = function (dt) {
         if (CC_EDITOR) {

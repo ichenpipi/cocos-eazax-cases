@@ -54,7 +54,7 @@ export default class CaseLoading extends cc.Component {
      * 展示
      */
     public show() {
-        const node = this.main
+        const node = this.main;
         node.opacity = 0;
         node.active = true;
         cc.tween(node)
@@ -66,7 +66,7 @@ export default class CaseLoading extends cc.Component {
      * 隐藏
      */
     public hide() {
-        const node = this.main
+        const node = this.main;
         cc.tween(node)
             .to(0.05, { opacity: 0 })
             .set({ active: false })
