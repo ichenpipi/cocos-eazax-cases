@@ -62,17 +62,23 @@ export default class Case_RuntimeTrimming extends cc.Component {
     protected trim(node: cc.Node) {
         // 获取精灵组件
         const sprite = node.getComponent(cc.Sprite),
-            lastRect = sprite.spriteFrame.getRect();
+            originalRect = sprite.spriteFrame.getRect();
 
         // 不重复剪裁
-        if (lastRect.xMin !== 0 && lastRect.yMin !== 0) {
+        if (originalRect.xMin !== 0 && originalRect.yMin !== 0) {
             console.log(`请勿重复剪裁`);
             return;
         }
 
+        // 获取像素数据
+        console.time('⏱ getPixelsData 耗时');
+        const pixelsData = NodeUtil.getPixelsData(node);
+        console.timeEnd('⏱ getPixelsData 耗时');
+
         // 获取剪裁信息
-        const pixelsData = NodeUtil.getPixelsData(node),
-            trimInfo = ImageUtil.getTrim(pixelsData, node.width, node.height);
+        console.time('⏱ getTrim 耗时');
+        const trimInfo = ImageUtil.getTrim(pixelsData, node.width, node.height);
+        console.timeEnd('⏱ getTrim 耗时');
 
         // 展示剪裁信息
         const originalSize = sprite.spriteFrame.getOriginalSize();
@@ -87,13 +93,13 @@ export default class Case_RuntimeTrimming extends cc.Component {
         // 组装裁剪 Rect
         const min = cc.v2(trimInfo.minX, trimInfo.minY),
             max = cc.v2(trimInfo.maxX, trimInfo.maxY),
-            trimRect = cc.Rect.fromMinMax(min, max);
+            trimmedRect = cc.Rect.fromMinMax(min, max);
 
-        console.log(`原 Rect：${lastRect}`);
-        console.log(`新 Rect：${trimRect}`);
+        console.log(`📐 原始 Rect：${originalRect}`);
+        console.log(`📐 剪裁 Rect：${trimmedRect}`);
 
         // 设置精灵镇
-        sprite.spriteFrame.setRect(trimRect);
+        sprite.spriteFrame.setRect(trimmedRect);
         sprite.trim = true;
         sprite.sizeMode = cc.Sprite.SizeMode.TRIMMED;
     }

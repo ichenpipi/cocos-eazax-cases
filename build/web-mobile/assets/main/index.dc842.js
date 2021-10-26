@@ -7435,12 +7435,17 @@ window.__require = function e(t, n, r) {
         this.label.string = "\u70b9\u51fb\u4e0a\u65b9\u53f3\u4fa7\u56fe\u50cf\u8fdb\u884c\u526a\u88c1 \ud83d\udc46";
       };
       Case_RuntimeTrimming.prototype.trim = function(node) {
-        var sprite = node.getComponent(cc.Sprite), lastRect = sprite.spriteFrame.getRect();
-        if (0 !== lastRect.xMin && 0 !== lastRect.yMin) {
+        var sprite = node.getComponent(cc.Sprite), originalRect = sprite.spriteFrame.getRect();
+        if (0 !== originalRect.xMin && 0 !== originalRect.yMin) {
           console.log("\u8bf7\u52ff\u91cd\u590d\u526a\u88c1");
           return;
         }
-        var pixelsData = NodeUtil_1.default.getPixelsData(node), trimInfo = ImageUtil_1.default.getTrim(pixelsData, node.width, node.height);
+        console.time("\u23f1 getPixelsData \u8017\u65f6");
+        var pixelsData = NodeUtil_1.default.getPixelsData(node);
+        console.timeEnd("\u23f1 getPixelsData \u8017\u65f6");
+        console.time("\u23f1 getTrim \u8017\u65f6");
+        var trimInfo = ImageUtil_1.default.getTrim(pixelsData, node.width, node.height);
+        console.timeEnd("\u23f1 getTrim \u8017\u65f6");
         var originalSize = sprite.spriteFrame.getOriginalSize();
         this.label.string = "\u88c1\u526a\u4fe1\u606f\uff1a\n";
         this.label.string += "    - \u5de6\uff1a" + trimInfo.minX + "\n";
@@ -7449,10 +7454,10 @@ window.__require = function e(t, n, r) {
         this.label.string += "    - \u4e0b\uff1a" + (originalSize.height - trimInfo.maxY) + "\n";
         this.label.string += "\u88c1\u526a\u540e\u5bbd\u5ea6\uff1a" + (trimInfo.maxX - trimInfo.minX) + "\n";
         this.label.string += "\u88c1\u526a\u540e\u9ad8\u5ea6\uff1a" + (trimInfo.maxY - trimInfo.minY);
-        var min = cc.v2(trimInfo.minX, trimInfo.minY), max = cc.v2(trimInfo.maxX, trimInfo.maxY), trimRect = cc.Rect.fromMinMax(min, max);
-        console.log("\u539f Rect\uff1a" + lastRect);
-        console.log("\u65b0 Rect\uff1a" + trimRect);
-        sprite.spriteFrame.setRect(trimRect);
+        var min = cc.v2(trimInfo.minX, trimInfo.minY), max = cc.v2(trimInfo.maxX, trimInfo.maxY), trimmedRect = cc.Rect.fromMinMax(min, max);
+        console.log("\ud83d\udcd0 \u539f\u59cb Rect\uff1a" + originalRect);
+        console.log("\ud83d\udcd0 \u526a\u88c1 Rect\uff1a" + trimmedRect);
+        sprite.spriteFrame.setRect(trimmedRect);
         sprite.trim = true;
         sprite.sizeMode = cc.Sprite.SizeMode.TRIMMED;
       };

@@ -194,11 +194,12 @@
       [
         "_name",
         "_active",
+        "autoReleaseAssets",
         "_children",
         "_anchorPoint",
         "_trs"
       ],
-      1,
+      0,
       2,
       5,
       7
@@ -430,7 +431,8 @@
       2,
       3,
       4,
-      3
+      5,
+      4
     ],
     [
       15,
@@ -875,6 +877,7 @@
           25,
           "New Node",
           false,
+          true,
           [
             3
           ],
