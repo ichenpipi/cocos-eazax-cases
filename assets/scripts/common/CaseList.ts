@@ -76,6 +76,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '运行时图像剪裁',
         scene: 'runtimeTrimming'
     },
+    dragging: {
+        name: '拖拽示例',
+        scene: 'dragging'
+    },
 }
 
 /** 关卡信息 */
