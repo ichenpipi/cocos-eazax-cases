@@ -1,0 +1,18 @@
+{
+  "__type__": "cc.Material",
+  "_name": "eazax-fast-gaussian-blur-5",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "f8e47df5-743e-4e15-a673-cc0b316c1427"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": true,
+        "USE_ALPHA_TEST": true
+      }
+    }
+  }
+}
