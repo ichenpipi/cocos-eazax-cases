@@ -5150,6 +5150,10 @@ window.__require = function e(t, n, r) {
       runtimeTrimming: {
         name: "\u8fd0\u884c\u65f6\u56fe\u50cf\u526a\u88c1",
         scene: "runtimeTrimming"
+      },
+      dragging: {
+        name: "\u62d6\u62fd\u793a\u4f8b",
+        scene: "dragging"
       }
     };
     cc._RF.pop();
@@ -6102,6 +6106,1452 @@ window.__require = function e(t, n, r) {
     cc._RF.pop();
   }, {
     "../../../eazax-ccc/utils/TweenUtil": "TweenUtil"
+  } ],
+  Case_DraggingContent: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "610d6eKtkRHw67YTEQwtX/o", "Case_DraggingContent");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var Case_Dragging_Container_1 = require("./components/Case_Dragging_Container");
+    var Case_Dragging_Item_1 = require("./components/Case_Dragging_Item");
+    var PromiseUtil_1 = require("../../../eazax-ccc/utils/PromiseUtil");
+    var Case_Dragging_GroupContainer_1 = require("./components/Case_Dragging_GroupContainer");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_DraggingContent = function(_super) {
+      __extends(Case_DraggingContent, _super);
+      function Case_DraggingContent() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.container = null;
+        _this.groupContainer = null;
+        _this.itemPrefab = null;
+        return _this;
+      }
+      Case_DraggingContent.prototype.generateStaticItems = function(number) {
+        return __awaiter(this, void 0, void 0, function() {
+          var container, itemSize, i, node, item;
+          return __generator(this, function(_a) {
+            container = this.container, itemSize = this.container.itemSize;
+            container.clear();
+            for (i = 0; i < number; i++) {
+              node = cc.instantiate(this.itemPrefab), item = node.getComponent(Case_Dragging_Item_1.default);
+              node.name = "Static Item";
+              node.setContentSize(itemSize);
+              node.setScale(1);
+              node.opacity = 0;
+              node.active = true;
+              item.group = null;
+              container.addStaticItem(item);
+            }
+            container.enableLayout(true);
+            return [ 2, true ];
+          });
+        });
+      };
+      Case_DraggingContent.prototype.showStaticItems = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var nodes, i, l, node;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              nodes = this.container.contentNode.children;
+              i = 0, l = nodes.length;
+              _a.label = 1;
+
+             case 1:
+              if (!(i < l)) return [ 3, 4 ];
+              node = nodes[i];
+              if ("Static Item" !== node.name) return [ 3, 4 ];
+              cc.tween(node).to(.5, {
+                opacity: 255
+              }, {
+                easing: "cubicOut"
+              }).start();
+              if (!(i !== l - 1)) return [ 3, 3 ];
+              return [ 4, PromiseUtil_1.default.sleep(.05) ];
+
+             case 2:
+              _a.sent();
+              _a.label = 3;
+
+             case 3:
+              i++;
+              return [ 3, 1 ];
+
+             case 4:
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_DraggingContent.prototype.generateOptionItems = function(numbers) {
+        return __awaiter(this, void 0, void 0, function() {
+          var groupContainer, groups, itemSize, i, group, number, color, j, node, item;
+          return __generator(this, function(_a) {
+            groupContainer = this.groupContainer, groups = groupContainer.groups, itemSize = this.container.itemSize;
+            for (i = 0; i < groups.length; i++) {
+              group = groups[i], number = numbers[i];
+              group.clear();
+              if (void 0 != number) {
+                group.node.active = true;
+                color = void 0;
+                switch (i) {
+                 case 0:
+                  color = cc.Color.RED;
+                  break;
+
+                 case 1:
+                  color = cc.Color.GREEN;
+                  break;
+
+                 case 2:
+                  color = cc.Color.BLUE;
+                }
+                for (j = 0; j < number; j++) {
+                  node = cc.instantiate(this.itemPrefab), item = node.getComponent(Case_Dragging_Item_1.default);
+                  node.active = true;
+                  node.setContentSize(itemSize);
+                  node.scale = .8;
+                  node.color = color.clone();
+                  group.addOptionItem(item);
+                  node.y = -200;
+                }
+                group.forceUpdateLayout();
+                group.node.width = group.layout.node.width;
+              } else group.node.active = false;
+            }
+            groupContainer.forceUpdateLayout();
+            groupContainer.enableLayout(false);
+            return [ 2 ];
+          });
+        });
+      };
+      Case_DraggingContent.prototype.showOptionItems = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var groups, i, group, items, j, item;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              groups = this.groupContainer.groups;
+              i = 0;
+              _a.label = 1;
+
+             case 1:
+              if (!(i < groups.length)) return [ 3, 6 ];
+              group = groups[i], items = group.items;
+              j = 0;
+              _a.label = 2;
+
+             case 2:
+              if (!(j < items.length)) return [ 3, 5 ];
+              item = items[j];
+              cc.tween(item.node).to(.5, {
+                y: 0
+              }, {
+                easing: "backOut"
+              }).start();
+              return [ 4, PromiseUtil_1.default.sleep(.02) ];
+
+             case 3:
+              _a.sent();
+              _a.label = 4;
+
+             case 4:
+              j++;
+              return [ 3, 2 ];
+
+             case 5:
+              i++;
+              return [ 3, 1 ];
+
+             case 6:
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      __decorate([ property({
+        type: Case_Dragging_Container_1.default,
+        tooltip: false
+      }) ], Case_DraggingContent.prototype, "container", void 0);
+      __decorate([ property({
+        type: Case_Dragging_GroupContainer_1.default,
+        tooltip: false
+      }) ], Case_DraggingContent.prototype, "groupContainer", void 0);
+      __decorate([ property({
+        type: cc.Prefab,
+        tooltip: false
+      }) ], Case_DraggingContent.prototype, "itemPrefab", void 0);
+      Case_DraggingContent = __decorate([ ccclass ], Case_DraggingContent);
+      return Case_DraggingContent;
+    }(cc.Component);
+    exports.default = Case_DraggingContent;
+    cc._RF.pop();
+  }, {
+    "../../../eazax-ccc/utils/PromiseUtil": "PromiseUtil",
+    "./components/Case_Dragging_Container": "Case_Dragging_Container",
+    "./components/Case_Dragging_GroupContainer": "Case_Dragging_GroupContainer",
+    "./components/Case_Dragging_Item": "Case_Dragging_Item"
+  } ],
+  Case_Dragging_Container: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "24491Dme1hNH6EouX9CdYaE", "Case_Dragging_Container");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var NodeUtil_1 = require("../../../../eazax-ccc/utils/NodeUtil");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_Dragging_Container = function(_super) {
+      __extends(Case_Dragging_Container, _super);
+      function Case_Dragging_Container() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.layout = null;
+        _this.itemSize = new cc.Size(80, 80);
+        _this.placeholderOpacity = 100;
+        _this.placeholders = [];
+        _this.nodePool = new cc.NodePool();
+        return _this;
+      }
+      Object.defineProperty(Case_Dragging_Container.prototype, "contentNode", {
+        get: function() {
+          return this.layout.node;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(Case_Dragging_Container.prototype, "itemCount", {
+        get: function() {
+          return this.contentNode.childrenCount;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(Case_Dragging_Container.prototype, "rect", {
+        get: function() {
+          return NodeUtil_1.default.getNodeSelfBoundingBoxToWorld(this.node);
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Case_Dragging_Container.prototype.onDestroy = function() {
+        this.release();
+      };
+      Case_Dragging_Container.prototype.release = function() {
+        this.nodePool.clear();
+      };
+      Case_Dragging_Container.prototype.addStaticItem = function(item) {
+        item.node.setParent(this.contentNode);
+      };
+      Case_Dragging_Container.prototype.addOptionItem = function(item) {
+        item.node.setParent(this.contentNode);
+      };
+      Case_Dragging_Container.prototype.onGroupDragEnter = function(group) {
+        this.enableLayout(true);
+        var itemNode = group.items[0].node, spriteFrame = itemNode.getComponent(cc.Sprite).spriteFrame;
+        this.showPlaceholders(group.itemCount, spriteFrame, itemNode.color.clone());
+      };
+      Case_Dragging_Container.prototype.onGroupDragLeave = function(group) {
+        this.enableLayout(true);
+        this.hidePlaceholders();
+      };
+      Case_Dragging_Container.prototype.onGroupDrop = function(group) {
+        this.enableLayout(false);
+        this.hidePlaceholders();
+      };
+      Case_Dragging_Container.prototype.onItemDrag = function(item) {
+        this.enableLayout(true);
+      };
+      Case_Dragging_Container.prototype.showPlaceholders = function(quantity, spriteFrame, color) {
+        var placeholders = this.placeholders, nodePool = this.nodePool, size = this.itemSize, scale = 1, opacity = this.placeholderOpacity;
+        for (var i = 0; i < quantity; i++) {
+          var node = nodePool.get() || new cc.Node();
+          node.name = "Placeholder";
+          node.setContentSize(size);
+          node.setScale(scale);
+          node.opacity = opacity;
+          node.color = color;
+          var sprite = node.getComponent(cc.Sprite) || node.addComponent(cc.Sprite);
+          sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+          sprite.trim = false;
+          sprite.spriteFrame = spriteFrame;
+          node.setParent(this.contentNode);
+          placeholders.push(node);
+        }
+      };
+      Case_Dragging_Container.prototype.hidePlaceholders = function() {
+        var placeholders = this.placeholders, nodePool = this.nodePool;
+        while (placeholders.length > 0) {
+          var node = placeholders.shift();
+          node.getComponent(cc.Sprite).spriteFrame = null;
+          nodePool.put(node);
+        }
+      };
+      Case_Dragging_Container.prototype.clear = function() {
+        this.contentNode.destroyAllChildren();
+      };
+      Case_Dragging_Container.prototype.enableLayout = function(enabled) {
+        this.layout.enabled = enabled;
+      };
+      Case_Dragging_Container.prototype.getTargetSpacePos = function(quantity) {
+        var layout = this.layout, layoutHeight = layout.node.height, layoutWidth = layout.node.width, itemHeight = this.itemSize.height, itemWidth = this.itemSize.width, lineMaxCount = this.getLineMaxCount(), lines = Math.ceil(quantity / lineMaxCount), rowCount = quantity % lineMaxCount === 0 ? lineMaxCount : quantity % lineMaxCount, x = layout.paddingLeft + rowCount * itemWidth + (rowCount - 1) * layout.spacingX - itemWidth / 2 - layoutWidth / 2, y = -(layout.paddingTop + lines * itemHeight + (lines - 1) * layout.spacingY - itemHeight / 2 - .5 * layoutHeight);
+        return cc.v3(x, y, 0);
+      };
+      Case_Dragging_Container.prototype.getNextSpacePos = function() {
+        return this.getTargetSpacePos(this.itemCount + 1);
+      };
+      Case_Dragging_Container.prototype.getLineMaxCount = function() {
+        var layoutWidth = this.layout.node.width, _a = this.layout, paddingLeft = _a.paddingLeft, paddingRight = _a.paddingRight, spacingX = _a.spacingX, itemWidth = this.itemSize.width, count = (layoutWidth - paddingLeft - paddingRight + spacingX) / (itemWidth + spacingX);
+        return Math.floor(count);
+      };
+      __decorate([ property({
+        type: cc.Layout,
+        tooltip: false
+      }) ], Case_Dragging_Container.prototype, "layout", void 0);
+      __decorate([ property({
+        tooltip: false
+      }) ], Case_Dragging_Container.prototype, "itemSize", void 0);
+      __decorate([ property({
+        tooltip: false
+      }) ], Case_Dragging_Container.prototype, "placeholderOpacity", void 0);
+      Case_Dragging_Container = __decorate([ ccclass ], Case_Dragging_Container);
+      return Case_Dragging_Container;
+    }(cc.Component);
+    exports.default = Case_Dragging_Container;
+    cc._RF.pop();
+  }, {
+    "../../../../eazax-ccc/utils/NodeUtil": "NodeUtil"
+  } ],
+  Case_Dragging_GroupContainer: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "6f4c3DMRGpBsrLPQo6m4u/8", "Case_Dragging_GroupContainer");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var Case_Dragging_Group_1 = require("./Case_Dragging_Group");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_Dragging_GroupContainer = function(_super) {
+      __extends(Case_Dragging_GroupContainer, _super);
+      function Case_Dragging_GroupContainer() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.layout = null;
+        _this._groups = null;
+        return _this;
+      }
+      Object.defineProperty(Case_Dragging_GroupContainer.prototype, "groups", {
+        get: function() {
+          this._groups && 0 !== this._groups.length || (this._groups = this.layout.getComponentsInChildren(Case_Dragging_Group_1.default));
+          return this._groups;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Case_Dragging_GroupContainer.prototype.enableLayout = function(enabled) {
+        this.layout.enabled = enabled;
+      };
+      Case_Dragging_GroupContainer.prototype.forceUpdateLayout = function() {
+        var children = this.layout.node.children;
+        for (var i = 0; i < children.length; i++) children[i]["_activeInHierarchy"] = true;
+        this.layout["_layoutDirty"] = true;
+        this.layout.updateLayout();
+      };
+      __decorate([ property({
+        type: cc.Layout,
+        tooltip: false
+      }) ], Case_Dragging_GroupContainer.prototype, "layout", void 0);
+      Case_Dragging_GroupContainer = __decorate([ ccclass ], Case_Dragging_GroupContainer);
+      return Case_Dragging_GroupContainer;
+    }(cc.Component);
+    exports.default = Case_Dragging_GroupContainer;
+    cc._RF.pop();
+  }, {
+    "./Case_Dragging_Group": "Case_Dragging_Group"
+  } ],
+  Case_Dragging_Group: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "0d8a86V88BABZDaa1otGyTa", "Case_Dragging_Group");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var NodeUtil_1 = require("../../../../eazax-ccc/utils/NodeUtil");
+    var PromiseUtil_1 = require("../../../../eazax-ccc/utils/PromiseUtil");
+    var Case_Dragging_1 = require("../Case_Dragging");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var IntersectionStatus;
+    (function(IntersectionStatus) {
+      IntersectionStatus[IntersectionStatus["OUT"] = 1] = "OUT";
+      IntersectionStatus[IntersectionStatus["IN"] = 2] = "IN";
+    })(IntersectionStatus || (IntersectionStatus = {}));
+    var Case_Dragging_Group = function(_super) {
+      __extends(Case_Dragging_Group, _super);
+      function Case_Dragging_Group() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.layout = null;
+        _this.dragOffset = null;
+        _this.isDragging = false;
+        _this.lastStatus = IntersectionStatus.OUT;
+        _this.items = [];
+        return _this;
+      }
+      Object.defineProperty(Case_Dragging_Group.prototype, "itemCount", {
+        get: function() {
+          return this.contentNode.childrenCount;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(Case_Dragging_Group.prototype, "contentNode", {
+        get: function() {
+          return this.layout.node;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(Case_Dragging_Group.prototype, "rect", {
+        get: function() {
+          return NodeUtil_1.default.getNodeSelfBoundingBoxToWorld(this.contentNode);
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Case_Dragging_Group.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_Dragging_Group.prototype.registerEvent = function() {
+        this.layout.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        this.layout.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.layout.node.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+        this.layout.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+      };
+      Case_Dragging_Group.prototype.onTouchStart = function(event) {
+        var node = this.contentNode, touchPosInWorld = event.getLocation(), touchPosInNode = node.getParent().convertToNodeSpaceAR(touchPosInWorld);
+        this.dragOffset = touchPosInNode.sub(node.getPosition());
+        this.updateIntersection();
+      };
+      Case_Dragging_Group.prototype.onTouchMove = function(event) {
+        if (!this.dragOffset) return;
+        var node = this.contentNode, touchPosInWorld = event.getLocation(), touchPosInNode = node.getParent().convertToNodeSpaceAR(touchPosInWorld);
+        node.setPosition(touchPosInNode.sub(this.dragOffset));
+        if (!this.isDragging) {
+          this.isDragging = true;
+          this.drag();
+        }
+        this.updateIntersection();
+      };
+      Case_Dragging_Group.prototype.onTouchCancel = function(event) {
+        this.onTouchEnd(event);
+      };
+      Case_Dragging_Group.prototype.onTouchEnd = function(event) {
+        return __awaiter(this, void 0, void 0, function() {
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              if (!this.dragOffset) return [ 2 ];
+              this.dragOffset = null;
+              this.isDragging = false;
+              return [ 4, this.drop() ];
+
+             case 1:
+              _a.sent();
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_Dragging_Group.prototype.drag = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var items, i, l, item;
+          return __generator(this, function(_a) {
+            this.node.setSiblingIndex(999);
+            this.enableLayout(true);
+            items = this.items;
+            for (i = 0, l = items.length; i < l; i++) {
+              item = items[i];
+              1 !== item.node.scale && item.scaleTo(1);
+            }
+            return [ 2 ];
+          });
+        });
+      };
+      Case_Dragging_Group.prototype.drop = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var items, i, l, item;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              if (!this.hitTest()) return [ 3, 2 ];
+              Case_Dragging_1.default.container.onGroupDrop(this);
+              return [ 4, this.embedItems() ];
+
+             case 1:
+              _a.sent();
+              this.contentNode.setPosition(0);
+              this.contentNode.active = false;
+              this.lastStatus = IntersectionStatus.OUT;
+              return [ 3, 4 ];
+
+             case 2:
+              this.enableLayout(true);
+              items = this.items;
+              for (i = 0, l = items.length; i < l; i++) {
+                item = items[i];
+                .74 !== item.node.scale && item.scaleTo(.74);
+              }
+              return [ 4, this.reposition() ];
+
+             case 3:
+              _a.sent();
+              _a.label = 4;
+
+             case 4:
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_Dragging_Group.prototype.updateIntersection = function() {
+        var intersects = this.hitTest();
+        if (this.lastStatus === IntersectionStatus.OUT && intersects) {
+          this.lastStatus = IntersectionStatus.IN;
+          Case_Dragging_1.default.container.onGroupDragEnter(this);
+        } else if (this.lastStatus === IntersectionStatus.IN && !intersects) {
+          this.lastStatus = IntersectionStatus.OUT;
+          Case_Dragging_1.default.container.onGroupDragLeave(this);
+        }
+      };
+      Case_Dragging_Group.prototype.hitTest = function() {
+        return this.rect.intersects(Case_Dragging_1.default.container.rect);
+      };
+      Case_Dragging_Group.prototype.reposition = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              return [ 4, this.moveTo(cc.v3(0)) ];
+
+             case 1:
+              _a.sent();
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_Dragging_Group.prototype.embedItems = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var container, containerContent, items, i, l, item, node, targetPosInContainer, curPosInWorld, curPosInContainer;
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              this.enableLayout(false);
+              container = Case_Dragging_1.default.container, containerContent = container.contentNode, 
+              items = this.items;
+              i = 0, l = items.length;
+              _a.label = 1;
+
+             case 1:
+              if (!(i < l)) return [ 3, 4 ];
+              item = items[i], node = item.node;
+              targetPosInContainer = container.getNextSpacePos(), curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()), 
+              curPosInContainer = containerContent.convertToNodeSpaceAR(curPosInWorld);
+              item.addToContainer();
+              container.addOptionItem(item);
+              node.setPosition(curPosInContainer);
+              item.moveTo(targetPosInContainer);
+              return [ 4, PromiseUtil_1.default.sleep(.005) ];
+
+             case 2:
+              _a.sent();
+              _a.label = 3;
+
+             case 3:
+              i++;
+              return [ 3, 1 ];
+
+             case 4:
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Case_Dragging_Group.prototype.regroupItems = function(triggerItem) {
+        var contentNode = this.contentNode, items = this.items;
+        var itemPosInContent = this.getTargetSpacePos(items.indexOf(triggerItem) + 1);
+        var triggerNode = triggerItem.node, itemPosInWorld = triggerNode.getParent().convertToWorldSpaceAR(triggerNode.getPosition()), posInContentParent = contentNode.getParent().convertToNodeSpaceAR(itemPosInWorld);
+        contentNode.setPosition(posInContentParent.sub(itemPosInContent));
+        this.enableLayout(false);
+        contentNode.active = true;
+        for (var i = 0, l = items.length; i < l; i++) {
+          var item = items[i], node = item.node;
+          var targetPosInGroup = this.getNextSpacePos();
+          item.removeFromContainer();
+          node.setParent(contentNode);
+          node.setPosition(targetPosInGroup);
+        }
+      };
+      Case_Dragging_Group.prototype.moveTo = function(pos) {
+        var _this = this;
+        return new Promise(function(res) {
+          var node = _this.contentNode, distance = cc.Vec2.distance(node.position, pos), duration = distance * (1 / 1500);
+          cc.tween(node).to(duration, {
+            position: pos
+          }, {
+            easing: "cubicOut"
+          }).call(res).start();
+        });
+      };
+      Case_Dragging_Group.prototype.addOptionItem = function(item) {
+        item.group = this;
+        item.node.setParent(this.contentNode);
+        this.items.push(item);
+      };
+      Case_Dragging_Group.prototype.clear = function() {
+        this.contentNode.destroyAllChildren();
+      };
+      Case_Dragging_Group.prototype.enableLayout = function(enabled) {
+        this.layout.enabled = enabled;
+      };
+      Case_Dragging_Group.prototype.forceUpdateLayout = function() {
+        var children = this.layout.node.children;
+        for (var i = 0; i < children.length; i++) children[i]["_activeInHierarchy"] = true;
+        this.layout["_layoutDirty"] = true;
+        this.layout.updateLayout();
+      };
+      Case_Dragging_Group.prototype.getTargetSpacePos = function(count) {
+        var layout = this.layout, paddingLeft = layout.paddingLeft, spacingX = layout.spacingX, layoutWidth = layout.node.width, itemWidth = this.items[0].node.width, x = paddingLeft + count * itemWidth + (count - 1) * spacingX - itemWidth / 2 - layoutWidth / 2;
+        return cc.v3(x, 0, 0);
+      };
+      Case_Dragging_Group.prototype.getNextSpacePos = function() {
+        return this.getTargetSpacePos(this.itemCount + 1);
+      };
+      __decorate([ property({
+        type: cc.Layout,
+        tooltip: false
+      }) ], Case_Dragging_Group.prototype, "layout", void 0);
+      Case_Dragging_Group = __decorate([ ccclass ], Case_Dragging_Group);
+      return Case_Dragging_Group;
+    }(cc.Component);
+    exports.default = Case_Dragging_Group;
+    cc._RF.pop();
+  }, {
+    "../../../../eazax-ccc/utils/NodeUtil": "NodeUtil",
+    "../../../../eazax-ccc/utils/PromiseUtil": "PromiseUtil",
+    "../Case_Dragging": "Case_Dragging"
+  } ],
+  Case_Dragging_Item: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "c88cdVMwkVGloNefrqgJRse", "Case_Dragging_Item");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var Case_Dragging_1 = require("../Case_Dragging");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_Dragging_Item = function(_super) {
+      __extends(Case_Dragging_Item, _super);
+      function Case_Dragging_Item() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.group = null;
+        _this.touchStartPos = null;
+        _this.dragOffset = null;
+        _this.isDragging = false;
+        _this.inContainer = false;
+        _this.isRegrouped = false;
+        return _this;
+      }
+      Case_Dragging_Item.prototype.onLoad = function() {
+        this.registerEvent();
+      };
+      Case_Dragging_Item.prototype.registerEvent = function() {
+        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+        this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+      };
+      Case_Dragging_Item.prototype.onTouchStart = function(event) {
+        if (null === this.group || !this.inContainer) return;
+        this.touchStartPos = event.getLocation();
+        var touchPosInNode = this.node.getParent().convertToNodeSpaceAR(event.getLocation());
+        this.dragOffset = touchPosInNode.sub(this.node.getPosition());
+      };
+      Case_Dragging_Item.prototype.onTouchMove = function(event) {
+        if (!this.dragOffset) return;
+        if (this.isRegrouped) {
+          this.group.onTouchMove(event);
+          return;
+        }
+        var touchPosInWorld = event.getLocation();
+        if (!this.isDragging) {
+          var distance = cc.Vec2.distance(this.touchStartPos, touchPosInWorld);
+          if (distance >= 1) {
+            this.isDragging = true;
+            this.drag();
+            var touchPosInNode_1 = this.node.getParent().convertToNodeSpaceAR(touchPosInWorld);
+            this.node.setPosition(touchPosInNode_1.sub(this.dragOffset));
+            this.isRegrouped = true;
+            this.group.regroupItems(this);
+            this.group.onTouchStart(event);
+          }
+          return;
+        }
+        var touchPosInNode = this.node.getParent().convertToNodeSpaceAR(touchPosInWorld);
+        this.node.setPosition(touchPosInNode.sub(this.dragOffset));
+      };
+      Case_Dragging_Item.prototype.onTouchCancel = function(event) {
+        this.onTouchEnd(event);
+      };
+      Case_Dragging_Item.prototype.onTouchEnd = function(event) {
+        return __awaiter(this, void 0, void 0, function() {
+          return __generator(this, function(_a) {
+            if (!this.dragOffset) return [ 2 ];
+            this.dragOffset = null;
+            this.isDragging = false;
+            this.isRegrouped && this.group.onTouchEnd(event);
+            this.isRegrouped = false;
+            return [ 2 ];
+          });
+        });
+      };
+      Case_Dragging_Item.prototype.drag = function() {
+        var node = this.node, layer = Case_Dragging_1.default.moveLayer, curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()), curPosInMoveLayer = layer.convertToNodeSpaceAR(curPosInWorld);
+        node.setParent(layer);
+        node.setPosition(curPosInMoveLayer);
+        node.setSiblingIndex(999);
+        Case_Dragging_1.default.container.onItemDrag(this);
+      };
+      Case_Dragging_Item.prototype.addToContainer = function() {
+        this.inContainer = true;
+      };
+      Case_Dragging_Item.prototype.removeFromContainer = function() {
+        this.inContainer = false;
+      };
+      Case_Dragging_Item.prototype.moveTo = function(pos) {
+        var _this = this;
+        return new Promise(function(res) {
+          var node = _this.node, distance = cc.Vec2.distance(node.position, pos), duration = distance * (1 / 1800);
+          cc.tween(node).to(duration, {
+            position: pos
+          }, {
+            easing: "cubicOut"
+          }).call(res).start();
+        });
+      };
+      Case_Dragging_Item.prototype.scaleTo = function(scale, duration) {
+        var _this = this;
+        void 0 === duration && (duration = .1);
+        return new Promise(function(res) {
+          var node = _this.node;
+          cc.tween(node).to(duration, {
+            scale: scale
+          }, {
+            easing: "cubicOut"
+          }).call(res).start();
+        });
+      };
+      Case_Dragging_Item = __decorate([ ccclass ], Case_Dragging_Item);
+      return Case_Dragging_Item;
+    }(cc.Component);
+    exports.default = Case_Dragging_Item;
+    cc._RF.pop();
+  }, {
+    "../Case_Dragging": "Case_Dragging"
+  } ],
+  Case_Dragging: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "9def8J4d05Dh67XnF30hFYP", "Case_Dragging");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var Case_DraggingContent_1 = require("./Case_DraggingContent");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Case_Dragging = function(_super) {
+      __extends(Case_Dragging, _super);
+      function Case_Dragging() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.content = null;
+        return _this;
+      }
+      Case_Dragging_1 = Case_Dragging;
+      Case_Dragging.prototype.onLoad = function() {
+        this.init();
+      };
+      Case_Dragging.prototype.start = function() {
+        var _this = this;
+        this.scheduleOnce(function() {
+          _this.play();
+        }, .2);
+      };
+      Case_Dragging.prototype.onDestroy = function() {
+        this.release();
+      };
+      Case_Dragging.prototype.init = function() {
+        Case_Dragging_1.instance = this;
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+      };
+      Case_Dragging.prototype.release = function() {
+        Case_Dragging_1.instance === this && (Case_Dragging_1.instance = null);
+        cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
+      };
+      Case_Dragging.prototype.play = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          return __generator(this, function(_a) {
+            switch (_a.label) {
+             case 0:
+              return [ 4, this.content.generateStaticItems(5) ];
+
+             case 1:
+              _a.sent();
+              return [ 4, this.content.generateOptionItems([ 3, 4, 5 ]) ];
+
+             case 2:
+              _a.sent();
+              return [ 4, Promise.all([ this.content.showStaticItems(), this.content.showOptionItems() ]) ];
+
+             case 3:
+              _a.sent();
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      Object.defineProperty(Case_Dragging, "moveLayer", {
+        get: function() {
+          return this.instance.content.node;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(Case_Dragging, "container", {
+        get: function() {
+          return this.instance.content.container;
+        },
+        enumerable: false,
+        configurable: true
+      });
+      var Case_Dragging_1;
+      Case_Dragging.instance = null;
+      __decorate([ property({
+        type: Case_DraggingContent_1.default,
+        tooltip: false
+      }) ], Case_Dragging.prototype, "content", void 0);
+      Case_Dragging = Case_Dragging_1 = __decorate([ ccclass ], Case_Dragging);
+      return Case_Dragging;
+    }(cc.Component);
+    exports.default = Case_Dragging;
+    cc._RF.pop();
+  }, {
+    "./Case_DraggingContent": "Case_DraggingContent"
   } ],
   Case_FrameLoading: [ function(require, module, exports) {
     "use strict";
@@ -21706,4 +23156,4 @@ window.__require = function e(t, n, r) {
     "set-immediate-shim": void 0,
     stream: 28
   } ]
-}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);

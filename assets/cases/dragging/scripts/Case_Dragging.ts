@@ -31,16 +31,22 @@ export default class Case_Dragging extends cc.Component {
      * 初始化
      */
     protected init() {
+        // 保存实例
         Case_Dragging.instance = this;
+        // 切换横屏
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
     }
 
     /**
      * 释放
      */
     protected release() {
+        // 释放实例
         if (Case_Dragging.instance === this) {
             Case_Dragging.instance = null;
         }
+        // 切换竖屏
+        cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
     }
 
     /**

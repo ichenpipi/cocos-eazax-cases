@@ -25,7 +25,7 @@ export default class Case_DraggingContent extends cc.Component {
     public async generateStaticItems(number: number) {
         const container = this.container,
             itemSize = this.container.itemSize;
-        // 情况旧节点
+        // 清除旧节点
         container.clear();
         // 生成
         for (let i = 0; i < number; i++) {
@@ -72,13 +72,15 @@ export default class Case_DraggingContent extends cc.Component {
      * @param numbers 
      */
     public async generateOptionItems(numbers: number[]) {
-        const groups = this.groupContainer.groups;
+        const groupContainer = this.groupContainer,
+            groups = groupContainer.groups,
+            itemSize = this.container.itemSize;
         for (let i = 0; i < groups.length; i++) {
             const group = groups[i],
                 number = numbers[i];
-            // 清空子节点
+            // 清除旧节点
             group.clear();
-            // 创建 item
+            // 生成物体
             if (number != undefined) {
                 // 打开分组
                 group.node.active = true;
@@ -95,37 +97,31 @@ export default class Case_DraggingContent extends cc.Component {
                         item = node.getComponent(Case_Dragging_Item);
                     // 设置节点
                     node.active = true;
+                    node.setContentSize(itemSize);
                     node.scale = 0.8;
                     node.color = color.clone();
                     // 添加到分组
-                    group.items.push(item);
                     group.addOptionItem(item);
-                    // 
+                    // 藏起来
                     node.y = -200;
                 }
-                // 更新布局
-                group.layout.updateLayout();
-                // 撑开节点
-                group.node.width = group.contentNode.width;
+                // 更新分组布局
+                group.forceUpdateLayout();
+                // 撑开主节点
+                group.node.width = group.layout.node.width;
             } else {
                 // 关闭分组
                 group.node.active = false;
             }
         }
-        // 选项容器布局
-        const layout = this.groupContainer.layout;
-        if (numbers.length < 3) {
-            layout.spacingX = 100;
-        } else {
-            layout.spacingX = 50;
-        }
-        layout.updateLayout();
+        // 更新布局
+        groupContainer.forceUpdateLayout();
         // 禁用自动布局
-        layout.enabled = false;
+        groupContainer.enableLayout(false);
     }
 
     /**
-     * 展示选项 items
+     * 展示选项物体
      */
     public async showOptionItems() {
         const groups = this.groupContainer.groups;
@@ -139,7 +135,6 @@ export default class Case_DraggingContent extends cc.Component {
                     .start();
                 await PromiseUtil.sleep(0.02);
             }
-
         }
     }
 

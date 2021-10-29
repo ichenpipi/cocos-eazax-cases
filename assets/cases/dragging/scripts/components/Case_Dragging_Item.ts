@@ -49,9 +49,8 @@ export default class Case_Dragging_Item extends cc.Component {
         // 记录开始
         this.touchStartPos = event.getLocation();
         // 记录偏移
-        const node = this.node,
-            touchPosInNode = node.getParent().convertToNodeSpaceAR(event.getLocation());
-        this.dragOffset = touchPosInNode.sub(node.getPosition());
+        const touchPosInNode = this.node.getParent().convertToNodeSpaceAR(event.getLocation());
+        this.dragOffset = touchPosInNode.sub(this.node.getPosition());
     }
 
     /**
@@ -71,23 +70,24 @@ export default class Case_Dragging_Item extends cc.Component {
         if (!this.isDragging) {
             // 触摸移动距离
             const distance = cc.Vec2.distance(this.touchStartPos, touchPosInWorld);
-            if (distance >= 5) {
+            if (distance >= 1) {
                 // 触发拖拽
                 this.isDragging = true;
                 this.drag();
+                // 移动节点
+                const touchPosInNode = this.node.getParent().convertToNodeSpaceAR(touchPosInWorld);
+                this.node.setPosition(touchPosInNode.sub(this.dragOffset));
                 // 重组
                 this.isRegrouped = true;
                 this.group.regroupItems(this);
                 // 直接触发触摸开始回调
                 this.group.onTouchStart(event);
-            } else {
-                return;
             }
+            return;
         }
         // 移动节点
-        const node = this.node,
-            touchPosInNode = node.getParent().convertToNodeSpaceAR(touchPosInWorld);
-        node.setPosition(touchPosInNode.sub(this.dragOffset));
+        const touchPosInNode = this.node.getParent().convertToNodeSpaceAR(touchPosInWorld);
+        this.node.setPosition(touchPosInNode.sub(this.dragOffset));
     }
 
     /**
@@ -123,7 +123,7 @@ export default class Case_Dragging_Item extends cc.Component {
         // 变换容器和位置
         const node = this.node,
             layer = Case_Dragging.moveLayer,
-            curPosInWorld = node.parent.convertToWorldSpaceAR(node.position),
+            curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()),
             curPosInMoveLayer = layer.convertToNodeSpaceAR(curPosInWorld);
         node.setParent(layer);
         node.setPosition(curPosInMoveLayer);
@@ -170,10 +170,6 @@ export default class Case_Dragging_Item extends cc.Component {
     public scaleTo(scale: number, duration: number = 0.1) {
         return new Promise<void>(res => {
             const node = this.node;
-            if (node.scale === scale) {
-                res();
-                return;
-            }
             cc.tween(node)
                 .to(duration, { scale }, { easing: 'cubicOut' })
                 .call(res)

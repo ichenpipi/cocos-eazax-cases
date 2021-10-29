@@ -57,7 +57,7 @@ export default class Case_Dragging_Container extends cc.Component {
      * @param item 
      */
     public addStaticItem(item: Case_Dragging_Item) {
-        item.node.parent = this.contentNode;
+        item.node.setParent(this.contentNode);
     }
 
     /**
@@ -65,7 +65,7 @@ export default class Case_Dragging_Container extends cc.Component {
      * @param item 
      */
     public addOptionItem(item: Case_Dragging_Item) {
-        item.node.parent = this.contentNode;
+        item.node.setParent(this.contentNode);
     }
 
     /**
@@ -137,7 +137,7 @@ export default class Case_Dragging_Container extends cc.Component {
             sprite.trim = false;
             sprite.spriteFrame = spriteFrame;
             // 添加到布局
-            node.parent = this.contentNode;
+            node.setParent(this.contentNode);
             placeholders.push(node);
         }
     }
@@ -146,11 +146,12 @@ export default class Case_Dragging_Container extends cc.Component {
      * 隐藏占位
      */
     protected hidePlaceholders() {
-        const placeholders = this.placeholders;
+        const placeholders = this.placeholders,
+            nodePool = this.nodePool;
         while (placeholders.length > 0) {
             const node = placeholders.shift();
             node.getComponent(cc.Sprite).spriteFrame = null;
-            this.nodePool.put(node);
+            nodePool.put(node);
         }
     }
 

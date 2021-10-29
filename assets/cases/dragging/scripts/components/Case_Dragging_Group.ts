@@ -70,10 +70,10 @@ export default class Case_Dragging_Group extends cc.Component {
         // 记录偏移
         const node = this.contentNode,
             touchPosInWorld = event.getLocation(),
-            touchPosInNode = node.parent.convertToNodeSpaceAR(touchPosInWorld);
+            touchPosInNode = node.getParent().convertToNodeSpaceAR(touchPosInWorld);
         this.dragOffset = touchPosInNode.sub(node.getPosition());
         // 相交检测
-        this.checkIntersection();
+        this.updateIntersection();
     }
 
     /**
@@ -87,7 +87,7 @@ export default class Case_Dragging_Group extends cc.Component {
         // 移动
         const node = this.contentNode,
             touchPosInWorld = event.getLocation(),
-            touchPosInNode = node.parent.convertToNodeSpaceAR(touchPosInWorld);
+            touchPosInNode = node.getParent().convertToNodeSpaceAR(touchPosInWorld);
         node.setPosition(touchPosInNode.sub(this.dragOffset));
         // 拖起
         if (!this.isDragging) {
@@ -95,7 +95,7 @@ export default class Case_Dragging_Group extends cc.Component {
             this.drag();
         }
         // 相交检测
-        this.checkIntersection();
+        this.updateIntersection();
     }
 
     /**
@@ -132,7 +132,8 @@ export default class Case_Dragging_Group extends cc.Component {
         // 放大物体
         const items = this.items;
         for (let i = 0, l = items.length; i < l; i++) {
-            items[i].scaleTo(1);
+            const item = items[i];
+            (item.node.scale !== 1) && item.scaleTo(1);
         }
     }
 
@@ -157,7 +158,8 @@ export default class Case_Dragging_Group extends cc.Component {
             // 缩小物体
             const items = this.items;
             for (let i = 0, l = items.length; i < l; i++) {
-                items[i].scaleTo(0.74);
+                const item = items[i];
+                (item.node.scale !== 0.74) && item.scaleTo(0.74);
             }
             // 复位
             await this.reposition();
@@ -165,10 +167,10 @@ export default class Case_Dragging_Group extends cc.Component {
     }
 
     /**
-     * 检查相交
+     * 更新相交状态
      */
-    protected checkIntersection() {
-        const intersects = this.rect.intersects(Case_Dragging.container.rect);
+    protected updateIntersection() {
+        const intersects = this.hitTest();
         if (this.lastStatus === IntersectionStatus.OUT && intersects) {
             // 相交/包含状态
             this.lastStatus = IntersectionStatus.IN;
@@ -211,7 +213,7 @@ export default class Case_Dragging_Group extends cc.Component {
                 node = item.node;
             // 计算位置
             const targetPosInContainer = container.getNextSpacePos(),
-                curPosInWorld = node.parent.convertToWorldSpaceAR(node.position),
+                curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()),
                 curPosInContainer = containerContent.convertToNodeSpaceAR(curPosInWorld);
             // 添加到容器并复原位置
             item.addToContainer();
@@ -228,32 +230,29 @@ export default class Case_Dragging_Group extends cc.Component {
      * @param triggerItem 
      */
     public regroupItems(triggerItem: Case_Dragging_Item) {
-        const content = this.contentNode,
+        const contentNode = this.contentNode,
             items = this.items;
         // 先计算好物体在分组里的位置
         const itemPosInContent = this.getTargetSpacePos(items.indexOf(triggerItem) + 1);
         // 将分组内容节点移动到触发拖拽的物体当前位置
         const triggerNode = triggerItem.node,
-            itemPosInWorld = triggerNode.parent.convertToWorldSpaceAR(triggerNode.position),
-            posInContentParent = content.parent.convertToNodeSpaceAR(itemPosInWorld);
-        content.setPosition(posInContentParent.sub(itemPosInContent));
-        // 启用分组内容节点
-        content.active = true;
+            itemPosInWorld = triggerNode.getParent().convertToWorldSpaceAR(triggerNode.getPosition()),
+            posInContentParent = contentNode.getParent().convertToNodeSpaceAR(itemPosInWorld) as unknown as cc.Vec3;
+        contentNode.setPosition(posInContentParent.sub(itemPosInContent));
+        // 禁用自动布局
         this.enableLayout(false);
+        // 启用内容节点
+        contentNode.active = true;
         // 逐个飞回来
         for (let i = 0, l = items.length; i < l; i++) {
             const item = items[i],
                 node = item.node;
             // 计算位置
-            const targetPosInGroup = this.getNextSpacePos(),
-                curPosInWorld = node.parent.convertToWorldSpaceAR(node.position),
-                curPosInGroup = content.convertToNodeSpaceAR(curPosInWorld);
+            const targetPosInGroup = this.getNextSpacePos();
             // 添加到分组并复原位置
             item.removeFromContainer();
-            this.addOptionItem(item);
-            node.setPosition(curPosInGroup);
-            // 移动
-            item.moveTo(targetPosInGroup);
+            node.setParent(contentNode);
+            node.setPosition(targetPosInGroup);
         }
     }
 
@@ -279,7 +278,8 @@ export default class Case_Dragging_Group extends cc.Component {
      */
     public addOptionItem(item: Case_Dragging_Item) {
         item.group = this;
-        item.node.parent = this.contentNode;
+        item.node.setParent(this.contentNode);
+        this.items.push(item);
     }
 
     /**
@@ -298,14 +298,27 @@ export default class Case_Dragging_Group extends cc.Component {
     }
 
     /**
-     * 获取目标位置的坐标
-     * @param quantity
+     * 强制更新布局
      */
-    protected getTargetSpacePos(quantity: number) {
+    public forceUpdateLayout() {
+        const children = this.layout.node.children;
+        for (let i = 0; i < children.length; i++) {
+            children[i]['_activeInHierarchy'] = true;
+        }
+        this.layout['_layoutDirty'] = true;
+        this.layout.updateLayout();
+    }
+
+    /**
+     * 获取目标位置的坐标
+     * @param count
+     */
+    protected getTargetSpacePos(count: number) {
         const layout = this.layout,
+            { paddingLeft, spacingX } = layout,
             layoutWidth = layout.node.width,
             itemWidth = this.items[0].node.width,
-            x = layout.paddingLeft + (quantity * itemWidth) + ((quantity - 1) * layout.spacingX) - (itemWidth / 2) - (layoutWidth / 2);
+            x = paddingLeft + (count * itemWidth) + ((count - 1) * spacingX) - (itemWidth / 2) - (layoutWidth / 2);
         return cc.v3(x, 0, 0);
     }
 
