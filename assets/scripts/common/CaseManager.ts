@@ -38,6 +38,8 @@ export default class CaseManager {
         const info = this.getCaseInfo(caseName);
         if (!info) {
             Toast.show('啊哦，没有找到这个示例', caseName);
+            // 隐藏遮罩
+            CaseLoading.hide();
             return false;
         }
         const sceneName = info.scene;

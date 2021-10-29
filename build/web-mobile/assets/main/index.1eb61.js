@@ -5282,6 +5282,7 @@ window.__require = function e(t, n, r) {
         var info = this.getCaseInfo(caseName);
         if (!info) {
           Toast_1.default.show("\u554a\u54e6\uff0c\u6ca1\u6709\u627e\u5230\u8fd9\u4e2a\u793a\u4f8b", caseName);
+          CaseLoading_1.default.hide();
           return false;
         }
         var sceneName = info.scene;
