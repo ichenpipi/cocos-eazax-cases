@@ -110,7 +110,7 @@ export default class Case_Dragging_Group extends cc.Component {
      * 触摸结束回调
      * @param event 
      */
-    public async onTouchEnd(event: cc.Event.EventTouch) {
+    public onTouchEnd(event: cc.Event.EventTouch) {
         if (!this.dragOffset) {
             return;
         }
@@ -118,13 +118,13 @@ export default class Case_Dragging_Group extends cc.Component {
         this.dragOffset = null;
         // 放下
         this.isDragging = false;
-        await this.drop();
+        this.drop();
     }
 
     /**
      * 拖起
      */
-    protected async drag() {
+    protected drag() {
         // 显示在最前面
         this.node.setSiblingIndex(999);
         // 启用自动布局
@@ -140,13 +140,13 @@ export default class Case_Dragging_Group extends cc.Component {
     /**
      * 放下
      */
-    protected async drop() {
+    protected drop() {
         // 碰撞检测
         if (this.hitTest()) {
             // 触发容器回调
             Case_Dragging.container.onGroupDrop(this);
             // 物体嵌入容器
-            await this.embedItems();
+            this.embedItems();
             // 关闭节点（避免误触）
             this.contentNode.setPosition(0);
             this.contentNode.active = false;
@@ -162,7 +162,7 @@ export default class Case_Dragging_Group extends cc.Component {
                 (item.node.scale !== 0.74) && item.scaleTo(0.74);
             }
             // 复位
-            await this.reposition();
+            this.reposition();
         }
     }
 
@@ -201,10 +201,10 @@ export default class Case_Dragging_Group extends cc.Component {
     /**
      * 将该组物体嵌入容器
      */
-    protected async embedItems() {
+    protected embedItems() {
         // 禁用自动布局
         this.enableLayout(false);
-        // 逐个飞走
+        // 容器变换
         const container = Case_Dragging.container,
             containerContent = container.contentNode,
             items = this.items;
@@ -220,8 +220,8 @@ export default class Case_Dragging_Group extends cc.Component {
             container.addOptionItem(item);
             node.setPosition(curPosInContainer);
             // 移动
-            item.moveTo(targetPosInContainer);
-            await PromiseUtil.sleep(0.005);
+            item.moveTo(targetPosInContainer, i * 0.05);
+            item.scaleTo(1);
         }
     }
 
@@ -313,7 +313,7 @@ export default class Case_Dragging_Group extends cc.Component {
      * 获取目标位置的坐标
      * @param count
      */
-    protected getTargetSpacePos(count: number) {
+    public getTargetSpacePos(count: number) {
         const layout = this.layout,
             { paddingLeft, spacingX } = layout,
             layoutWidth = layout.node.width,

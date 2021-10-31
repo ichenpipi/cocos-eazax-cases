@@ -149,13 +149,15 @@ export default class Case_Dragging_Item extends cc.Component {
     /**
      * 移动到目标位置
      * @param pos 
+     * @param delay 
      */
-    public moveTo(pos: cc.Vec3) {
+    public moveTo(pos: cc.Vec3, delay: number = 0) {
         return new Promise<void>(res => {
             const node = this.node,
                 distance = cc.Vec2.distance(node.position, pos),
                 duration = distance * (1 / 1800);
             cc.tween(node)
+                .delay(delay)
                 .to(duration, { position: pos }, { easing: 'cubicOut' })
                 .call(res)
                 .start();

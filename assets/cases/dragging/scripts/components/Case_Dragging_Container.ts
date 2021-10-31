@@ -172,14 +172,14 @@ export default class Case_Dragging_Container extends cc.Component {
 
     /**
      * 获取目标位置的坐标
-     * @param quantity
+     * @param count
      */
-    protected getTargetSpacePos(quantity: number) {
+    public getTargetSpacePos(count: number) {
         const layout = this.layout,
             layoutHeight = layout.node.height, layoutWidth = layout.node.width,
             itemHeight = this.itemSize.height, itemWidth = this.itemSize.width,
-            lineMaxCount = this.getLineMaxCount(), lines = Math.ceil(quantity / lineMaxCount),
-            rowCount = (quantity % lineMaxCount === 0) ? lineMaxCount : quantity % lineMaxCount,
+            lineMaxCount = this.getLineMaxCount(), lines = Math.ceil(count / lineMaxCount),
+            rowCount = (count % lineMaxCount === 0) ? lineMaxCount : count % lineMaxCount,
             x = layout.paddingLeft + (rowCount * itemWidth) + ((rowCount - 1) * layout.spacingX) - (itemWidth / 2) - (layoutWidth / 2),
             y = -(layout.paddingTop + (lines * itemHeight) + ((lines - 1) * layout.spacingY) - (itemHeight / 2) - (layoutHeight * 0.5));
         return cc.v3(x, y, 0);
