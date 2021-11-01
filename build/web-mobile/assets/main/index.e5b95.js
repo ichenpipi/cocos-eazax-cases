@@ -6557,10 +6557,14 @@ window.__require = function e(t, n, r) {
         this.contentNode.destroyAllChildren();
       };
       Case_Dragging_Container.prototype.enableLayout = function(enabled) {
+        if (enabled) {
+          var nodes = this.contentNode.children;
+          for (var i = 0, l = nodes.length; i < l; i++) cc.Tween.stopAllByTarget(nodes[i]);
+        }
         this.layout.enabled = enabled;
       };
-      Case_Dragging_Container.prototype.getTargetSpacePos = function(quantity) {
-        var layout = this.layout, layoutHeight = layout.node.height, layoutWidth = layout.node.width, itemHeight = this.itemSize.height, itemWidth = this.itemSize.width, lineMaxCount = this.getLineMaxCount(), lines = Math.ceil(quantity / lineMaxCount), rowCount = quantity % lineMaxCount === 0 ? lineMaxCount : quantity % lineMaxCount, x = layout.paddingLeft + rowCount * itemWidth + (rowCount - 1) * layout.spacingX - itemWidth / 2 - layoutWidth / 2, y = -(layout.paddingTop + lines * itemHeight + (lines - 1) * layout.spacingY - itemHeight / 2 - .5 * layoutHeight);
+      Case_Dragging_Container.prototype.getTargetSpacePos = function(count) {
+        var layout = this.layout, layoutHeight = layout.node.height, layoutWidth = layout.node.width, itemHeight = this.itemSize.height, itemWidth = this.itemSize.width, lineMaxCount = this.getLineMaxCount(), lines = Math.ceil(count / lineMaxCount), rowCount = count % lineMaxCount === 0 ? lineMaxCount : count % lineMaxCount, x = layout.paddingLeft + rowCount * itemWidth + (rowCount - 1) * layout.spacingX - itemWidth / 2 - layoutWidth / 2, y = -(layout.paddingTop + lines * itemHeight + (lines - 1) * layout.spacingY - itemHeight / 2 - .5 * layoutHeight);
         return cc.v3(x, y, 0);
       };
       Case_Dragging_Container.prototype.getNextSpacePos = function() {
@@ -6806,7 +6810,6 @@ window.__require = function e(t, n, r) {
       value: true
     });
     var NodeUtil_1 = require("../../../../eazax-ccc/utils/NodeUtil");
-    var PromiseUtil_1 = require("../../../../eazax-ccc/utils/PromiseUtil");
     var Case_Dragging_1 = require("../Case_Dragging");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var IntersectionStatus;
@@ -6874,72 +6877,36 @@ window.__require = function e(t, n, r) {
         this.onTouchEnd(event);
       };
       Case_Dragging_Group.prototype.onTouchEnd = function(event) {
-        return __awaiter(this, void 0, void 0, function() {
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              if (!this.dragOffset) return [ 2 ];
-              this.dragOffset = null;
-              this.isDragging = false;
-              return [ 4, this.drop() ];
-
-             case 1:
-              _a.sent();
-              return [ 2 ];
-            }
-          });
-        });
+        if (!this.dragOffset) return;
+        this.dragOffset = null;
+        this.isDragging = false;
+        this.drop();
       };
       Case_Dragging_Group.prototype.drag = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var items, i, l, item;
-          return __generator(this, function(_a) {
-            this.node.setSiblingIndex(999);
-            this.enableLayout(true);
-            items = this.items;
-            for (i = 0, l = items.length; i < l; i++) {
-              item = items[i];
-              1 !== item.node.scale && item.scaleTo(1);
-            }
-            return [ 2 ];
-          });
-        });
+        this.node.setSiblingIndex(999);
+        this.enableLayout(true);
+        var items = this.items;
+        for (var i = 0, l = items.length; i < l; i++) {
+          var item = items[i];
+          1 !== item.node.scale && item.scaleTo(1);
+        }
       };
       Case_Dragging_Group.prototype.drop = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var items, i, l, item;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              if (!this.hitTest()) return [ 3, 2 ];
-              Case_Dragging_1.default.container.onGroupDrop(this);
-              return [ 4, this.embedItems() ];
-
-             case 1:
-              _a.sent();
-              this.contentNode.setPosition(0);
-              this.contentNode.active = false;
-              this.lastStatus = IntersectionStatus.OUT;
-              return [ 3, 4 ];
-
-             case 2:
-              this.enableLayout(true);
-              items = this.items;
-              for (i = 0, l = items.length; i < l; i++) {
-                item = items[i];
-                .74 !== item.node.scale && item.scaleTo(.74);
-              }
-              return [ 4, this.reposition() ];
-
-             case 3:
-              _a.sent();
-              _a.label = 4;
-
-             case 4:
-              return [ 2 ];
-            }
-          });
-        });
+        if (this.hitTest()) {
+          Case_Dragging_1.default.container.onGroupDrop(this);
+          this.embedItems();
+          this.contentNode.setPosition(0);
+          this.contentNode.active = false;
+          this.lastStatus = IntersectionStatus.OUT;
+        } else {
+          this.enableLayout(true);
+          var items = this.items;
+          for (var i = 0, l = items.length; i < l; i++) {
+            var item = items[i];
+            .74 !== item.node.scale && item.scaleTo(.74);
+          }
+          this.reposition();
+        }
       };
       Case_Dragging_Group.prototype.updateIntersection = function() {
         var intersects = this.hitTest();
@@ -6969,41 +6936,17 @@ window.__require = function e(t, n, r) {
         });
       };
       Case_Dragging_Group.prototype.embedItems = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var container, containerContent, items, i, l, item, node, targetPosInContainer, curPosInWorld, curPosInContainer;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              this.enableLayout(false);
-              container = Case_Dragging_1.default.container, containerContent = container.contentNode, 
-              items = this.items;
-              i = 0, l = items.length;
-              _a.label = 1;
-
-             case 1:
-              if (!(i < l)) return [ 3, 4 ];
-              item = items[i], node = item.node;
-              targetPosInContainer = container.getNextSpacePos(), curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()), 
-              curPosInContainer = containerContent.convertToNodeSpaceAR(curPosInWorld);
-              item.addToContainer();
-              container.addOptionItem(item);
-              node.setPosition(curPosInContainer);
-              item.moveTo(targetPosInContainer);
-              return [ 4, PromiseUtil_1.default.sleep(.005) ];
-
-             case 2:
-              _a.sent();
-              _a.label = 3;
-
-             case 3:
-              i++;
-              return [ 3, 1 ];
-
-             case 4:
-              return [ 2 ];
-            }
-          });
-        });
+        this.enableLayout(false);
+        var container = Case_Dragging_1.default.container, containerContent = container.contentNode, items = this.items;
+        for (var i = 0, l = items.length; i < l; i++) {
+          var item = items[i], node = item.node;
+          var targetPosInContainer = container.getNextSpacePos(), curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()), curPosInContainer = containerContent.convertToNodeSpaceAR(curPosInWorld);
+          item.addToContainer();
+          container.addOptionItem(item);
+          node.setPosition(curPosInContainer);
+          item.moveTo(targetPosInContainer, .05 * i);
+          item.scaleTo(1);
+        }
       };
       Case_Dragging_Group.prototype.regroupItems = function(triggerItem) {
         var contentNode = this.contentNode, items = this.items;
@@ -7066,7 +7009,6 @@ window.__require = function e(t, n, r) {
     cc._RF.pop();
   }, {
     "../../../../eazax-ccc/utils/NodeUtil": "NodeUtil",
-    "../../../../eazax-ccc/utils/PromiseUtil": "PromiseUtil",
     "../Case_Dragging": "Case_Dragging"
   } ],
   Case_Dragging_Item: [ function(require, module, exports) {
@@ -7296,11 +7238,12 @@ window.__require = function e(t, n, r) {
       Case_Dragging_Item.prototype.removeFromContainer = function() {
         this.inContainer = false;
       };
-      Case_Dragging_Item.prototype.moveTo = function(pos) {
+      Case_Dragging_Item.prototype.moveTo = function(pos, delay) {
         var _this = this;
+        void 0 === delay && (delay = 0);
         return new Promise(function(res) {
           var node = _this.node, distance = cc.Vec2.distance(node.position, pos), duration = distance * (1 / 1800);
-          cc.tween(node).to(duration, {
+          cc.tween(node).delay(delay).to(duration, {
             position: pos
           }, {
             easing: "cubicOut"

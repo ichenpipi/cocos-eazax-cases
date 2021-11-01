@@ -167,6 +167,14 @@ export default class Case_Dragging_Container extends cc.Component {
      * @param enabled 
      */
     public enableLayout(enabled: boolean) {
+        // 停止子节点的缓动
+        if (enabled) {
+            const nodes = this.contentNode.children;
+            for (let i = 0, l = nodes.length; i < l; i++) {
+                cc.Tween.stopAllByTarget(nodes[i]);
+            }
+        }
+        // 布局
         this.layout.enabled = enabled;
     }
 
