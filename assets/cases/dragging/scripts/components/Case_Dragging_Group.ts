@@ -132,8 +132,7 @@ export default class Case_Dragging_Group extends cc.Component {
         // 放大物体
         const items = this.items;
         for (let i = 0, l = items.length; i < l; i++) {
-            const item = items[i];
-            (item.node.scale !== 1) && item.scaleTo(1);
+            items[i].scaleTo(1);
         }
     }
 
@@ -155,12 +154,6 @@ export default class Case_Dragging_Group extends cc.Component {
         } else {
             // 启用自动布局
             this.enableLayout(true);
-            // 缩小物体
-            const items = this.items;
-            for (let i = 0, l = items.length; i < l; i++) {
-                const item = items[i];
-                (item.node.scale !== 0.74) && item.scaleTo(0.74);
-            }
             // 复位
             this.reposition();
         }
@@ -195,6 +188,12 @@ export default class Case_Dragging_Group extends cc.Component {
      * 复位
      */
     protected async reposition() {
+        // 缩小物体
+        const items = this.items;
+        for (let i = 0, l = items.length; i < l; i++) {
+            items[i].scaleTo(0.74);
+        }
+        //移动
         await this.moveTo(cc.v3(0));
     }
 
@@ -216,12 +215,16 @@ export default class Case_Dragging_Group extends cc.Component {
                 curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()),
                 curPosInContainer = containerContent.convertToNodeSpaceAR(curPosInWorld);
             // 添加到容器并复原位置
-            item.addToContainer();
             container.addOptionItem(item);
+            item.addToContainer();
             node.setPosition(curPosInContainer);
             // 移动
-            item.moveTo(targetPosInContainer, i * 0.05);
-            item.scaleTo(1);
+            const distance = cc.Vec2.distance(node.position, targetPosInContainer),
+                duration = distance * (1 / 1800);
+            cc.tween(node)
+                .delay(i * 0.01)
+                .to(duration, { position: targetPosInContainer, scale: 1 }, { easing: 'cubicOut' })
+                .start();
         }
     }
 
@@ -247,10 +250,12 @@ export default class Case_Dragging_Group extends cc.Component {
         for (let i = 0, l = items.length; i < l; i++) {
             const item = items[i],
                 node = item.node;
+            // 停止缓动
+            cc.Tween.stopAllByTarget(node);
             // 计算位置
             const targetPosInGroup = this.getNextSpacePos();
             // 添加到分组并复原位置
-            item.removeFromContainer();
+            item.backToGroup();
             node.setParent(contentNode);
             node.setPosition(targetPosInGroup);
         }

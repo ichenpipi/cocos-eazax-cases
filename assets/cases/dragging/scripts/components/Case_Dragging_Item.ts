@@ -18,11 +18,11 @@ export default class Case_Dragging_Item extends cc.Component {
     /** 拖拽中 */
     protected isDragging: boolean = false;
 
+    /** 在选项组中 */
+    protected inGroup: boolean = false;
+
     /** 在容器中 */
     protected inContainer: boolean = false;
-
-    /** 重组 */
-    protected isRegrouped: boolean = false;
 
     protected onLoad() {
         this.registerEvent();
@@ -43,7 +43,7 @@ export default class Case_Dragging_Item extends cc.Component {
      * @param event 
      */
     protected onTouchStart(event: cc.Event.EventTouch) {
-        if (this.group === null || !this.inContainer) {
+        if (!this.group || !this.inContainer) {
             return;
         }
         // 记录开始
@@ -62,7 +62,7 @@ export default class Case_Dragging_Item extends cc.Component {
             return;
         }
         // 转发触摸事件
-        if (this.isRegrouped) {
+        if (this.inGroup) {
             this.group.onTouchMove(event);
             return;
         }
@@ -78,7 +78,6 @@ export default class Case_Dragging_Item extends cc.Component {
                 const touchPosInNode = this.node.getParent().convertToNodeSpaceAR(touchPosInWorld);
                 this.node.setPosition(touchPosInNode.sub(this.dragOffset));
                 // 重组
-                this.isRegrouped = true;
                 this.group.regroupItems(this);
                 // 直接触发触摸开始回调
                 this.group.onTouchStart(event);
@@ -102,18 +101,17 @@ export default class Case_Dragging_Item extends cc.Component {
      * 触摸结束回调
      * @param event 
      */
-    protected async onTouchEnd(event: cc.Event.EventTouch) {
+    protected onTouchEnd(event: cc.Event.EventTouch) {
         if (!this.dragOffset) {
             return;
         }
-        // 重置标志
         this.dragOffset = null;
+        // 重置标志
         this.isDragging = false;
         // 转发触摸事件
-        if (this.isRegrouped) {
+        if (this.inGroup) {
             this.group.onTouchEnd(event);
         }
-        this.isRegrouped = false;
     }
 
     /**
@@ -122,14 +120,12 @@ export default class Case_Dragging_Item extends cc.Component {
     protected drag() {
         // 变换容器和位置
         const node = this.node,
-            layer = Case_Dragging.moveLayer,
+            moveLayer = Case_Dragging.moveLayer,
             curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()),
-            curPosInMoveLayer = layer.convertToNodeSpaceAR(curPosInWorld);
-        node.setParent(layer);
+            curPosInMoveLayer = moveLayer.convertToNodeSpaceAR(curPosInWorld);
+        node.setParent(moveLayer);
         node.setPosition(curPosInMoveLayer);
         node.setSiblingIndex(999);
-        // 触发容器回调
-        Case_Dragging.container.onItemDrag(this);
     }
 
     /**
@@ -137,13 +133,15 @@ export default class Case_Dragging_Item extends cc.Component {
      */
     public addToContainer() {
         this.inContainer = true;
+        this.inGroup = false;
     }
 
     /**
-     * 从容器中移除
+     * 回到选项组
      */
-    public removeFromContainer() {
+    public backToGroup() {
         this.inContainer = false;
+        this.inGroup = true;
     }
 
     /**
@@ -151,13 +149,12 @@ export default class Case_Dragging_Item extends cc.Component {
      * @param pos 
      * @param delay 
      */
-    public moveTo(pos: cc.Vec3, delay: number = 0) {
+    public moveTo(pos: cc.Vec3) {
         return new Promise<void>(res => {
             const node = this.node,
                 distance = cc.Vec2.distance(node.position, pos),
                 duration = distance * (1 / 1800);
             cc.tween(node)
-                .delay(delay)
                 .to(duration, { position: pos }, { easing: 'cubicOut' })
                 .call(res)
                 .start();

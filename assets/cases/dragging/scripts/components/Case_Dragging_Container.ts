@@ -37,10 +37,7 @@ export default class Case_Dragging_Container extends cc.Component {
         return NodeUtil.getNodeSelfBoundingBoxToWorld(this.node);
     }
 
-    /**
-     * 释放
-     */
-    public onDestroy() {
+    protected onDestroy() {
         this.release();
     }
 
@@ -101,15 +98,6 @@ export default class Case_Dragging_Container extends cc.Component {
         this.enableLayout(false);
         // 隐藏占位
         this.hidePlaceholders();
-    }
-
-    /**
-     * 选项进入包围盒
-     * @param item 
-     */
-    public onItemDrag(item: Case_Dragging_Item) {
-        // 启用自动布局
-        this.enableLayout(true);
     }
 
     /**
