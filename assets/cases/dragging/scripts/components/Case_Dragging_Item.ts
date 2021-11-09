@@ -129,9 +129,9 @@ export default class Case_Dragging_Item extends cc.Component {
     }
 
     /**
-     * 添加到容器
+     * 嵌入到容器
      */
-    public addToContainer() {
+    public embedToContainer() {
         this.inContainer = true;
         this.inGroup = false;
     }

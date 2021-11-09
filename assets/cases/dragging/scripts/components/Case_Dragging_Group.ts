@@ -216,7 +216,7 @@ export default class Case_Dragging_Group extends cc.Component {
                 curPosInContainer = containerContent.convertToNodeSpaceAR(curPosInWorld);
             // 添加到容器并复原位置
             container.addOptionItem(item);
-            item.addToContainer();
+            item.embedToContainer();
             node.setPosition(curPosInContainer);
             // 移动
             const distance = cc.Vec2.distance(node.position, targetPosInContainer),
@@ -295,26 +295,6 @@ export default class Case_Dragging_Group extends cc.Component {
     }
 
     /**
-     * 启用或禁用自动布局
-     * @param enabled 
-     */
-    public enableLayout(enabled: boolean) {
-        this.layout.enabled = enabled;
-    }
-
-    /**
-     * 强制更新布局
-     */
-    public forceUpdateLayout() {
-        const children = this.layout.node.children;
-        for (let i = 0; i < children.length; i++) {
-            children[i]['_activeInHierarchy'] = true;
-        }
-        this.layout['_layoutDirty'] = true;
-        this.layout.updateLayout();
-    }
-
-    /**
      * 获取目标位置的坐标
      * @param count
      */
@@ -332,6 +312,27 @@ export default class Case_Dragging_Group extends cc.Component {
      */
     public getNextSpacePos() {
         return this.getTargetSpacePos(this.itemCount + 1);
+    }
+
+    /**
+     * 启用或禁用自动布局
+     * @param enabled 
+     */
+    public enableLayout(enabled: boolean) {
+        this.layout.enabled = enabled;
+    }
+
+    /**
+     * 强制更新布局
+     */
+    public forceUpdateLayout() {
+        const children = this.layout.node.children;
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].active)
+                children[i]['_activeInHierarchy'] = true;
+        }
+        this.layout['_layoutDirty'] = true;
+        this.layout.updateLayout();
     }
 
 }

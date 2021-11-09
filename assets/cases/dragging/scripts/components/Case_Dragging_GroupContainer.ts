@@ -33,7 +33,8 @@ export default class Case_Dragging_GroupContainer extends cc.Component {
     public forceUpdateLayout() {
         const children = this.layout.node.children;
         for (let i = 0; i < children.length; i++) {
-            children[i]['_activeInHierarchy'] = true;
+            if (children[i].active)
+                children[i]['_activeInHierarchy'] = true;
         }
         this.layout['_layoutDirty'] = true;
         this.layout.updateLayout();

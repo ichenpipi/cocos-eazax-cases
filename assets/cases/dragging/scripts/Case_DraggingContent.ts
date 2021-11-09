@@ -14,8 +14,8 @@ export default class Case_DraggingContent extends cc.Component {
     @property({ type: Case_Dragging_GroupContainer, tooltip: CC_DEV && '组容器' })
     public groupContainer: Case_Dragging_GroupContainer = null;
 
-    @property({ type: cc.Prefab, tooltip: CC_DEV && '物体预制体' })
-    public itemPrefab: cc.Prefab = null;
+    @property({ type: cc.SpriteFrame, tooltip: CC_DEV && '物体图像' })
+    public itemSpriteFrame: cc.SpriteFrame = null;
 
     /**
      * 生成静态物体
@@ -29,14 +29,19 @@ export default class Case_DraggingContent extends cc.Component {
         container.clear();
         // 生成
         for (let i = 0; i < number; i++) {
-            const node = cc.instantiate(this.itemPrefab),
-                item = node.getComponent(Case_Dragging_Item);
+            const node = new cc.Node(),
+                sprite = node.addComponent(cc.Sprite),
+                item = node.addComponent(Case_Dragging_Item);
             // 设置节点
             node.name = 'Static Item';
             node.setContentSize(itemSize);
             node.setScale(1);
             node.opacity = 0;
             node.active = true;
+            // 设置 Sprite
+            sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+            sprite.trim = false;
+            sprite.spriteFrame = this.itemSpriteFrame;
             // 设置组件
             item.group = null;
             // 添加到分组
@@ -93,13 +98,19 @@ export default class Case_DraggingContent extends cc.Component {
                 }
                 // 添加节点
                 for (let j = 0; j < number; j++) {
-                    const node = cc.instantiate(this.itemPrefab),
-                        item = node.getComponent(Case_Dragging_Item);
+                    const node = new cc.Node(),
+                        sprite = node.addComponent(cc.Sprite),
+                        item = node.addComponent(Case_Dragging_Item);
                     // 设置节点
-                    node.active = true;
+                    node.name = 'Option Item';
                     node.setContentSize(itemSize);
                     node.scale = 0.8;
                     node.color = color.clone();
+                    node.active = true;
+                    // 设置 Sprite
+                    sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+                    sprite.trim = false;
+                    sprite.spriteFrame = this.itemSpriteFrame;
                     // 添加到分组
                     group.addOptionItem(item);
                     // 藏起来

@@ -151,22 +151,6 @@ export default class Case_Dragging_Container extends cc.Component {
     }
 
     /**
-     * 启用或禁用自动布局
-     * @param enabled 
-     */
-    public enableLayout(enabled: boolean) {
-        // 停止子节点的缓动
-        if (enabled) {
-            const nodes = this.contentNode.children;
-            for (let i = 0, l = nodes.length; i < l; i++) {
-                cc.Tween.stopAllByTarget(nodes[i]);
-            }
-        }
-        // 布局
-        this.layout.enabled = enabled;
-    }
-
-    /**
      * 获取目标位置的坐标
      * @param count
      */
@@ -197,6 +181,22 @@ export default class Case_Dragging_Container extends cc.Component {
             itemWidth = this.itemSize.width,
             count = (layoutWidth - paddingLeft - paddingRight + spacingX) / (itemWidth + spacingX)
         return Math.floor(count);
+    }
+
+    /**
+     * 启用或禁用自动布局
+     * @param enabled 
+     */
+    public enableLayout(enabled: boolean) {
+        // 停止子节点的缓动
+        if (enabled) {
+            const nodes = this.contentNode.children;
+            for (let i = 0, l = nodes.length; i < l; i++) {
+                cc.Tween.stopAllByTarget(nodes[i]);
+            }
+        }
+        // 布局
+        this.layout.enabled = enabled;
     }
 
 }

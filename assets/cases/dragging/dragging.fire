@@ -1499,8 +1499,8 @@
     "groupContainer": {
       "__id__": 32
     },
-    "itemPrefab": {
-      "__uuid__": "57e9a8ed-ce4e-4325-9ec0-948c65652733"
+    "itemSpriteFrame": {
+      "__uuid__": "418e4707-affc-4811-ba86-3597abe4887f"
     },
     "_id": "1bdsMpsB5A967Ez+jsljZR"
   },

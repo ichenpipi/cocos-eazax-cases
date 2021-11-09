@@ -2,6 +2,9 @@ import Case_DraggingContent from "./Case_DraggingContent";
 
 const { ccclass, property } = cc._decorator;
 
+/**
+ * 一个简单的拖拽示例
+ */
 @ccclass
 export default class Case_Dragging extends cc.Component {
 
