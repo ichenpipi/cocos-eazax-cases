@@ -104,7 +104,7 @@ export default class Case_DraggingContent extends cc.Component {
                     // 设置节点
                     node.name = 'Option Item';
                     node.setContentSize(itemSize);
-                    node.scale = 0.8;
+                    node.setScale(0.8);
                     node.color = color.clone();
                     node.active = true;
                     // 设置 Sprite

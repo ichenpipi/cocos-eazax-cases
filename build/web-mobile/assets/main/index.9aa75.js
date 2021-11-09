@@ -6266,22 +6266,25 @@ window.__require = function e(t, n, r) {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.container = null;
         _this.groupContainer = null;
-        _this.itemPrefab = null;
+        _this.itemSpriteFrame = null;
         return _this;
       }
       Case_DraggingContent.prototype.generateStaticItems = function(number) {
         return __awaiter(this, void 0, void 0, function() {
-          var container, itemSize, i, node, item;
+          var container, itemSize, i, node, sprite, item;
           return __generator(this, function(_a) {
             container = this.container, itemSize = this.container.itemSize;
             container.clear();
             for (i = 0; i < number; i++) {
-              node = cc.instantiate(this.itemPrefab), item = node.getComponent(Case_Dragging_Item_1.default);
+              node = new cc.Node(), sprite = node.addComponent(cc.Sprite), item = node.addComponent(Case_Dragging_Item_1.default);
               node.name = "Static Item";
               node.setContentSize(itemSize);
               node.setScale(1);
               node.opacity = 0;
               node.active = true;
+              sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+              sprite.trim = false;
+              sprite.spriteFrame = this.itemSpriteFrame;
               item.group = null;
               container.addStaticItem(item);
             }
@@ -6328,7 +6331,7 @@ window.__require = function e(t, n, r) {
       };
       Case_DraggingContent.prototype.generateOptionItems = function(numbers) {
         return __awaiter(this, void 0, void 0, function() {
-          var groupContainer, groups, itemSize, i, group, number, color, j, node, item;
+          var groupContainer, groups, itemSize, i, group, number, color, j, node, sprite, item;
           return __generator(this, function(_a) {
             groupContainer = this.groupContainer, groups = groupContainer.groups, itemSize = this.container.itemSize;
             for (i = 0; i < groups.length; i++) {
@@ -6350,11 +6353,15 @@ window.__require = function e(t, n, r) {
                   color = cc.Color.BLUE;
                 }
                 for (j = 0; j < number; j++) {
-                  node = cc.instantiate(this.itemPrefab), item = node.getComponent(Case_Dragging_Item_1.default);
-                  node.active = true;
+                  node = new cc.Node(), sprite = node.addComponent(cc.Sprite), item = node.addComponent(Case_Dragging_Item_1.default);
+                  node.name = "Option Item";
                   node.setContentSize(itemSize);
-                  node.scale = .8;
+                  node.setScale(.8);
                   node.color = color.clone();
+                  node.active = true;
+                  sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+                  sprite.trim = false;
+                  sprite.spriteFrame = this.itemSpriteFrame;
                   group.addOptionItem(item);
                   node.y = -200;
                 }
@@ -6421,9 +6428,9 @@ window.__require = function e(t, n, r) {
         tooltip: false
       }) ], Case_DraggingContent.prototype, "groupContainer", void 0);
       __decorate([ property({
-        type: cc.Prefab,
+        type: cc.SpriteFrame,
         tooltip: false
-      }) ], Case_DraggingContent.prototype, "itemPrefab", void 0);
+      }) ], Case_DraggingContent.prototype, "itemSpriteFrame", void 0);
       Case_DraggingContent = __decorate([ ccclass ], Case_DraggingContent);
       return Case_DraggingContent;
     }(cc.Component);
@@ -6525,9 +6532,6 @@ window.__require = function e(t, n, r) {
         this.enableLayout(false);
         this.hidePlaceholders();
       };
-      Case_Dragging_Container.prototype.onItemDrag = function(item) {
-        this.enableLayout(true);
-      };
       Case_Dragging_Container.prototype.showPlaceholders = function(quantity, spriteFrame, color) {
         var placeholders = this.placeholders, nodePool = this.nodePool, size = this.itemSize, scale = 1, opacity = this.placeholderOpacity;
         for (var i = 0; i < quantity; i++) {
@@ -6556,13 +6560,6 @@ window.__require = function e(t, n, r) {
       Case_Dragging_Container.prototype.clear = function() {
         this.contentNode.destroyAllChildren();
       };
-      Case_Dragging_Container.prototype.enableLayout = function(enabled) {
-        if (enabled) {
-          var nodes = this.contentNode.children;
-          for (var i = 0, l = nodes.length; i < l; i++) cc.Tween.stopAllByTarget(nodes[i]);
-        }
-        this.layout.enabled = enabled;
-      };
       Case_Dragging_Container.prototype.getTargetSpacePos = function(count) {
         var layout = this.layout, layoutHeight = layout.node.height, layoutWidth = layout.node.width, itemHeight = this.itemSize.height, itemWidth = this.itemSize.width, lineMaxCount = this.getLineMaxCount(), lines = Math.ceil(count / lineMaxCount), rowCount = count % lineMaxCount === 0 ? lineMaxCount : count % lineMaxCount, x = layout.paddingLeft + rowCount * itemWidth + (rowCount - 1) * layout.spacingX - itemWidth / 2 - layoutWidth / 2, y = -(layout.paddingTop + lines * itemHeight + (lines - 1) * layout.spacingY - itemHeight / 2 - .5 * layoutHeight);
         return cc.v3(x, y, 0);
@@ -6573,6 +6570,13 @@ window.__require = function e(t, n, r) {
       Case_Dragging_Container.prototype.getLineMaxCount = function() {
         var layoutWidth = this.layout.node.width, _a = this.layout, paddingLeft = _a.paddingLeft, paddingRight = _a.paddingRight, spacingX = _a.spacingX, itemWidth = this.itemSize.width, count = (layoutWidth - paddingLeft - paddingRight + spacingX) / (itemWidth + spacingX);
         return Math.floor(count);
+      };
+      Case_Dragging_Container.prototype.enableLayout = function(enabled) {
+        if (enabled) {
+          var nodes = this.contentNode.children;
+          for (var i = 0, l = nodes.length; i < l; i++) cc.Tween.stopAllByTarget(nodes[i]);
+        }
+        this.layout.enabled = enabled;
       };
       __decorate([ property({
         type: cc.Layout,
@@ -6646,7 +6650,7 @@ window.__require = function e(t, n, r) {
       };
       Case_Dragging_GroupContainer.prototype.forceUpdateLayout = function() {
         var children = this.layout.node.children;
-        for (var i = 0; i < children.length; i++) children[i]["_activeInHierarchy"] = true;
+        for (var i = 0; i < children.length; i++) children[i].active && (children[i]["_activeInHierarchy"] = true);
         this.layout["_layoutDirty"] = true;
         this.layout.updateLayout();
       };
@@ -6886,10 +6890,7 @@ window.__require = function e(t, n, r) {
         this.node.setSiblingIndex(999);
         this.enableLayout(true);
         var items = this.items;
-        for (var i = 0, l = items.length; i < l; i++) {
-          var item = items[i];
-          1 !== item.node.scale && item.scaleTo(1);
-        }
+        for (var i = 0, l = items.length; i < l; i++) items[i].scaleTo(1);
       };
       Case_Dragging_Group.prototype.drop = function() {
         if (this.hitTest()) {
@@ -6900,11 +6901,6 @@ window.__require = function e(t, n, r) {
           this.lastStatus = IntersectionStatus.OUT;
         } else {
           this.enableLayout(true);
-          var items = this.items;
-          for (var i = 0, l = items.length; i < l; i++) {
-            var item = items[i];
-            .74 !== item.node.scale && item.scaleTo(.74);
-          }
           this.reposition();
         }
       };
@@ -6923,9 +6919,12 @@ window.__require = function e(t, n, r) {
       };
       Case_Dragging_Group.prototype.reposition = function() {
         return __awaiter(this, void 0, void 0, function() {
+          var items, i, l;
           return __generator(this, function(_a) {
             switch (_a.label) {
              case 0:
+              items = this.items;
+              for (i = 0, l = items.length; i < l; i++) items[i].scaleTo(.74);
               return [ 4, this.moveTo(cc.v3(0)) ];
 
              case 1:
@@ -6938,15 +6937,25 @@ window.__require = function e(t, n, r) {
       Case_Dragging_Group.prototype.embedItems = function() {
         this.enableLayout(false);
         var container = Case_Dragging_1.default.container, containerContent = container.contentNode, items = this.items;
-        for (var i = 0, l = items.length; i < l; i++) {
+        var tasks = [];
+        var _loop_1 = function(i, l) {
           var item = items[i], node = item.node;
           var targetPosInContainer = container.getNextSpacePos(), curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()), curPosInContainer = containerContent.convertToNodeSpaceAR(curPosInWorld);
-          item.addToContainer();
           container.addOptionItem(item);
+          item.embedToContainer();
           node.setPosition(curPosInContainer);
-          item.moveTo(targetPosInContainer, .05 * i);
-          item.scaleTo(1);
-        }
+          var duration = .1 + .02 * i;
+          tasks.push(new Promise(function(res) {
+            cc.tween(node).to(duration, {
+              position: targetPosInContainer,
+              scale: 1
+            }, {
+              easing: "cubicOut"
+            }).call(res).start();
+          }));
+        };
+        for (var i = 0, l = items.length; i < l; i++) _loop_1(i, l);
+        return Promise.all(tasks);
       };
       Case_Dragging_Group.prototype.regroupItems = function(triggerItem) {
         var contentNode = this.contentNode, items = this.items;
@@ -6957,8 +6966,9 @@ window.__require = function e(t, n, r) {
         contentNode.active = true;
         for (var i = 0, l = items.length; i < l; i++) {
           var item = items[i], node = item.node;
+          cc.Tween.stopAllByTarget(node);
           var targetPosInGroup = this.getNextSpacePos();
-          item.removeFromContainer();
+          item.backToGroup();
           node.setParent(contentNode);
           node.setPosition(targetPosInGroup);
         }
@@ -6982,21 +6992,21 @@ window.__require = function e(t, n, r) {
       Case_Dragging_Group.prototype.clear = function() {
         this.contentNode.destroyAllChildren();
       };
-      Case_Dragging_Group.prototype.enableLayout = function(enabled) {
-        this.layout.enabled = enabled;
-      };
-      Case_Dragging_Group.prototype.forceUpdateLayout = function() {
-        var children = this.layout.node.children;
-        for (var i = 0; i < children.length; i++) children[i]["_activeInHierarchy"] = true;
-        this.layout["_layoutDirty"] = true;
-        this.layout.updateLayout();
-      };
       Case_Dragging_Group.prototype.getTargetSpacePos = function(count) {
         var layout = this.layout, paddingLeft = layout.paddingLeft, spacingX = layout.spacingX, layoutWidth = layout.node.width, itemWidth = this.items[0].node.width, x = paddingLeft + count * itemWidth + (count - 1) * spacingX - itemWidth / 2 - layoutWidth / 2;
         return cc.v3(x, 0, 0);
       };
       Case_Dragging_Group.prototype.getNextSpacePos = function() {
         return this.getTargetSpacePos(this.itemCount + 1);
+      };
+      Case_Dragging_Group.prototype.enableLayout = function(enabled) {
+        this.layout.enabled = enabled;
+      };
+      Case_Dragging_Group.prototype.forceUpdateLayout = function() {
+        var children = this.layout.node.children;
+        for (var i = 0; i < children.length; i++) children[i].active && (children[i]["_activeInHierarchy"] = true);
+        this.layout["_layoutDirty"] = true;
+        this.layout.updateLayout();
       };
       __decorate([ property({
         type: cc.Layout,
@@ -7039,122 +7049,6 @@ window.__require = function e(t, n, r) {
       if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
-    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    var __generator = this && this.__generator || function(thisArg, body) {
-      var _ = {
-        label: 0,
-        sent: function() {
-          if (1 & t[0]) throw t[1];
-          return t[1];
-        },
-        trys: [],
-        ops: []
-      }, f, y, t, g;
-      return g = {
-        next: verb(0),
-        throw: verb(1),
-        return: verb(2)
-      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
-        return this;
-      }), g;
-      function verb(n) {
-        return function(v) {
-          return step([ n, v ]);
-        };
-      }
-      function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
-          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
-          switch (op[0]) {
-           case 0:
-           case 1:
-            t = op;
-            break;
-
-           case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-           case 5:
-            _.label++;
-            y = op[1];
-            op = [ 0 ];
-            continue;
-
-           case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-
-           default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
-              _ = 0;
-              continue;
-            }
-            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (6 === op[0] && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            t[2] && _.ops.pop();
-            _.trys.pop();
-            continue;
-          }
-          op = body.call(thisArg, _);
-        } catch (e) {
-          op = [ 6, e ];
-          y = 0;
-        } finally {
-          f = t = 0;
-        }
-        if (5 & op[0]) throw op[1];
-        return {
-          value: op[0] ? op[1] : void 0,
-          done: true
-        };
-      }
-    };
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
@@ -7168,8 +7062,8 @@ window.__require = function e(t, n, r) {
         _this.touchStartPos = null;
         _this.dragOffset = null;
         _this.isDragging = false;
+        _this.inGroup = false;
         _this.inContainer = false;
-        _this.isRegrouped = false;
         return _this;
       }
       Case_Dragging_Item.prototype.onLoad = function() {
@@ -7182,14 +7076,14 @@ window.__require = function e(t, n, r) {
         this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
       };
       Case_Dragging_Item.prototype.onTouchStart = function(event) {
-        if (null === this.group || !this.inContainer) return;
+        if (!this.group || !this.inContainer) return;
         this.touchStartPos = event.getLocation();
         var touchPosInNode = this.node.getParent().convertToNodeSpaceAR(event.getLocation());
         this.dragOffset = touchPosInNode.sub(this.node.getPosition());
       };
       Case_Dragging_Item.prototype.onTouchMove = function(event) {
         if (!this.dragOffset) return;
-        if (this.isRegrouped) {
+        if (this.inGroup) {
           this.group.onTouchMove(event);
           return;
         }
@@ -7201,7 +7095,6 @@ window.__require = function e(t, n, r) {
             this.drag();
             var touchPosInNode_1 = this.node.getParent().convertToNodeSpaceAR(touchPosInWorld);
             this.node.setPosition(touchPosInNode_1.sub(this.dragOffset));
-            this.isRegrouped = true;
             this.group.regroupItems(this);
             this.group.onTouchStart(event);
           }
@@ -7214,36 +7107,30 @@ window.__require = function e(t, n, r) {
         this.onTouchEnd(event);
       };
       Case_Dragging_Item.prototype.onTouchEnd = function(event) {
-        return __awaiter(this, void 0, void 0, function() {
-          return __generator(this, function(_a) {
-            if (!this.dragOffset) return [ 2 ];
-            this.dragOffset = null;
-            this.isDragging = false;
-            this.isRegrouped && this.group.onTouchEnd(event);
-            this.isRegrouped = false;
-            return [ 2 ];
-          });
-        });
+        if (!this.dragOffset) return;
+        this.dragOffset = null;
+        this.isDragging = false;
+        this.inGroup && this.group.onTouchEnd(event);
       };
       Case_Dragging_Item.prototype.drag = function() {
-        var node = this.node, layer = Case_Dragging_1.default.moveLayer, curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()), curPosInMoveLayer = layer.convertToNodeSpaceAR(curPosInWorld);
-        node.setParent(layer);
+        var node = this.node, moveLayer = Case_Dragging_1.default.moveLayer, curPosInWorld = node.getParent().convertToWorldSpaceAR(node.getPosition()), curPosInMoveLayer = moveLayer.convertToNodeSpaceAR(curPosInWorld);
+        node.setParent(moveLayer);
         node.setPosition(curPosInMoveLayer);
         node.setSiblingIndex(999);
-        Case_Dragging_1.default.container.onItemDrag(this);
       };
-      Case_Dragging_Item.prototype.addToContainer = function() {
+      Case_Dragging_Item.prototype.embedToContainer = function() {
         this.inContainer = true;
+        this.inGroup = false;
       };
-      Case_Dragging_Item.prototype.removeFromContainer = function() {
+      Case_Dragging_Item.prototype.backToGroup = function() {
         this.inContainer = false;
+        this.inGroup = true;
       };
-      Case_Dragging_Item.prototype.moveTo = function(pos, delay) {
+      Case_Dragging_Item.prototype.moveTo = function(pos) {
         var _this = this;
-        void 0 === delay && (delay = 0);
         return new Promise(function(res) {
           var node = _this.node, distance = cc.Vec2.distance(node.position, pos), duration = distance * (1 / 1800);
-          cc.tween(node).delay(delay).to(duration, {
+          cc.tween(node).to(duration, {
             position: pos
           }, {
             easing: "cubicOut"
@@ -9238,6 +9125,21 @@ window.__require = function e(t, n, r) {
       return ColorBrush;
     }(cc.Component);
     exports.default = ColorBrush;
+    cc._RF.pop();
+  }, {} ],
+  ColorUtil: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "b0c56RHZahA25SHAgzg6M5R", "ColorUtil");
+    "use strict";
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var ColorUtil = function() {
+      function ColorUtil() {}
+      ColorUtil.toHex = function(r, g, b, a) {};
+      return ColorUtil;
+    }();
+    exports.default = ColorUtil;
     cc._RF.pop();
   }, {} ],
   CommonUI: [ function(require, module, exports) {
@@ -23100,4 +23002,4 @@ window.__require = function e(t, n, r) {
     "set-immediate-shim": void 0,
     stream: 28
   } ]
-}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "Case_CardFlip", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "ColorUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);

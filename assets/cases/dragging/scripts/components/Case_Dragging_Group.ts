@@ -207,6 +207,7 @@ export default class Case_Dragging_Group extends cc.Component {
         const container = Case_Dragging.container,
             containerContent = container.contentNode,
             items = this.items;
+        const tasks = [];
         for (let i = 0, l = items.length; i < l; i++) {
             const item = items[i],
                 node = item.node;
@@ -219,13 +220,15 @@ export default class Case_Dragging_Group extends cc.Component {
             item.embedToContainer();
             node.setPosition(curPosInContainer);
             // 移动
-            const distance = cc.Vec2.distance(node.position, targetPosInContainer),
-                duration = distance * (1 / 1800);
-            cc.tween(node)
-                .delay(i * 0.01)
-                .to(duration, { position: targetPosInContainer, scale: 1 }, { easing: 'cubicOut' })
-                .start();
+            const duration = 0.1 + (i * 0.02);
+            tasks.push(new Promise<void>(res => {
+                cc.tween(node)
+                    .to(duration, { position: targetPosInContainer, scale: 1 }, { easing: 'cubicOut' })
+                    .call(res)
+                    .start();
+            }));
         }
+        return Promise.all(tasks);
     }
 
     /**
