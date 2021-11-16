@@ -110,15 +110,22 @@ export default class ImageUtil {
         if (!window || !window.document) {
             return null;
         }
-        const canvas = document.createElement('canvas'),
-            ctx = canvas.getContext('2d');
+        // 获取画布
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        // 调整画布尺寸
         const { width, height } = texture;
         canvas.width = width;
         canvas.height = height;
+        // 将纹理画到画布上
         const image = texture.getHtmlElementObj();
         ctx.drawImage(image, 0, 0, width, height);
+        // 获取像素数据
         const imageData = ctx.getImageData(0, 0, width, height);
+        // 销毁临时对象
+        image.remove();
         canvas.remove();
+        // 返回 Unit8Array 格式的数据
         return new Uint8Array(imageData.data);
     }
 

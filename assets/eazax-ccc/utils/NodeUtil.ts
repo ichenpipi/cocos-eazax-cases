@@ -16,38 +16,38 @@ export default class NodeUtil {
             return null;
         }
         // 节点宽高
-        const nodeWidth = Math.floor(node.width),
-            nodeHeight = Math.floor(node.height);
-        // 创建临时摄像机
+        const width = Math.floor(node.width),
+            height = Math.floor(node.height);
+        // 创建临时摄像机用于渲染目标节点
         const cameraNode = new cc.Node();
         cameraNode.parent = node;
         const camera = cameraNode.addComponent(cc.Camera);
-        camera.cullingMask = 0xffffffff;
+        camera.clearFlags |= cc.Camera.ClearFlags.COLOR;
         camera.backgroundColor = cc.color(0, 0, 0, 0);
-        camera.clearFlags = cc.Camera.ClearFlags.COLOR | cc.Camera.ClearFlags.DEPTH | cc.Camera.ClearFlags.STENCIL;
-        camera.zoomRatio = cc.winSize.height / nodeHeight;
+        camera.zoomRatio = cc.winSize.height / height;
         // 将节点渲染到 RenderTexture 中
         const renderTexture = new cc.RenderTexture();
-        renderTexture.initWithSize(nodeWidth, nodeHeight, cc['gfx']['RB_FMT_S8']);
+        renderTexture.initWithSize(width, height, cc.RenderTexture.DepthStencilFormat.RB_FMT_S8);
         camera.targetTexture = renderTexture;
         camera.render(node);
-        // RenderTexture.readPixels() 返回的图像数据是从图像左下角开始的（不是正常的从左上角开始）
-        const data = renderTexture.readPixels();
+        // 获取像素数据
+        const pixelsData = renderTexture.readPixels();
+        // 销毁临时对象并返回数据
         renderTexture.destroy();
         cameraNode.destroy();
         // 垂直翻转数据
         if (flipY) {
-            const length = data.length,
-                width = nodeWidth * 4,
-                flipped = new Uint8Array(length);
-            for (let i = 0, j = length - width; i < length; i += width, j -= width) {
-                for (let k = 0; k < width; k++) {
-                    flipped[i + k] = data[j + k];
+            const length = pixelsData.length,
+                lineWidth = width * 4,
+                data = new Uint8Array(length);
+            for (let i = 0, j = length - lineWidth; i < length; i += lineWidth, j -= lineWidth) {
+                for (let k = 0; k < lineWidth; k++) {
+                    data[i + k] = pixelsData[j + k];
                 }
             }
-            return flipped;
+            return data;
         }
-        return data;
+        return pixelsData;
     }
 
     /**

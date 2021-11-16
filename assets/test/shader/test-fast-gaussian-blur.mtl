@@ -11,7 +11,11 @@
     "0": {
       "defines": {
         "USE_TEXTURE": true,
-        "USE_ALPHA_TEST": true
+        "USE_ALPHA_TEST": true,
+        "USE_BGRA": false,
+        "USE_5": true,
+        "USE_9": false,
+        "USE_13": false
       }
     }
   }
