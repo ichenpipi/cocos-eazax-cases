@@ -4,6 +4,7 @@ import SceneNavigator from "../../eazax-ccc/core/SceneNavigator";
 import { SceneName } from "../common/constants/Constants";
 import CaseManager from "../common/CaseManager";
 import LoadingTip from "../common/components/global/LoadingTip";
+import TextureUsage from "../common/components/global/TextureUsage";
 
 const { ccclass, property, executionOrder } = cc._decorator;
 
@@ -25,6 +26,8 @@ export default class Home extends cc.Component {
         // 设置弹窗加载回调
         PopupManager.loadStartCallback = () => LoadingTip.show();
         PopupManager.loadFinishCallback = () => LoadingTip.hide();
+        // 展示纹理使用情况
+        TextureUsage.show();
     }
 
     /**
