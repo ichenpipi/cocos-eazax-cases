@@ -100,14 +100,12 @@
         "ffDpHHVcZAhqOfy25Fe4w7"
     ],
     "scenes": {
-        "db://assets/scenes/home.fire": "c9an2pAnBDUJ3DFe/CPrRW",
         "db://assets/cases/afterEffect/afterEffect.fire": "945lcmZYNLPblRqtTqT2Ld",
         "db://assets/cases/arcProgressBar/arcProgressBar.fire": "ddApjL3cFPibSsM/j/1Uvm",
         "db://assets/cases/avatar/avatar.fire": "77PPuLQctAqr13DRcgbnw9",
         "db://assets/cases/cardArray/cardArray.fire": "6emHO2hutGN7Pxzfu6WzvU",
         "db://assets/cases/cardArrayFlip/cardArrayFlip.fire": "b8ar72jD9GLp1CPf8YMWGU",
         "db://assets/cases/cardFlip/cardFlip.fire": "f742F8FJ5CSZ7Ou9xwaVaH",
-        "db://assets/cases/collisionQuadTree/collisionQuadTree.fire": "f0UdJ2K+ZPt5Lqi0ptbr6d",
         "db://assets/cases/colorBrush/colorBrush.fire": "fdrcANzyVMy7LMByQ6EqXY",
         "db://assets/cases/dragging/dragging.fire": "4cXLBXMktLMYXpsLqAXWfV",
         "db://assets/cases/frameLoading/frameLoading.fire": "0dAZ7ps8pCuo08IObFb3Z/",
@@ -117,11 +115,13 @@
         "db://assets/cases/pixelClick/pixelClick.fire": "44qlUgYjtBIrmqEzb/+Tyy",
         "db://assets/cases/popupTesting/popupTesting.fire": "45Yti9YpNKbp7BMjD9Qq0N",
         "db://assets/cases/radarChart/radarChart.fire": "baq4XrJTdIwLNWiF3BqQKh",
-        "db://assets/cases/remoteSpine/remoteSpine.fire": "5bo/pCz8xO6J3PpIDgxAsi",
         "db://assets/cases/remoteTexture/remoteTexture.fire": "0b47V4PLRByIlBD43pRLwS",
         "db://assets/cases/rotateAround/rotateAround.fire": "d9fSpRbelGoZ3cJEnPLpwA",
         "db://assets/cases/runtimeTrimming/runtimeTrimming.fire": "c04WiMYFhB7ac2PTlTyMzI",
-        "db://assets/cases/sineWave/sineWave.fire": "47R8Cbe55N6IeXOhWUb1D8"
+        "db://assets/cases/sineWave/sineWave.fire": "47R8Cbe55N6IeXOhWUb1D8",
+        "db://assets/cases/collisionQuadTree/collisionQuadTree.fire": "f0UdJ2K+ZPt5Lqi0ptbr6d",
+        "db://assets/cases/remoteSpine/remoteSpine.fire": "5bo/pCz8xO6J3PpIDgxAsi",
+        "db://assets/scenes/home.fire": "c9an2pAnBDUJ3DFe/CPrRW"
     },
     "redirect": [
         "02delMVqdBD70a/HSD99FK",
@@ -316,7 +316,7 @@
             "0660e817a",
             "79263",
             "067cb6278",
-            "dc82d",
+            "e2c2d",
             "06f600918",
             "d8518",
             "074588ba6",

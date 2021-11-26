@@ -36,19 +36,23 @@ export default class Case_CollisionQuadTree extends cc.Component {
      * 生命周期：加载后
      */
     protected onLoad() {
+        this.init();
         this.registerEvent();
+    }
+
+    /**
+     * 生命周期：开始
+     */
+    protected start() {
         this.initQuadTree();
-        // 切换横屏
-        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
     }
 
     /**
      * 生命周期：销毁前
      */
     protected onDestroy() {
-        !CC_EDITOR && (delete window['quadTree']);
-        // 切换竖屏
-        cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
+        this.unregisterEvent();
+        this.release();
     }
 
     /**
@@ -160,14 +164,33 @@ export default class Case_CollisionQuadTree extends cc.Component {
     // ----------------------------------------------------------------------------------------------------
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
+        cc.view.on('design-resolution-changed', this.initQuadTree, this);
         this.container.node.on(cc.Node.EventType.POSITION_CHANGED, this.initQuadTree, this);
         this.container.node.on(cc.Node.EventType.SIZE_CHANGED, this.initQuadTree, this);
         this.addBtnNode.on(cc.Node.EventType.TOUCH_END, this.onAddBtnClick, this);
         this.addBtn2Node.on(cc.Node.EventType.TOUCH_END, this.onAddBtn2Click, this);
         this.clearBtnNode.on(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
+    }
+
+    /**
+     * 反注册事件
+     */
+    protected unregisterEvent() {
+        cc.view.off('design-resolution-changed', this.initQuadTree, this);
+    }
+
+    protected init() {
+        // 切换横屏
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+    }
+
+    protected release() {
+        !CC_EDITOR && (delete window['quadTree']);
+        // 切换竖屏
+        cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
     }
 
     /**

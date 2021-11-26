@@ -2998,13 +2998,15 @@ window.__require = function e(t, n, r) {
         return _this;
       }
       Case_CollisionQuadTree.prototype.onLoad = function() {
+        this.init();
         this.registerEvent();
+      };
+      Case_CollisionQuadTree.prototype.start = function() {
         this.initQuadTree();
-        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
       };
       Case_CollisionQuadTree.prototype.onDestroy = function() {
-        true, delete window["quadTree"];
-        cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
+        this.unregisterEvent();
+        this.release();
       };
       Case_CollisionQuadTree.prototype.update = function() {
         this.doCollision();
@@ -3065,11 +3067,22 @@ window.__require = function e(t, n, r) {
         }
       };
       Case_CollisionQuadTree.prototype.registerEvent = function() {
+        cc.view.on("design-resolution-changed", this.initQuadTree, this);
         this.container.node.on(cc.Node.EventType.POSITION_CHANGED, this.initQuadTree, this);
         this.container.node.on(cc.Node.EventType.SIZE_CHANGED, this.initQuadTree, this);
         this.addBtnNode.on(cc.Node.EventType.TOUCH_END, this.onAddBtnClick, this);
         this.addBtn2Node.on(cc.Node.EventType.TOUCH_END, this.onAddBtn2Click, this);
         this.clearBtnNode.on(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
+      };
+      Case_CollisionQuadTree.prototype.unregisterEvent = function() {
+        cc.view.off("design-resolution-changed", this.initQuadTree, this);
+      };
+      Case_CollisionQuadTree.prototype.init = function() {
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+      };
+      Case_CollisionQuadTree.prototype.release = function() {
+        true, delete window["quadTree"];
+        cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
       };
       Case_CollisionQuadTree.prototype.onAddBtnClick = function() {
         this.container.addItem();
