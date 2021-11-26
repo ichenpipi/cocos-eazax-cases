@@ -2852,7 +2852,7 @@
       "__id__": 60
     },
     "_enabled": true,
-    "url": "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/scripts/hacking/RunSpineInEditor.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/scripts/hacking/Hack_RunSpineInEditor.ts",
     "openInNewTap": true,
     "_id": "e2KTxDulFOYrNwV+Z/ZP/z"
   },
@@ -3020,7 +3020,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 340,
+      "width": 354.6,
       "height": 80
     },
     "_anchorPoint": {
@@ -3082,7 +3082,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
+      "width": 47.3,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3094,7 +3094,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -100,
+        -103.65,
         4.618527782440651e-14,
         0,
         0,
@@ -3272,7 +3272,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
+      "width": 47.3,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3284,7 +3284,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        100,
+        103.65,
         4.618527782440651e-14,
         0,
         0,
@@ -3464,7 +3464,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 340,
+      "width": 354.6,
       "height": 80
     },
     "_resize": 1,

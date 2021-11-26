@@ -80,6 +80,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '拖拽示例',
         scene: 'dragging'
     },
+    collisionQuadTree: {
+        name: '碰撞检测(四叉树)',
+        scene: 'collisionQuadTree'
+    },
 }
 
 /** 关卡信息 */

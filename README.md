@@ -1,14 +1,12 @@
 # Eazax-CCC 示例合集
 
-![cocos creator](https://img.shields.io/badge/cocos%20creator-2.4+-blue) ![typescript](https://img.shields.io/badge/typescript-4.2+-blue)
-
-
+![cocos-creator](https://img.shields.io/badge/cocos%20creator-2.4+-blue) ![typescript](https://img.shields.io/badge/typescript-4.2+-blue)
 
 ## 介绍
 
 **[Cocos Creator] Eazax Cocos 功能模块示例合集**
 
-- 在线预览：[https://ifaswind.gitee.io/eazax-cases](https://ifaswind.gitee.io/eazax-cases)
+- 本项目在线预览：[https://ifaswind.gitee.io/eazax-cases](https://ifaswind.gitee.io/eazax-cases)
 
 - Eazax-CCC：[https://gitee.com/ifaswind/eazax-ccc](https://gitee.com/ifaswind/eazax-ccc)
 
@@ -16,11 +14,7 @@
 
 > 如有使用上的问题，可以在 gitee 上提 issue 或者添加我的微信 `im_chenpipi` 并留言。
 
-
-
 ---
-
-
 
 ## 环境
 
@@ -28,11 +22,7 @@
 
 编程语言：TypeScript 4.2+
 
-
-
 ---
-
-
 
 # 公众号
 
@@ -48,11 +38,7 @@
 
 ![](https://gitee.com/ifaswind/image-storage/raw/master/weixin/official-account.png)
 
-
-
 ---
-
-
 
 ## 交流群
 

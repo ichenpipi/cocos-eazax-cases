@@ -1,0 +1,137 @@
+[
+  1,
+  [
+    "9avzK8IzZCyaQvWhFuoVGl",
+    "7adHaHP29D06frNfczsmRM",
+    "ffHZIUpJxIbI9lm5SjkvTs"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    [
+      [
+        {
+          "name": "btn_close",
+          "rect": [
+            0,
+            0,
+            28,
+            28
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "originalSize": [
+            28,
+            28
+          ],
+          "capInsets": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      [
+        0
+      ],
+      0,
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        0
+      ]
+    ],
+    [
+      [
+        {
+          "name": "singleColor_unpackable",
+          "rect": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "originalSize": [
+            2,
+            2
+          ],
+          "capInsets": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      [
+        0
+      ],
+      0,
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      [
+        {
+          "name": "btn_bg_rect",
+          "rect": [
+            0,
+            0,
+            128,
+            97
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "originalSize": [
+            128,
+            97
+          ],
+          "capInsets": [
+            24,
+            15,
+            24,
+            20
+          ]
+        }
+      ],
+      [
+        0
+      ],
+      0,
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        2
+      ]
+    ]
+  ]
+]
