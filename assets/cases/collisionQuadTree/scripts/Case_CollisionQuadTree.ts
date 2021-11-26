@@ -73,7 +73,6 @@ export default class Case_CollisionQuadTree extends cc.Component {
             width: rect.width,
             height: rect.height,
         });
-        !CC_EDITOR && (window['quadTree'] = this.quadTree);
     }
 
     /**
@@ -167,9 +166,10 @@ export default class Case_CollisionQuadTree extends cc.Component {
      * 注册事件
      */
     protected registerEvent() {
-        cc.view.on('design-resolution-changed', this.initQuadTree, this);
-        this.container.node.on(cc.Node.EventType.POSITION_CHANGED, this.initQuadTree, this);
-        this.container.node.on(cc.Node.EventType.SIZE_CHANGED, this.initQuadTree, this);
+        cc.Canvas.instance.node.on(cc.Node.EventType.SIZE_CHANGED, this.onGraphicsNodeChange, this);
+        this.container.node.on(cc.Node.EventType.POSITION_CHANGED, this.onGraphicsNodeChange, this);
+        this.container.node.on(cc.Node.EventType.SIZE_CHANGED, this.onGraphicsNodeChange, this);
+        // 按钮
         this.addBtnNode.on(cc.Node.EventType.TOUCH_END, this.onAddBtnClick, this);
         this.addBtn2Node.on(cc.Node.EventType.TOUCH_END, this.onAddBtn2Click, this);
         this.clearBtnNode.on(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
@@ -179,16 +179,31 @@ export default class Case_CollisionQuadTree extends cc.Component {
      * 反注册事件
      */
     protected unregisterEvent() {
-        cc.view.off('design-resolution-changed', this.initQuadTree, this);
+        cc.Canvas.instance.node.off(cc.Node.EventType.SIZE_CHANGED, this.onGraphicsNodeChange, this);
     }
 
+    /**
+     * 绘图节点变化
+     */
+    protected onGraphicsNodeChange() {
+        // 更新绘图节点位置
+        this.graphics.getComponent(cc.Widget).updateAlignment();
+        // 初始化四叉树
+        this.initQuadTree();
+    }
+
+    /**
+     * 初始化
+     */
     protected init() {
         // 切换横屏
         cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
     }
 
+    /**
+     * 释放
+     */
     protected release() {
-        !CC_EDITOR && (delete window['quadTree']);
         // 切换竖屏
         cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
     }

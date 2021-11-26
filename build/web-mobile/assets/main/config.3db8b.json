@@ -119,9 +119,9 @@
         "db://assets/cases/rotateAround/rotateAround.fire": "d9fSpRbelGoZ3cJEnPLpwA",
         "db://assets/cases/runtimeTrimming/runtimeTrimming.fire": "c04WiMYFhB7ac2PTlTyMzI",
         "db://assets/cases/sineWave/sineWave.fire": "47R8Cbe55N6IeXOhWUb1D8",
-        "db://assets/cases/collisionQuadTree/collisionQuadTree.fire": "f0UdJ2K+ZPt5Lqi0ptbr6d",
         "db://assets/cases/remoteSpine/remoteSpine.fire": "5bo/pCz8xO6J3PpIDgxAsi",
-        "db://assets/scenes/home.fire": "c9an2pAnBDUJ3DFe/CPrRW"
+        "db://assets/scenes/home.fire": "c9an2pAnBDUJ3DFe/CPrRW",
+        "db://assets/cases/collisionQuadTree/collisionQuadTree.fire": "f0UdJ2K+ZPt5Lqi0ptbr6d"
     },
     "redirect": [
         "02delMVqdBD70a/HSD99FK",

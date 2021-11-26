@@ -3019,7 +3019,6 @@ window.__require = function e(t, n, r) {
           width: rect.width,
           height: rect.height
         });
-        true, window["quadTree"] = this.quadTree;
       };
       Case_CollisionQuadTree.prototype.updateQuadTree = function() {
         var quadTree = this.quadTree;
@@ -3067,21 +3066,24 @@ window.__require = function e(t, n, r) {
         }
       };
       Case_CollisionQuadTree.prototype.registerEvent = function() {
-        cc.view.on("design-resolution-changed", this.initQuadTree, this);
-        this.container.node.on(cc.Node.EventType.POSITION_CHANGED, this.initQuadTree, this);
-        this.container.node.on(cc.Node.EventType.SIZE_CHANGED, this.initQuadTree, this);
+        cc.Canvas.instance.node.on(cc.Node.EventType.SIZE_CHANGED, this.onGraphicsNodeChange, this);
+        this.container.node.on(cc.Node.EventType.POSITION_CHANGED, this.onGraphicsNodeChange, this);
+        this.container.node.on(cc.Node.EventType.SIZE_CHANGED, this.onGraphicsNodeChange, this);
         this.addBtnNode.on(cc.Node.EventType.TOUCH_END, this.onAddBtnClick, this);
         this.addBtn2Node.on(cc.Node.EventType.TOUCH_END, this.onAddBtn2Click, this);
         this.clearBtnNode.on(cc.Node.EventType.TOUCH_END, this.onClearBtnClick, this);
       };
       Case_CollisionQuadTree.prototype.unregisterEvent = function() {
-        cc.view.off("design-resolution-changed", this.initQuadTree, this);
+        cc.Canvas.instance.node.off(cc.Node.EventType.SIZE_CHANGED, this.onGraphicsNodeChange, this);
+      };
+      Case_CollisionQuadTree.prototype.onGraphicsNodeChange = function() {
+        this.graphics.getComponent(cc.Widget).updateAlignment();
+        this.initQuadTree();
       };
       Case_CollisionQuadTree.prototype.init = function() {
         cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
       };
       Case_CollisionQuadTree.prototype.release = function() {
-        true, delete window["quadTree"];
         cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
       };
       Case_CollisionQuadTree.prototype.onAddBtnClick = function() {
