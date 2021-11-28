@@ -17,14 +17,14 @@ export default class Home_UI extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
 
     }
 
     /**
-     * 取消事件订阅
+     * 反注册事件
      */
     protected unregisterEvent() {
 

@@ -25,14 +25,14 @@ export default class Home_CaseBtn extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
         this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
     /**
-     * 取消事件订阅
+     * 反注册事件
      */
     protected unregisterEvent() {
         this.node.off(cc.Node.EventType.TOUCH_END, this.onClick, this);

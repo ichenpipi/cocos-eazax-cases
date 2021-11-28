@@ -34,7 +34,7 @@ export default class Case_RuntimeTrimming extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
         this.target.on(cc.Node.EventType.TOUCH_END, this.onTargetClick, this);

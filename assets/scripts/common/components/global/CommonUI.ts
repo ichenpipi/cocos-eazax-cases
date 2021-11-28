@@ -36,7 +36,7 @@ export default class CommonUI extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
         // 切换
@@ -48,7 +48,7 @@ export default class CommonUI extends cc.Component {
     }
 
     /**
-     * 取消事件订阅
+     * 反注册事件
      */
     protected unregisterEvent() {
         // 切换

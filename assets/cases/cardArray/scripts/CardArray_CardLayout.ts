@@ -59,7 +59,7 @@ export default class CardArray_Layout extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
         // 节点增删
@@ -70,7 +70,7 @@ export default class CardArray_Layout extends cc.Component {
     }
 
     /**
-     * 取消事件订阅
+     * 反注册事件
      */
     protected unregisterEvent() {
         this.node.off(cc.Node.EventType.CHILD_ADDED, this.onChildChange, this);

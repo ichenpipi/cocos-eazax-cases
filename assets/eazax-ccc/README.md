@@ -1,25 +1,31 @@
 # Eazax-CCC (Cocos 游戏开发工具包)
 
-![cocos-creator](https://img.shields.io/badge/cocos%20creator-2.4+-blue) ![typescript](https://img.shields.io/badge/typescript-4.2+-blue)
+![cocos-creator](https://img.shields.io/badge/cocos--creator-2.4%2B-blue) ![typescript](https://img.shields.io/badge/typescript-4.2+-blue)
 
 ## 介绍
 
-**Eazax-CCC 是一个 Cocos Creator 游戏开发工具包，目前持续更新维护中...**
+Eazax-CCC 是一个 Cocos Creator 游戏开发工具包，目前持续更新维护中...
+
+### 内容
 
 📦 包含但不仅限于以下内容：
 
 - 开箱即用的组件
 - Shader 效果
-- 各种实用小工具
+- 实用工具类
 - 弹窗管理方案
 - 音频播放方案
-- 各种 d.ts 声明文件
-- 等等等等等...
+- 一些声明文件
+- 等等等等...
+
+### 示例
 
 🌰 这里有一个示例项目：
 
 - 示例项目仓库：[https://gitee.com/ifaswind/eazax-cases](https://gitee.com/ifaswind/eazax-cases)
-- 示例在线预览：[https://ifaswind.gitee.io/eazax-cases](https://ifaswind.gitee.io/eazax-cases)
+- 示例项目在线预览：[https://ifaswind.gitee.io/eazax-cases](https://ifaswind.gitee.io/eazax-cases)
+
+### 开源
 
 如果此项目对你有帮助，请不要忘记 [![star](https://gitee.com/ifaswind/eazax-ccc/badge/star.svg?theme=dark)](https://gitee.com/ifaswind/eazax-ccc/stargazers)
 
@@ -33,7 +39,7 @@
 
 ## 使用说明
 
-⚠️ **注意：本项目（eazax-ccc）不是独立的 Cocos Creator 项目，无法直接启动！**
+⚠️ 注意：本项目（eazax-ccc）不是独立的 Cocos Creator 项目，无法直接启动！
 
 ✅ 你可以：
 
@@ -44,8 +50,10 @@
 
 - components - 常用组件
   - charts - 图表组件
+    - ArcProgressBar.ts - 弧形进度条
     - RadarChart.ts - 雷达图
   - effects - Shader 配套组件
+    - AfterEffect.ts - 后期效果
     - ColorBrush.ts - 彩色画笔效果
     - GaussianBlur.ts - 高斯模糊效果
     - HollowOut.ts - 镂空效果
@@ -56,16 +64,16 @@
     - LocalizationLabelString.ts - 多语言文本
     - LocalizationSpriteFrame.ts - 多语言精灵图像
   - popups - 弹窗组件
+    - ConfirmPopup.ts - 确认弹窗（弹窗组件示例）
     - PopupBase.ts - 弹窗基类（配合 PopupManager 使用）
   - remotes - 远程组件
-    - RemoteAsset.ts - 远程资源组件基类
-    - RemoteLoader.ts - 远程资源加载器
-    - RemoteTexture.ts - 远程图像
+    - RemoteAsset.ts - 远程资源基类
+    - RemoteSpine.ts - 远程 Spine
+    - RemoteTexture.ts - 远程纹理（图像）
   - renderers - 渲染组件
     - GradientColor - 渐变色（Sprite）
   - tweens - 缓动效果组件
     - JellyTween.ts - 果冻效果
-  - ArcProgressBar.ts - 弧形进度条
   - BackgroundFitter.ts - 背景适配
   - Counter.ts - 数值滚动
   - LongPress.ts - 节点长按
@@ -73,8 +81,12 @@
   - RotateAround.ts - 围绕旋转
   - ScreenAdapter.ts - 屏幕适配
   - Subtitle.ts - 字幕
-  - TouchBlocker.ts - 点击控制
+  - TouchBlocker.ts - 点击阻挡（控制）
 - core - 核心脚本
+  - remotes - 远程
+    - RemoteLoader.ts - 远程资源加载器
+    - SpineLoader.ts - 远程 Spine 加载器
+    - ZipLoader.ts - 远程 Zip 加载器
   - AudioPlayer.ts - 音频播放器
   - EventManager.ts - 事件管理器
   - InstanceEvent.ts - 实例事件
@@ -92,21 +104,24 @@
 - misc - 杂项
   - EditorAsset.ts - 编辑器资源类
 - resources - 资源文件
-  - effects -  Shader 文件
+  - effects - Shader 文件
+    - eazax-avatar-circle-adjustable - 头像 Shader（可调整）
+    - eazax-avatar-circle.effect - 头像 Shader（圆形）
     - eazax-avatar.effect - 头像 Shader
-    - eazax-avatar-circle.effect - 头像（圆形） Shader
     - eazax-color-brush.effect - 彩色画笔 Shader
     - eazax-gaussian-blur.effect - 高斯模糊 Shader（性能爆炸，慎用）
     - eazax-gray.effect - 灰色 Shader
     - eazax-hollowout.effect - 镂空 Shader
-    - eazax-hollowout-circle.effect - 镂空（圆形） Shader
-    - eazax-hollowout-rect.effect - 镂空（矩形） Shader
+    - eazax-hollowout-circle.effect - 镂空（圆形）Shader
+    - eazax-hollowout-rect.effect - 镂空（矩形）Shader
     - eazax-mosaic.effect - 马赛克 Shader
     - eazax-sine-wave.effect - 正弦波浪 Shader
-    - eazax-single-color.effect - 单色（剪影） Shader
+    - eazax-single-color.effect - 单色（剪影）Shader
+- third-party - 第三方库
 - utils - 工具
   - ArrayUtil.ts - 数组工具
   - BrowserUtil.ts - 浏览器工具
+  - ColorUtil.ts - 颜色工具
   - DebugUtil.ts - 调试工具
   - DeviceUtil.ts - 设备工具
   - ImageUtil.ts - 图像工具

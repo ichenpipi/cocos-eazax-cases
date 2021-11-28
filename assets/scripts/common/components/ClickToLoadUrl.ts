@@ -9,23 +9,29 @@ export default class ClickToLoadUrl extends cc.Component {
     @property({ tooltip: CC_DEV && '是否使用新窗口打开' })
     public openInNewTap: boolean = true;
 
+    /**
+     * 生命周期：节点加载
+     */
     protected onLoad() {
         this.registerEvent();
     }
 
+    /**
+     * 生命周期：节点销毁
+     */
     protected onDestroy() {
         this.unregisterEvent();
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     private registerEvent() {
         this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
     /**
-     * 取消事件订阅
+     * 反注册事件
      */
     private unregisterEvent() {
         this.node.off(cc.Node.EventType.TOUCH_END, this.onClick, this);

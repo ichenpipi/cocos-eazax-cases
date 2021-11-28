@@ -6,10 +6,10 @@ const { ccclass, property } = cc._decorator;
 @ccclass('ResPopupItemInfo')
 class ResPopupItemInfo {
 
-    @property()
+    @property({ tooltip: CC_DEV && '标题' })
     public title: string = '';
 
-    @property({ multiline: true })
+    @property({ multiline: true, tooltip: CC_DEV && '地址' })
     public url: string = '';
 
 }
@@ -18,23 +18,26 @@ class ResPopupItemInfo {
 export default class ClickToShowResPopup extends cc.Component {
 
     @property({ type: [ResPopupItemInfo] })
-    public items: ResPopupItemInfo[] = [];
+    protected items: ResPopupItemInfo[] = [];
 
+    /**
+     * 生命周期：节点加载
+     */
     protected onLoad() {
         this.registerEvent();
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
-    private registerEvent() {
+    protected registerEvent() {
         this.node.on(cc.Node.EventType.TOUCH_END, this.onClick, this);
     }
 
     /**
      * 点击回调
      */
-    private onClick() {
+    protected onClick() {
         const options: ResPopupOptions = { items: [] },
             items = this.items;
         for (let i = 0, l = items.length; i < l; i++) {

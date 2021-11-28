@@ -57,14 +57,14 @@ window.__require = function e(t, n, r) {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property, executionOrder = _a.executionOrder, executeInEditMode = _a.executeInEditMode;
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property, executionOrder = _a.executionOrder;
     var AfterEffect = function(_super) {
       __extends(AfterEffect, _super);
       function AfterEffect() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.camera = null;
         _this.targetSprite = null;
-        _this.targetTexture = null;
+        _this.texture = null;
         return _this;
       }
       AfterEffect.prototype.onLoad = function() {
@@ -73,6 +73,7 @@ window.__require = function e(t, n, r) {
       };
       AfterEffect.prototype.onDestroy = function() {
         this.unregisterEvent();
+        this.release();
       };
       AfterEffect.prototype.registerEvent = function() {
         cc.Canvas.instance.node.on(cc.Node.EventType.SIZE_CHANGED, this.onCanvasSizeChanged, this);
@@ -81,19 +82,19 @@ window.__require = function e(t, n, r) {
         cc.Canvas.instance.node.off(cc.Node.EventType.SIZE_CHANGED, this.onCanvasSizeChanged, this);
       };
       AfterEffect.prototype.init = function() {
-        var texture = this.targetTexture = new cc.RenderTexture();
-        var size = cc.view.getVisibleSizeInPixel();
-        texture.initWithSize(size.width, size.height);
+        var texture = this.texture = new cc.RenderTexture(), screenSize = cc.view.getVisibleSizeInPixel();
+        texture.initWithSize(screenSize.width, screenSize.height);
         this.camera.targetTexture = texture;
-        var spriteFrame = new cc.SpriteFrame();
-        spriteFrame.setTexture(texture);
-        this.targetSprite.spriteFrame = spriteFrame;
-        var scale = Math.abs(this.targetSprite.node.scaleY);
-        this.targetSprite.node.scaleY = -scale;
+        var sprite = this.targetSprite;
+        sprite.spriteFrame = new cc.SpriteFrame(texture);
+        sprite.node.scaleY = -Math.abs(sprite.node.scaleY);
+      };
+      AfterEffect.prototype.release = function() {
+        this.texture.destroy();
       };
       AfterEffect.prototype.onCanvasSizeChanged = function() {
-        var size = cc.view.getVisibleSizeInPixel();
-        this.targetTexture.updateSize(size.width, size.height);
+        var screenSize = cc.view.getVisibleSizeInPixel();
+        this.texture.updateSize(screenSize.width, screenSize.height);
       };
       __decorate([ property({
         type: cc.Camera,
@@ -103,7 +104,7 @@ window.__require = function e(t, n, r) {
         type: cc.Sprite,
         tooltip: false
       }) ], AfterEffect.prototype, "targetSprite", void 0);
-      AfterEffect = __decorate([ ccclass, executionOrder(-10), executeInEditMode ], AfterEffect);
+      AfterEffect = __decorate([ ccclass, executionOrder(-1) ], AfterEffect);
       return AfterEffect;
     }(cc.Component);
     exports.default = AfterEffect;
@@ -1931,16 +1932,24 @@ window.__require = function e(t, n, r) {
       __extends(Case_AfterEffect, _super);
       function Case_AfterEffect() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.sprite = null;
+        _this.avatar = null;
+        _this.outputSprite = null;
+        _this.normalMaterial = null;
         _this.grayMaterial = null;
-        _this.mosaic = null;
+        _this.outputMosaic = null;
         _this.normalBtn = null;
         _this.grayBtn = null;
         _this.mosaicBtn = null;
         return _this;
       }
       Case_AfterEffect.prototype.onLoad = function() {
+        this.init();
         this.registerEvent();
+      };
+      Case_AfterEffect.prototype.init = function() {
+        cc.tween(this.avatar).by(5, {
+          angle: -360
+        }).repeatForever().start();
       };
       Case_AfterEffect.prototype.registerEvent = function() {
         this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
@@ -1948,23 +1957,25 @@ window.__require = function e(t, n, r) {
         this.mosaicBtn.on(cc.Node.EventType.TOUCH_END, this.onMosaicBtnClick, this);
       };
       Case_AfterEffect.prototype.onNormalBtnClick = function() {
-        this.mosaic.enabled = false;
-        this.sprite.setMaterial(0, cc.Material.getBuiltinMaterial("2d-sprite"));
+        this.outputMosaic.enabled = false;
+        this.outputSprite.setMaterial(0, this.normalMaterial);
       };
       Case_AfterEffect.prototype.onGrayBtnClick = function() {
-        this.mosaic.enabled = false;
-        this.sprite.setMaterial(0, this.grayMaterial);
+        this.outputMosaic.enabled = false;
+        this.outputSprite.setMaterial(0, this.grayMaterial);
       };
       Case_AfterEffect.prototype.onMosaicBtnClick = function() {
-        var mosaic = this.mosaic;
+        var mosaic = this.outputMosaic;
         mosaic.enabled = true;
         mosaic.init();
         mosaic.set(0, 0);
         mosaic.to(15, 15, .5);
       };
-      __decorate([ property(cc.Sprite) ], Case_AfterEffect.prototype, "sprite", void 0);
+      __decorate([ property(cc.Node) ], Case_AfterEffect.prototype, "avatar", void 0);
+      __decorate([ property(cc.Sprite) ], Case_AfterEffect.prototype, "outputSprite", void 0);
+      __decorate([ property(cc.Material) ], Case_AfterEffect.prototype, "normalMaterial", void 0);
       __decorate([ property(cc.Material) ], Case_AfterEffect.prototype, "grayMaterial", void 0);
-      __decorate([ property(Mosaic_1.default) ], Case_AfterEffect.prototype, "mosaic", void 0);
+      __decorate([ property(Mosaic_1.default) ], Case_AfterEffect.prototype, "outputMosaic", void 0);
       __decorate([ property(cc.Node) ], Case_AfterEffect.prototype, "normalBtn", void 0);
       __decorate([ property(cc.Node) ], Case_AfterEffect.prototype, "grayBtn", void 0);
       __decorate([ property(cc.Node) ], Case_AfterEffect.prototype, "mosaicBtn", void 0);
@@ -6017,9 +6028,12 @@ window.__require = function e(t, n, r) {
         this.title = "";
         this.url = "";
       }
-      __decorate([ property() ], ResPopupItemInfo.prototype, "title", void 0);
       __decorate([ property({
-        multiline: true
+        tooltip: false
+      }) ], ResPopupItemInfo.prototype, "title", void 0);
+      __decorate([ property({
+        multiline: true,
+        tooltip: false
       }) ], ResPopupItemInfo.prototype, "url", void 0);
       ResPopupItemInfo = __decorate([ ccclass("ResPopupItemInfo") ], ResPopupItemInfo);
       return ResPopupItemInfo;
@@ -15505,19 +15519,21 @@ window.__require = function e(t, n, r) {
         this.closeBtn.off(cc.Node.EventType.TOUCH_END, this.onCloseBtnClick, this);
       };
       ResPopup.prototype.updateDisplay = function(options) {
-        var count = Math.max(options.items.length, this.items.length);
-        for (var i = 0; i < count; i++) if (options.items[i] && !this.items[i]) {
+        var existedItems = this.items, optionItems = options.items.filter(function(v) {
+          return "" !== v.name || "" !== v.url;
+        }), count = Math.max(optionItems.length, existedItems.length);
+        for (var i = 0; i < count; i++) if (optionItems[i] && !existedItems[i]) {
           var node = cc.instantiate(this.item);
           node.setParent(this.content);
           var item = node.getComponent(ResPopupItem_1.default);
-          item.set(options.items[i].name, options.items[i].url);
+          item.set(optionItems[i].name, optionItems[i].url);
           item.node.active = true;
-          this.items.push(item);
-        } else if (options.items[i] && this.items[i]) {
-          var item = this.items[i];
-          item.set(options.items[i].name, options.items[i].url);
+          existedItems.push(item);
+        } else if (optionItems[i] && existedItems[i]) {
+          var item = existedItems[i];
+          item.set(optionItems[i].name, optionItems[i].url);
           item.node.active = true;
-        } else this.items[i].node.active = false;
+        } else existedItems[i].node.active = false;
       };
       ResPopup.prototype.onCloseBtnClick = function() {
         this.hide();
@@ -23644,4 +23660,4 @@ window.__require = function e(t, n, r) {
     })();
     cc._RF.pop();
   }, {} ]
-}, {}, [ "AfterEffect", "Case_AfterEffect", "Case_ArcProgressBar", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "Case_CardFlip", "quadtree", "Case_CollisionQuadTree", "Case_CollisionQuadTree_Container", "Case_CollisionQuadTree_DraggableItem", "Case_CollisionQuadTree_Item", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "ColorUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "TextureUsage", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "Case_AfterEffect", "Case_ArcProgressBar", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "Case_CardFlip", "quadtree", "Case_CollisionQuadTree", "Case_CollisionQuadTree_Container", "Case_CollisionQuadTree_DraggableItem", "Case_CollisionQuadTree_Item", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "AfterEffect", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "ColorUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "TextureUsage", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);

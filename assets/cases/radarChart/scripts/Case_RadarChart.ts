@@ -46,7 +46,7 @@ export default class Case_RadarChart extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
         this.randomBtn.on(cc.Node.EventType.TOUCH_END, this.onRandomBtnClick, this);

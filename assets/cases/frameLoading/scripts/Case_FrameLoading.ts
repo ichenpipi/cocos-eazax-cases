@@ -27,7 +27,7 @@ export default class Case_FrameLoading extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
         this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
@@ -36,7 +36,7 @@ export default class Case_FrameLoading extends cc.Component {
     }
 
     /**
-     * 取消事件订阅
+     * 反注册事件
      */
     protected unregisterEvent() {
         this.normalBtn.off(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);

@@ -39,14 +39,14 @@ export default class Case_CardFlip extends cc.Component {
     }
 
     /**
-     * 订阅事件
+     * 注册事件
      */
     protected registerEvent() {
         this.flipBtn.on(cc.Node.EventType.TOUCH_END, this.onFlipBtnClick, this);
     }
 
     /**
-     * 取消事件订阅
+     * 反注册事件
      */
     protected unregisterEvent() {
         this.flipBtn.off(cc.Node.EventType.TOUCH_END, this.onFlipBtnClick, this);

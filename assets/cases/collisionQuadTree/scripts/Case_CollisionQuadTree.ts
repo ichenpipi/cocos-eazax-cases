@@ -33,7 +33,7 @@ export default class Case_CollisionQuadTree extends cc.Component {
     protected quadTree: Quadtree = null;
 
     /**
-     * 生命周期：加载后
+     * 生命周期：节点加载后
      */
     protected onLoad() {
         this.init();
@@ -41,14 +41,14 @@ export default class Case_CollisionQuadTree extends cc.Component {
     }
 
     /**
-     * 生命周期：开始
+     * 生命周期：节点开始
      */
     protected start() {
         this.initQuadTree();
     }
 
     /**
-     * 生命周期：销毁前
+     * 生命周期：节点销毁前
      */
     protected onDestroy() {
         this.unregisterEvent();
