@@ -27,7 +27,7 @@
     "9bjHA/8UFLe5q8EIYZQ5Dx",
     "09G+y3dRFCLo6AKdGf/7T7",
     "6epxn/QWpMtLkMQthBMHmw",
-    "a3TdGFZnlMD668e368xshd",
+    "9buFytbaJEq6Nej3KnD4lL",
     "c5pbCc4BJNqKMb0fVB9kv0",
     "a5cBL/IzRNmaZRYsy/FETI",
     "55l/31PPxF5bmJMgxqNZQo",
@@ -100,21 +100,6 @@
       1
     ],
     [
-      "cc.Sprite",
-      [
-        "_sizeMode",
-        "_isTrimmedMode",
-        "_type",
-        "node",
-        "_materials",
-        "_spriteFrame"
-      ],
-      0,
-      1,
-      3,
-      6
-    ],
-    [
       "cc.Camera",
       [
         "_cullingMask",
@@ -166,6 +151,21 @@
       -3,
       1,
       5
+    ],
+    [
+      "cc.Sprite",
+      [
+        "_sizeMode",
+        "_type",
+        "_isTrimmedMode",
+        "node",
+        "_materials",
+        "_spriteFrame"
+      ],
+      0,
+      1,
+      3,
+      6
     ],
     [
       "cc.Label",
@@ -315,6 +315,17 @@
       6
     ],
     [
+      "cc.Sprite",
+      [
+        "_sizeMode",
+        "_isTrimmedMode",
+        "_materials",
+        "node"
+      ],
+      0,
+      1
+    ],
+    [
       "cc.Animation",
       [
         "playOnLoad",
@@ -397,9 +408,9 @@
       2
     ],
     [
-      3,
+      6,
       0,
-      1,
+      2,
       3,
       4,
       5,
@@ -453,7 +464,7 @@
       4
     ],
     [
-      5,
+      4,
       0,
       1,
       2,
@@ -468,8 +479,8 @@
       3
     ],
     [
-      3,
-      2,
+      6,
+      1,
       0,
       3,
       4,
@@ -515,7 +526,7 @@
       3
     ],
     [
-      19,
+      20,
       0,
       1,
       2,
@@ -523,7 +534,7 @@
       2
     ],
     [
-      22,
+      23,
       0,
       1,
       2,
@@ -623,7 +634,7 @@
       1
     ],
     [
-      5,
+      4,
       0,
       1,
       2,
@@ -636,7 +647,7 @@
       1
     ],
     [
-      6,
+      5,
       0,
       1,
       2,
@@ -646,7 +657,7 @@
       5
     ],
     [
-      6,
+      5,
       0,
       1,
       4,
@@ -676,15 +687,15 @@
       1
     ],
     [
-      3,
+      19,
       0,
       1,
+      2,
       3,
-      4,
-      3
+      4
     ],
     [
-      20,
+      21,
       0,
       1,
       2,
@@ -694,7 +705,7 @@
       4
     ],
     [
-      4,
+      3,
       0,
       1,
       2,
@@ -702,21 +713,21 @@
       4
     ],
     [
-      4,
+      3,
       0,
       1,
       3,
       3
     ],
     [
-      4,
+      3,
       0,
       2,
       3,
       3
     ],
     [
-      21,
+      22,
       0,
       1,
       2
@@ -1404,8 +1415,8 @@
               -21,
               -20,
               -19,
-              37,
-              38
+              36,
+              37
             ],
             [
               3,
@@ -1996,10 +2007,10 @@
           35,
           0,
           false,
-          12,
           [
-            36
-          ]
+            null
+          ],
+          12
         ],
         [
           36,
@@ -2597,7 +2608,6 @@
         0,
         0,
         0,
-        0,
         29
       ],
       [
@@ -2634,7 +2644,6 @@
         6,
         7,
         8,
-        -1,
         -1,
         -1,
         -1,
@@ -2680,7 +2689,6 @@
         0,
         0,
         0,
-        0,
         25,
         26
       ]
@@ -2692,16 +2700,16 @@
           "eazax-mosaic",
           [
             {
-              "hash": 650253328,
+              "hash": 667771624,
               "record": null,
               "name": "eazax-mosaic|vs|fs",
               "glsl3": {
-                "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nuniform CCLocal {\n  mat4 cc_matWorld;\n  mat4 cc_matWorldIT;\n};\nin vec3 a_position;\nin vec4 a_color;\nout vec4 v_color;\nin vec2 a_uv0;\nout vec2 v_uv0;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_color = a_color;\n  v_uv0 = a_uv0;\n}",
-                "frag": "\nprecision highp float;\n#if USE_ALPHA_TEST\n  uniform ALPHA_TEST {\n    float alphaThreshold;\n  };\n#endif\nvoid ALPHA_TEST (in vec4 color) {\n  #if USE_ALPHA_TEST\n      if (color.a < alphaThreshold) discard;\n  #endif\n}\nvoid ALPHA_TEST (in float alpha) {\n  #if USE_ALPHA_TEST\n      if (alpha < alphaThreshold) discard;\n  #endif\n}\nin vec4 v_color;\nin vec2 v_uv0;\nuniform sampler2D texture;\nuniform Properties {\n  vec2 nodeSize;\n  vec2 tileSize;\n};\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  vec2 uv = v_uv0;\n  if (tileSize.x != .0 && tileSize.y != .0) {\n    vec2 ratio = nodeSize / tileSize;\n    uv = ceil(v_uv0 * ratio) / ratio;\n  }\n  vec4 texture_tmp = texture(texture, uv);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture(texture, uv + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    o.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    o.a *= texture_tmp.a;\n  #else\n    o *= texture_tmp;\n  #endif\n  o *= v_color;\n  ALPHA_TEST(o);\n  gl_FragColor = o;\n}"
+                "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nuniform CCLocal {\n  mat4 cc_matWorld;\n  mat4 cc_matWorldIT;\n};\nin vec3 a_position;\nin vec4 a_color;\nout vec4 v_color;\n#if USE_TEXTURE\nin vec2 a_uv0;\nout vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+                "frag": "\nprecision highp float;\nin vec4 v_color;\n#if USE_TEXTURE\nin vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nuniform Properties {\n  vec2 resolution;\n  vec2 tileSize;\n};\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  #if USE_TEXTURE\n  vec2 uv = v_uv0;\n  if (tileSize.x != .0 && tileSize.y != .0) {\n    vec2 ratio = resolution / tileSize;\n    uv = (floor(v_uv0 * ratio) / ratio) + ((tileSize * .5) / resolution);\n  }\n  vec4 texture_tmp = texture(texture, uv);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture(texture, uv + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    o.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    o.a *= texture_tmp.a;\n  #else\n    o *= texture_tmp;\n  #endif\n  #endif\n  o *= v_color;\n  #if USE_BGRA\n    gl_FragColor = o.bgra;\n  #else\n    gl_FragColor = o.rgba;\n  #endif\n}"
               },
               "glsl1": {
-                "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nattribute vec3 a_position;\nattribute vec4 a_color;\nvarying vec4 v_color;\nattribute vec2 a_uv0;\nvarying vec2 v_uv0;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_color = a_color;\n  v_uv0 = a_uv0;\n}",
-                "frag": "\nprecision highp float;\n#if USE_ALPHA_TEST\n  uniform float alphaThreshold;\n#endif\nvoid ALPHA_TEST (in vec4 color) {\n  #if USE_ALPHA_TEST\n      if (color.a < alphaThreshold) discard;\n  #endif\n}\nvoid ALPHA_TEST (in float alpha) {\n  #if USE_ALPHA_TEST\n      if (alpha < alphaThreshold) discard;\n  #endif\n}\nvarying vec4 v_color;\nvarying vec2 v_uv0;\nuniform sampler2D texture;\nuniform vec2 nodeSize;\nuniform vec2 tileSize;\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  vec2 uv = v_uv0;\n  if (tileSize.x != .0 && tileSize.y != .0) {\n    vec2 ratio = nodeSize / tileSize;\n    uv = ceil(v_uv0 * ratio) / ratio;\n  }\n  vec4 texture_tmp = texture2D(texture, uv);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture2D(texture, uv + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    o.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    o.a *= texture_tmp.a;\n  #else\n    o *= texture_tmp;\n  #endif\n  o *= v_color;\n  ALPHA_TEST(o);\n  gl_FragColor = o;\n}"
+                "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nuniform mat4 cc_matWorld;\nattribute vec3 a_position;\nattribute vec4 a_color;\nvarying vec4 v_color;\n#if USE_TEXTURE\nattribute vec2 a_uv0;\nvarying vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+                "frag": "\nprecision highp float;\nvarying vec4 v_color;\n#if USE_TEXTURE\nvarying vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nuniform vec2 resolution;\nuniform vec2 tileSize;\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  #if USE_TEXTURE\n  vec2 uv = v_uv0;\n  if (tileSize.x != .0 && tileSize.y != .0) {\n    vec2 ratio = resolution / tileSize;\n    uv = (floor(v_uv0 * ratio) / ratio) + ((tileSize * .5) / resolution);\n  }\n  vec4 texture_tmp = texture2D(texture, uv);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture2D(texture, uv + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    o.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    o.a *= texture_tmp.a;\n  #else\n    o *= texture_tmp;\n  #endif\n  #endif\n  o *= v_color;\n  #if USE_BGRA\n    gl_FragColor = o.bgra;\n  #else\n    gl_FragColor = o.rgba;\n  #endif\n}"
               },
               "builtins": {
                 "globals": {
@@ -2725,42 +2733,42 @@
               },
               "defines": [
                 {
-                  "name": "USE_ALPHA_TEST",
+                  "name": "USE_TEXTURE",
+                  "type": "boolean",
+                  "defines": []
+                },
+                {
+                  "name": "CC_USE_MODEL",
                   "type": "boolean",
                   "defines": []
                 },
                 {
                   "name": "CC_USE_ALPHA_ATLAS_texture",
                   "type": "boolean",
-                  "defines": []
+                  "defines": [
+                    "USE_TEXTURE"
+                  ]
                 },
                 {
                   "name": "INPUT_IS_GAMMA",
+                  "type": "boolean",
+                  "defines": [
+                    "USE_TEXTURE"
+                  ]
+                },
+                {
+                  "name": "USE_BGRA",
                   "type": "boolean",
                   "defines": []
                 }
               ],
               "blocks": [
                 {
-                  "name": "ALPHA_TEST",
+                  "name": "Properties",
                   "binding": 0,
                   "members": [
                     {
-                      "name": "alphaThreshold",
-                      "type": 13,
-                      "count": 1
-                    }
-                  ],
-                  "defines": [
-                    "USE_ALPHA_TEST"
-                  ]
-                },
-                {
-                  "name": "Properties",
-                  "binding": 1,
-                  "members": [
-                    {
-                      "name": "nodeSize",
+                      "name": "resolution",
                       "type": 14,
                       "count": 1
                     },
@@ -2779,7 +2787,9 @@
                   "type": 29,
                   "count": 1,
                   "binding": 30,
-                  "defines": []
+                  "defines": [
+                    "USE_TEXTURE"
+                  ]
                 }
               ]
             }
@@ -2804,14 +2814,14 @@
                       "value": "white",
                       "type": 29
                     },
-                    "nodeSize": {
+                    "resolution": {
                       "type": 14,
                       "value": [
                         500,
                         500
                       ],
                       "editor": {
-                        "tooltip": "节点尺寸"
+                        "tooltip": "分辨率"
                       }
                     },
                     "tileSize": {

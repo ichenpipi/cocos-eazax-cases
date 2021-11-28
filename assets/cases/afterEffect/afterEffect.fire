@@ -2845,9 +2845,7 @@
     },
     "_enabled": true,
     "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
+      null
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
@@ -2943,7 +2941,7 @@
     },
     "_enabled": false,
     "_effect": {
-      "__uuid__": "a34dd185-6679-4c0f-aebc-7b7ebcc6c85d"
+      "__uuid__": "9bb85cad-6da2-44ab-a35e-8f72a70f894b"
     },
     "_width": 5,
     "_height": 5,

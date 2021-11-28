@@ -121,6 +121,10 @@
                     "cullMode": 0
                   },
                   "properties": {
+                    "texture": {
+                      "value": "white",
+                      "type": 29
+                    },
                     "round": {
                       "type": 13,
                       "value": [

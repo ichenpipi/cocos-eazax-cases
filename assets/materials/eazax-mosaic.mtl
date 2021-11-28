@@ -4,24 +4,12 @@
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "a34dd185-6679-4c0f-aebc-7b7ebcc6c85d"
+    "__uuid__": "9bb85cad-6da2-44ab-a35e-8f72a70f894b"
   },
   "_techniqueIndex": 0,
   "_techniqueData": {
     "0": {
-      "defines": {},
-      "props": {
-        "size": {
-          "__type__": "cc.Vec2",
-          "x": 500,
-          "y": 500
-        },
-        "pixel": {
-          "__type__": "cc.Vec2",
-          "x": 50,
-          "y": 100
-        }
-      }
+      "defines": {}
     }
   }
 }

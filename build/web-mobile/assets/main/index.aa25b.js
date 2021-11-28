@@ -12758,8 +12758,7 @@ window.__require = function e(t, n, r) {
       function Mosaic() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this._effect = null;
-        _this._width = 5;
-        _this._height = 5;
+        _this._size = new cc.Size(20, 20);
         _this.sprite = null;
         _this.material = null;
         return _this;
@@ -12775,23 +12774,12 @@ window.__require = function e(t, n, r) {
         enumerable: false,
         configurable: true
       });
-      Object.defineProperty(Mosaic.prototype, "width", {
+      Object.defineProperty(Mosaic.prototype, "size", {
         get: function() {
-          return this._width;
+          return this._size;
         },
         set: function(value) {
-          this._width = value;
-          this.updateProperties();
-        },
-        enumerable: false,
-        configurable: true
-      });
-      Object.defineProperty(Mosaic.prototype, "height", {
-        get: function() {
-          return this._height;
-        },
-        set: function(value) {
-          this._height = value;
+          this._size = value;
           this.updateProperties();
         },
         enumerable: false,
@@ -12831,24 +12819,23 @@ window.__require = function e(t, n, r) {
       };
       Mosaic.prototype.updateProperties = function() {
         if (!this.material) return;
-        this.material.setProperty("nodeSize", this.nodeSize);
+        this.material.setProperty("resolution", this.resolution);
         this.material.setProperty("tileSize", this.tileSize);
       };
       Mosaic.prototype.set = function(width, height) {
-        this._width = width;
-        this._height = height || width;
+        this.size.width = width;
+        this.size.height = null !== height && void 0 !== height ? height : width;
         this.updateProperties();
       };
       Mosaic.prototype.to = function(width, height, duration) {
         var _this = this;
         return new Promise(function(res) {
           cc.tween(_this).to(duration, {
-            width: width,
-            height: height
+            size: cc.size(width, height)
           }).call(res).start();
         });
       };
-      Object.defineProperty(Mosaic.prototype, "nodeSize", {
+      Object.defineProperty(Mosaic.prototype, "resolution", {
         get: function() {
           return cc.v2(this.node.width, this.node.height);
         },
@@ -12857,24 +12844,20 @@ window.__require = function e(t, n, r) {
       });
       Object.defineProperty(Mosaic.prototype, "tileSize", {
         get: function() {
-          return cc.v2(this._width, this._height);
+          return cc.v2(this._size.width, this._size.height);
         },
         enumerable: false,
         configurable: true
       });
-      __decorate([ property ], Mosaic.prototype, "_effect", void 0);
+      __decorate([ property() ], Mosaic.prototype, "_effect", void 0);
       __decorate([ property({
         type: cc.EffectAsset,
         tooltip: false
       }) ], Mosaic.prototype, "effect", null);
-      __decorate([ property ], Mosaic.prototype, "_width", void 0);
+      __decorate([ property() ], Mosaic.prototype, "_size", void 0);
       __decorate([ property({
         tooltip: false
-      }) ], Mosaic.prototype, "width", null);
-      __decorate([ property ], Mosaic.prototype, "_height", void 0);
-      __decorate([ property({
-        tooltip: false
-      }) ], Mosaic.prototype, "height", null);
+      }) ], Mosaic.prototype, "size", null);
       Mosaic = __decorate([ ccclass, requireComponent(cc.Sprite), executeInEditMode, disallowMultiple ], Mosaic);
       return Mosaic;
     }(cc.Component);
