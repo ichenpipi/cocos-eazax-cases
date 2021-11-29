@@ -3094,12 +3094,12 @@
   {
     "__type__": "ResPopupItemInfo",
     "title": "[示例] Case_PostProcessing.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/afterEffect/scripts/Case_PostProcessing.ts"
+    "url": "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/postProcessing/scripts/Case_PostProcessing.ts"
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "[组件] AfterEffect.ts",
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/AfterEffect.ts"
+    "title": "[组件] PostProcessing.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/PostProcessing.ts"
   },
   {
     "__type__": "ResPopupItemInfo",

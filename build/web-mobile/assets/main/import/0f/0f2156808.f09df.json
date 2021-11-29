@@ -1337,12 +1337,12 @@
                 [
                   1,
                   "[示例] Case_PostProcessing.ts",
-                  "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/afterEffect/scripts/Case_PostProcessing.ts"
+                  "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/postProcessing/scripts/Case_PostProcessing.ts"
                 ],
                 [
                   1,
-                  "[组件] AfterEffect.ts",
-                  "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/AfterEffect.ts"
+                  "[组件] PostProcessing.ts",
+                  "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/PostProcessing.ts"
                 ],
                 [
                   1,
