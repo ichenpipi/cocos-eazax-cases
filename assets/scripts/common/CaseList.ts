@@ -1,8 +1,8 @@
 /** 示例名称到示例信息的映射表 */
 export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
-    afterEffect: {
-        name: '后期特效',
-        scene: 'afterEffect'
+    postProcessing: {
+        name: '后期处理',
+        scene: 'postProcessing'
     },
     avatar: {
         name: '头像',

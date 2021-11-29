@@ -3,10 +3,10 @@
   [
     "ecpdLyjvZBwrvm+cedCcQy",
     "f0BIwQ8D5Ml7nTNQbh1YlS",
-    "2364OHyklBIb5oVgVO5TnY",
     "e2x0fa/JxLHoW/zSwJ0O73",
     "e97GVMl6JHh5Ml5qEDdSGa",
     "29FYIk+N1GYaeWH/q1NxQO",
+    "2364OHyklBIb5oVgVO5TnY",
     "c8W8HFLgJA/7xQ/WO8EDpK",
     "dfyGRldxZNZa6Ty6PyOH6X",
     "18FIA1v/1EGKyOEK2v04jD",
@@ -26,9 +26,11 @@
     "11cRO60ZNBCK6Zo3KZUV8n",
     "9bjHA/8UFLe5q8EIYZQ5Dx",
     "09G+y3dRFCLo6AKdGf/7T7",
+    "bc5t0gqLxDOoIHm/P5wO5x",
     "6epxn/QWpMtLkMQthBMHmw",
     "9buFytbaJEq6Nej3KnD4lL",
     "c5pbCc4BJNqKMb0fVB9kv0",
+    "acxjq+Y5hLlodNWytw9Xqn",
     "a5cBL/IzRNmaZRYsy/FETI",
     "55l/31PPxF5bmJMgxqNZQo",
     "1dDbW2EitJIIjRYgxToyon",
@@ -48,18 +50,20 @@
     "_N$pressedSprite",
     "_N$hoverSprite",
     "_N$disabledSprite",
-    "_defaultClip",
     "_effectAsset",
+    "_defaultClip",
     "targetSprite",
     "camera",
     "mosaicBtn",
     "grayBtn",
+    "inversionBtn",
     "normalBtn",
     "outputMosaic",
     "outputSprite",
     "avatar",
     "scene",
     "normalMaterial",
+    "inversionMaterial",
     "grayMaterial",
     "_effect"
   ],
@@ -98,6 +102,21 @@
       ],
       -2,
       1
+    ],
+    [
+      "cc.Sprite",
+      [
+        "_sizeMode",
+        "_isTrimmedMode",
+        "_type",
+        "node",
+        "_materials",
+        "_spriteFrame"
+      ],
+      0,
+      1,
+      3,
+      6
     ],
     [
       "cc.Camera",
@@ -153,33 +172,20 @@
       5
     ],
     [
-      "cc.Sprite",
-      [
-        "_sizeMode",
-        "_type",
-        "_isTrimmedMode",
-        "node",
-        "_materials",
-        "_spriteFrame"
-      ],
-      0,
-      1,
-      3,
-      6
-    ],
-    [
       "cc.Label",
       [
         "_string",
+        "_styleFlags",
         "_N$horizontalAlign",
         "_N$verticalAlign",
+        "_fontSize",
+        "_lineHeight",
         "_enableWrapText",
         "_N$cacheMode",
-        "_styleFlags",
         "node",
         "_materials"
       ],
-      -3,
+      -5,
       1,
       3
     ],
@@ -298,9 +304,11 @@
         "outputSprite",
         "outputMosaic",
         "normalBtn",
+        "inversionBtn",
         "grayBtn",
         "mosaicBtn",
         "normalMaterial",
+        "inversionMaterial",
         "grayMaterial"
       ],
       3,
@@ -311,19 +319,10 @@
       1,
       1,
       1,
+      1,
+      6,
       6,
       6
-    ],
-    [
-      "cc.Sprite",
-      [
-        "_sizeMode",
-        "_isTrimmedMode",
-        "_materials",
-        "node"
-      ],
-      0,
-      1
     ],
     [
       "cc.Animation",
@@ -399,30 +398,6 @@
       6,
       3,
       4,
-      2
-    ],
-    [
-      2,
-      0,
-      5,
-      2
-    ],
-    [
-      6,
-      0,
-      2,
-      3,
-      4,
-      5,
-      3
-    ],
-    [
-      1,
-      0,
-      5,
-      6,
-      3,
-      4,
       7,
       2
     ],
@@ -448,6 +423,12 @@
     ],
     [
       2,
+      0,
+      5,
+      2
+    ],
+    [
+      2,
       4,
       0,
       1,
@@ -456,15 +437,7 @@
       5
     ],
     [
-      2,
-      0,
-      1,
-      2,
       5,
-      4
-    ],
-    [
-      4,
       0,
       1,
       2,
@@ -479,9 +452,18 @@
       3
     ],
     [
-      6,
-      1,
+      3,
+      2,
       0,
+      3,
+      4,
+      5,
+      3
+    ],
+    [
+      3,
+      0,
+      1,
       3,
       4,
       5,
@@ -490,23 +472,16 @@
     [
       7,
       0,
-      3,
-      1,
-      2,
       4,
-      6,
-      7,
-      6
-    ],
-    [
-      7,
-      0,
       5,
+      6,
       1,
       2,
-      6,
+      3,
       7,
-      5
+      8,
+      9,
+      9
     ],
     [
       8,
@@ -518,6 +493,39 @@
     [
       1,
       0,
+      5,
+      6,
+      3,
+      4,
+      2
+    ],
+    [
+      2,
+      0,
+      1,
+      2,
+      5,
+      4
+    ],
+    [
+      7,
+      0,
+      1,
+      2,
+      3,
+      8,
+      9,
+      5
+    ],
+    [
+      9,
+      0,
+      1,
+      3
+    ],
+    [
+      1,
+      0,
       1,
       5,
       3,
@@ -526,7 +534,7 @@
       3
     ],
     [
-      20,
+      19,
       0,
       1,
       2,
@@ -534,7 +542,7 @@
       2
     ],
     [
-      23,
+      22,
       0,
       1,
       2,
@@ -542,12 +550,6 @@
       4,
       5,
       6
-    ],
-    [
-      9,
-      0,
-      1,
-      3
     ],
     [
       10,
@@ -634,7 +636,7 @@
       1
     ],
     [
-      4,
+      5,
       0,
       1,
       2,
@@ -647,7 +649,7 @@
       1
     ],
     [
-      5,
+      6,
       0,
       1,
       2,
@@ -657,7 +659,7 @@
       5
     ],
     [
-      5,
+      6,
       0,
       1,
       4,
@@ -684,18 +686,20 @@
       6,
       7,
       8,
+      9,
+      10,
       1
     ],
     [
-      19,
+      3,
       0,
       1,
-      2,
       3,
-      4
+      4,
+      3
     ],
     [
-      21,
+      20,
       0,
       1,
       2,
@@ -705,7 +709,7 @@
       4
     ],
     [
-      3,
+      4,
       0,
       1,
       2,
@@ -713,21 +717,21 @@
       4
     ],
     [
-      3,
+      4,
       0,
       1,
       3,
       3
     ],
     [
-      3,
+      4,
       0,
       2,
       3,
       3
     ],
     [
-      22,
+      21,
       0,
       1,
       2
@@ -1017,7 +1021,7 @@
     [
       [
         [
-          14,
+          11,
           "eazax-gray",
           [
             {
@@ -1147,7 +1151,7 @@
     [
       [
         [
-          18,
+          15,
           "eazax-gray",
           {
             "0": {
@@ -1162,7 +1166,7 @@
         0
       ],
       [
-        10
+        9
       ],
       [
         19
@@ -1252,7 +1256,7 @@
       [
         [
           19,
-          "afterEffect",
+          "postProcessing",
           null
         ],
         [
@@ -1279,7 +1283,7 @@
               ]
             ],
             [
-              3,
+              5,
               45,
               -2
             ],
@@ -1327,13 +1331,13 @@
               [
                 [
                   1,
-                  "[示例] After Effect",
-                  "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/afterEffect"
+                  "[示例] Post Processing",
+                  "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/postProcessing"
                 ],
                 [
                   1,
-                  "[示例] Case_AfterEffect.ts",
-                  "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/afterEffect/scripts/Case_AfterEffect.ts"
+                  "[示例] Case_PostProcessing.ts",
+                  "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/afterEffect/scripts/Case_PostProcessing.ts"
                 ],
                 [
                   1,
@@ -1349,6 +1353,11 @@
                   1,
                   "[Effect] eazax-mosaic.effect",
                   "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-mosaic.effect"
+                ],
+                [
+                  1,
+                  "[Effect] eazax-inversion.effect",
+                  "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-inversion.effect"
                 ]
               ]
             ],
@@ -1361,7 +1370,7 @@
               -11,
               [
                 5,
-                410.19,
+                508.04,
                 80
               ]
             ],
@@ -1374,7 +1383,7 @@
           ],
           [
             5,
-            410.19,
+            508.04,
             80
           ],
           [
@@ -1391,13 +1400,13 @@
           ]
         ],
         [
-          2,
+          12,
           "Main",
           1,
           [
-            -27,
             -28,
-            -29
+            -29,
+            -30
           ],
           [
             [
@@ -1408,6 +1417,7 @@
             ],
             [
               34,
+              -26,
               -25,
               -24,
               -23,
@@ -1415,13 +1425,37 @@
               -21,
               -20,
               -19,
-              36,
-              37
+              44,
+              45,
+              46
             ],
             [
-              3,
+              5,
               45,
-              -26
+              -27
+            ]
+          ],
+          [
+            5,
+            750,
+            1334
+          ]
+        ],
+        [
+          12,
+          "Content",
+          3,
+          [
+            -32,
+            -33,
+            -34,
+            -35
+          ],
+          [
+            [
+              5,
+              45,
+              -31
             ]
           ],
           [
@@ -1432,35 +1466,13 @@
         ],
         [
           2,
-          "Content",
-          3,
-          [
-            -31,
-            -32,
-            -33,
-            -34
-          ],
-          [
-            [
-              3,
-              45,
-              -30
-            ]
-          ],
-          [
-            5,
-            750,
-            1334
-          ]
-        ],
-        [
-          5,
           "buttons",
           4,
           [
-            -36,
             -37,
-            -38
+            -38,
+            -39,
+            -40
           ],
           [
             [
@@ -1469,17 +1481,17 @@
               1,
               30,
               20,
-              -35,
+              -36,
               [
                 5,
-                510,
+                570,
                 100
               ]
             ]
           ],
           [
             5,
-            510,
+            570,
             100
           ],
           [
@@ -1496,36 +1508,36 @@
           ]
         ],
         [
-          6,
+          3,
           "main",
           512,
           [
-            -41
+            -43
           ],
           [
             [
-              11,
+              8,
               1,
               0,
-              -39,
+              -41,
               [
                 13
               ],
               14
             ],
             [
-              8,
+              6,
               0,
               45,
               100,
               40,
-              -40
+              -42
             ]
           ],
           [
             5,
-            150,
-            80
+            120,
+            60
           ],
           [
             0,
@@ -1541,36 +1553,36 @@
           ]
         ],
         [
-          6,
+          3,
           "main",
           512,
           [
-            -44
+            -46
           ],
           [
             [
-              11,
+              8,
               1,
               0,
-              -42,
+              -44,
               [
                 20
               ],
               21
             ],
             [
-              8,
+              6,
               0,
               45,
               100,
               40,
-              -43
+              -45
             ]
           ],
           [
             5,
-            150,
-            80
+            120,
+            60
           ],
           [
             0,
@@ -1586,36 +1598,36 @@
           ]
         ],
         [
-          6,
+          3,
           "main",
           512,
           [
-            -47
+            -49
           ],
           [
             [
-              11,
+              8,
               1,
               0,
-              -45,
+              -47,
               [
                 27
               ],
               28
             ],
             [
-              8,
+              6,
               0,
               45,
               100,
               40,
-              -46
+              -48
             ]
           ],
           [
             5,
-            150,
-            80
+            120,
+            60
           ],
           [
             0,
@@ -1631,7 +1643,52 @@
           ]
         ],
         [
-          5,
+          3,
+          "main",
+          512,
+          [
+            -52
+          ],
+          [
+            [
+              8,
+              1,
+              0,
+              -50,
+              [
+                34
+              ],
+              35
+            ],
+            [
+              6,
+              0,
+              45,
+              100,
+              40,
+              -51
+            ]
+          ],
+          [
+            5,
+            120,
+            60
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0
+          ]
+        ],
+        [
+          2,
           "normalBtn",
           5,
           [
@@ -1639,10 +1696,10 @@
           ],
           [
             [
-              10,
+              7,
               1.1,
               3,
-              -48,
+              -53,
               [
                 4,
                 4293322470
@@ -1664,11 +1721,11 @@
           ],
           [
             5,
-            150,
-            80
+            120,
+            60
           ],
           [
-            -180,
+            -225,
             0,
             0,
             0,
@@ -1682,17 +1739,17 @@
         ],
         [
           2,
-          "grayBtn",
+          "inversionBtn",
           5,
           [
             7
           ],
           [
             [
-              10,
+              7,
               1.1,
               3,
-              -49,
+              -54,
               [
                 4,
                 4293322470
@@ -1714,23 +1771,35 @@
           ],
           [
             5,
-            150,
-            80
+            120,
+            60
+          ],
+          [
+            -75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1
           ]
         ],
         [
-          5,
-          "mosaicBtn",
+          2,
+          "grayBtn",
           5,
           [
             8
           ],
           [
             [
-              10,
+              7,
               1.1,
               3,
-              -50,
+              -55,
               [
                 4,
                 4293322470
@@ -1752,11 +1821,61 @@
           ],
           [
             5,
-            150,
-            80
+            120,
+            60
           ],
           [
-            180,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        [
+          2,
+          "mosaicBtn",
+          5,
+          [
+            9
+          ],
+          [
+            [
+              7,
+              1.1,
+              3,
+              -56,
+              [
+                4,
+                4293322470
+              ],
+              [
+                4,
+                4291348680
+              ],
+              [
+                4,
+                3363338360
+              ],
+              9,
+              36,
+              37,
+              38,
+              39
+            ]
+          ],
+          [
+            5,
+            120,
+            60
+          ],
+          [
+            225,
             0,
             0,
             0,
@@ -1770,19 +1889,19 @@
         ],
         [
           24,
-          "AfterEffect Sprite",
+          "PostProcessing Sprite",
           4,
           1,
           [
             [
-              -51,
-              -52,
+              -57,
+              -58,
               [
-                9,
+                13,
                 45,
                 500,
                 500,
-                -53
+                -59
               ]
             ],
             1,
@@ -1813,15 +1932,15 @@
           512,
           3,
           [
-            -55
+            -61
           ],
           [
             [
-              9,
+              13,
               45,
               2,
               2,
-              -54
+              -60
             ]
           ],
           [
@@ -1833,24 +1952,24 @@
         [
           23,
           "background",
-          13,
+          15,
           [
             [
-              4,
+              9,
               0,
               false,
-              -56,
+              -62,
               [
                 0
               ],
               1
             ],
             [
-              9,
+              13,
               45,
               2,
               2,
-              -57
+              -63
             ]
           ],
           [
@@ -1869,10 +1988,10 @@
           4,
           [
             [
-              4,
+              9,
               0,
               false,
-              -58,
+              -64,
               [
                 2
               ],
@@ -1903,19 +2022,19 @@
           4,
           [
             [
-              4,
+              9,
               2,
               false,
-              -59,
+              -65,
               [
                 4
               ],
               5
             ],
             [
-              16,
+              17,
               true,
-              -60,
+              -66,
               [
                 7
               ],
@@ -1946,19 +2065,19 @@
           4,
           [
             [
-              4,
+              9,
               2,
               false,
-              -61,
+              -67,
               [
                 8
               ],
               9
             ],
             [
-              16,
+              17,
               true,
-              -62,
+              -68,
               [
                 11
               ],
@@ -1984,7 +2103,7 @@
           ]
         ],
         [
-          2,
+          12,
           "UI",
           3,
           [
@@ -1992,9 +2111,9 @@
           ],
           [
             [
-              3,
+              5,
               45,
-              -63
+              -69
             ]
           ],
           [
@@ -2007,10 +2126,10 @@
           35,
           0,
           false,
+          14,
           [
-            null
-          ],
-          12
+            43
+          ]
         ],
         [
           36,
@@ -2044,7 +2163,7 @@
           512,
           1,
           [
-            -64
+            -70
           ],
           [
             5,
@@ -2069,22 +2188,25 @@
           -49,
           7,
           -1,
-          21
+          23
         ],
         [
-          7,
+          4,
           "label",
           512,
           6,
           [
             [
-              12,
+              10,
               "正常",
+              30,
+              30,
               false,
               1,
               1,
               1,
-              -65,
+              1,
+              -71,
               [
                 12
               ]
@@ -2096,24 +2218,27 @@
           ],
           [
             5,
-            80,
-            50.4
+            60,
+            37.8
           ]
         ],
         [
-          7,
+          4,
           "label",
           512,
           7,
           [
             [
-              12,
-              "灰",
+              10,
+              "反相",
+              30,
+              30,
               false,
               1,
               1,
               1,
-              -66,
+              1,
+              -72,
               [
                 19
               ]
@@ -2125,24 +2250,27 @@
           ],
           [
             5,
-            40,
-            50.4
+            60,
+            37.8
           ]
         ],
         [
-          7,
+          4,
           "label",
           512,
           8,
           [
             [
-              12,
-              "马赛克",
+              10,
+              "灰",
+              30,
+              30,
               false,
               1,
               1,
               1,
-              -67,
+              1,
+              -73,
               [
                 26
               ]
@@ -2154,25 +2282,57 @@
           ],
           [
             5,
-            120,
-            50.4
+            30,
+            37.8
           ]
         ],
         [
-          15,
+          4,
+          "label",
+          512,
+          9,
+          [
+            [
+              10,
+              "马赛克",
+              30,
+              30,
+              false,
+              1,
+              1,
+              1,
+              1,
+              -74,
+              [
+                33
+              ]
+            ]
+          ],
+          [
+            4,
+            4278190080
+          ],
+          [
+            5,
+            90,
+            37.8
+          ]
+        ],
+        [
+          16,
           "decorator",
           512,
           2,
           [
             [
-              13,
+              14,
               "🔸",
               5,
               1,
               1,
-              -68,
+              -75,
               [
-                33
+                40
               ]
             ]
           ],
@@ -2182,7 +2342,7 @@
             50.4
           ],
           [
-            -131.445,
+            -180.37,
             4.618527782440651e-14,
             0,
             0,
@@ -2200,24 +2360,24 @@
           2,
           [
             [
-              13,
-              "After Effect",
+              14,
+              "Post Processing",
               5,
               1,
               1,
-              -69,
+              -76,
               [
-                34
+                41
               ]
             ]
           ],
           [
             5,
-            215.59,
+            313.44,
             50.4
           ],
           [
-            1.4210854715202004e-14,
+            0,
             4.618527782440651e-14,
             0,
             0,
@@ -2230,20 +2390,20 @@
           ]
         ],
         [
-          15,
+          16,
           "decorator",
           512,
           2,
           [
             [
-              13,
+              14,
               "🔸",
               5,
               1,
               1,
-              -70,
+              -77,
               [
-                35
+                42
               ]
             ]
           ],
@@ -2253,7 +2413,7 @@
             50.4
           ],
           [
-            131.44500000000002,
+            180.37,
             4.618527782440651e-14,
             0,
             0,
@@ -2268,18 +2428,18 @@
         [
           40,
           false,
-          12
+          14
         ],
         [
           0,
-          "AfterEffect Camera",
+          "PostProcessing Camera",
           1,
           [
             [
               38,
               16,
               7,
-              -71
+              -78
             ]
           ],
           [
@@ -2309,7 +2469,7 @@
               39,
               32,
               1,
-              -72
+              -79
             ]
           ],
           [
@@ -2344,19 +2504,19 @@
         1,
         0,
         -1,
-        21,
+        23,
         0,
         -2,
         3,
         0,
         -3,
-        12,
+        14,
         0,
         -4,
-        30,
+        33,
         0,
         -5,
-        31,
+        34,
         0,
         0,
         2,
@@ -2371,67 +2531,70 @@
         2,
         0,
         -1,
-        26,
-        0,
-        -2,
-        27,
-        0,
-        -3,
-        28,
-        0,
-        11,
-        19,
-        0,
-        12,
-        22,
-        0,
-        0,
-        3,
-        0,
-        13,
-        11,
-        0,
-        14,
-        10,
-        0,
-        15,
-        9,
-        0,
-        16,
         29,
         0,
-        17,
-        19,
+        -2,
+        30,
         0,
-        18,
-        15,
+        -3,
+        31,
+        0,
+        11,
+        21,
+        0,
+        12,
+        24,
         0,
         0,
         3,
         0,
-        0,
-        3,
-        0,
-        -1,
+        13,
         13,
         0,
-        -2,
-        4,
+        14,
+        12,
         0,
-        -3,
+        15,
+        11,
+        0,
+        16,
+        10,
+        0,
+        17,
+        32,
+        0,
         18,
+        21,
+        0,
+        19,
+        17,
         0,
         0,
-        4,
+        3,
+        0,
+        0,
+        3,
         0,
         -1,
         15,
         0,
         -2,
-        16,
+        4,
         0,
         -3,
+        20,
+        0,
+        0,
+        4,
+        0,
+        -1,
         17,
+        0,
+        -2,
+        18,
+        0,
+        -3,
+        19,
         0,
         -4,
         5,
@@ -2440,55 +2603,58 @@
         5,
         0,
         -1,
-        9,
-        0,
-        -2,
         10,
         0,
-        -3,
+        -2,
         11,
         0,
+        -3,
+        12,
+        0,
+        -4,
+        13,
+        0,
         0,
         6,
         0,
         0,
         6,
-        0,
-        -1,
-        23,
-        0,
-        0,
-        7,
-        0,
-        0,
-        7,
-        0,
-        -1,
-        24,
-        0,
-        0,
-        8,
-        0,
-        0,
-        8,
         0,
         -1,
         25,
         0,
         0,
+        7,
+        0,
+        0,
+        7,
+        0,
+        -1,
+        26,
+        0,
+        0,
+        8,
+        0,
+        0,
+        8,
+        0,
+        -1,
+        27,
+        0,
+        0,
         9,
+        0,
+        0,
+        9,
+        0,
+        -1,
+        28,
         0,
         0,
         10,
         0,
         0,
         11,
-        0,
-        -1,
-        19,
-        0,
-        -2,
-        29,
         0,
         0,
         12,
@@ -2497,10 +2663,10 @@
         13,
         0,
         -1,
-        14,
+        21,
         0,
-        0,
-        14,
+        -2,
+        32,
         0,
         0,
         14,
@@ -2508,14 +2674,14 @@
         0,
         15,
         0,
-        0,
+        -1,
         16,
         0,
         0,
         16,
         0,
         0,
-        17,
+        16,
         0,
         0,
         17,
@@ -2523,13 +2689,19 @@
         0,
         18,
         0,
+        0,
+        18,
+        0,
+        0,
+        19,
+        0,
+        0,
+        19,
+        0,
+        0,
+        20,
+        0,
         -1,
-        22,
-        0,
-        0,
-        23,
-        0,
-        0,
         24,
         0,
         0,
@@ -2545,29 +2717,41 @@
         28,
         0,
         0,
+        29,
+        0,
+        0,
         30,
         0,
         0,
         31,
         0,
-        19,
+        0,
+        33,
+        0,
+        0,
+        34,
+        0,
         20,
+        22,
         1,
         4,
-        20,
+        22,
         2,
         4,
-        18,
+        20,
         6,
-        4,
-        9,
-        7,
         4,
         10,
-        8,
+        7,
         4,
         11,
-        72
+        8,
+        4,
+        12,
+        9,
+        4,
+        13,
+        79
       ],
       [
         0,
@@ -2608,7 +2792,16 @@
         0,
         0,
         0,
-        29
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        32
       ],
       [
         -1,
@@ -2617,19 +2810,12 @@
         3,
         -1,
         3,
-        9,
+        10,
         -1,
         -1,
         3,
-        9,
+        10,
         -1,
-        -1,
-        -1,
-        3,
-        5,
-        6,
-        7,
-        8,
         -1,
         -1,
         3,
@@ -2646,10 +2832,26 @@
         8,
         -1,
         -1,
+        3,
+        5,
+        6,
+        7,
+        8,
         -1,
-        20,
+        -1,
+        3,
+        5,
+        6,
+        7,
+        8,
+        -1,
+        -1,
+        -1,
+        -1,
         21,
-        22
+        22,
+        23,
+        24
       ],
       [
         0,
@@ -2657,46 +2859,55 @@
         23,
         24,
         0,
-        2,
+        5,
         6,
         6,
         0,
-        2,
+        5,
         7,
         7,
         0,
         0,
+        2,
+        1,
         3,
         1,
         4,
+        0,
+        0,
+        2,
         1,
-        5,
-        0,
-        0,
         3,
         1,
         4,
+        0,
+        0,
+        2,
         1,
-        5,
-        0,
-        0,
         3,
         1,
         4,
+        0,
+        0,
+        2,
         1,
-        5,
+        3,
+        1,
+        4,
+        0,
         0,
         0,
         0,
         0,
         25,
-        26
+        26,
+        27
       ]
     ],
     [
       [
         [
-          14,
+          11,
           "eazax-mosaic",
           [
             {
@@ -2884,13 +3095,155 @@
         1
       ],
       [
-        27
+        28
       ]
     ],
     [
       [
         [
-          17,
+          11,
+          "eazax-inversion",
+          [
+            {
+              "hash": 1783872041,
+              "record": null,
+              "name": "eazax-inversion|vs|fs",
+              "glsl3": {
+                "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nuniform CCLocal {\n  mat4 cc_matWorld;\n  mat4 cc_matWorldIT;\n};\nin vec3 a_position;\nin vec4 a_color;\nout vec4 v_color;\n#if USE_TEXTURE\nin vec2 a_uv0;\nout vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+                "frag": "\nprecision highp float;\nin vec4 v_color;\n#if USE_TEXTURE\nin vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  #if USE_TEXTURE\n  vec4 texture_tmp = texture(texture, v_uv0);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture(texture, v_uv0 + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    o.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    o.a *= texture_tmp.a;\n  #else\n    o *= texture_tmp;\n  #endif\n  #endif\n  o *= v_color;\n  o = vec4(vec3(1. - o.rgb), o.a);\n  #if USE_BGRA\n    gl_FragColor = o.bgra;\n  #else\n    gl_FragColor = o.rgba;\n  #endif\n}"
+              },
+              "glsl1": {
+                "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nuniform mat4 cc_matWorld;\nattribute vec3 a_position;\nattribute vec4 a_color;\nvarying vec4 v_color;\n#if USE_TEXTURE\nattribute vec2 a_uv0;\nvarying vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+                "frag": "\nprecision highp float;\nvarying vec4 v_color;\n#if USE_TEXTURE\nvarying vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  #if USE_TEXTURE\n  vec4 texture_tmp = texture2D(texture, v_uv0);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture2D(texture, v_uv0 + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    o.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    o.a *= texture_tmp.a;\n  #else\n    o *= texture_tmp;\n  #endif\n  #endif\n  o *= v_color;\n  o = vec4(vec3(1. - o.rgb), o.a);\n  #if USE_BGRA\n    gl_FragColor = o.bgra;\n  #else\n    gl_FragColor = o.rgba;\n  #endif\n}"
+              },
+              "builtins": {
+                "globals": {
+                  "blocks": [
+                    {
+                      "name": "CCGlobal",
+                      "defines": []
+                    }
+                  ],
+                  "samplers": []
+                },
+                "locals": {
+                  "blocks": [
+                    {
+                      "name": "CCLocal",
+                      "defines": []
+                    }
+                  ],
+                  "samplers": []
+                }
+              },
+              "defines": [
+                {
+                  "name": "USE_TEXTURE",
+                  "type": "boolean",
+                  "defines": []
+                },
+                {
+                  "name": "CC_USE_MODEL",
+                  "type": "boolean",
+                  "defines": []
+                },
+                {
+                  "name": "CC_USE_ALPHA_ATLAS_texture",
+                  "type": "boolean",
+                  "defines": [
+                    "USE_TEXTURE"
+                  ]
+                },
+                {
+                  "name": "INPUT_IS_GAMMA",
+                  "type": "boolean",
+                  "defines": [
+                    "USE_TEXTURE"
+                  ]
+                },
+                {
+                  "name": "USE_BGRA",
+                  "type": "boolean",
+                  "defines": []
+                }
+              ],
+              "blocks": [],
+              "samplers": [
+                {
+                  "name": "texture",
+                  "type": 29,
+                  "count": 1,
+                  "binding": 30,
+                  "defines": [
+                    "USE_TEXTURE"
+                  ]
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "passes": [
+                {
+                  "program": "eazax-inversion|vs|fs",
+                  "blendState": {
+                    "targets": [
+                      {
+                        "blend": true
+                      }
+                    ]
+                  },
+                  "rasterizerState": {
+                    "cullMode": 0
+                  },
+                  "properties": {
+                    "texture": {
+                      "value": "white",
+                      "type": 29
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        ]
+      ],
+      0,
+      0,
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        [
+          15,
+          "eazax-inversion",
+          {
+            "0": {
+              "defines": {
+                "USE_TEXTURE": true
+              }
+            }
+          }
+        ]
+      ],
+      0,
+      0,
+      [
+        0
+      ],
+      [
+        9
+      ],
+      [
+        29
+      ]
+    ],
+    [
+      [
+        [
+          18,
           "sheep-run",
           1,
           4,
@@ -2968,16 +3321,16 @@
         2
       ],
       [
-        2,
-        28,
-        29,
-        30
+        5,
+        30,
+        31,
+        32
       ]
     ],
     [
       [
         [
-          17,
+          18,
           "sheep-jump",
           1.8,
           5,
@@ -3099,11 +3452,11 @@
         2
       ],
       [
-        31,
+        33,
         8,
         9,
         10,
-        32,
+        34,
         10,
         9,
         8
@@ -3146,7 +3499,7 @@
         1
       ],
       [
-        33
+        35
       ]
     ],
     [
@@ -3186,7 +3539,7 @@
         1
       ],
       [
-        34
+        36
       ]
     ],
     [
@@ -3226,7 +3579,7 @@
         1
       ],
       [
-        35
+        37
       ]
     ]
   ]
