@@ -6,7 +6,7 @@ const { ccclass, property, executeInEditMode, help } = cc._decorator;
 /**
  * 远程图像
  * @author 陈皮皮 (ifaswind)
- * @version 20211009
+ * @version 20211201
  * @see RemoteTexture.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteTexture.ts
  * @see RemoteAsset.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteAsset.ts
  * @see RemoteLoader.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/core/remote/RemoteLoader.ts
