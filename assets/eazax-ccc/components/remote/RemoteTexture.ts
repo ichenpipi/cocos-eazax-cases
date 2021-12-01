@@ -64,14 +64,32 @@ export default class RemoteTexture extends RemoteAsset {
     }
 
     /**
+     * 当前使用的纹理
+     */
+    protected texture: cc.Texture2D = null;
+
+    /**
      * 最后一个请求 ID（用来处理短时间内的重复加载，仅保留最后一个请求）
      */
     protected lastRequestId: number = 0;
 
+    /**
+     * 生命周期：节点加载
+     */
     protected onLoad() {
         this.init();
     }
 
+    /**
+     * 生命周期：节点销毁
+     */
+    protected onDestroy() {
+        this.release();
+    }
+
+    /**
+     * 编辑器回调：重置
+     */
     protected resetInEditor() {
         this.init();
     }
@@ -84,6 +102,19 @@ export default class RemoteTexture extends RemoteAsset {
             this._sprite = this.getComponent(cc.Sprite);
         }
         this.onPropertyUpdated();
+    }
+
+    /**
+     * 释放
+     */
+    protected release() {
+        // 解除纹理的引用
+        if (cc.isValid(this.texture)) {
+            if (this.texture['remote']) {
+                this.texture.decRef();
+                this.texture = null;
+            }
+        }
     }
 
     /**
@@ -102,12 +133,13 @@ export default class RemoteTexture extends RemoteAsset {
      * @param url 资源地址
      */
     public async load(url: string = this._url): Promise<LoadResult> {
+        this._url = url;
+        // 组件
         if (!cc.isValid(this._sprite)) {
             cc.warn('[RemoteTexture]', 'load', '->', '缺少 cc.Sprite 组件');
             return { url, loaded: false, interrupted: false, component: this };
         }
-        // 保存地址
-        this._url = url;
+        // 置空
         if (!url || url === '') {
             this.set(null);
             return { url, loaded: false, interrupted: false, component: this };
@@ -123,7 +155,10 @@ export default class RemoteTexture extends RemoteAsset {
             texture = await RemoteLoader.loadTexture(url);
             // 当前加载请求是否已被覆盖
             if (this.lastRequestId !== curRequestId) {
-                texture = null;
+                if (texture) {
+                    texture.addRef().decRef();
+                    texture = null;
+                }
                 return { url, loaded: false, interrupted: true, component: this };
             }
         }
@@ -133,6 +168,7 @@ export default class RemoteTexture extends RemoteAsset {
             return { url, loaded: false, interrupted: false, component: this };
         }
         // 加载成功
+        texture['remote'] = true;
         this.set(texture);
         return { url, loaded: true, interrupted: false, component: this };
     }
@@ -142,11 +178,17 @@ export default class RemoteTexture extends RemoteAsset {
      * @param texture 纹理
      */
     public set(texture: cc.Texture2D) {
+        // 释放旧的资源引用
+        this.release();
+        // 替换资源
         if (texture) {
             this._sprite.spriteFrame = new cc.SpriteFrame(texture);
+            texture.addRef();
         } else {
             this._sprite.spriteFrame = null;
         }
+        this.texture = texture;
+        // 发射事件
         this.node.emit('sprite:sprite-frame-updated', this._sprite, texture);
     }
 

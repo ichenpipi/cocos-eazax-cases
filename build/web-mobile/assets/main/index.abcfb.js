@@ -15103,6 +15103,7 @@ window.__require = function e(t, n, r) {
         _this.retryTimes = 2;
         _this._previewInEditor = true;
         _this._showPreviewNode = false;
+        _this.texture = null;
         _this.lastRequestId = 0;
         return _this;
       }
@@ -15153,12 +15154,21 @@ window.__require = function e(t, n, r) {
       RemoteTexture.prototype.onLoad = function() {
         this.init();
       };
+      RemoteTexture.prototype.onDestroy = function() {
+        this.release();
+      };
       RemoteTexture.prototype.resetInEditor = function() {
         this.init();
       };
       RemoteTexture.prototype.init = function() {
         cc.isValid(this._sprite) || (this._sprite = this.getComponent(cc.Sprite));
         this.onPropertyUpdated();
+      };
+      RemoteTexture.prototype.release = function() {
+        if (cc.isValid(this.texture) && this.texture["remote"]) {
+          this.texture.decRef();
+          this.texture = null;
+        }
       };
       RemoteTexture.prototype.onPropertyUpdated = function() {
         false;
@@ -15171,6 +15181,7 @@ window.__require = function e(t, n, r) {
           return __generator(this, function(_a) {
             switch (_a.label) {
              case 0:
+              this._url = url;
               if (!cc.isValid(this._sprite)) {
                 cc.warn("[RemoteTexture]", "load", "->", "\u7f3a\u5c11 cc.Sprite \u7ec4\u4ef6");
                 return [ 2, {
@@ -15180,7 +15191,6 @@ window.__require = function e(t, n, r) {
                   component: this
                 } ];
               }
-              this._url = url;
               if (!url || "" === url) {
                 this.set(null);
                 return [ 2, {
@@ -15203,7 +15213,10 @@ window.__require = function e(t, n, r) {
              case 2:
               texture = _a.sent();
               if (this.lastRequestId !== curRequestId) {
-                texture = null;
+                if (texture) {
+                  texture.addRef().decRef();
+                  texture = null;
+                }
                 return [ 2, {
                   url: url,
                   loaded: false,
@@ -15223,6 +15236,7 @@ window.__require = function e(t, n, r) {
                   component: this
                 } ];
               }
+              texture["remote"] = true;
               this.set(texture);
               return [ 2, {
                 url: url,
@@ -15235,7 +15249,12 @@ window.__require = function e(t, n, r) {
         });
       };
       RemoteTexture.prototype.set = function(texture) {
-        this._sprite.spriteFrame = texture ? new cc.SpriteFrame(texture) : null;
+        this.release();
+        if (texture) {
+          this._sprite.spriteFrame = new cc.SpriteFrame(texture);
+          texture.addRef();
+        } else this._sprite.spriteFrame = null;
+        this.texture = texture;
         this.node.emit("sprite:sprite-frame-updated", this._sprite, texture);
       };
       RemoteTexture.prototype.updatePreview = function() {

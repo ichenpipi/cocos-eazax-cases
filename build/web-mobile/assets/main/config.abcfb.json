@@ -117,13 +117,13 @@
         "db://assets/cases/newUserGuide/newUserGuide.fire": "62AFm1yJ9Lup6b3mV+7pB4",
         "db://assets/cases/pixelClick/pixelClick.fire": "44qlUgYjtBIrmqEzb/+Tyy",
         "db://assets/cases/popupTesting/popupTesting.fire": "45Yti9YpNKbp7BMjD9Qq0N",
+        "db://assets/cases/postProcessing/postProcessing.fire": "945lcmZYNLPblRqtTqT2Ld",
         "db://assets/cases/radarChart/radarChart.fire": "baq4XrJTdIwLNWiF3BqQKh",
         "db://assets/cases/remoteSpine/remoteSpine.fire": "5bo/pCz8xO6J3PpIDgxAsi",
         "db://assets/cases/remoteTexture/remoteTexture.fire": "0b47V4PLRByIlBD43pRLwS",
         "db://assets/cases/rotateAround/rotateAround.fire": "d9fSpRbelGoZ3cJEnPLpwA",
         "db://assets/cases/runtimeTrimming/runtimeTrimming.fire": "c04WiMYFhB7ac2PTlTyMzI",
-        "db://assets/cases/sineWave/sineWave.fire": "47R8Cbe55N6IeXOhWUb1D8",
-        "db://assets/cases/postProcessing/postProcessing.fire": "945lcmZYNLPblRqtTqT2Ld"
+        "db://assets/cases/sineWave/sineWave.fire": "47R8Cbe55N6IeXOhWUb1D8"
     },
     "redirect": [
         "02delMVqdBD70a/HSD99FK",
@@ -315,7 +315,7 @@
             "03ab413f2",
             "275e6",
             "051d68ce6",
-            "cc167",
+            "013bf",
             "0616d0554",
             "e0764",
             "067cb6278",
