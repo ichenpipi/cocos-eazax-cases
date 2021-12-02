@@ -1015,7 +1015,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "normalBtn",
+    "_name": "btn 1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -1173,7 +1173,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 100,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -1239,7 +1239,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 1,
     "_id": "1aqxoZo05C6LXqUtD+LfAK"
   },
@@ -1386,7 +1386,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "inversionBtn",
+    "_name": "btn 2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -1544,7 +1544,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 100,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -1610,7 +1610,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 1,
     "_id": "49O1qa04VK3IbgaPQ9d2Lm"
   },
@@ -1757,7 +1757,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "grayBtn",
+    "_name": "btn 3",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -1915,7 +1915,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
+      "width": 100,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -1967,8 +1967,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "灰",
-    "_N$string": "灰",
+    "_string": "径向模糊",
+    "_N$string": "径向模糊",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": false,
@@ -1981,7 +1981,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 1,
     "_id": "49qd87q2tK2rRBC3pCZIDT"
   },
@@ -2128,7 +2128,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "mosaicBtn",
+    "_name": "btn 4",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -2286,7 +2286,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
+      "width": 100,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -2352,7 +2352,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 1,
     "_id": "03qHeBeeZFxrGQXDGFsPXY"
   },
@@ -3381,22 +3381,22 @@
     "inversionMaterial": {
       "__uuid__": "bce6dd20-a8bc-433a-8207-9bf3f9c0ee71"
     },
-    "grayMaterial": {
-      "__uuid__": "6ea719ff-416a-4cb4-b90c-42d8413079b0"
+    "radialBlurMaterial": {
+      "__uuid__": "fa7b41f5-fa51-4fd5-93d1-7843557ea1c6"
     },
     "outputMosaic": {
       "__id__": 73
     },
-    "normalBtn": {
+    "btn1": {
       "__id__": 21
     },
-    "inversionBtn": {
+    "btn2": {
       "__id__": 28
     },
-    "grayBtn": {
+    "btn3": {
       "__id__": 35
     },
-    "mosaicBtn": {
+    "btn4": {
       "__id__": 42
     },
     "_id": "bbVa+8ZRJE0oxpZpzvGmlh"

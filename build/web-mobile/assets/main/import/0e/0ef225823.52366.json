@@ -20,14 +20,13 @@
     "71VhFCTINJM6/Ky3oX9nBT",
     "b9dr1lpMpGf7ygEfDr6lHw",
     "1boNq9/GVBcq3u6RZ8brmt",
-    "38DKAIN7xPUbgdJrUgLjVF",
     "c0bO6fCxpB6pwbbf7tOzZh",
     "ec8zPPme1IFJkNMQmJD71e",
     "11cRO60ZNBCK6Zo3KZUV8n",
     "9bjHA/8UFLe5q8EIYZQ5Dx",
     "09G+y3dRFCLo6AKdGf/7T7",
     "bc5t0gqLxDOoIHm/P5wO5x",
-    "6epxn/QWpMtLkMQthBMHmw",
+    "fae0H1+lFP1ZPReENVfqHG",
     "9buFytbaJEq6Nej3KnD4lL",
     "c5pbCc4BJNqKMb0fVB9kv0",
     "acxjq+Y5hLlodNWytw9Xqn",
@@ -38,7 +37,8 @@
     "2eJGrecTFMxYLrOM517m0i",
     "7aNC3cPgtGuKxkz0QWCMqn",
     "b4P/PCArtIdIH38t6mlw8Y",
-    "e8Ueib+qJEhL6mXAHdnwbi"
+    "e8Ueib+qJEhL6mXAHdnwbi",
+    "49sldTdolFyoUEOwGIIhgM"
   ],
   [
     "node",
@@ -50,21 +50,21 @@
     "_N$pressedSprite",
     "_N$hoverSprite",
     "_N$disabledSprite",
-    "_effectAsset",
     "_defaultClip",
+    "_effectAsset",
     "targetSprite",
     "camera",
-    "mosaicBtn",
-    "grayBtn",
-    "inversionBtn",
-    "normalBtn",
     "outputMosaic",
     "outputSprite",
+    "btn4",
+    "btn3",
+    "btn2",
+    "btn1",
     "avatar",
     "scene",
     "normalMaterial",
     "inversionMaterial",
-    "grayMaterial",
+    "radialBlurMaterial",
     "_effect"
   ],
   [
@@ -181,11 +181,12 @@
         "_fontSize",
         "_lineHeight",
         "_enableWrapText",
+        "_N$overflow",
         "_N$cacheMode",
         "node",
         "_materials"
       ],
-      -5,
+      -6,
       1,
       3
     ],
@@ -197,14 +198,6 @@
         "techniques"
       ],
       0
-    ],
-    [
-      "cc.Material",
-      [
-        "_name",
-        "_techniqueData"
-      ],
-      1
     ],
     [
       "cc.SceneAsset",
@@ -301,15 +294,15 @@
       [
         "node",
         "avatar",
+        "btn1",
+        "btn2",
+        "btn3",
+        "btn4",
         "outputSprite",
         "outputMosaic",
-        "normalBtn",
-        "inversionBtn",
-        "grayBtn",
-        "mosaicBtn",
         "normalMaterial",
         "inversionMaterial",
-        "grayMaterial"
+        "radialBlurMaterial"
       ],
       3,
       1,
@@ -362,6 +355,14 @@
       1
     ],
     [
+      "cc.Material",
+      [
+        "_name",
+        "_techniqueData"
+      ],
+      1
+    ],
+    [
       "cc.AnimationClip",
       [
         "_name",
@@ -386,7 +387,7 @@
       2
     ],
     [
-      16,
+      15,
       0,
       1,
       3
@@ -481,7 +482,8 @@
       7,
       8,
       9,
-      9
+      10,
+      10
     ],
     [
       8,
@@ -513,15 +515,9 @@
       1,
       2,
       3,
-      8,
       9,
+      10,
       5
-    ],
-    [
-      9,
-      0,
-      1,
-      3
     ],
     [
       1,
@@ -534,12 +530,18 @@
       3
     ],
     [
-      19,
+      18,
       0,
       1,
       2,
       3,
       2
+    ],
+    [
+      21,
+      0,
+      1,
+      3
     ],
     [
       22,
@@ -552,7 +554,7 @@
       6
     ],
     [
-      10,
+      9,
       0,
       1,
       3
@@ -594,6 +596,16 @@
       8,
       4,
       2
+    ],
+    [
+      10,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      3
     ],
     [
       11,
@@ -611,28 +623,18 @@
       1,
       2,
       3,
-      4,
+      3
+    ],
+    [
+      2,
+      0,
+      3,
       5,
       3
     ],
     [
       13,
       0,
-      1,
-      2,
-      3,
-      3
-    ],
-    [
-      2,
-      0,
-      3,
-      5,
-      3
-    ],
-    [
-      14,
-      0,
       1
     ],
     [
@@ -643,7 +645,7 @@
       3
     ],
     [
-      15,
+      14,
       0,
       1,
       1
@@ -669,14 +671,14 @@
       5
     ],
     [
-      17,
+      16,
       0,
       1,
       2,
       1
     ],
     [
-      18,
+      17,
       0,
       1,
       2,
@@ -699,7 +701,7 @@
       3
     ],
     [
-      20,
+      19,
       0,
       1,
       2,
@@ -731,7 +733,7 @@
       3
     ],
     [
-      21,
+      20,
       0,
       1,
       2
@@ -741,7 +743,7 @@
     [
       [
         {
-          "name": "pipi-cat",
+          "name": "cat",
           "rect": [
             0,
             0,
@@ -1022,19 +1024,19 @@
       [
         [
           11,
-          "eazax-gray",
+          "eazax-radial-blur",
           [
             {
-              "hash": 3807743776,
+              "hash": 499417757,
               "record": null,
-              "name": "eazax-gray|vs|fs",
+              "name": "eazax-radial-blur|vs|fs",
               "glsl3": {
-                "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nin vec3 a_position;\nin mediump vec2 a_uv0;\nout mediump vec2 v_uv0;\nin vec4 a_color;\nout vec4 v_color;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_uv0 = a_uv0;\n  v_color = a_color;\n}",
-                "frag": "\nprecision highp float;\nuniform sampler2D texture;\nin mediump vec2 v_uv0;\nin vec4 v_color;\nvoid main () {\n  vec4 color = v_color;\n  vec4 texture_tmp = texture(texture, v_uv0);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture(texture, v_uv0 + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    color.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    color.a *= texture_tmp.a;\n  #else\n    color *= texture_tmp;\n  #endif\n  float gray = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;\n  gl_FragColor = vec4(gray, gray, gray, color.a);\n}"
+                "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nuniform CCLocal {\n  mat4 cc_matWorld;\n  mat4 cc_matWorldIT;\n};\nin vec3 a_position;\nin vec4 a_color;\nout vec4 v_color;\n#if USE_TEXTURE\nin vec2 a_uv0;\nout vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+                "frag": "\nprecision highp float;\n#if USE_ALPHA_TEST\n  uniform ALPHA_TEST {\n    float alphaThreshold;\n  };\n#endif\nvoid ALPHA_TEST (in vec4 color) {\n  #if USE_ALPHA_TEST\n      if (color.a < alphaThreshold) discard;\n  #endif\n}\nvoid ALPHA_TEST (in float alpha) {\n  #if USE_ALPHA_TEST\n      if (alpha < alphaThreshold) discard;\n  #endif\n}\nin vec4 v_color;\n#if USE_TEXTURE\nin vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nuniform Properties {\n  vec2 center;\n  float strength;\n};\n#if USE_TEXTURE\nvec4 getRadialBlurColor(vec2 coord) {\n    vec2 offset = coord.xy - center;\n    const int samples = 10;\n    float perStrength = strength / float(samples - 1);\n    vec4 color = vec4(0.0);\n    for(int i = 0; i < samples; i++) {\n        vec2 uv = offset * (1.0 + (float(i) * perStrength)) + center;\n        color += texture2D(texture, uv);\n    }\n    color /= float(samples);\n    return color;\n}\n#endif\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  #if USE_TEXTURE\n    o *= getRadialBlurColor(v_uv0);\n  #endif\n  o *= v_color;\n  ALPHA_TEST(o);\n  #if USE_BGRA\n    gl_FragColor = o.bgra;\n  #else\n    gl_FragColor = o.rgba;\n  #endif\n}"
               },
               "glsl1": {
-                "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nattribute vec3 a_position;\nattribute mediump vec2 a_uv0;\nvarying mediump vec2 v_uv0;\nattribute vec4 a_color;\nvarying vec4 v_color;\nvoid main () {\n  gl_Position = cc_matViewProj * vec4(a_position, 1);\n  v_uv0 = a_uv0;\n  v_color = a_color;\n}",
-                "frag": "\nprecision highp float;\nuniform sampler2D texture;\nvarying mediump vec2 v_uv0;\nvarying vec4 v_color;\nvoid main () {\n  vec4 color = v_color;\n  vec4 texture_tmp = texture2D(texture, v_uv0);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture2D(texture, v_uv0 + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    color.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    color.a *= texture_tmp.a;\n  #else\n    color *= texture_tmp;\n  #endif\n  float gray = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;\n  gl_FragColor = vec4(gray, gray, gray, color.a);\n}"
+                "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nuniform mat4 cc_matWorld;\nattribute vec3 a_position;\nattribute vec4 a_color;\nvarying vec4 v_color;\n#if USE_TEXTURE\nattribute vec2 a_uv0;\nvarying vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+                "frag": "\nprecision highp float;\n#if USE_ALPHA_TEST\n  uniform float alphaThreshold;\n#endif\nvoid ALPHA_TEST (in vec4 color) {\n  #if USE_ALPHA_TEST\n      if (color.a < alphaThreshold) discard;\n  #endif\n}\nvoid ALPHA_TEST (in float alpha) {\n  #if USE_ALPHA_TEST\n      if (alpha < alphaThreshold) discard;\n  #endif\n}\nvarying vec4 v_color;\n#if USE_TEXTURE\nvarying vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nuniform vec2 center;\nuniform float strength;\n#if USE_TEXTURE\nvec4 getRadialBlurColor(vec2 coord) {\n    vec2 offset = coord.xy - center;\n    const int samples = 10;\n    float perStrength = strength / float(samples - 1);\n    vec4 color = vec4(0.0);\n    for(int i = 0; i < samples; i++) {\n        vec2 uv = offset * (1.0 + (float(i) * perStrength)) + center;\n        color += texture2D(texture, uv);\n    }\n    color /= float(samples);\n    return color;\n}\n#endif\nvoid main () {\n  vec4 o = vec4(1, 1, 1, 1);\n  #if USE_TEXTURE\n    o *= getRadialBlurColor(v_uv0);\n  #endif\n  o *= v_color;\n  ALPHA_TEST(o);\n  #if USE_BGRA\n    gl_FragColor = o.bgra;\n  #else\n    gl_FragColor = o.rgba;\n  #endif\n}"
               },
               "builtins": {
                 "globals": {
@@ -1047,30 +1049,79 @@
                   "samplers": []
                 },
                 "locals": {
-                  "blocks": [],
+                  "blocks": [
+                    {
+                      "name": "CCLocal",
+                      "defines": []
+                    }
+                  ],
                   "samplers": []
                 }
               },
               "defines": [
                 {
-                  "name": "CC_USE_ALPHA_ATLAS_texture",
+                  "name": "USE_TEXTURE",
                   "type": "boolean",
                   "defines": []
                 },
                 {
-                  "name": "INPUT_IS_GAMMA",
+                  "name": "CC_USE_MODEL",
+                  "type": "boolean",
+                  "defines": []
+                },
+                {
+                  "name": "USE_ALPHA_TEST",
+                  "type": "boolean",
+                  "defines": []
+                },
+                {
+                  "name": "USE_BGRA",
                   "type": "boolean",
                   "defines": []
                 }
               ],
-              "blocks": [],
+              "blocks": [
+                {
+                  "name": "ALPHA_TEST",
+                  "binding": 0,
+                  "members": [
+                    {
+                      "name": "alphaThreshold",
+                      "type": 13,
+                      "count": 1
+                    }
+                  ],
+                  "defines": [
+                    "USE_ALPHA_TEST"
+                  ]
+                },
+                {
+                  "name": "Properties",
+                  "binding": 1,
+                  "members": [
+                    {
+                      "name": "center",
+                      "type": 14,
+                      "count": 1
+                    },
+                    {
+                      "name": "strength",
+                      "type": 13,
+                      "count": 1
+                    }
+                  ],
+                  "defines": []
+                }
+              ],
               "samplers": [
                 {
                   "name": "texture",
                   "type": 29,
                   "count": 1,
                   "binding": 30,
-                  "defines": []
+                  "defines": [
+                    "USE_TEXTURE"
+                  ]
                 }
               ]
             }
@@ -1079,7 +1130,7 @@
             {
               "passes": [
                 {
-                  "program": "eazax-gray|vs|fs",
+                  "program": "eazax-radial-blur|vs|fs",
                   "blendState": {
                     "targets": [
                       {
@@ -1091,9 +1142,34 @@
                     "cullMode": 0
                   },
                   "properties": {
+                    "center": {
+                      "type": 14,
+                      "value": [
+                        0.5,
+                        0.5
+                      ],
+                      "editor": {
+                        "tooltip": "模糊中心点"
+                      }
+                    },
+                    "strength": {
+                      "type": 13,
+                      "value": [
+                        0.5
+                      ],
+                      "editor": {
+                        "tooltip": "模糊强度"
+                      }
+                    },
                     "texture": {
                       "value": "white",
                       "type": 29
+                    },
+                    "alphaThreshold": {
+                      "type": 13,
+                      "value": [
+                        0.5
+                      ]
                     }
                   }
                 }
@@ -1150,30 +1226,6 @@
     ],
     [
       [
-        [
-          15,
-          "eazax-gray",
-          {
-            "0": {
-              "defines": {}
-            }
-          }
-        ]
-      ],
-      0,
-      0,
-      [
-        0
-      ],
-      [
-        9
-      ],
-      [
-        19
-      ]
-    ],
-    [
-      [
         {
           "name": "sheep_jump_2",
           "rect": [
@@ -1209,7 +1261,7 @@
         1
       ],
       [
-        20
+        19
       ]
     ],
     [
@@ -1249,7 +1301,7 @@
         1
       ],
       [
-        21
+        20
       ]
     ],
     [
@@ -1689,7 +1741,7 @@
         ],
         [
           2,
-          "normalBtn",
+          "btn 1",
           5,
           [
             6
@@ -1739,7 +1791,7 @@
         ],
         [
           2,
-          "inversionBtn",
+          "btn 2",
           5,
           [
             7
@@ -1789,7 +1841,7 @@
         ],
         [
           2,
-          "grayBtn",
+          "btn 3",
           5,
           [
             8
@@ -1839,7 +1891,7 @@
         ],
         [
           2,
-          "mosaicBtn",
+          "btn 4",
           5,
           [
             9
@@ -2032,7 +2084,7 @@
               5
             ],
             [
-              17,
+              16,
               true,
               -66,
               [
@@ -2075,7 +2127,7 @@
               9
             ],
             [
-              17,
+              16,
               true,
               -68,
               [
@@ -2205,6 +2257,7 @@
               1,
               1,
               1,
+              2,
               1,
               -71,
               [
@@ -2218,7 +2271,7 @@
           ],
           [
             5,
-            60,
+            100,
             37.8
           ]
         ],
@@ -2237,6 +2290,7 @@
               1,
               1,
               1,
+              2,
               1,
               -72,
               [
@@ -2250,7 +2304,7 @@
           ],
           [
             5,
-            60,
+            100,
             37.8
           ]
         ],
@@ -2262,13 +2316,14 @@
           [
             [
               10,
-              "灰",
+              "径向模糊",
               30,
               30,
               false,
               1,
               1,
               1,
+              2,
               1,
               -73,
               [
@@ -2282,7 +2337,7 @@
           ],
           [
             5,
-            30,
+            100,
             37.8
           ]
         ],
@@ -2301,6 +2356,7 @@
               1,
               1,
               1,
+              2,
               1,
               -74,
               [
@@ -2314,12 +2370,12 @@
           ],
           [
             5,
-            90,
+            100,
             37.8
           ]
         ],
         [
-          16,
+          15,
           "decorator",
           512,
           2,
@@ -2390,7 +2446,7 @@
           ]
         ],
         [
-          16,
+          15,
           "decorator",
           512,
           2,
@@ -2549,22 +2605,22 @@
         3,
         0,
         13,
-        13,
-        0,
-        14,
-        12,
-        0,
-        15,
-        11,
-        0,
-        16,
-        10,
-        0,
-        17,
         32,
         0,
-        18,
+        14,
         21,
+        0,
+        15,
+        13,
+        0,
+        16,
+        12,
+        0,
+        17,
+        11,
+        0,
+        18,
+        10,
         0,
         19,
         17,
@@ -2810,11 +2866,11 @@
         3,
         -1,
         3,
-        10,
+        9,
         -1,
         -1,
         3,
-        10,
+        9,
         -1,
         -1,
         -1,
@@ -2855,53 +2911,53 @@
       ],
       [
         0,
+        21,
         22,
         23,
+        0,
+        5,
+        6,
+        6,
+        0,
+        5,
+        7,
+        7,
+        0,
+        0,
+        2,
+        1,
+        3,
+        1,
+        4,
+        0,
+        0,
+        2,
+        1,
+        3,
+        1,
+        4,
+        0,
+        0,
+        2,
+        1,
+        3,
+        1,
+        4,
+        0,
+        0,
+        2,
+        1,
+        3,
+        1,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
         24,
-        0,
-        5,
-        6,
-        6,
-        0,
-        5,
-        7,
-        7,
-        0,
-        0,
-        2,
-        1,
-        3,
-        1,
-        4,
-        0,
-        0,
-        2,
-        1,
-        3,
-        1,
-        4,
-        0,
-        0,
-        2,
-        1,
-        3,
-        1,
-        4,
-        0,
-        0,
-        2,
-        1,
-        3,
-        1,
-        4,
-        0,
-        0,
-        0,
-        0,
-        0,
         25,
-        26,
-        27
+        26
       ]
     ],
     [
@@ -3095,7 +3151,7 @@
         1
       ],
       [
-        28
+        27
       ]
     ],
     [
@@ -3217,7 +3273,7 @@
     [
       [
         [
-          15,
+          17,
           "eazax-inversion",
           {
             "0": {
@@ -3234,10 +3290,10 @@
         0
       ],
       [
-        9
+        10
       ],
       [
-        29
+        28
       ]
     ],
     [
@@ -3322,9 +3378,9 @@
       ],
       [
         5,
+        29,
         30,
-        31,
-        32
+        31
       ]
     ],
     [
@@ -3452,11 +3508,11 @@
         2
       ],
       [
-        33,
+        32,
         8,
         9,
         10,
-        34,
+        33,
         10,
         9,
         8
@@ -3499,7 +3555,7 @@
         1
       ],
       [
-        35
+        34
       ]
     ],
     [
@@ -3539,7 +3595,7 @@
         1
       ],
       [
-        36
+        35
       ]
     ],
     [
@@ -3577,6 +3633,35 @@
       ],
       [
         1
+      ],
+      [
+        36
+      ]
+    ],
+    [
+      [
+        [
+          17,
+          "eazax-radial-blur",
+          {
+            "0": {
+              "defines": {
+                "USE_TEXTURE": true
+              },
+              "props": {
+                "strength": 0.1
+              }
+            }
+          }
+        ]
+      ],
+      0,
+      0,
+      [
+        0
+      ],
+      [
+        10
       ],
       [
         37

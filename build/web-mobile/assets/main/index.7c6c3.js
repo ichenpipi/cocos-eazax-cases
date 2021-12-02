@@ -4853,15 +4853,15 @@ window.__require = function e(t, n, r) {
       function Case_PostProcessing() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.avatar = null;
+        _this.btn1 = null;
+        _this.btn2 = null;
+        _this.btn3 = null;
+        _this.btn4 = null;
         _this.outputSprite = null;
         _this.normalMaterial = null;
         _this.inversionMaterial = null;
-        _this.grayMaterial = null;
+        _this.radialBlurMaterial = null;
         _this.outputMosaic = null;
-        _this.normalBtn = null;
-        _this.inversionBtn = null;
-        _this.grayBtn = null;
-        _this.mosaicBtn = null;
         return _this;
       }
       Case_PostProcessing.prototype.onLoad = function() {
@@ -4874,40 +4874,40 @@ window.__require = function e(t, n, r) {
         }).repeatForever().start();
       };
       Case_PostProcessing.prototype.registerEvent = function() {
-        this.normalBtn.on(cc.Node.EventType.TOUCH_END, this.onNormalBtnClick, this);
-        this.inversionBtn.on(cc.Node.EventType.TOUCH_END, this.onInversionBtnClick, this);
-        this.grayBtn.on(cc.Node.EventType.TOUCH_END, this.onGrayBtnClick, this);
-        this.mosaicBtn.on(cc.Node.EventType.TOUCH_END, this.onMosaicBtnClick, this);
+        this.btn1.on(cc.Node.EventType.TOUCH_END, this.onBtn1Click, this);
+        this.btn2.on(cc.Node.EventType.TOUCH_END, this.onBtn2Click, this);
+        this.btn3.on(cc.Node.EventType.TOUCH_END, this.onBtn3Click, this);
+        this.btn4.on(cc.Node.EventType.TOUCH_END, this.onBtn4Click, this);
       };
-      Case_PostProcessing.prototype.onNormalBtnClick = function() {
+      Case_PostProcessing.prototype.onBtn1Click = function() {
         this.outputMosaic.enabled = false;
         this.outputSprite.setMaterial(0, this.normalMaterial);
       };
-      Case_PostProcessing.prototype.onInversionBtnClick = function() {
+      Case_PostProcessing.prototype.onBtn2Click = function() {
         this.outputMosaic.enabled = false;
         this.outputSprite.setMaterial(0, this.inversionMaterial);
       };
-      Case_PostProcessing.prototype.onGrayBtnClick = function() {
+      Case_PostProcessing.prototype.onBtn3Click = function() {
         this.outputMosaic.enabled = false;
-        this.outputSprite.setMaterial(0, this.grayMaterial);
+        this.outputSprite.setMaterial(0, this.radialBlurMaterial);
       };
-      Case_PostProcessing.prototype.onMosaicBtnClick = function() {
+      Case_PostProcessing.prototype.onBtn4Click = function() {
         var mosaic = this.outputMosaic;
         mosaic.enabled = true;
         mosaic.init();
-        mosaic.set(0, 0);
-        mosaic.to(10, 10, 1);
+        mosaic.set(0);
+        mosaic.to(10, 1);
       };
       __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "avatar", void 0);
+      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "btn1", void 0);
+      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "btn2", void 0);
+      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "btn3", void 0);
+      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "btn4", void 0);
       __decorate([ property(cc.Sprite) ], Case_PostProcessing.prototype, "outputSprite", void 0);
       __decorate([ property(cc.Material) ], Case_PostProcessing.prototype, "normalMaterial", void 0);
       __decorate([ property(cc.Material) ], Case_PostProcessing.prototype, "inversionMaterial", void 0);
-      __decorate([ property(cc.Material) ], Case_PostProcessing.prototype, "grayMaterial", void 0);
+      __decorate([ property(cc.Material) ], Case_PostProcessing.prototype, "radialBlurMaterial", void 0);
       __decorate([ property(Mosaic_1.default) ], Case_PostProcessing.prototype, "outputMosaic", void 0);
-      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "normalBtn", void 0);
-      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "inversionBtn", void 0);
-      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "grayBtn", void 0);
-      __decorate([ property(cc.Node) ], Case_PostProcessing.prototype, "mosaicBtn", void 0);
       Case_PostProcessing = __decorate([ ccclass ], Case_PostProcessing);
       return Case_PostProcessing;
     }(cc.Component);
@@ -12755,6 +12755,10 @@ window.__require = function e(t, n, r) {
       Mosaic.prototype.to = function(width, height, duration) {
         var _this = this;
         return new Promise(function(res) {
+          if (void 0 == duration) {
+            duration = height;
+            height = width;
+          }
           cc.tween(_this).to(duration, {
             size: cc.size(width, height)
           }).call(res).start();
