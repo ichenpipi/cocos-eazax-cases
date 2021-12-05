@@ -1573,33 +1573,29 @@ window.__require = function e(t, n, r) {
         name: "\u540e\u671f\u5904\u7406",
         scene: "postProcessing"
       },
+      radialBlur: {
+        name: "\u5f84\u5411\u6a21\u7cca",
+        scene: "radialBlur"
+      },
+      gaussianBlur: {
+        name: "\u9ad8\u65af\u6a21\u7cca\uff08\u8bd5\u9a8c\uff09",
+        scene: "gaussianBlur"
+      },
       avatar: {
         name: "\u5934\u50cf",
         scene: "avatar"
       },
-      cardArray: {
-        name: "\u5361\u7247\u9635\u5217",
-        scene: "cardArray"
+      pixelClick: {
+        name: "\u50cf\u7d20\u70b9\u51fb",
+        scene: "pixelClick"
       },
-      cardFlip: {
-        name: "\u5361\u7247\u7ffb\u8f6c",
-        scene: "cardFlip"
-      },
-      cardArrayFlip: {
-        name: "\u5361\u7247\u9635\u5217 & \u7ffb\u8f6c",
-        scene: "cardArrayFlip"
+      runtimeTrimming: {
+        name: "\u8fd0\u884c\u65f6\u56fe\u50cf\u526a\u88c1",
+        scene: "runtimeTrimming"
       },
       colorBrush: {
         name: "\u5f69\u8272\u753b\u7b14",
         scene: "colorBrush"
-      },
-      frameLoading: {
-        name: "\u5206\u5e27\u52a0\u8f7d",
-        scene: "frameLoading"
-      },
-      gaussianBlur: {
-        name: "\u9ad8\u65af\u6a21\u7cca",
-        scene: "gaussianBlur"
       },
       gradientColor: {
         name: "\u6e10\u53d8\u8272",
@@ -1609,17 +1605,9 @@ window.__require = function e(t, n, r) {
         name: "\u65b0\u624b\u5f15\u5bfc",
         scene: "newUserGuide"
       },
-      popupTesting: {
-        name: "\u5f39\u7a97\u6d4b\u8bd5",
-        scene: "popupTesting"
-      },
       radarChart: {
         name: "\u96f7\u8fbe\u56fe",
         scene: "radarChart"
-      },
-      rotateAround: {
-        name: "\u56f4\u7ed5\u65cb\u8f6c",
-        scene: "rotateAround"
       },
       sineWave: {
         name: "\u6b63\u5f26\u6ce2\u6d6a",
@@ -1637,21 +1625,37 @@ window.__require = function e(t, n, r) {
         name: "\u8fdc\u7a0b\u9aa8\u9abc",
         scene: "remoteSpine"
       },
-      pixelClick: {
-        name: "\u50cf\u7d20\u70b9\u51fb",
-        scene: "pixelClick"
+      frameLoading: {
+        name: "\u5206\u5e27\u52a0\u8f7d",
+        scene: "frameLoading"
       },
-      runtimeTrimming: {
-        name: "\u8fd0\u884c\u65f6\u56fe\u50cf\u526a\u88c1",
-        scene: "runtimeTrimming"
+      collisionQuadTree: {
+        name: "\u78b0\u649e\u68c0\u6d4b(\u56db\u53c9\u6811)",
+        scene: "collisionQuadTree"
+      },
+      rotateAround: {
+        name: "\u56f4\u7ed5\u65cb\u8f6c",
+        scene: "rotateAround"
+      },
+      cardArray: {
+        name: "\u5361\u7247\u9635\u5217",
+        scene: "cardArray"
+      },
+      cardFlip: {
+        name: "\u5361\u7247\u7ffb\u8f6c",
+        scene: "cardFlip"
+      },
+      cardArrayFlip: {
+        name: "\u5361\u7247\u9635\u5217 & \u7ffb\u8f6c",
+        scene: "cardArrayFlip"
       },
       dragging: {
         name: "\u62d6\u62fd\u793a\u4f8b",
         scene: "dragging"
       },
-      collisionQuadTree: {
-        name: "\u78b0\u649e\u68c0\u6d4b(\u56db\u53c9\u6811)",
-        scene: "collisionQuadTree"
+      popupTesting: {
+        name: "\u5f39\u7a97\u6d4b\u8bd5",
+        scene: "popupTesting"
       }
     };
     cc._RF.pop();
@@ -4894,7 +4898,6 @@ window.__require = function e(t, n, r) {
       Case_PostProcessing.prototype.onBtn4Click = function() {
         var mosaic = this.outputMosaic;
         mosaic.enabled = true;
-        mosaic.init();
         mosaic.set(0);
         mosaic.to(10, 1);
       };
@@ -10061,8 +10064,12 @@ window.__require = function e(t, n, r) {
     var EditorAsset = function() {
       function EditorAsset() {}
       EditorAsset.load = function(path, assetType, callback) {
-        true;
-        return cc.warn("[EditorAsset]", "\u8be5\u51fd\u6570\u53ea\u5728\u7f16\u8f91\u5668\u73af\u5883\u5185\u6709\u6548\uff01");
+        return new Promise(function(res) {
+          true;
+          res(null);
+          cc.warn("[EditorAsset]", "\u8be5\u51fd\u6570\u53ea\u5728\u7f16\u8f91\u5668\u73af\u5883\u5185\u6709\u6548\uff01");
+          return;
+        });
       };
       return EditorAsset;
     }();
@@ -12718,24 +12725,26 @@ window.__require = function e(t, n, r) {
       };
       Mosaic.prototype.init = function() {
         return __awaiter(this, void 0, void 0, function() {
-          var sprite;
-          var _this = this;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
+          var path, _a;
+          return __generator(this, function(_b) {
+            switch (_b.label) {
              case 0:
               true;
               return [ 3, 2 ];
 
              case 1:
-              _a.sent();
-              _a.label = 2;
+              _a._effect = _b.sent();
+              _b.label = 2;
 
              case 2:
-              if (!this._effect) return [ 2 ];
-              sprite = this.sprite = this.node.getComponent(cc.Sprite);
-              sprite.spriteFrame && (sprite.spriteFrame.getTexture().packable = false);
+              if (!this._effect) {
+                cc.warn("[" + this["__proto__"]["__classname__"] + "]", "\u8bf7\u624b\u52a8\u6307\u5b9a\u7ec4\u4ef6\u7684 Effect \u8d44\u6e90\uff01");
+                return [ 2 ];
+              }
+              this.sprite = this.node.getComponent(cc.Sprite);
+              this.sprite.spriteFrame && (this.sprite.spriteFrame.getTexture().packable = false);
               this.material || (this.material = cc.Material.create(this._effect));
-              sprite.setMaterial(0, this.material);
+              this.sprite.setMaterial(0, this.material);
               this.updateProperties();
               return [ 2 ];
             }
@@ -14341,6 +14350,266 @@ window.__require = function e(t, n, r) {
     };
     cc._RF.pop();
   }, {} ],
+  RadialBlur: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "d4961IiUphHfaCzNM9yoTl9", "RadialBlur");
+    "use strict";
+    var __extends = this && this.__extends || function() {
+      var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function(d, b) {
+          d.__proto__ = b;
+        } || function(d, b) {
+          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
+        };
+        return extendStatics(d, b);
+      };
+      return function(d, b) {
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __generator = this && this.__generator || function(thisArg, body) {
+      var _ = {
+        label: 0,
+        sent: function() {
+          if (1 & t[0]) throw t[1];
+          return t[1];
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+      return g = {
+        next: verb(0),
+        throw: verb(1),
+        return: verb(2)
+      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
+        return this;
+      }), g;
+      function verb(n) {
+        return function(v) {
+          return step([ n, v ]);
+        };
+      }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
+          switch (op[0]) {
+           case 0:
+           case 1:
+            t = op;
+            break;
+
+           case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+           case 5:
+            _.label++;
+            y = op[1];
+            op = [ 0 ];
+            continue;
+
+           case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+
+           default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
+              _ = 0;
+              continue;
+            }
+            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (6 === op[0] && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            t[2] && _.ops.pop();
+            _.trys.pop();
+            continue;
+          }
+          op = body.call(thisArg, _);
+        } catch (e) {
+          op = [ 6, e ];
+          y = 0;
+        } finally {
+          f = t = 0;
+        }
+        if (5 & op[0]) throw op[1];
+        return {
+          value: op[0] ? op[1] : void 0,
+          done: true
+        };
+      }
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var EditorAsset_1 = require("../../misc/EditorAsset");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property, requireComponent = _a.requireComponent, executeInEditMode = _a.executeInEditMode, disallowMultiple = _a.disallowMultiple;
+    var RadialBlur = function(_super) {
+      __extends(RadialBlur, _super);
+      function RadialBlur() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this._effect = null;
+        _this._center = new cc.Vec2(.5, .5);
+        _this._strength = .5;
+        _this.sprite = null;
+        _this.material = null;
+        return _this;
+      }
+      Object.defineProperty(RadialBlur.prototype, "effect", {
+        get: function() {
+          return this._effect;
+        },
+        set: function(value) {
+          this._effect = value;
+          this.init();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(RadialBlur.prototype, "center", {
+        get: function() {
+          return this._center;
+        },
+        set: function(value) {
+          this._center = value;
+          this.updateProperties();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      Object.defineProperty(RadialBlur.prototype, "strength", {
+        get: function() {
+          return this._strength;
+        },
+        set: function(value) {
+          this._strength = value;
+          this.updateProperties();
+        },
+        enumerable: false,
+        configurable: true
+      });
+      RadialBlur.prototype.onLoad = function() {
+        this.init();
+      };
+      RadialBlur.prototype.resetInEditor = function() {
+        this.init();
+      };
+      RadialBlur.prototype.init = function() {
+        return __awaiter(this, void 0, void 0, function() {
+          var path, _a;
+          return __generator(this, function(_b) {
+            switch (_b.label) {
+             case 0:
+              true;
+              return [ 3, 2 ];
+
+             case 1:
+              _a._effect = _b.sent();
+              _b.label = 2;
+
+             case 2:
+              if (!this._effect) {
+                cc.warn("[" + this["__proto__"]["__classname__"] + "]", "\u8bf7\u624b\u52a8\u6307\u5b9a\u7ec4\u4ef6\u7684 Effect \u8d44\u6e90\uff01");
+                return [ 2 ];
+              }
+              this.sprite = this.node.getComponent(cc.Sprite);
+              this.sprite.spriteFrame && (this.sprite.spriteFrame.getTexture().packable = false);
+              this.material = cc.Material.create(this._effect);
+              this.sprite.setMaterial(0, this.material);
+              this.updateProperties();
+              return [ 2 ];
+            }
+          });
+        });
+      };
+      RadialBlur.prototype.updateProperties = function() {
+        this.material.setProperty("center", this._center);
+        this.material.setProperty("strength", this._strength);
+      };
+      Object.defineProperty(RadialBlur.prototype, "nodeSize", {
+        get: function() {
+          return cc.v2(this.node.width, this.node.height);
+        },
+        enumerable: false,
+        configurable: true
+      });
+      __decorate([ property ], RadialBlur.prototype, "_effect", void 0);
+      __decorate([ property({
+        type: cc.EffectAsset,
+        tooltip: false,
+        readonly: true
+      }) ], RadialBlur.prototype, "effect", null);
+      __decorate([ property ], RadialBlur.prototype, "_center", void 0);
+      __decorate([ property({
+        tooltip: false
+      }) ], RadialBlur.prototype, "center", null);
+      __decorate([ property ], RadialBlur.prototype, "_strength", void 0);
+      __decorate([ property({
+        tooltip: false
+      }) ], RadialBlur.prototype, "strength", null);
+      RadialBlur = __decorate([ ccclass, requireComponent(cc.Sprite), executeInEditMode, disallowMultiple ], RadialBlur);
+      return RadialBlur;
+    }(cc.Component);
+    exports.default = RadialBlur;
+    cc._RF.pop();
+  }, {
+    "../../misc/EditorAsset": "EditorAsset"
+  } ],
   RegexUtil: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "96a04sFvMhOMqfue6e/AFZD", "RegexUtil");
@@ -23676,4 +23945,4 @@ window.__require = function e(t, n, r) {
     })();
     cc._RF.pop();
   }, {} ]
-}, {}, [ "Case_ArcProgressBar", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "Case_CardFlip", "quadtree", "Case_CollisionQuadTree", "Case_CollisionQuadTree_Container", "Case_CollisionQuadTree_DraggableItem", "Case_CollisionQuadTree_Item", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_PostProcessing", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "PostProcessing", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "ColorUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "TextureUsage", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "Case_ArcProgressBar", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "Case_CardFlip", "quadtree", "Case_CollisionQuadTree", "Case_CollisionQuadTree_Container", "Case_CollisionQuadTree_DraggableItem", "Case_CollisionQuadTree_Item", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_PostProcessing", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "PostProcessing", "RadialBlur", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "ColorUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "TextureUsage", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);

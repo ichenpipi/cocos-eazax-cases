@@ -4,33 +4,29 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '后期处理',
         scene: 'postProcessing'
     },
+    radialBlur: {
+        name: '径向模糊',
+        scene: 'radialBlur'
+    },
+    gaussianBlur: {
+        name: '高斯模糊（试验）',
+        scene: 'gaussianBlur'
+    },
     avatar: {
         name: '头像',
         scene: 'avatar'
     },
-    cardArray: {
-        name: '卡片阵列',
-        scene: 'cardArray'
+    pixelClick: {
+        name: '像素点击',
+        scene: 'pixelClick'
     },
-    cardFlip: {
-        name: '卡片翻转',
-        scene: 'cardFlip'
-    },
-    cardArrayFlip: {
-        name: '卡片阵列 & 翻转',
-        scene: 'cardArrayFlip'
+    runtimeTrimming: {
+        name: '运行时图像剪裁',
+        scene: 'runtimeTrimming'
     },
     colorBrush: {
         name: '彩色画笔',
         scene: 'colorBrush'
-    },
-    frameLoading: {
-        name: '分帧加载',
-        scene: 'frameLoading'
-    },
-    gaussianBlur: {
-        name: '高斯模糊',
-        scene: 'gaussianBlur'
     },
     gradientColor: {
         name: '渐变色',
@@ -40,17 +36,9 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '新手引导',
         scene: 'newUserGuide'
     },
-    popupTesting: {
-        name: '弹窗测试',
-        scene: 'popupTesting'
-    },
     radarChart: {
         name: '雷达图',
         scene: 'radarChart'
-    },
-    rotateAround: {
-        name: '围绕旋转',
-        scene: 'rotateAround'
     },
     sineWave: {
         name: '正弦波浪',
@@ -68,21 +56,37 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '远程骨骼',
         scene: 'remoteSpine'
     },
-    pixelClick: {
-        name: '像素点击',
-        scene: 'pixelClick'
+    frameLoading: {
+        name: '分帧加载',
+        scene: 'frameLoading'
     },
-    runtimeTrimming: {
-        name: '运行时图像剪裁',
-        scene: 'runtimeTrimming'
+    collisionQuadTree: {
+        name: '碰撞检测（四叉树）',
+        scene: 'collisionQuadTree'
+    },
+    rotateAround: {
+        name: '围绕旋转',
+        scene: 'rotateAround'
+    },
+    cardArray: {
+        name: '卡片阵列',
+        scene: 'cardArray'
+    },
+    cardFlip: {
+        name: '卡片翻转',
+        scene: 'cardFlip'
+    },
+    cardArrayFlip: {
+        name: '卡片阵列 & 翻转',
+        scene: 'cardArrayFlip'
     },
     dragging: {
         name: '拖拽示例',
         scene: 'dragging'
     },
-    collisionQuadTree: {
-        name: '碰撞检测(四叉树)',
-        scene: 'collisionQuadTree'
+    popupTesting: {
+        name: '弹窗测试',
+        scene: 'popupTesting'
     },
 }
 

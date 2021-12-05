@@ -104,7 +104,6 @@ export default class Case_PostProcessing extends cc.Component {
     protected onBtn4Click() {
         const mosaic = this.outputMosaic;
         mosaic.enabled = true;
-        mosaic.init();
         mosaic.set(0);
         mosaic.to(10, 1);
     }

@@ -13,7 +13,7 @@
         "USE_TEXTURE": true
       },
       "props": {
-        "strength": 0.1
+        "strength": 0.3
       }
     }
   }

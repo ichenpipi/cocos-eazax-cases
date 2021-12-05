@@ -75,25 +75,25 @@
         "__id__": 5
       },
       {
-        "__id__": 72
+        "__id__": 73
       },
       {
-        "__id__": 77
+        "__id__": 78
       },
       {
-        "__id__": 79
+        "__id__": 80
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 81
-      },
-      {
         "__id__": 82
       },
       {
         "__id__": 83
+      },
+      {
+        "__id__": 84
       }
     ],
     "_prefab": null,
@@ -263,13 +263,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 70
-      },
-      {
-        "__id__": 75
+        "__id__": 71
       },
       {
         "__id__": 76
+      },
+      {
+        "__id__": 77
       }
     ],
     "_prefab": null,
@@ -2571,7 +2571,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 69
+        "__id__": 70
       }
     ],
     "_prefab": null,
@@ -2649,10 +2649,10 @@
         "__id__": 60
       },
       {
-        "__id__": 67
+        "__id__": 68
       },
       {
-        "__id__": 68
+        "__id__": 69
       }
     ],
     "_prefab": null,
@@ -3082,6 +3082,9 @@
       },
       {
         "__id__": 66
+      },
+      {
+        "__id__": 67
       }
     ],
     "_id": "d6XozwSiJH/oJKOuXh5yMv"
@@ -3108,13 +3111,18 @@
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "[Effect] eazax-mosaic.effect",
+    "title": "[Shader] eazax-mosaic.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-mosaic.effect"
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "[Effect] eazax-inversion.effect",
+    "title": "[Shader] eazax-inversion.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-inversion.effect"
+  },
+  {
+    "__type__": "ResPopupItemInfo",
+    "title": "[Shader] eazax-radial-blur.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-radial-blur.effect"
   },
   {
     "__type__": "cc.Layout",
@@ -3214,7 +3222,7 @@
       "__id__": 4
     },
     "targetSprite": {
-      "__id__": 71
+      "__id__": 72
     },
     "_id": "50Y2CSGDFKjK3eKa9OR7YF"
   },
@@ -3223,7 +3231,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 72
+      "__id__": 73
     },
     "_enabled": true,
     "_materials": [
@@ -3259,13 +3267,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 71
-      },
-      {
-        "__id__": 73
+        "__id__": 72
       },
       {
         "__id__": 74
+      },
+      {
+        "__id__": 75
       }
     ],
     "_prefab": null,
@@ -3321,7 +3329,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 72
+      "__id__": 73
     },
     "_enabled": false,
     "_effect": {
@@ -3339,7 +3347,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 72
+      "__id__": 73
     },
     "_enabled": true,
     "alignMode": 1,
@@ -3372,21 +3380,6 @@
     "avatar": {
       "__id__": 12
     },
-    "outputSprite": {
-      "__id__": 71
-    },
-    "normalMaterial": {
-      "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-    },
-    "inversionMaterial": {
-      "__uuid__": "bce6dd20-a8bc-433a-8207-9bf3f9c0ee71"
-    },
-    "radialBlurMaterial": {
-      "__uuid__": "fa7b41f5-fa51-4fd5-93d1-7843557ea1c6"
-    },
-    "outputMosaic": {
-      "__id__": 73
-    },
     "btn1": {
       "__id__": 21
     },
@@ -3398,6 +3391,21 @@
     },
     "btn4": {
       "__id__": 42
+    },
+    "outputSprite": {
+      "__id__": 72
+    },
+    "normalMaterial": {
+      "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+    },
+    "inversionMaterial": {
+      "__uuid__": "bce6dd20-a8bc-433a-8207-9bf3f9c0ee71"
+    },
+    "radialBlurMaterial": {
+      "__uuid__": "fa7b41f5-fa51-4fd5-93d1-7843557ea1c6"
+    },
+    "outputMosaic": {
+      "__id__": 74
     },
     "_id": "bbVa+8ZRJE0oxpZpzvGmlh"
   },
@@ -3439,7 +3447,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 78
+        "__id__": 79
       }
     ],
     "_prefab": null,
@@ -3495,7 +3503,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 77
+      "__id__": 78
     },
     "_enabled": true,
     "_cullingMask": 16,
@@ -3537,7 +3545,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 80
+        "__id__": 81
       }
     ],
     "_prefab": null,
@@ -3593,7 +3601,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 79
+      "__id__": 80
     },
     "_enabled": true,
     "_cullingMask": 32,
