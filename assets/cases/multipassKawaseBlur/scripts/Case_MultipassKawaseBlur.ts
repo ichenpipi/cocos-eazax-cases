@@ -4,7 +4,7 @@ const { ccclass, property } = cc._decorator;
  * 实例：Kawase 模糊（多 Pass）
  * @author 陈皮皮 (ifaswind)
  * @version 20211208
- * @see Case_MultipassKawaseBlur.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/pixelClick/scripts/Case_MultipassKawaseBlur.ts
+ * @see Case_MultipassKawaseBlur.ts https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/multipassKawaseBlur/scripts/Case_MultipassKawaseBlur.ts
  * @see eazax-kawase-blur.effect https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-kawase-blur.effect
  * @see RenderUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/RenderUtil.ts
  */
