@@ -1,4 +1,6 @@
-// Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+// Kawase 模糊（Kawase Blur）
+// 20211208
+// https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-kawase-blur.effect
 
 CCEffect %{
   techniques:
@@ -10,11 +12,11 @@ CCEffect %{
         - blend: true
       rasterizerState:
         cullMode: none
-      properties: &props
+      properties:
+        resolution: { value: [500, 500] }
+        offset: { value: 1.0, range: [0.0, 10.0] }
         texture: { value: white }
         alphaThreshold: { value: 0.5 }
-        nodeSize: { value: [200.0, 200.0] }
-        pixelOffset: { value: 1.0 }
 }%
 
 
@@ -67,33 +69,37 @@ CCProgram fs %{
   #endif
 
   uniform Properties {
-    vec2 nodeSize;
-    float pixelOffset;
+    vec2 resolution;
+    float offset;
   };
 
-  vec4 kawaseBlur(sampler2D texture, vec2 uv, float pixelOffset) {
-    vec4 color = vec4(0);
-    vec2 offset = (vec2(pixelOffset) + 0.5) / nodeSize;
-    color += texture2D(texture, uv + offset);
-    color += texture2D(texture,  uv - offset);
-    offset.x = -offset.x;
-    color += texture2D(texture, uv + offset);
-    color += texture2D(texture,  uv - offset);
-    return color * 0.25;
-  }
+  #if USE_TEXTURE
+  // 模糊函数
+  vec4 kawaseBlur(sampler2D tex, vec2 uv, vec2 texelSize, float offset) {
+		vec4 o = vec4(0);
+		o += texture2D(tex, uv + vec2(offset + 0.5, offset + 0.5) * texelSize); 
+		o += texture2D(tex, uv + vec2(-offset - 0.5, offset + 0.5) * texelSize); 
+		o += texture2D(tex, uv + vec2(-offset - 0.5, -offset - 0.5) * texelSize); 
+		o += texture2D(tex, uv + vec2(offset + 0.5, -offset - 0.5) * texelSize); 
+		return o * 0.25;
+	}
+  #endif
 
   void main () {
-    vec4 color = vec4(1, 1, 1, 1);
+    vec4 o = vec4(1, 1, 1, 1);
 
     #if USE_TEXTURE
-      color = kawaseBlur(texture, v_uv0, pixelOffset);
+    o *= kawaseBlur(texture, v_uv0, 1.0 / resolution, offset);
     #endif
 
-    color *= v_color;
+    o *= v_color;
 
-    ALPHA_TEST(color);
+    ALPHA_TEST(o);
 
-    gl_FragColor = color;
+    #if USE_BGRA
+      gl_FragColor = o.bgra;
+    #else
+      gl_FragColor = o.rgba;
+    #endif
   }
-
 }%

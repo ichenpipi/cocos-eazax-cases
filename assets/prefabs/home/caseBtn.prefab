@@ -43,7 +43,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 140,
       "height": 90
     },
     "_anchorPoint": {
@@ -114,7 +114,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 140,
       "height": 90
     },
     "_anchorPoint": {
@@ -181,8 +181,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 37.8
+      "width": 130,
+      "height": 31.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -235,8 +235,8 @@
     "_dstBlendFactor": 771,
     "_string": "示例名称",
     "_N$string": "示例名称",
-    "_fontSize": 24,
-    "_lineHeight": 30,
+    "_fontSize": 20,
+    "_lineHeight": 25,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -248,7 +248,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 3,
-    "_N$cacheMode": 1,
+    "_N$cacheMode": 0,
     "_id": ""
   },
   {
@@ -262,8 +262,8 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 40,
-    "_left": 12.5,
-    "_right": 12.5,
+    "_left": 5,
+    "_right": 5,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
@@ -284,7 +284,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "d71233ec-1e2e-4519-ac48-f45250f3f066"
+      "__id__": 0
     },
     "fileId": "3djZsXrx5Ehbv32YqnPr+S",
     "sync": false
@@ -354,7 +354,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "d71233ec-1e2e-4519-ac48-f45250f3f066"
+      "__id__": 0
     },
     "fileId": "9892o8ibdAzKQY19LpCMI0",
     "sync": false
@@ -448,7 +448,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "d71233ec-1e2e-4519-ac48-f45250f3f066"
+      "__id__": 0
     },
     "fileId": "",
     "sync": false

@@ -1,5 +1,5 @@
 import ImageUtil from "../../../eazax-ccc/utils/ImageUtil";
-import NodeUtil from "../../../eazax-ccc/utils/NodeUtil";
+import RenderUtil from "../../../eazax-ccc/utils/RenderUtil";
 
 const { ccclass, property } = cc._decorator;
 
@@ -72,7 +72,7 @@ export default class Case_RuntimeTrimming extends cc.Component {
 
         // 获取像素数据
         console.time('⏱ getPixelsData 耗时');
-        const pixelsData = NodeUtil.getPixelsData(node);
+        const pixelsData = RenderUtil.getPixelsData(node);
         console.timeEnd('⏱ getPixelsData 耗时');
 
         // 获取剪裁信息

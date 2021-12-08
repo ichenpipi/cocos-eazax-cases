@@ -1,4 +1,6 @@
-/** 示例名称到示例信息的映射表 */
+/**
+ * 示例名称到示例信息的映射表
+ */
 export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
     postProcessing: {
         name: '后期处理',
@@ -7,6 +9,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
     radialBlur: {
         name: '径向模糊',
         scene: 'radialBlur'
+    },
+    multipassKawaseBlur: {
+        name: 'Kawase 模糊（多 Pass）',
+        scene: 'multipassKawaseBlur'
     },
     gaussianBlur: {
         name: '高斯模糊（试验）',

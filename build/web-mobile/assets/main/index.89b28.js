@@ -1577,6 +1577,10 @@ window.__require = function e(t, n, r) {
         name: "\u5f84\u5411\u6a21\u7cca",
         scene: "radialBlur"
       },
+      multipassKawaseBlur: {
+        name: "Kawase \u6a21\u7cca\uff08\u591a Pass\uff09",
+        scene: "multipassKawaseBlur"
+      },
       gaussianBlur: {
         name: "\u9ad8\u65af\u6a21\u7cca\uff08\u8bd5\u9a8c\uff09",
         scene: "gaussianBlur"
@@ -1630,7 +1634,7 @@ window.__require = function e(t, n, r) {
         scene: "frameLoading"
       },
       collisionQuadTree: {
-        name: "\u78b0\u649e\u68c0\u6d4b(\u56db\u53c9\u6811)",
+        name: "\u78b0\u649e\u68c0\u6d4b\uff08\u56db\u53c9\u6811\uff09",
         scene: "collisionQuadTree"
       },
       rotateAround: {
@@ -4357,9 +4361,9 @@ window.__require = function e(t, n, r) {
     exports.default = Case_FrameLoading;
     cc._RF.pop();
   }, {} ],
-  Case_MultiPassKawaseBlur: [ function(require, module, exports) {
+  Case_MultipassKawaseBlur: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "34be8PeFuJCYYl8asjkccOr", "Case_MultiPassKawaseBlur");
+    cc._RF.push(module, "57f6d8LrfFDu6/Rj+pNtFXs", "Case_MultipassKawaseBlur");
     "use strict";
     var __extends = this && this.__extends || function() {
       var extendStatics = function(d, b) {
@@ -4389,25 +4393,82 @@ window.__require = function e(t, n, r) {
       value: true
     });
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
-    var Case_MultiPassKawaseBlur = function(_super) {
-      __extends(Case_MultiPassKawaseBlur, _super);
-      function Case_MultiPassKawaseBlur() {
+    var Case_MultipassKawaseBlur = function(_super) {
+      __extends(Case_MultipassKawaseBlur, _super);
+      function Case_MultipassKawaseBlur() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.sprite0 = null;
-        _this.sprite1 = null;
-        _this.sprite2 = null;
-        _this.sprite3 = null;
+        _this.sprite = null;
+        _this.material = null;
         return _this;
       }
-      Case_MultiPassKawaseBlur.prototype.onLoad = function() {};
-      __decorate([ property(cc.Sprite) ], Case_MultiPassKawaseBlur.prototype, "sprite0", void 0);
-      __decorate([ property(cc.Sprite) ], Case_MultiPassKawaseBlur.prototype, "sprite1", void 0);
-      __decorate([ property(cc.Sprite) ], Case_MultiPassKawaseBlur.prototype, "sprite2", void 0);
-      __decorate([ property(cc.Sprite) ], Case_MultiPassKawaseBlur.prototype, "sprite3", void 0);
-      Case_MultiPassKawaseBlur = __decorate([ ccclass ], Case_MultiPassKawaseBlur);
-      return Case_MultiPassKawaseBlur;
+      Case_MultipassKawaseBlur.prototype.start = function() {
+        var sprite = this.sprite, node = this.sprite.node;
+        var material = this.material;
+        material.setProperty("resolution", cc.v2(node.width, node.height));
+        var srcRT = new cc.RenderTexture(), dstRT = new cc.RenderTexture();
+        this.getRenderTexture(node, srcRT);
+        this.renderWithMaterial(srcRT, dstRT, material);
+        this.renderWithMaterial(dstRT, srcRT, material);
+        this.renderWithMaterial(srcRT, dstRT, material);
+        this.renderWithMaterial(dstRT, srcRT, material);
+        this.renderWithMaterial(srcRT, dstRT, material);
+        sprite.spriteFrame = new cc.SpriteFrame(dstRT);
+        srcRT.destroy();
+      };
+      Case_MultipassKawaseBlur.prototype.getRenderTexture = function(node, out) {
+        if (!cc.isValid(node)) return null;
+        out && out instanceof cc.RenderTexture || (out = new cc.RenderTexture());
+        var width = Math.floor(node.width), height = Math.floor(node.height);
+        out.initWithSize(width, height);
+        var cameraNode = new cc.Node();
+        cameraNode.parent = node;
+        var camera = cameraNode.addComponent(cc.Camera);
+        camera.clearFlags |= cc.Camera.ClearFlags.COLOR;
+        camera.backgroundColor = cc.color(0, 0, 0, 0);
+        camera.zoomRatio = cc.winSize.height / height;
+        camera.targetTexture = out;
+        camera.render(node);
+        cameraNode.destroy();
+        return out;
+      };
+      Case_MultipassKawaseBlur.prototype.renderWithMaterial = function(srcRT, dstRT, material) {
+        if (dstRT instanceof cc.Material) {
+          material = dstRT;
+          dstRT = new cc.RenderTexture();
+        }
+        var tempNode = new cc.Node();
+        tempNode.setParent(cc.Canvas.instance.node);
+        var tempSprite = tempNode.addComponent(cc.Sprite);
+        tempSprite.sizeMode = cc.Sprite.SizeMode.RAW;
+        tempSprite.trim = false;
+        tempSprite.spriteFrame = new cc.SpriteFrame(srcRT);
+        var width = srcRT.width, height = srcRT.height;
+        dstRT.initWithSize(width, height);
+        material instanceof cc.Material && tempSprite.setMaterial(0, material);
+        var cameraNode = new cc.Node();
+        cameraNode.setParent(tempNode);
+        var camera = cameraNode.addComponent(cc.Camera);
+        camera.clearFlags |= cc.Camera.ClearFlags.COLOR;
+        camera.backgroundColor = cc.color(0, 0, 0, 0);
+        camera.zoomRatio = cc.winSize.height / height;
+        camera.targetTexture = dstRT;
+        camera.render(tempNode);
+        cameraNode.destroy();
+        tempNode.destroy();
+        return dstRT;
+      };
+      __decorate([ property({
+        type: cc.Sprite,
+        tooltip: false
+      }) ], Case_MultipassKawaseBlur.prototype, "sprite", void 0);
+      __decorate([ property({
+        type: cc.Material,
+        tooltip: false
+      }) ], Case_MultipassKawaseBlur.prototype, "material", void 0);
+      Case_MultipassKawaseBlur = __decorate([ ccclass ], Case_MultipassKawaseBlur);
+      return Case_MultipassKawaseBlur;
     }(cc.Component);
-    exports.default = Case_MultiPassKawaseBlur;
+    exports.default = Case_MultipassKawaseBlur;
     cc._RF.pop();
   }, {} ],
   Case_NewUserGuide: [ function(require, module, exports) {
@@ -4695,7 +4756,7 @@ window.__require = function e(t, n, r) {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var NodeUtil_1 = require("../../../eazax-ccc/utils/NodeUtil");
+    var RenderUtil_1 = require("../../../eazax-ccc/utils/RenderUtil");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var Case_PixelClick = function(_super) {
       __extends(Case_PixelClick, _super);
@@ -4721,7 +4782,7 @@ window.__require = function e(t, n, r) {
       Case_PixelClick.prototype.onTargetClick = function(event) {
         var touchPos = event.getLocation(), node = this.target, localPos = node.convertToNodeSpaceAR(touchPos);
         if (!node.getBoundingBoxToWorld().contains(touchPos)) return;
-        this.pixelsData || (this.pixelsData = NodeUtil_1.default.getPixelsData(this.target));
+        this.pixelsData || (this.pixelsData = RenderUtil_1.default.getPixelsData(this.target));
         var x = localPos.x + node.anchorX * node.width, y = -(localPos.y - node.anchorY * node.height);
         var index = 4 * node.width * Math.floor(y) + 4 * Math.floor(x), colors = this.pixelsData.slice(index, index + 4);
         this.reference.color = cc.color(colors[0], colors[1], colors[2]);
@@ -4747,7 +4808,7 @@ window.__require = function e(t, n, r) {
     exports.default = Case_PixelClick;
     cc._RF.pop();
   }, {
-    "../../../eazax-ccc/utils/NodeUtil": "NodeUtil"
+    "../../../eazax-ccc/utils/RenderUtil": "RenderUtil"
   } ],
   Case_PopupTesting: [ function(require, module, exports) {
     "use strict";
@@ -5652,7 +5713,7 @@ window.__require = function e(t, n, r) {
       value: true
     });
     var ImageUtil_1 = require("../../../eazax-ccc/utils/ImageUtil");
-    var NodeUtil_1 = require("../../../eazax-ccc/utils/NodeUtil");
+    var RenderUtil_1 = require("../../../eazax-ccc/utils/RenderUtil");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var Case_RuntimeTrimming = function(_super) {
       __extends(Case_RuntimeTrimming, _super);
@@ -5684,7 +5745,7 @@ window.__require = function e(t, n, r) {
           return;
         }
         console.time("\u23f1 getPixelsData \u8017\u65f6");
-        var pixelsData = NodeUtil_1.default.getPixelsData(node);
+        var pixelsData = RenderUtil_1.default.getPixelsData(node);
         console.timeEnd("\u23f1 getPixelsData \u8017\u65f6");
         console.time("\u23f1 getTrim \u8017\u65f6");
         var trimInfo = ImageUtil_1.default.getTrim(pixelsData, node.width, node.height);
@@ -5715,7 +5776,7 @@ window.__require = function e(t, n, r) {
     cc._RF.pop();
   }, {
     "../../../eazax-ccc/utils/ImageUtil": "ImageUtil",
-    "../../../eazax-ccc/utils/NodeUtil": "NodeUtil"
+    "../../../eazax-ccc/utils/RenderUtil": "RenderUtil"
   } ],
   Case_SineWave: [ function(require, module, exports) {
     "use strict";
@@ -11589,253 +11650,6 @@ window.__require = function e(t, n, r) {
     exports.default = JellyTween;
     cc._RF.pop();
   }, {} ],
-  KawaseBlur: [ function(require, module, exports) {
-    "use strict";
-    cc._RF.push(module, "c6f20SUGOpITZpFupzU1uTW", "KawaseBlur");
-    "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __awaiter = this && this.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    var __generator = this && this.__generator || function(thisArg, body) {
-      var _ = {
-        label: 0,
-        sent: function() {
-          if (1 & t[0]) throw t[1];
-          return t[1];
-        },
-        trys: [],
-        ops: []
-      }, f, y, t, g;
-      return g = {
-        next: verb(0),
-        throw: verb(1),
-        return: verb(2)
-      }, "function" === typeof Symbol && (g[Symbol.iterator] = function() {
-        return this;
-      }), g;
-      function verb(n) {
-        return function(v) {
-          return step([ n, v ]);
-        };
-      }
-      function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-          if (f = 1, y && (t = 2 & op[0] ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
-          0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          (y = 0, t) && (op = [ 2 & op[0], t.value ]);
-          switch (op[0]) {
-           case 0:
-           case 1:
-            t = op;
-            break;
-
-           case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-           case 5:
-            _.label++;
-            y = op[1];
-            op = [ 0 ];
-            continue;
-
-           case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-
-           default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (6 === op[0] || 2 === op[0])) {
-              _ = 0;
-              continue;
-            }
-            if (3 === op[0] && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (6 === op[0] && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            t[2] && _.ops.pop();
-            _.trys.pop();
-            continue;
-          }
-          op = body.call(thisArg, _);
-        } catch (e) {
-          op = [ 6, e ];
-          y = 0;
-        } finally {
-          f = t = 0;
-        }
-        if (5 & op[0]) throw op[1];
-        return {
-          value: op[0] ? op[1] : void 0,
-          done: true
-        };
-      }
-    };
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    var EditorAsset_1 = require("../../../eazax-ccc/misc/EditorAsset");
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property, requireComponent = _a.requireComponent, executeInEditMode = _a.executeInEditMode, disallowMultiple = _a.disallowMultiple;
-    var KawaseBlur = function(_super) {
-      __extends(KawaseBlur, _super);
-      function KawaseBlur() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this._effect = null;
-        _this._offset = 3;
-        _this.sprite = null;
-        _this.material = null;
-        return _this;
-      }
-      Object.defineProperty(KawaseBlur.prototype, "effect", {
-        get: function() {
-          return this._effect;
-        },
-        set: function(value) {
-          this._effect = value;
-          this.init();
-        },
-        enumerable: false,
-        configurable: true
-      });
-      Object.defineProperty(KawaseBlur.prototype, "offset", {
-        get: function() {
-          return this._offset;
-        },
-        set: function(value) {
-          this._offset = value;
-          this.updateProperties();
-        },
-        enumerable: false,
-        configurable: true
-      });
-      KawaseBlur.prototype.onEnable = function() {
-        this.init();
-      };
-      KawaseBlur.prototype.resetInEditor = function() {
-        this.init();
-      };
-      KawaseBlur.prototype.init = function() {
-        return __awaiter(this, void 0, void 0, function() {
-          var _this = this;
-          return __generator(this, function(_a) {
-            switch (_a.label) {
-             case 0:
-              true;
-              return [ 3, 2 ];
-
-             case 1:
-              _a.sent();
-              _a.label = 2;
-
-             case 2:
-              this.setupMaterial();
-              return [ 2 ];
-            }
-          });
-        });
-      };
-      KawaseBlur.prototype.setupMaterial = function() {
-        if (!this._effect) {
-          cc.warn("[" + this["__proto__"]["__classname__"] + "]", "\u7f3a\u5c11 Effect \u8d44\u6e90\uff01");
-          return;
-        }
-        var sprite = this.sprite = this.node.getComponent(cc.Sprite);
-        sprite.spriteFrame && (sprite.spriteFrame.getTexture().packable = false);
-        this.material || (this.material = cc.Material.create(this._effect));
-        sprite.setMaterial(0, this.material);
-        this.updateProperties();
-      };
-      KawaseBlur.prototype.updateProperties = function() {
-        if (!this.material) return;
-        this.material.setProperty("nodeSize", this.nodeSize);
-        this.material.setProperty("pixelOffset", this._offset);
-      };
-      Object.defineProperty(KawaseBlur.prototype, "nodeSize", {
-        get: function() {
-          return cc.v2(this.node.width, this.node.height);
-        },
-        enumerable: false,
-        configurable: true
-      });
-      __decorate([ property ], KawaseBlur.prototype, "_effect", void 0);
-      __decorate([ property({
-        type: cc.EffectAsset,
-        tooltip: false
-      }) ], KawaseBlur.prototype, "effect", null);
-      __decorate([ property ], KawaseBlur.prototype, "_offset", void 0);
-      __decorate([ property({
-        tooltip: false
-      }) ], KawaseBlur.prototype, "offset", null);
-      KawaseBlur = __decorate([ ccclass, requireComponent(cc.Sprite), executeInEditMode, disallowMultiple ], KawaseBlur);
-      return KawaseBlur;
-    }(cc.Component);
-    exports.default = KawaseBlur;
-    cc._RF.pop();
-  }, {
-    "../../../eazax-ccc/misc/EditorAsset": "EditorAsset"
-  } ],
   LoadingTip: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "9a6a6v9xNlGP7ZxoJbg3IJd", "LoadingTip");
@@ -12829,30 +12643,6 @@ window.__require = function e(t, n, r) {
     });
     var NodeUtil = function() {
       function NodeUtil() {}
-      NodeUtil.getPixelsData = function(node, flipY) {
-        void 0 === flipY && (flipY = true);
-        if (!cc.isValid(node)) return null;
-        var width = Math.floor(node.width), height = Math.floor(node.height);
-        var cameraNode = new cc.Node();
-        cameraNode.parent = node;
-        var camera = cameraNode.addComponent(cc.Camera);
-        camera.clearFlags |= cc.Camera.ClearFlags.COLOR;
-        camera.backgroundColor = cc.color(0, 0, 0, 0);
-        camera.zoomRatio = cc.winSize.height / height;
-        var renderTexture = new cc.RenderTexture();
-        renderTexture.initWithSize(width, height, cc.RenderTexture.DepthStencilFormat.RB_FMT_S8);
-        camera.targetTexture = renderTexture;
-        camera.render(node);
-        var pixelsData = renderTexture.readPixels();
-        renderTexture.destroy();
-        cameraNode.destroy();
-        if (flipY) {
-          var length = pixelsData.length, lineWidth = 4 * width, data = new Uint8Array(length);
-          for (var i = 0, j = length - lineWidth; i < length; i += lineWidth, j -= lineWidth) for (var k = 0; k < lineWidth; k++) data[i + k] = pixelsData[j + k];
-          return data;
-        }
-        return pixelsData;
-      };
       NodeUtil.getRelativePosition = function(node, container) {
         var worldPos = (node.getParent() || node).convertToWorldSpaceAR(node.getPosition());
         return container.convertToNodeSpaceAR(worldPos);
@@ -15585,96 +15375,89 @@ window.__require = function e(t, n, r) {
     "../../core/remote/RemoteLoader": "RemoteLoader",
     "./RemoteAsset": "RemoteAsset"
   } ],
-  RenderTarget: [ function(require, module, exports) {
+  RenderUtil: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "c8604NCJi1Frp4mm3d2WofH", "RenderTarget");
+    cc._RF.push(module, "0dd11xqTiND8b0Ol9vTXdum", "RenderUtil");
     "use strict";
-    var __extends = this && this.__extends || function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function(d, b) {
-          d.__proto__ = b;
-        } || function(d, b) {
-          for (var p in b) Object.prototype.hasOwnProperty.call(b, p) && (d[p] = b[p]);
-        };
-        return extendStatics(d, b);
-      };
-      return function(d, b) {
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if ("object" === typeof Reflect && "function" === typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property, executeInEditMode = _a.executeInEditMode;
-    var RenderTarget = function(_super) {
-      __extends(RenderTarget, _super);
-      function RenderTarget() {
-        var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this._source = null;
-        _this._target = null;
-        _this.camera = null;
-        _this.texture = null;
-        return _this;
-      }
-      Object.defineProperty(RenderTarget.prototype, "source", {
-        get: function() {
-          return this._source;
-        },
-        set: function(value) {
-          this._source = value;
-          this.setTarget(value);
-        },
-        enumerable: false,
-        configurable: true
-      });
-      Object.defineProperty(RenderTarget.prototype, "target", {
-        get: function() {
-          return this._target;
-        },
-        set: function(value) {
-          this._target = value;
-          this.setTarget(value);
-        },
-        enumerable: false,
-        configurable: true
-      });
-      RenderTarget.prototype.onLoad = function() {
-        this.init();
+    var RenderUtil = function() {
+      function RenderUtil() {}
+      RenderUtil.getRenderTexture = function(node, out) {
+        if (!cc.isValid(node)) return null;
+        out && out instanceof cc.RenderTexture || (out = new cc.RenderTexture());
+        var width = Math.floor(node.width), height = Math.floor(node.height);
+        out.initWithSize(width, height);
+        var cameraNode = new cc.Node();
+        cameraNode.parent = node;
+        var camera = cameraNode.addComponent(cc.Camera);
+        camera.clearFlags |= cc.Camera.ClearFlags.COLOR;
+        camera.backgroundColor = cc.color(0, 0, 0, 0);
+        camera.zoomRatio = cc.winSize.height / height;
+        camera.targetTexture = out;
+        camera.render(node);
+        cameraNode.destroy();
+        return out;
       };
-      RenderTarget.prototype.init = function() {
-        this.camera = this.getComponent(cc.Camera);
-        this._target && this.setTarget(this._target);
+      RenderUtil.renderWithMaterial = function(srcRT, dstRT, material) {
+        if (dstRT instanceof cc.Material) {
+          material = dstRT;
+          dstRT = new cc.RenderTexture();
+        }
+        var tempNode = new cc.Node();
+        tempNode.setParent(cc.Canvas.instance.node);
+        var tempSprite = tempNode.addComponent(cc.Sprite);
+        tempSprite.sizeMode = cc.Sprite.SizeMode.RAW;
+        tempSprite.trim = false;
+        tempSprite.spriteFrame = new cc.SpriteFrame(srcRT);
+        var width = srcRT.width, height = srcRT.height;
+        dstRT.initWithSize(width, height);
+        material instanceof cc.Material && tempSprite.setMaterial(0, material);
+        var cameraNode = new cc.Node();
+        cameraNode.setParent(tempNode);
+        var camera = cameraNode.addComponent(cc.Camera);
+        camera.clearFlags |= cc.Camera.ClearFlags.COLOR;
+        camera.backgroundColor = cc.color(0, 0, 0, 0);
+        camera.zoomRatio = cc.winSize.height / height;
+        camera.targetTexture = dstRT;
+        camera.render(tempNode);
+        cameraNode.destroy();
+        tempNode.destroy();
+        return dstRT;
       };
-      RenderTarget.prototype.setTarget = function(target) {
-        var texture = this.texture = new cc.RenderTexture();
-        var size = cc.view.getVisibleSizeInPixel();
-        texture.initWithSize(size.width, size.height);
-        this.camera.targetTexture = texture;
-        var spriteFrame = new cc.SpriteFrame();
-        spriteFrame.setTexture(texture);
-        target.spriteFrame = spriteFrame;
-        var scale = Math.abs(target.node.scaleY);
-        target.node.scaleY = -scale;
+      RenderUtil.getPixelsData = function(node, flipY) {
+        void 0 === flipY && (flipY = true);
+        if (!cc.isValid(node)) return null;
+        var width = Math.floor(node.width), height = Math.floor(node.height);
+        var cameraNode = new cc.Node();
+        cameraNode.parent = node;
+        var camera = cameraNode.addComponent(cc.Camera);
+        camera.clearFlags |= cc.Camera.ClearFlags.COLOR;
+        camera.backgroundColor = cc.color(0, 0, 0, 0);
+        camera.zoomRatio = cc.winSize.height / height;
+        var renderTexture = new cc.RenderTexture();
+        renderTexture.initWithSize(width, height, cc.RenderTexture.DepthStencilFormat.RB_FMT_S8);
+        camera.targetTexture = renderTexture;
+        camera.render(node);
+        var pixelsData = renderTexture.readPixels();
+        renderTexture.destroy();
+        cameraNode.destroy();
+        if (flipY) {
+          var length = pixelsData.length, lineWidth = 4 * width, data = new Uint8Array(length);
+          for (var i = 0, j = length - lineWidth; i < length; i += lineWidth, j -= lineWidth) for (var k = 0; k < lineWidth; k++) data[i + k] = pixelsData[j + k];
+          return data;
+        }
+        return pixelsData;
       };
-      __decorate([ property() ], RenderTarget.prototype, "_source", void 0);
-      __decorate([ property(cc.Sprite) ], RenderTarget.prototype, "source", null);
-      __decorate([ property() ], RenderTarget.prototype, "_target", void 0);
-      __decorate([ property(cc.Sprite) ], RenderTarget.prototype, "target", null);
-      RenderTarget = __decorate([ ccclass, executeInEditMode ], RenderTarget);
-      return RenderTarget;
-    }(cc.Component);
-    exports.default = RenderTarget;
+      RenderUtil.flipY = function(array, width) {
+        var length = array.length, flipped = new Uint8Array(length);
+        for (var i = 0, j = length - width; i < length; i += width, j -= width) for (var k = 0; k < width; k++) flipped[i + k] = array[j + k];
+        return flipped;
+      };
+      return RenderUtil;
+    }();
+    exports.default = RenderUtil;
     cc._RF.pop();
   }, {} ],
   ResPopupItem: [ function(require, module, exports) {
@@ -15721,7 +15504,7 @@ window.__require = function e(t, n, r) {
       }
       ResPopupItem.prototype.set = function(name, url) {
         var extname = name.slice(name.lastIndexOf("."));
-        this.typeLabel.string = SymbolMap[extname] || "\ud83d\udce6";
+        this.typeLabel.string = SymbolMap[extname] || SymbolMap[""];
         this.nameLabel.string = name;
         this.clicker.url = url;
       };
@@ -15733,6 +15516,7 @@ window.__require = function e(t, n, r) {
     }(cc.Component);
     exports.default = ResPopupItem;
     var SymbolMap = {
+      "": "\ud83d\udce6",
       ".ts": "\ud83d\udcc4",
       ".effect": "\ud83c\udfa8"
     };
@@ -23945,4 +23729,4 @@ window.__require = function e(t, n, r) {
     })();
     cc._RF.pop();
   }, {} ]
-}, {}, [ "Case_ArcProgressBar", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "Case_CardFlip", "quadtree", "Case_CollisionQuadTree", "Case_CollisionQuadTree_Container", "Case_CollisionQuadTree_DraggableItem", "Case_CollisionQuadTree_Item", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_PostProcessing", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "PostProcessing", "RadialBlur", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "ColorUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "TextureUsage", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Case_MultiPassKawaseBlur", "KawaseBlur", "RenderTarget", "Test_NodeOrder" ]);
+}, {}, [ "Case_ArcProgressBar", "CardArrayFlip_Card", "CardArrayFlip_CardLayout", "CardArrayFlip_FrontCard2D", "CardArrayFlip_FrontCard3D", "CardArrayFlip_FrontCardBase", "Case_CardArrayFlip", "CardArray_Card", "CardArray_CardLayout", "Case_CardArray", "Case_CardFlip", "quadtree", "Case_CollisionQuadTree", "Case_CollisionQuadTree_Container", "Case_CollisionQuadTree_DraggableItem", "Case_CollisionQuadTree_Item", "Case_Dragging", "Case_DraggingContent", "Case_Dragging_Container", "Case_Dragging_Group", "Case_Dragging_GroupContainer", "Case_Dragging_Item", "Case_FrameLoading", "Case_MultipassKawaseBlur", "Case_NewUserGuide", "Case_PixelClick", "Case_PopupTesting", "TestPopup", "Case_PostProcessing", "Case_RadarChart", "Case_RemoteSpine", "Case_RemoteTexture", "Case_RuntimeTrimming", "Case_SineWave", "BackgroundFitter", "Counter", "LongPress", "Marquee", "RotateAround", "RunInBackground", "ScreenAdapter", "Subtitle", "TouchBlocker", "TouchBlocker2", "ArcProgressBar", "RadarChart", "ColorBrush", "GaussianBlur", "HollowOut", "Mosaic", "PostProcessing", "RadialBlur", "SineWave", "LocalizationBase", "LocalizationLabelString", "LocalizationSpriteFrame", "ConfirmPopup", "PopupBase", "RemoteAsset", "RemoteSpine", "RemoteTexture", "GradientColor", "BounceMoveTween", "BounceScaleTween", "JellyTween", "AudioPlayer", "EventManager", "InstanceEvent", "PopupManager", "SceneNavigator", "RemoteLoader", "SpineLoader", "ZipLoader", "eazax", "extension", "EditorAsset", "jszip", "ArrayUtil", "BrowserUtil", "ColorUtil", "DebugUtil", "DeviceUtil", "ImageUtil", "MathUtil", "NodeUtil", "ObjectUtil", "PromiseUtil", "RegexUtil", "RenderUtil", "StorageUtil", "TimeUtil", "TweenUtil", "CaseList", "CaseManager", "ClickToLoadUrl", "ClickToShowResPopup", "CaseLoading", "CommonUI", "LoadingTip", "TextureUsage", "Toast", "ResPopup", "ResPopupItem", "Constants", "CustomEvents", "Hack_RunSpineInEditor", "Hack_ScrollView", "Home", "Home_Content", "Home_UI", "Home_CaseBtn", "Home_CaseList", "Test_3DNode", "Test_CardFlip", "NetworkManager", "PoolManager", "ResourceManager", "MarchingSquares", "Test_NodeOrder" ]);

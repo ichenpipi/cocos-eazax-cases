@@ -1,4 +1,4 @@
-import NodeUtil from "../../../eazax-ccc/utils/NodeUtil";
+import RenderUtil from "../../../eazax-ccc/utils/RenderUtil";
 
 const { ccclass, property } = cc._decorator;
 
@@ -60,7 +60,7 @@ export default class Case_PixelClick extends cc.Component {
 
         // 获取像素数据
         if (!this.pixelsData) {
-            this.pixelsData = NodeUtil.getPixelsData(this.target);
+            this.pixelsData = RenderUtil.getPixelsData(this.target);
         }
 
         // 截取像素颜色

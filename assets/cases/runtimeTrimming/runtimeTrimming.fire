@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "c0e1688c-6058-41ed-a736-3d3953c8ccc8"
   },
   {
@@ -2117,8 +2117,8 @@
   },
   {
     "__type__": "ResPopupItemInfo",
-    "title": "[工具类] NodeUtil.ts",
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/NodeUtil.ts"
+    "title": "[工具类] RenderUtil.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/RenderUtil.ts"
   },
   {
     "__type__": "ResPopupItemInfo",
