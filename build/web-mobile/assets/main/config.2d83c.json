@@ -108,7 +108,6 @@
         "ffDpHHVcZAhqOfy25Fe4w7"
     ],
     "scenes": {
-        "db://assets/scenes/home.fire": "c9an2pAnBDUJ3DFe/CPrRW",
         "db://assets/cases/arcProgressBar/arcProgressBar.fire": "ddApjL3cFPibSsM/j/1Uvm",
         "db://assets/cases/avatar/avatar.fire": "77PPuLQctAqr13DRcgbnw9",
         "db://assets/cases/cardArray/cardArray.fire": "6emHO2hutGN7Pxzfu6WzvU",
@@ -120,9 +119,7 @@
         "db://assets/cases/frameLoading/frameLoading.fire": "0dAZ7ps8pCuo08IObFb3Z/",
         "db://assets/cases/gaussianBlur/gaussianBlur.fire": "8ezkmRhEJHopcNR1mbpQBU",
         "db://assets/cases/gradientColor/gradientColor.fire": "d77rJ3TdxOW5ibvEAZdtvI",
-        "db://assets/cases/multipassKawaseBlur /multipassKawaseBlur.fire": "70OL5/J4RPl5pofcREJde5",
         "db://assets/cases/newUserGuide/newUserGuide.fire": "62AFm1yJ9Lup6b3mV+7pB4",
-        "db://assets/cases/pixelClick/pixelClick.fire": "44qlUgYjtBIrmqEzb/+Tyy",
         "db://assets/cases/popupTesting/popupTesting.fire": "45Yti9YpNKbp7BMjD9Qq0N",
         "db://assets/cases/postProcessing/postProcessing.fire": "945lcmZYNLPblRqtTqT2Ld",
         "db://assets/cases/radarChart/radarChart.fire": "baq4XrJTdIwLNWiF3BqQKh",
@@ -130,8 +127,11 @@
         "db://assets/cases/remoteSpine/remoteSpine.fire": "5bo/pCz8xO6J3PpIDgxAsi",
         "db://assets/cases/remoteTexture/remoteTexture.fire": "0b47V4PLRByIlBD43pRLwS",
         "db://assets/cases/rotateAround/rotateAround.fire": "d9fSpRbelGoZ3cJEnPLpwA",
+        "db://assets/cases/sineWave/sineWave.fire": "47R8Cbe55N6IeXOhWUb1D8",
+        "db://assets/cases/pixelClick/pixelClick.fire": "44qlUgYjtBIrmqEzb/+Tyy",
         "db://assets/cases/runtimeTrimming/runtimeTrimming.fire": "c04WiMYFhB7ac2PTlTyMzI",
-        "db://assets/cases/sineWave/sineWave.fire": "47R8Cbe55N6IeXOhWUb1D8"
+        "db://assets/scenes/home.fire": "c9an2pAnBDUJ3DFe/CPrRW",
+        "db://assets/cases/multipassKawaseBlur/multipassKawaseBlur.fire": "70OL5/J4RPl5pofcREJde5"
     },
     "redirect": [
         "02delMVqdBD70a/HSD99FK",
@@ -362,7 +362,7 @@
             "0b6e7b90d",
             "e2357",
             "0b7fe43b6",
-            "df3c2",
+            "bf32b",
             "0cb8f4ec6",
             "a9ed7",
             "0ccbc40ed",
