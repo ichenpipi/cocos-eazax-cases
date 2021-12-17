@@ -18,6 +18,11 @@ export default class Case_MultipassKawaseBlur extends cc.Component {
     protected material: cc.Material = null;
 
     /**
+     * 正在使用的 RenderTexture
+     */
+    protected renderTexture: cc.RenderTexture = null;
+
+    /**
      * 生命周期：开始（首次 update 前）
      */
     protected start() {
@@ -32,16 +37,26 @@ export default class Case_MultipassKawaseBlur extends cc.Component {
             dstRT = new cc.RenderTexture();
         // 获取初始 RenderTexture
         this.getRenderTexture(node, srcRT);
-        // 处理
+        // 多 Pass 处理
+        // 注：由于 OpenGL 中的纹理是倒置的，所以双数 Pass 的出的图像是颠倒的
         this.renderWithMaterial(srcRT, dstRT, material);
         this.renderWithMaterial(dstRT, srcRT, material);
         this.renderWithMaterial(srcRT, dstRT, material);
         this.renderWithMaterial(dstRT, srcRT, material);
         this.renderWithMaterial(srcRT, dstRT, material);
-        // 使用新的 RenderTexture
-        sprite.spriteFrame = new cc.SpriteFrame(dstRT);
-        // 销毁不用的 RenderTexture
+        // 使用经过处理的 RenderTexture
+        this.renderTexture = dstRT;
+        sprite.spriteFrame = new cc.SpriteFrame(this.renderTexture);
+        // 销毁不用的临时 RenderTexture
         srcRT.destroy();
+    }
+
+    /**
+     * 生命周期：销毁
+     */
+    protected onDestroy(): void {
+        // 销毁不用的 RenderTexture
+        this.renderTexture && this.renderTexture.destroy();
     }
 
     /**
