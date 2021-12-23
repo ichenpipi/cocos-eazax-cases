@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 46
-      },
-      {
         "__id__": 47
       },
       {
         "__id__": 48
+      },
+      {
+        "__id__": 49
       }
     ],
     "_prefab": null,
@@ -254,10 +254,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 44
+        "__id__": 45
       },
       {
-        "__id__": 45
+        "__id__": 46
       }
     ],
     "_prefab": null,
@@ -628,9 +628,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 67,
-      "g": 67,
-      "b": 67,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -777,13 +777,13 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+        "__uuid__": "4e265054-8b2f-421d-8f5c-6dc0a3174bbe"
       }
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
+      "__uuid__": "117113ba-d193-4108-ae99-a37299515f27"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -824,7 +824,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
+      "width": 140,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -876,8 +876,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "灰色的是底图",
-    "_N$string": "灰色的是底图",
+    "_string": "方格棋盘是底图",
+    "_N$string": "方格棋盘是底图",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1412,7 +1412,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 43
+        "__id__": 44
       }
     ],
     "_prefab": null,
@@ -1490,10 +1490,10 @@
         "__id__": 38
       },
       {
-        "__id__": 41
+        "__id__": 42
       },
       {
-        "__id__": 42
+        "__id__": 43
       }
     ],
     "_prefab": null,
@@ -1507,7 +1507,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 354.6,
+      "width": 340,
       "height": 80
     },
     "_anchorPoint": {
@@ -1569,7 +1569,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1581,7 +1581,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -103.65,
+        -100,
         4.618527782440651e-14,
         0,
         0,
@@ -1759,7 +1759,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1771,7 +1771,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        103.65,
+        100,
         4.618527782440651e-14,
         0,
         0,
@@ -1911,6 +1911,9 @@
       },
       {
         "__id__": 40
+      },
+      {
+        "__id__": 41
       }
     ],
     "_id": "7d3MPPHkdCoKxL/xwpw5sQ"
@@ -1926,6 +1929,11 @@
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/RenderUtil.ts"
   },
   {
+    "__type__": "ResPopupItemInfo",
+    "title": "[Shader] eazax-chessboard.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-chessboard.effect"
+  },
+  {
     "__type__": "cc.Layout",
     "_name": "",
     "_objFlags": 0,
@@ -1935,7 +1943,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 354.6,
+      "width": 340,
       "height": 80
     },
     "_resize": 1,

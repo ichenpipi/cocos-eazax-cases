@@ -1,0 +1,26 @@
+{
+  "__type__": "cc.Material",
+  "_name": "placeholder",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "83023086-e81f-454a-a8c7-5d897f8727a3"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": false
+      },
+      "props": {
+        "colorA": {
+          "__type__": "cc.Color",
+          "r": 91,
+          "g": 91,
+          "b": 91,
+          "a": 255
+        }
+      }
+    }
+  }
+}

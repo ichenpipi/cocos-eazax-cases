@@ -78,10 +78,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 8
+        "__id__": 7
       },
       {
-        "__id__": 9
+        "__id__": 8
       }
     ],
     "_prefab": null,
@@ -232,7 +232,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "cat",
+    "_name": "chessboard",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -242,9 +242,6 @@
     "_components": [
       {
         "__id__": 6
-      },
-      {
-        "__id__": 7
       }
     ],
     "_prefab": null,
@@ -258,8 +255,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 500,
-      "height": 500
+      "width": 550,
+      "height": 550
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -305,13 +302,13 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "d0fbcafc-29fc-460a-a5ed-5c5fac3632c0"
+        "__uuid__": "c056d69f-4275-43f8-bdbb-6a5471fd7762"
       }
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "ecefd696-c3d7-47b3-832f-bed83c66f7f7"
+      "__uuid__": "117113ba-d193-4108-ae99-a37299515f27"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -326,22 +323,6 @@
     "_isTrimmedMode": false,
     "_atlas": null,
     "_id": "923vTQUyhHfLqb2A8Nfexv"
-  },
-  {
-    "__type__": "57f6d8LrfFDu6/Rj+pNtFXs",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
-    },
-    "_enabled": true,
-    "sprite": {
-      "__id__": 6
-    },
-    "material": {
-      "__uuid__": "d0fbcafc-29fc-460a-a5ed-5c5fac3632c0"
-    },
-    "_id": "40BJR+o71GIL+N+CR8fb/s"
   },
   {
     "__type__": "cc.Canvas",
