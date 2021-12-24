@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "620059b5-c89f-4bba-9e9b-de657eee9078"
   },
   {
@@ -671,7 +671,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "startBtn",
+    "_name": "Start Btn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 12
@@ -987,7 +987,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "oneBtn",
+    "_name": "One Btn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 12
@@ -1272,7 +1272,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "twoBtn",
+    "_name": "Two Btn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 12
@@ -1588,7 +1588,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "threeBtn",
+    "_name": "Three Btn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 12
@@ -1826,7 +1826,7 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "9b8c703f-f141-4b7b-9abc-1086194390f1"
+        "__uuid__": "40cf26a0-4a84-4b5a-a6ad-10cc4827f412"
       }
     ],
     "_srcBlendFactor": 770,
@@ -1844,7 +1844,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_atlas": null,
     "_id": "16z+cr4MRG5pfKtkRB1YKU"
   },
@@ -1904,7 +1904,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "mask",
+    "_name": "Mask & Blocker",
     "_objFlags": 0,
     "_parent": {
       "__id__": 12
@@ -2259,7 +2259,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 354.6,
+      "width": 500,
       "height": 80
     },
     "_anchorPoint": {
@@ -2321,7 +2321,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2333,7 +2333,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -103.65,
+        -180,
         4.618527782440651e-14,
         0,
         0,
@@ -2416,7 +2416,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
+      "width": 320,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2468,8 +2468,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "新手引导",
-    "_N$string": "新手引导",
+    "_string": "挖孔（新手引导）",
+    "_N$string": "挖孔（新手引导）",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2511,7 +2511,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2523,7 +2523,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        103.65,
+        180,
         4.618527782440651e-14,
         0,
         0,
@@ -2703,7 +2703,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 354.6,
+      "width": 500,
       "height": 80
     },
     "_resize": 1,

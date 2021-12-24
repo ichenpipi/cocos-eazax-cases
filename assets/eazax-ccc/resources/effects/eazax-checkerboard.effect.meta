@@ -1,0 +1,18 @@
+{
+  "ver": "1.0.27",
+  "uuid": "83023086-e81f-454a-a8c7-5d897f8727a3",
+  "importer": "effect",
+  "compiledShaders": [
+    {
+      "glsl1": {
+        "vert": "\nprecision highp float;\nuniform mat4 cc_matViewProj;\nuniform mat4 cc_matWorld;\nattribute vec3 a_position;\nattribute vec4 a_color;\nvarying vec4 v_color;\n#if USE_TEXTURE\nattribute vec2 a_uv0;\nvarying vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+        "frag": "\nprecision highp float;\nvarying vec4 v_color;\n#if USE_TEXTURE\nvarying vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nuniform vec2 resolution;\nuniform vec2 gridSize;\nuniform vec4 colorA;\nuniform vec4 colorB;\nvec4 getColor(vec2 uv) {\n  vec2 offset = mod(resolution, gridSize) / 2.0 / resolution;\n  vec2 size = resolution / gridSize;\n  vec2 pos = floor((uv - offset) * size) / 2.0;\n  return (-fract(pos.x + pos.y) < 0.0) ? colorA : colorB;\n}\nvoid main () {\n  vec4 color = v_color;\n  #if USE_TEXTURE\n  vec4 texture_tmp = texture2D(texture, v_uv0);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture2D(texture, v_uv0 + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    color.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    color.a *= texture_tmp.a;\n  #else\n    color *= texture_tmp;\n  #endif\n  #endif\n  color *= getColor(v_uv0);\n  #if USE_BGRA\n  gl_FragColor = color.bgra;\n  #else\n  gl_FragColor = color.rgba;\n  #endif\n}"
+      },
+      "glsl3": {
+        "vert": "\nprecision highp float;\nuniform CCGlobal {\n  mat4 cc_matView;\n  mat4 cc_matViewInv;\n  mat4 cc_matProj;\n  mat4 cc_matProjInv;\n  mat4 cc_matViewProj;\n  mat4 cc_matViewProjInv;\n  vec4 cc_cameraPos;\n  vec4 cc_time;\n  mediump vec4 cc_screenSize;\n  mediump vec4 cc_screenScale;\n};\nuniform CCLocal {\n  mat4 cc_matWorld;\n  mat4 cc_matWorldIT;\n};\nin vec3 a_position;\nin vec4 a_color;\nout vec4 v_color;\n#if USE_TEXTURE\nin vec2 a_uv0;\nout vec2 v_uv0;\n#endif\nvoid main () {\n  vec4 pos = vec4(a_position, 1);\n  #if CC_USE_MODEL\n  pos = cc_matViewProj * cc_matWorld * pos;\n  #else\n  pos = cc_matViewProj * pos;\n  #endif\n  #if USE_TEXTURE\n  v_uv0 = a_uv0;\n  #endif\n  v_color = a_color;\n  gl_Position = pos;\n}",
+        "frag": "\nprecision highp float;\nin vec4 v_color;\n#if USE_TEXTURE\nin vec2 v_uv0;\nuniform sampler2D texture;\n#endif\nuniform Properties {\n  vec2 resolution;\n  vec2 gridSize;\n  vec4 colorA;\n  vec4 colorB;\n};\nvec4 getColor(vec2 uv) {\n  vec2 offset = mod(resolution, gridSize) / 2.0 / resolution;\n  vec2 size = resolution / gridSize;\n  vec2 pos = floor((uv - offset) * size) / 2.0;\n  return (-fract(pos.x + pos.y) < 0.0) ? colorA : colorB;\n}\nvoid main () {\n  vec4 color = v_color;\n  #if USE_TEXTURE\n  vec4 texture_tmp = texture(texture, v_uv0);\n  #if CC_USE_ALPHA_ATLAS_texture\n      texture_tmp.a *= texture(texture, v_uv0 + vec2(0, 0.5)).r;\n  #endif\n  #if INPUT_IS_GAMMA\n    color.rgb *= (texture_tmp.rgb * texture_tmp.rgb);\n    color.a *= texture_tmp.a;\n  #else\n    color *= texture_tmp;\n  #endif\n  #endif\n  color *= getColor(v_uv0);\n  #if USE_BGRA\n  gl_FragColor = color.bgra;\n  #else\n  gl_FragColor = color.rgba;\n  #endif\n}"
+      }
+    }
+  ],
+  "subMetas": {}
+}
