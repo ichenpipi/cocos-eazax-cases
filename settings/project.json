@@ -1,11 +1,11 @@
 {
   "group-list": [
-    "default",
-    "background",
-    "orthographic",
-    "perspective",
-    "after effect",
-    "common ui"
+    "Default",
+    "Background",
+    "Orthographic",
+    "Perspective",
+    "PostProcessing",
+    "CommonUI"
   ],
   "collision-matrix": [
     [

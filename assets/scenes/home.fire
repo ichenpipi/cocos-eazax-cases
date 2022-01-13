@@ -1460,7 +1460,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 260,
+      "width": 291.44,
       "height": 80
     },
     "_anchorPoint": {
@@ -1522,7 +1522,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
+      "width": 55.72,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1534,7 +1534,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -60,
+        -67.86,
         4.618527782440651e-14,
         0,
         0,
@@ -1712,7 +1712,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
+      "width": 55.72,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1724,7 +1724,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        60,
+        67.86,
         4.618527782440651e-14,
         0,
         0,
@@ -1888,7 +1888,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 260,
+      "width": 291.44,
       "height": 80
     },
     "_resize": 1,
@@ -2031,7 +2031,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 278.33,
+      "width": 290.13,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -3556,7 +3556,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 233.88,
+      "width": 227.22,
       "height": 27.2
     },
     "_anchorPoint": {
@@ -3608,8 +3608,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "纹理数量：5  |  内存：1 M",
-    "_N$string": "纹理数量：5  |  内存：1 M",
+    "_string": "纹理 [ 数量: 5 | 内存: 1M ]",
+    "_N$string": "纹理 [ 数量: 5 | 内存: 1M ]",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,

@@ -21,7 +21,7 @@ export default class ClickToShowResPopup extends cc.Component {
     protected items: ResPopupItemInfo[] = [];
 
     /**
-     * 生命周期：节点加载
+     * 生命周期：加载
      */
     protected onLoad() {
         this.registerEvent();

@@ -18,10 +18,16 @@ export default class Case_FrameLoading extends cc.Component {
     @property(cc.Node)
     protected frameBtn: cc.Node = null;
 
+    /**
+     * 生命周期：加载
+     */
     protected onLoad() {
         this.registerEvent();
     }
 
+    /**
+     * 生命周期：销毁
+     */
     protected onDestroy() {
         this.unregisterEvent();
     }
@@ -64,26 +70,7 @@ export default class Case_FrameLoading extends cc.Component {
      */
     protected onFrameBtnClick() {
         this.clear();
-        this.loadByFrame();
-    }
-
-    /**
-     * 清除
-     */
-    protected clear() {
-        this.unscheduleAllCallbacks();
-        this.content.destroyAllChildren();
-    }
-
-    /**
-     * 添加 item
-     * @param index 下标
-     */
-    protected addItem(index: number) {
-        const node = cc.instantiate(this.itemPrefab);
-        node.setParent(this.content);
-        node.getComponentInChildren(cc.Label).string = `${index + 1}`;
-        node.active = true;
+        this.loadByFrames();
     }
 
     /**
@@ -99,7 +86,7 @@ export default class Case_FrameLoading extends cc.Component {
     /**
      * 分帧加载
      */
-    protected loadByFrame() {
+    protected loadByFrames() {
         const total = 2000,
             countPerFrame = 30; // 每帧加载的数量
         let index = 0;  // 当前下标
@@ -119,6 +106,25 @@ export default class Case_FrameLoading extends cc.Component {
         }
         // 开始加载
         load();
+    }
+
+    /**
+     * 添加 item
+     * @param index 下标
+     */
+    protected addItem(index: number) {
+        const node = cc.instantiate(this.itemPrefab);
+        node.setParent(this.content);
+        node.getComponentInChildren(cc.Label).string = `${index + 1}`;
+        node.active = true;
+    }
+
+    /**
+     * 清除
+     */
+    protected clear() {
+        this.unscheduleAllCallbacks();
+        this.content.destroyAllChildren();
     }
 
 }

@@ -23,7 +23,7 @@ export default class Case_CollisionQuadTree_Container extends cc.Component {
     }
 
     /**
-     * 生命周期：节点加载后
+     * 生命周期：加载
      */
     protected onLoad() {
         this.registerEvent();

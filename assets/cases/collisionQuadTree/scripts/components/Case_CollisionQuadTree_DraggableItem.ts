@@ -11,7 +11,7 @@ export default class Case_CollisionQuadTree_DraggableItem extends Case_Collision
     protected dragOffset: cc.Vec2 = null;
 
     /**
-     * 生命周期：节点加载后
+     * 生命周期：加载
      */
     protected onLoad() {
         this.registerEvent();

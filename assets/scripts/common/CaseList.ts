@@ -86,6 +86,10 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '卡片阵列 & 翻转',
         scene: 'cardArrayFlip'
     },
+    dragAndDrop: {
+        name: '拖拽&插槽组件',
+        scene: 'dragAndDrop'
+    },
     dragging: {
         name: '拖拽示例',
         scene: 'dragging'

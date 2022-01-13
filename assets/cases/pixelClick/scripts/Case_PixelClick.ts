@@ -20,9 +20,14 @@ export default class Case_PixelClick extends cc.Component {
     @property(cc.Label)
     protected label: cc.Label = null;
 
-    /** 像素数据 */
+    /**
+     * 像素数据
+     */
     protected pixelsData: Uint8Array = null;
 
+    /**
+     * 生命周期：加载
+     */
     protected onLoad() {
         this.init();
         this.registerEvent();

@@ -1,42 +1,10 @@
 /**
  * 图像工具
  * @author 陈皮皮 (ifaswind)
- * @version 20211019
+ * @version 20220113
  * @see ImageUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/ImageUtil.ts
  */
 export default class ImageUtil {
-
-    /**
-     * 垂直翻转图像数据
-     * @param array 数据
-     * @param width 行宽
-     */
-    public static flipY(array: Uint8Array, width: number) {
-        // const height = Math.floor(array.length / width),
-        //     halfHeight = Math.floor(height / 2),
-        //     maxRowIndex = height - 1;
-        // for (let i = 0; i < halfHeight; i++) {
-        //     const a = i * width,
-        //         b = (maxRowIndex - i) * width;
-        //     for (let k = 0; k < width; k++) {
-        //         [array[a + k], array[b + k]] = [array[b + k], array[a + k]];
-        //     }
-        //     // const block = array.slice(a, a + width);
-        //     // for (let k = 0; k < width; k++) {
-        //     //     array[a + k] = array[b + k];
-        //     //     array[b + k] = block[k]
-        //     // }
-        // }
-        // return array;
-        const length = array.length,
-            flipped = new Uint8Array(length);
-        for (let i = 0, j = length - width; i < length; i += width, j -= width) {
-            for (let k = 0; k < width; k++) {
-                flipped[i + k] = array[j + k];
-            }
-        }
-        return flipped;
-    }
 
     /**
      * 获取图像的透明剪裁尺寸数据（结果基于左上角）

@@ -13,21 +13,32 @@ export default class TextureUsage extends cc.Component {
     @property({ type: cc.Label, displayName: CC_DEV && '标签' })
     protected label: cc.Label = null;
 
-    /** 静态实例 */
+    /**
+     * 静态实例
+     */
     protected static instance: TextureUsage = null;
 
+    /**
+     * 生命周期：加载
+     */
     protected onLoad() {
         this.init();
     }
 
-    protected onDestroy() {
-        this.release();
-    }
-
+    /**
+     * 生命周期：lateUpdate
+     */
     protected lateUpdate(dt: number) {
         if (this.main.active) {
             this.updateTextureUsage();
         }
+    }
+
+    /**
+     * 生命周期：销毁
+     */
+    protected onDestroy() {
+        this.release();
     }
 
     /**
@@ -78,7 +89,7 @@ export default class TextureUsage extends cc.Component {
      */
     public updateTextureUsage() {
         const { count, memory } = this.getTextureUsage();
-        this.label.string = `纹理数量：${count}  |  内存：${memory.toFixed(2)} M`;
+        this.label.string = `纹理 [数量: ${count} | 内存: ${memory.toFixed(2)}M ]`;
     }
 
     /**

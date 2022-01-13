@@ -46,7 +46,7 @@ export default class Case_PostProcessing extends cc.Component {
     protected outputMosaic: Mosaic = null;
 
     /**
-     * 生命周期：节点加载
+     * 生命周期：加载
      */
     protected onLoad() {
         this.init();

@@ -1,7 +1,7 @@
 import SpineLoader from "../../core/remote/SpineLoader";
 import RemoteAsset from "./RemoteAsset";
 
-const { ccclass, property, executeInEditMode, help } = cc._decorator;
+const { ccclass, property, executeInEditMode, help, menu } = cc._decorator;
 
 /**
  * 远程 Spine
@@ -14,6 +14,7 @@ const { ccclass, property, executeInEditMode, help } = cc._decorator;
 @ccclass
 @executeInEditMode
 @help('https://gitee.com/ifaswind/eazax-ccc/blob/master/components/remote/RemoteSpine.ts')
+@menu('eazax/远程组件/RemoteSpine')
 export default class RemoteSpine extends RemoteAsset {
 
     @property()
