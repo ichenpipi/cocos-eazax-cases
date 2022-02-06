@@ -2,11 +2,11 @@ window.boot = function () {
     var settings = window._CCSettings;
     window._CCSettings = undefined;
     var onProgress = null;
-
+    
     var RESOURCES = cc.AssetManager.BuiltinBundleName.RESOURCES;
     var INTERNAL = cc.AssetManager.BuiltinBundleName.INTERNAL;
     var MAIN = cc.AssetManager.BuiltinBundleName.MAIN;
-    function setLoadingDisplay() {
+    function setLoadingDisplay () {
         // Loading splash scene
         var splash = document.getElementById('splash');
         var progressBar = splash.querySelector('.progress-bar span');
@@ -40,17 +40,15 @@ window.boot = function () {
             else if (settings.orientation === 'portrait') {
                 cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
             }
-            // 关闭自动全屏
-            cc.view.enableAutoFullScreen(false);
-            // cc.view.enableAutoFullScreen([
-            //     cc.sys.BROWSER_TYPE_BAIDU,
-            //     cc.sys.BROWSER_TYPE_BAIDU_APP,
-            //     cc.sys.BROWSER_TYPE_WECHAT,
-            //     cc.sys.BROWSER_TYPE_MOBILE_QQ,
-            //     cc.sys.BROWSER_TYPE_MIUI,
-            //     cc.sys.BROWSER_TYPE_HUAWEI,
-            //     cc.sys.BROWSER_TYPE_UC,
-            // ].indexOf(cc.sys.browserType) < 0);
+            cc.view.enableAutoFullScreen([
+                cc.sys.BROWSER_TYPE_BAIDU,
+                cc.sys.BROWSER_TYPE_BAIDU_APP,
+                cc.sys.BROWSER_TYPE_WECHAT,
+                cc.sys.BROWSER_TYPE_MOBILE_QQ,
+                cc.sys.BROWSER_TYPE_MIUI,
+                cc.sys.BROWSER_TYPE_HUAWEI,
+                cc.sys.BROWSER_TYPE_UC,
+            ].indexOf(cc.sys.browserType) < 0);
         }
 
         // Limit downloading max concurrent task to 2,
@@ -65,7 +63,7 @@ window.boot = function () {
         var bundle = cc.assetManager.bundles.find(function (b) {
             return b.getSceneInfo(launchScene);
         });
-
+        
         bundle.loadScene(launchScene, null, onProgress,
             function (err, scene) {
                 if (!err) {
@@ -95,17 +93,17 @@ window.boot = function () {
         collisionMatrix: settings.collisionMatrix,
     };
 
-    cc.assetManager.init({
+    cc.assetManager.init({ 
         bundleVers: settings.bundleVers,
         remoteBundles: settings.remoteBundles,
         server: settings.server
     });
-
+    
     var bundleRoot = [INTERNAL];
     settings.hasResourcesBundle && bundleRoot.push(RESOURCES);
 
     var count = 0;
-    function cb(err) {
+    function cb (err) {
         if (err) return console.error(err.message, err.stack);
         count++;
         if (count === bundleRoot.length + 1) {
@@ -115,7 +113,7 @@ window.boot = function () {
         }
     }
 
-    cc.assetManager.loadScript(settings.jsList.map(function (x) { return 'src/' + x; }), cb);
+    cc.assetManager.loadScript(settings.jsList.map(function (x) { return 'src/' + x;}), cb);
 
     for (var i = 0; i < bundleRoot.length; i++) {
         cc.assetManager.loadBundle(bundleRoot[i], cb);
