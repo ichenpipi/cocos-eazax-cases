@@ -4,10 +4,10 @@ const { ccclass, property, help, menu } = cc._decorator;
  * 可拖拽组件
  * @author 陈皮皮 (ifaswind)
  * @version 20220113
- * @see Draggable.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/Interaction/Draggable.ts
+ * @see Draggable.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/interaction/Draggable.ts
  */
 @ccclass
-@help('https://gitee.com/ifaswind/eazax-ccc/blob/master/components/Interaction/Draggable.ts')
+@help('https://gitee.com/ifaswind/eazax-ccc/blob/master/components/interaction/Draggable.ts')
 @menu('eazax/交互组件/Draggable')
 export default class Draggable extends cc.Component {
 
