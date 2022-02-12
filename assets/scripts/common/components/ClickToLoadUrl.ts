@@ -1,5 +1,8 @@
 const { ccclass, property } = cc._decorator;
 
+/**
+ * 点击打开网页
+ */
 @ccclass
 export default class ClickToLoadUrl extends cc.Component {
 
