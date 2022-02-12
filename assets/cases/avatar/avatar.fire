@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 37
-      },
-      {
-        "__id__": 38
-      },
-      {
         "__id__": 39
+      },
+      {
+        "__id__": 40
+      },
+      {
+        "__id__": 41
       }
     ],
     "_prefab": null,
@@ -255,6 +255,9 @@
     "_components": [
       {
         "__id__": 36
+      },
+      {
+        "__id__": 38
       }
     ],
     "_prefab": null,
@@ -1414,7 +1417,7 @@
       "__id__": 20
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 29
       }
@@ -1422,7 +1425,7 @@
     "_id": "7d3MPPHkdCoKxL/xwpw5sQ"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "eazax-avatar.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-avatar.effect"
   },
@@ -1635,6 +1638,28 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "头像",
+    "_resources": [
+      {
+        "__id__": 37
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "faMoYkRoRIyKtzZGYrokyo"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "eazax-avatar.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-avatar.effect"
   },
   {
     "__type__": "cc.Widget",

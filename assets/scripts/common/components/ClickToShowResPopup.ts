@@ -3,28 +3,38 @@ import ResPopup, { ResPopupOptions } from "./popups/resPopup/ResPopup";
 
 const { ccclass, property } = cc._decorator;
 
-@ccclass('ResPopupItemInfo')
-class ResPopupItemInfo {
+@ccclass('ResourceInfo')
+export class ResourceInfo {
 
-    @property({ tooltip: CC_DEV && '标题' })
+    @property({ displayName: CC_DEV && '标题' })
     public title: string = '';
 
-    @property({ multiline: true, tooltip: CC_DEV && '地址' })
+    @property({ multiline: true, displayName: CC_DEV && '地址' })
     public url: string = '';
 
 }
 
+/**
+ * 点击展示资源弹窗
+ */
 @ccclass
 export default class ClickToShowResPopup extends cc.Component {
 
-    @property({ type: [ResPopupItemInfo] })
-    protected items: ResPopupItemInfo[] = [];
+    @property({ type: [ResourceInfo], displayName: CC_DEV && '资源列表' })
+    public resources: ResourceInfo[] = [];
 
     /**
      * 生命周期：加载
      */
     protected onLoad() {
         this.registerEvent();
+    }
+
+    /**
+     * 生命周期：销毁
+     */
+    protected onDestroy() {
+        this.unregisterEvent();
     }
 
     /**
@@ -35,22 +45,27 @@ export default class ClickToShowResPopup extends cc.Component {
     }
 
     /**
+     * 反注册事件
+     */
+    private unregisterEvent() {
+        this.node.off(cc.Node.EventType.TOUCH_END, this.onClick, this);
+    }
+
+    /**
      * 点击回调
      */
     protected onClick() {
         const options: ResPopupOptions = { items: [] },
-            items = this.items;
-        for (let i = 0, l = items.length; i < l; i++) {
-            const item = items[i],
-                info = {
-                    name: item.title,
-                    url: item.url
-                };
-            options.items.push(info);
+            resources = this.resources;
+        for (let i = 0, l = resources.length; i < l; i++) {
+            options.items.push({
+                name: resources[i].title,
+                url: resources[i].url,
+            });
         }
         const params = {
             mode: PopupManager.CacheMode.Frequent
-        }
+        };
         PopupManager.show(ResPopup.path, options, params);
     }
 

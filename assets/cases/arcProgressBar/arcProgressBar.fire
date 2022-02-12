@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "dd0298cb-ddc1-4f89-b4ac-33f8ffd54be6"
   },
   {
@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 45
+        "__id__": 48
       },
       {
-        "__id__": 46
+        "__id__": 49
       },
       {
-        "__id__": 47
+        "__id__": 50
       }
     ],
     "_prefab": null,
@@ -257,7 +257,10 @@
         "__id__": 43
       },
       {
-        "__id__": 44
+        "__id__": 46
+      },
+      {
+        "__id__": 47
       }
     ],
     "_prefab": null,
@@ -1380,7 +1383,7 @@
         "__id__": 36
       },
       {
-        "__id__": 37
+        "__id__": 39
       },
       {
         "__id__": 40
@@ -1400,7 +1403,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 394.6,
+      "width": 380,
       "height": 80
     },
     "_anchorPoint": {
@@ -1462,7 +1465,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1474,7 +1477,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -123.65,
+        -120,
         4.618527782440651e-14,
         0,
         0,
@@ -1652,7 +1655,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1664,7 +1667,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        123.65,
+        120,
         4.618527782440651e-14,
         0,
         0,
@@ -1721,6 +1724,34 @@
     "_N$overflow": 0,
     "_N$cacheMode": 0,
     "_id": "1f7uohVj5L+LaddTiga9FK"
+  },
+  {
+    "__type__": "4eefcThCNNIv7Hni6oMtecW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 29
+    },
+    "_enabled": true,
+    "resources": [
+      {
+        "__id__": 37
+      },
+      {
+        "__id__": 38
+      }
+    ],
+    "_id": "d084dASHFFgpxFVXT0jSeL"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例] Case_ArcProgressBar.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/arcProgressBar/scripts/Case_ArcProgressBar.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[组件] ArcProgressBar.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/charts/ArcProgressBar.ts"
   },
   {
     "__type__": "cc.Button",
@@ -1791,34 +1822,6 @@
     "_id": "3buc3K0ntFuqcAJHpR/Xeb"
   },
   {
-    "__type__": "4eefcThCNNIv7Hni6oMtecW",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 29
-    },
-    "_enabled": true,
-    "items": [
-      {
-        "__id__": 38
-      },
-      {
-        "__id__": 39
-      }
-    ],
-    "_id": "d084dASHFFgpxFVXT0jSeL"
-  },
-  {
-    "__type__": "ResPopupItemInfo",
-    "title": "[示例] Case_ArcProgressBar.ts",
-    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/arcProgressBar/scripts/Case_ArcProgressBar.ts"
-  },
-  {
-    "__type__": "ResPopupItemInfo",
-    "title": "[组件] ArcProgressBar.ts",
-    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/charts/ArcProgressBar.ts"
-  },
-  {
     "__type__": "cc.Layout",
     "_name": "",
     "_objFlags": 0,
@@ -1828,7 +1831,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 394.6,
+      "width": 380,
       "height": 80
     },
     "_resize": 1,
@@ -1903,6 +1906,36 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "弧形进度条",
+    "_resources": [
+      {
+        "__id__": 44
+      },
+      {
+        "__id__": 45
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "a6KkG0afhItqnFF2YXmMsR"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例] Case_ArcProgressBar.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/arcProgressBar/scripts/Case_ArcProgressBar.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[组件] ArcProgressBar.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/charts/ArcProgressBar.ts"
   },
   {
     "__type__": "d580e1zHGBG/LvB8jB1+Ch7",

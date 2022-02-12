@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 30
-      },
-      {
         "__id__": 31
       },
       {
         "__id__": 32
+      },
+      {
+        "__id__": 33
       }
     ],
     "_prefab": null,
@@ -255,6 +255,9 @@
     "_components": [
       {
         "__id__": 29
+      },
+      {
+        "__id__": 30
       }
     ],
     "_prefab": null,
@@ -833,7 +836,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 371.44,
+      "width": 340,
       "height": 80
     },
     "_anchorPoint": {
@@ -895,7 +898,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 55.72,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -907,7 +910,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -107.86,
+        -100,
         4.618527782440651e-14,
         0,
         0,
@@ -1085,7 +1088,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 55.72,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1097,7 +1100,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        107.86,
+        100,
         4.618527782440651e-14,
         0,
         0,
@@ -1231,7 +1234,7 @@
       "__id__": 17
     },
     "_enabled": true,
-    "items": [],
+    "resources": [],
     "_id": "7d3MPPHkdCoKxL/xwpw5sQ"
   },
   {
@@ -1244,7 +1247,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 371.44,
+      "width": 340,
       "height": 80
     },
     "_resize": 1,
@@ -1319,6 +1322,19 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "拖拽组件",
+    "_resources": [],
+    "enablePhysics": false,
+    "_id": "63y2SL789OZYv7BweuBioW"
   },
   {
     "__type__": "cc.Widget",

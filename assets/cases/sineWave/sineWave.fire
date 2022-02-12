@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "4747c09b-7b9e-4de8-8797-3a15946f50fc"
   },
   {
@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 124
+        "__id__": 127
       },
       {
-        "__id__": 125
+        "__id__": 128
       },
       {
-        "__id__": 126
+        "__id__": 129
       }
     ],
     "_prefab": null,
@@ -255,6 +255,9 @@
     "_components": [
       {
         "__id__": 123
+      },
+      {
+        "__id__": 126
       }
     ],
     "_prefab": null,
@@ -5002,7 +5005,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 274.6,
+      "width": 340,
       "height": 80
     },
     "_anchorPoint": {
@@ -5064,7 +5067,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -5076,7 +5079,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -63.65000000000001,
+        -100,
         4.618527782440651e-14,
         0,
         0,
@@ -5171,7 +5174,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -1.4210854715202004e-14,
+        0,
         4.618527782440651e-14,
         0,
         0,
@@ -5254,7 +5257,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -5266,7 +5269,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        63.649999999999984,
+        100,
         4.618527782440651e-14,
         0,
         0,
@@ -5332,7 +5335,7 @@
       "__id__": 109
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 117
       },
@@ -5343,12 +5346,12 @@
     "_id": "85gcYyX+lHvqUZqxWNuFq7"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[Effect] eazax-sine-wave.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-sine-wave.effect"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[示例] Case_SineWave.ts",
     "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/sineWave/scripts/Case_SineWave.ts"
   },
@@ -5430,7 +5433,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 274.6,
+      "width": 340,
       "height": 80
     },
     "_resize": 1,
@@ -5505,6 +5508,36 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "正弦波浪",
+    "_resources": [
+      {
+        "__id__": 124
+      },
+      {
+        "__id__": 125
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "c2MX1NlPNM9bfElROF4waa"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[Effect] eazax-sine-wave.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-sine-wave.effect"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例] Case_SineWave.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/sineWave/scripts/Case_SineWave.ts"
   },
   {
     "__type__": "cc.Widget",

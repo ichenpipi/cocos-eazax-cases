@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 51
-      },
-      {
-        "__id__": 52
-      },
-      {
         "__id__": 53
+      },
+      {
+        "__id__": 54
+      },
+      {
+        "__id__": 55
       }
     ],
     "_prefab": null,
@@ -257,7 +257,10 @@
         "__id__": 49
       },
       {
-        "__id__": 50
+        "__id__": 51
+      },
+      {
+        "__id__": 52
       }
     ],
     "_prefab": null,
@@ -2039,7 +2042,7 @@
       "__id__": 36
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 45
       }
@@ -2047,7 +2050,7 @@
     "_id": "7d3MPPHkdCoKxL/xwpw5sQ"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[示例] dragging",
     "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/dragging/"
   },
@@ -2136,6 +2139,28 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "拖拽示例",
+    "_resources": [
+      {
+        "__id__": 50
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "5bYzl+lwNGSaDBGxf4QNzg"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例] dragging",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/dragging/"
   },
   {
     "__type__": "9def8J4d05Dh67XnF30hFYP",

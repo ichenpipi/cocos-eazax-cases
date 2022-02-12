@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "7038be7f-2784-4f97-9a68-7dc44425d7b9"
   },
   {
@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 35
+        "__id__": 39
       },
       {
-        "__id__": 36
+        "__id__": 40
       },
       {
-        "__id__": 37
+        "__id__": 41
       }
     ],
     "_prefab": null,
@@ -257,7 +257,10 @@
         "__id__": 33
       },
       {
-        "__id__": 34
+        "__id__": 37
+      },
+      {
+        "__id__": 38
       }
     ],
     "_prefab": null,
@@ -920,7 +923,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 659.23,
+      "width": 602.38,
       "height": 80
     },
     "_anchorPoint": {
@@ -982,7 +985,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -994,7 +997,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -255.965,
+        -231.19,
         4.618527782440651e-14,
         0,
         0,
@@ -1077,7 +1080,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 464.63,
+      "width": 422.38,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1129,8 +1132,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Kawase 模糊（多 Pass）",
-    "_N$string": "Kawase 模糊（多 Pass）",
+    "_string": "Kawase 模糊 (多 Pass)",
+    "_N$string": "Kawase 模糊 (多 Pass)",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1172,7 +1175,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1184,7 +1187,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        255.965,
+        231.19,
         4.618527782440651e-14,
         0,
         0,
@@ -1250,7 +1253,7 @@
       "__id__": 18
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 26
       },
@@ -1264,17 +1267,17 @@
     "_id": "03MZD1xohG65rmc9bn4f9F"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[示例脚本] Case_MultipassKawaseBlur.ts",
     "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/multipassKawaseBlur/scripts/Case_MultipassKawaseBlur.ts"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[Shader] eazax-kawase-blur.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-kawase-blur.effect"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[工具类] RenderUtil.ts",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/RenderUtil.ts"
   },
@@ -1356,7 +1359,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 659.23,
+      "width": 602.38,
       "height": 80
     },
     "_resize": 1,
@@ -1431,6 +1434,44 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "Kawase 模糊 (多 Pass)",
+    "_resources": [
+      {
+        "__id__": 34
+      },
+      {
+        "__id__": 35
+      },
+      {
+        "__id__": 36
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "337V/W2iZNeJCR6A0cj0RE"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例脚本] Case_MultipassKawaseBlur.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/multipassKawaseBlur/scripts/Case_MultipassKawaseBlur.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[Shader] eazax-kawase-blur.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-kawase-blur.effect"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[工具类] RenderUtil.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/RenderUtil.ts"
   },
   {
     "__type__": "57f6d8LrfFDu6/Rj+pNtFXs",

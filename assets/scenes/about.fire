@@ -1249,7 +1249,7 @@
       "__id__": 18
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 26
       },
@@ -1260,12 +1260,12 @@
     "_id": "beWyGUdlZIqZfN0lZlmfqR"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "Gitee 主页",
     "url": "https://gitee.com/ifaswind"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "博客",
     "url": "https://chenpipi.cn/"
   },

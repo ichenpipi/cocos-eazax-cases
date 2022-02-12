@@ -1793,7 +1793,7 @@
       "__id__": 32
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 40
       },
@@ -1804,12 +1804,12 @@
     "_id": "beWyGUdlZIqZfN0lZlmfqR"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "Eazax Cocos 工具箱 (eazax-ccc)",
     "url": "https://gitee.com/ifaswind/eazax-ccc"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "Eazax Cocos 示例项目 (本项目)",
     "url": "https://gitee.com/ifaswind/eazax-cases"
   },
@@ -2180,7 +2180,7 @@
       "__id__": 45
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 50
       }
@@ -2188,7 +2188,7 @@
     "_id": "67sVeKlapFKrh7OguSEi97"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "Eazax-CCC 示例项目仓库",
     "url": "https://gitee.com/ifaswind/eazax-cases"
   },
@@ -3460,6 +3460,7 @@
       "__id__": 82
     },
     "_enabled": true,
+    "url": "/worker.js",
     "_id": "9d/B/0WrdBsaDcKlgHXjXw"
   },
   {

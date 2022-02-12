@@ -75,22 +75,22 @@
         "__id__": 5
       },
       {
-        "__id__": 74
+        "__id__": 82
       },
       {
-        "__id__": 82
+        "__id__": 90
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 84
+        "__id__": 92
       },
       {
-        "__id__": 85
+        "__id__": 93
       },
       {
-        "__id__": 86
+        "__id__": 94
       }
     ],
     "_prefab": null,
@@ -263,7 +263,10 @@
         "__id__": 71
       },
       {
-        "__id__": 81
+        "__id__": 79
+      },
+      {
+        "__id__": 89
       }
     ],
     "_prefab": null,
@@ -3058,7 +3061,7 @@
       "__id__": 52
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 61
       },
@@ -3084,37 +3087,37 @@
     "_id": "d6XozwSiJH/oJKOuXh5yMv"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[示例] Post Processing",
     "url": "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/postProcessing"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[示例] Case_PostProcessing.ts",
     "url": "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/postProcessing/scripts/Case_PostProcessing.ts"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[组件] PostProcessing.ts",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/PostProcessing.ts"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[组件] Mosaic.ts",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/Mosaic.ts"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[Shader] eazax-mosaic.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-mosaic.effect"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[Shader] eazax-inversion.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-inversion.effect"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[Shader] eazax-radial-blur.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-radial-blur.effect"
   },
@@ -3205,6 +3208,76 @@
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
   },
   {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "后期处理",
+    "_resources": [
+      {
+        "__id__": 72
+      },
+      {
+        "__id__": 73
+      },
+      {
+        "__id__": 74
+      },
+      {
+        "__id__": 75
+      },
+      {
+        "__id__": 76
+      },
+      {
+        "__id__": 77
+      },
+      {
+        "__id__": 78
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "8bTvOkiz5GhrWSWBMgOwBP"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例] Post Processing",
+    "url": "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/postProcessing"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例] Case_PostProcessing.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/tree/master/assets/cases/postProcessing/scripts/Case_PostProcessing.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[组件] PostProcessing.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/PostProcessing.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[组件] Mosaic.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/Mosaic.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[Shader] eazax-mosaic.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-mosaic.effect"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[Shader] eazax-inversion.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-inversion.effect"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[Shader] eazax-radial-blur.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-radial-blur.effect"
+  },
+  {
     "__type__": "5d24fVSWGlC2KYSdGaaOGpu",
     "_name": "",
     "_objFlags": 0,
@@ -3228,7 +3301,7 @@
       "__id__": 42
     },
     "outputSprite": {
-      "__id__": 72
+      "__id__": 80
     },
     "normalMaterial": {
       "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
@@ -3240,7 +3313,7 @@
       "__uuid__": "fa7b41f5-fa51-4fd5-93d1-7843557ea1c6"
     },
     "outputMosaic": {
-      "__id__": 79
+      "__id__": 87
     },
     "_id": "bbVa+8ZRJE0oxpZpzvGmlh"
   },
@@ -3249,7 +3322,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 73
+      "__id__": 81
     },
     "_enabled": true,
     "_materials": [
@@ -3279,19 +3352,19 @@
     "_name": "PostProcessing Sprite",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 74
+      "__id__": 82
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 72
-      },
-      {
-        "__id__": 79
-      },
-      {
         "__id__": 80
+      },
+      {
+        "__id__": 87
+      },
+      {
+        "__id__": 88
       }
     ],
     "_prefab": null,
@@ -3351,19 +3424,19 @@
     },
     "_children": [
       {
-        "__id__": 73
+        "__id__": 81
       },
       {
-        "__id__": 75
+        "__id__": 83
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 77
+        "__id__": 85
       },
       {
-        "__id__": 78
+        "__id__": 86
       }
     ],
     "_prefab": null,
@@ -3419,13 +3492,13 @@
     "_name": "PostProcessing Camera",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 74
+      "__id__": 82
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 76
+        "__id__": 84
       }
     ],
     "_prefab": null,
@@ -3481,7 +3554,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 75
+      "__id__": 83
     },
     "_enabled": true,
     "_cullingMask": 16,
@@ -3517,14 +3590,14 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 82
     },
     "_enabled": true,
     "inputCamera": {
       "__id__": 4
     },
     "outputSprite": {
-      "__id__": 72
+      "__id__": 80
     },
     "_id": "17Gb+rIWVEg5qT/q51JSgh"
   },
@@ -3533,7 +3606,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 82
     },
     "_enabled": true,
     "alignMode": 1,
@@ -3560,7 +3633,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 73
+      "__id__": 81
     },
     "_enabled": false,
     "_effect": {
@@ -3578,7 +3651,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 73
+      "__id__": 81
     },
     "_enabled": true,
     "alignMode": 1,
@@ -3638,7 +3711,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 83
+        "__id__": 91
       }
     ],
     "_prefab": null,
@@ -3694,7 +3767,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 82
+      "__id__": 90
     },
     "_enabled": true,
     "_cullingMask": 32,

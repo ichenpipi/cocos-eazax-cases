@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 66
+        "__id__": 71
       },
       {
-        "__id__": 67
+        "__id__": 72
       },
       {
-        "__id__": 68
+        "__id__": 73
       }
     ],
     "_prefab": null,
@@ -255,6 +255,9 @@
     "_components": [
       {
         "__id__": 65
+      },
+      {
+        "__id__": 70
       }
     ],
     "_prefab": null,
@@ -2657,7 +2660,7 @@
       "__id__": 49
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 58
       },
@@ -2674,22 +2677,22 @@
     "_id": "90c8iDTrxCW69XP+1sziE+"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "[示例] Case_NewUserGuide.ts",
     "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/newUserGuide/scripts/Case_NewUserGuide.ts"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "HollowOut.ts",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "eazax-hollowout.effect",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "TouchBlocker.ts",
     "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts"
   },
@@ -2778,6 +2781,52 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "挖孔（新手引导）",
+    "_resources": [
+      {
+        "__id__": 66
+      },
+      {
+        "__id__": 67
+      },
+      {
+        "__id__": 68
+      },
+      {
+        "__id__": 69
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "a82Zia+8xKcbIDC5f1vc4x"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "[示例] Case_NewUserGuide.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/newUserGuide/scripts/Case_NewUserGuide.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "HollowOut.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/effects/HollowOut.ts"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "eazax-hollowout.effect",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/resources/effects/eazax-hollowout.effect"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "TouchBlocker.ts",
+    "url": "https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchBlocker.ts"
   },
   {
     "__type__": "cc.Widget",

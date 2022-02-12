@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "0d019ee9-b3ca-42ba-8d3c-20e6c56f767f"
   },
   {
@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 73
-      },
-      {
-        "__id__": 74
-      },
-      {
         "__id__": 75
+      },
+      {
+        "__id__": 76
+      },
+      {
+        "__id__": 77
       }
     ],
     "_prefab": null,
@@ -255,6 +255,9 @@
     "_components": [
       {
         "__id__": 72
+      },
+      {
+        "__id__": 74
       }
     ],
     "_prefab": null,
@@ -2850,7 +2853,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 274.6,
+      "width": 340,
       "height": 80
     },
     "_anchorPoint": {
@@ -2912,7 +2915,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2924,7 +2927,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -63.65000000000001,
+        -100,
         4.618527782440651e-14,
         0,
         0,
@@ -3019,7 +3022,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -1.4210854715202004e-14,
+        0,
         4.618527782440651e-14,
         0,
         0,
@@ -3102,7 +3105,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.3,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3114,7 +3117,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        63.649999999999984,
+        100,
         4.618527782440651e-14,
         0,
         0,
@@ -3248,7 +3251,7 @@
       "__id__": 59
     },
     "_enabled": true,
-    "items": [
+    "resources": [
       {
         "__id__": 68
       }
@@ -3256,7 +3259,7 @@
     "_id": "bbvQL7AoRBQbgGWt1eYBm3"
   },
   {
-    "__type__": "ResPopupItemInfo",
+    "__type__": "ResourceInfo",
     "title": "Case_FrameLoading.ts",
     "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/frameLoading/scripts/Case_FrameLoading.ts"
   },
@@ -3270,7 +3273,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 274.6,
+      "width": 340,
       "height": 80
     },
     "_resize": 1,
@@ -3345,6 +3348,28 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "a9oKHJ0e1K+6n6L5MN0fho"
+  },
+  {
+    "__type__": "01dcdWgNLxNz6ZURQJg9lu+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_title": "分帧加载",
+    "_resources": [
+      {
+        "__id__": 73
+      }
+    ],
+    "enablePhysics": false,
+    "_id": "46VDVVWvZBoLj6J7OjHw+/"
+  },
+  {
+    "__type__": "ResourceInfo",
+    "title": "Case_FrameLoading.ts",
+    "url": "https://gitee.com/ifaswind/eazax-cases/blob/master/assets/cases/frameLoading/scripts/Case_FrameLoading.ts"
   },
   {
     "__type__": "cc.Widget",
