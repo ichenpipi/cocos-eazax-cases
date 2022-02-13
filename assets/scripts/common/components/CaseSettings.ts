@@ -15,11 +15,11 @@ export default class CaseSettings extends cc.Component {
     @property({ displayName: CC_DEV && '标题' })
     protected get title() {
         return this._title;
-    };
+    }
     protected set title(value) {
         this._title = value;
         this.setTitle(value);
-    };
+    }
 
     @property()
     protected _resources: ResourceInfo[] = [];
@@ -34,6 +34,9 @@ export default class CaseSettings extends cc.Component {
 
     @property({ displayName: CC_DEV && '启用物理系统' })
     protected enablePhysics: boolean = false;
+
+    @property({ visible() { return this.enablePhysics; }, displayName: CC_DEV && '启用物理系统调试绘制' })
+    protected enablePhysicsDebugDraw: boolean = true;
 
     /**
      * 生命周期：加载
@@ -51,13 +54,17 @@ export default class CaseSettings extends cc.Component {
     protected setPhysics(enable: boolean) {
         cc.director.getPhysicsManager().enabled = enable;
         if (enable) {
-            cc.director.getPhysicsManager().debugDrawFlags = (
-                cc.PhysicsManager.DrawBits.e_aabbBit |
-                // cc.PhysicsManager.DrawBits.e_pairBit |
-                // cc.PhysicsManager.DrawBits.e_centerOfMassBit |
-                cc.PhysicsManager.DrawBits.e_jointBit |
-                cc.PhysicsManager.DrawBits.e_shapeBit
-            );
+            if (this.enablePhysicsDebugDraw) {
+                cc.director.getPhysicsManager().debugDrawFlags = (
+                    cc.PhysicsManager.DrawBits.e_aabbBit |
+                    // cc.PhysicsManager.DrawBits.e_pairBit |
+                    // cc.PhysicsManager.DrawBits.e_centerOfMassBit |
+                    cc.PhysicsManager.DrawBits.e_jointBit |
+                    cc.PhysicsManager.DrawBits.e_shapeBit
+                );
+            } else {
+                cc.director.getPhysicsManager().debugDrawFlags = 0;
+            }
         }
     }
 

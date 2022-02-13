@@ -9,7 +9,7 @@ import Toast from "./Toast";
 const { ccclass, property, executionOrder } = cc._decorator;
 
 @ccclass
-@executionOrder(-100)
+@executionOrder(-1)
 export default class CommonUI extends cc.Component {
 
     @property(cc.Node)
@@ -60,9 +60,6 @@ export default class CommonUI extends cc.Component {
      * 初始化
      */
     protected init() {
-        // 设为常驻节点
-        this.node.setParent(cc.director.getScene());
-        cc.game.addPersistRootNode(this.node);
         // 弹窗容器
         PopupManager.container = this.node;
     }

@@ -1,9 +1,14 @@
-const { ccclass, property } = cc._decorator;
+const { ccclass, property, menu } = cc._decorator;
 
 /**
  * 单向碰撞体
+ * @author 陈皮皮 (ifaswind)
+ * @version 20220212
+ * @see OneWayCollider.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/physics/OneWayCollider.ts
+ * @see Reference http://www.iforce2d.net/b2dtut/one-way-walls
  */
 @ccclass
+@menu('eazax/物理组件/OneWayCollider')
 export default class OneWayCollider extends cc.Component {
 
     /**

@@ -4,7 +4,6 @@ const { ccclass, property, executionOrder } = cc._decorator;
  * Toast
  */
 @ccclass
-@executionOrder(-101)
 export default class Toast extends cc.Component {
 
     @property({ type: cc.Node, displayName: CC_DEV && '主节点' })
@@ -28,9 +27,6 @@ export default class Toast extends cc.Component {
      * 初始化
      */
     protected init() {
-        // 设为常驻节点
-        this.node.setParent(cc.director.getScene());
-        cc.game.addPersistRootNode(this.node);
         // 保存静态实例
         Toast.instance = this;
         // 重置

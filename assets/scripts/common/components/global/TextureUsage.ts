@@ -4,7 +4,6 @@ const { ccclass, property, executionOrder } = cc._decorator;
  * 纹理使用情况展示
  */
 @ccclass
-@executionOrder(-101)
 export default class TextureUsage extends cc.Component {
 
     @property({ type: cc.Node, displayName: CC_DEV && '主节点' })
@@ -45,9 +44,6 @@ export default class TextureUsage extends cc.Component {
      * 初始化
      */
     protected init() {
-        // 设为常驻节点
-        this.node.setParent(cc.director.getScene());
-        cc.game.addPersistRootNode(this.node);
         // 保存静态实例
         TextureUsage.instance = this;
         // 重置
