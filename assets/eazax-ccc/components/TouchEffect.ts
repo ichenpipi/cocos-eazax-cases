@@ -3,7 +3,7 @@ const { ccclass, property } = cc._decorator;
 /**
  * 点击效果
  * @author 陈皮皮 (ifaswind)
- * @version 20220213
+ * @version 20220214
  * @see TouchEffect.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/components/TouchEffect.ts
  */
 @ccclass
@@ -30,7 +30,7 @@ export default class TouchEffect extends cc.Component {
     @property({ displayName: CC_DEV && '使用节点池缓存', tooltip: CC_DEV && '提高播放大量效果时的性能' })
     protected useNodePool: boolean = false;
 
-    @property({ visible() { return this.useNodePool; }, displayName: CC_DEV && '使用节点池缓存', tooltip: CC_DEV && '提高播放大量效果时的性能' })
+    @property({ visible() { return this.useNodePool; }, displayName: CC_DEV && '节点池缓存数量上限', tooltip: CC_DEV && '看着点内存' })
     protected nodePoolLimit: number = 20;
 
     /**
