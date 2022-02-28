@@ -13,7 +13,9 @@
         "feather": 0.04,
         "round": 0.2
       },
-      "defines": {}
+      "defines": {
+        "USE_TEXTURE": true
+      }
     }
   }
 }

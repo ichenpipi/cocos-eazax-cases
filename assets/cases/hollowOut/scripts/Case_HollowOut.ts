@@ -11,7 +11,7 @@ const { ccclass, property } = cc._decorator;
  * @version 20210429
  */
 @ccclass
-export default class Case_NewUserGuide extends cc.Component {
+export default class Case_HollowOut extends cc.Component {
 
     @property(HollowOut)
     protected hollowOut: HollowOut = null;

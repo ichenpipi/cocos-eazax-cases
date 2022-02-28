@@ -1,4 +1,4 @@
-const { ccclass, property, executionOrder } = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 /**
  * 纹理使用情况展示
@@ -63,7 +63,7 @@ export default class TextureUsage extends cc.Component {
      * 重置
      */
     protected reset() {
-        this.main.active = false;
+        this.label.string = 'Empty';
     }
 
     /**

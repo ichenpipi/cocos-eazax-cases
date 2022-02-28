@@ -38,9 +38,9 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
         name: '渐变色',
         scene: 'gradientColor'
     },
-    newUserGuide: {
-        name: '新手引导',
-        scene: 'newUserGuide'
+    hollowOut: {
+        name: '挖孔（新手引导）',
+        scene: 'hollowOut'
     },
     radarChart: {
         name: '雷达图',
@@ -104,7 +104,16 @@ export const CaseInfoMap: { [caseName: string]: CaseInfo } = {
     },
 }
 
-/** 关卡信息 */
+/**
+ * 重定向表
+ */
+export const RedirectMap: { [name: string]: string } = {
+    'newUserGuide': 'hollowOut',
+};
+
+/**
+ * 关卡信息类型
+ */
 export type CaseInfo = {
     name: string;
     scene: string;

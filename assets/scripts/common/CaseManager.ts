@@ -1,7 +1,7 @@
 import EventManager from "../../eazax-ccc/core/EventManager";
 import SceneNavigator from "../../eazax-ccc/core/SceneNavigator";
 import BrowserUtil from "../../eazax-ccc/utils/BrowserUtil";
-import { CaseInfo, CaseInfoMap } from "./CaseList";
+import { CaseInfo, CaseInfoMap, RedirectMap } from "./CaseList";
 import CaseLoading from "./components/global/CaseLoading";
 import Toast from "./components/global/Toast";
 import { SceneName } from "./constants/Constants";
@@ -28,25 +28,30 @@ export default class CaseManager {
 
     /**
      * 前往对应示例
-     * @param caseName 示例名称
+     * @param name 示例名称
      */
-    public static goCase(caseName: string) {
-        eazax.log('[Go Case]', caseName);
+    public static goCase(name: string) {
+        eazax.log('[Go Case]', name);
         // 展示遮罩
         CaseLoading.show();
-        // 示例信息
-        const info = this.getCaseInfo(caseName);
+        // 检查重定向
+        const redirect = RedirectMap[name];
+        if (redirect) {
+            name = redirect;
+            eazax.log('[Redirect]', redirect);
+        }
+        // 获取示例信息
+        const info = this.getCaseInfo(name);
         if (!info) {
-            Toast.show('啊哦，没有找到这个示例', caseName);
-            // 隐藏遮罩
+            Toast.show('啊哦，没有找到这个示例', name);
             CaseLoading.hide();
             return false;
         }
         const sceneName = info.scene;
         SceneNavigator.go(sceneName, null, () => {
             // 设置当前 URL 的参数
-            BrowserUtil.setUrlParam(`case=${caseName}`);
-            // 事件
+            BrowserUtil.setUrlParam(`case=${name}`);
+            // 发射事件
             EventManager.emit(SWITCH_CASE, sceneName);
             // 隐藏遮罩
             CaseLoading.hide();
@@ -55,19 +60,11 @@ export default class CaseManager {
     }
 
     /**
-     * 是否有对应示例
-     * @param caseName 示例名称
-     */
-    public static hasCase(caseName: string) {
-        return !!this.getCaseInfo(caseName);
-    }
-
-    /**
      * 获取示例信息
-     * @param caseName 示例名称
+     * @param name 示例名称
      */
-    public static getCaseInfo(caseName: string): CaseInfo {
-        return CaseInfoMap[caseName];
+    public static getCaseInfo(name: string): CaseInfo {
+        return CaseInfoMap[name];
     }
 
 }
