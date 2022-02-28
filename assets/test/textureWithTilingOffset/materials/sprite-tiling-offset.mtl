@@ -1,0 +1,26 @@
+{
+  "__type__": "cc.Material",
+  "_name": "tiling-offset-sprite",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "b123a5a9-79ed-45dc-a71b-6ce2e0c626e1"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "tilingOffset": {
+          "__type__": "cc.Vec4",
+          "x": 1,
+          "y": 1,
+          "z": 0,
+          "w": 0
+        }
+      },
+      "defines": {
+        "USE_TEXTURE": true
+      }
+    }
+  }
+}

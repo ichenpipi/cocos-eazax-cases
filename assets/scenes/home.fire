@@ -2276,7 +2276,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "091becb7-7511-422e-8e80-29d19fffb4fb"
+      "__uuid__": "f15b2a93-6066-4a2a-8c2f-8f4b56f09bfd"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -5007,14 +5007,13 @@
     "effectPrefab": {
       "__uuid__": "5a2d562f-c64c-4281-bb10-19236b3a65a3"
     },
-    "effectLayer": {
-      "__id__": 126
-    },
+    "effectContainer": null,
     "duration": 0.5,
     "interval": 0.03,
     "maxQuantity": 20,
     "triggerByMoving": true,
     "useNodePool": true,
+    "nodePoolLimit": 20,
     "_id": "752859CIpDdpTCb7ZFk1aV"
   },
   {
