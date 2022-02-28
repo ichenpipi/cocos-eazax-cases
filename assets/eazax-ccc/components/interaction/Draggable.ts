@@ -143,14 +143,13 @@ export default class Draggable extends cc.Component {
      * 拖拽开始回调
      */
     protected onDragStart() {
-        cc.log('onDragStart')
+
     }
 
     /**
      * 拖拽移动回调
      */
     protected onDragMove() {
-        cc.log('onDragMove')
 
     }
 
@@ -158,7 +157,6 @@ export default class Draggable extends cc.Component {
      * 拖拽结束回调
      */
     protected onDragEnd() {
-        cc.log('onDragEnd')
 
     }
 
