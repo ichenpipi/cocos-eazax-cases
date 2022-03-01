@@ -1,4 +1,4 @@
-// Eazax-CCC 外描边 1.0.0.20200604
+// 内描边
 
 CCEffect %{
   techniques:
@@ -11,6 +11,7 @@ CCEffect %{
       rasterizerState:
         cullMode: none
       properties:
+        texture: { value: white }
         size: { value: [500.0, 500.0], editor: { tooltip: '节点尺寸' } }
         outlineColor: { value: [1.0, 0.0, 0.0, 1], editor: { type: color, tooltip: '颜色' } }
         outlineWidth: { value: 5.0, editor: { tooltip: '宽度' } }
@@ -31,7 +32,9 @@ CCProgram vs %{
 
   void main () {
     gl_Position = cc_matViewProj * vec4(a_position, 1);
+
     v_uv0 = a_uv0;
+    
     v_color = a_color;
   }
 }%
@@ -41,9 +44,9 @@ CCProgram fs %{
   precision highp float;
 
   in vec2 v_uv0;
-  in vec4 v_color;
-
   uniform sampler2D texture;
+
+  in vec4 v_color;
 
   uniform Properties {
     vec4 outlineColor;
@@ -51,25 +54,28 @@ CCProgram fs %{
     float outlineWidth;
   };
 
-  float getAlpha (float angle) {
+  float getAlpha (float angle, vec2 width) {
     float radian = radians(angle);
-
-    float x = 1.0 / size.x * outlineWidth;
-    float y = 1.0 / size.y * outlineWidth;
-
-    vec2 offset = vec2(x * cos(radian), y * sin(radian));
-    float a = texture(texture, v_uv0 + offset).a;
-
-    return a;
+    vec2 offset = vec2(width.x * cos(radian), width.y * sin(radian));
+    vec2 uv = v_uv0 + offset;
+    if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
+      return 0.0;
+    }
+    return texture(texture, uv).a;
   }
 
   void main () {
     vec4 color = v_color;
     color *= texture(texture, v_uv0);
 
+    vec2 width = outlineWidth / size;
+
+    const float samples = 8.0;
+    float interval = 360.0 / samples;
+
     float alpha = 1.0;
-    for (float i = 0.0; i < 12.0; i++) {
-      alpha *= getAlpha(i * 30.0);
+    for (float i = 0.0; i < samples; i++) {
+      alpha *= getAlpha(i * interval, width);
     }
 
     color.rgb = mix(outlineColor.rgb, color.rgb, alpha);

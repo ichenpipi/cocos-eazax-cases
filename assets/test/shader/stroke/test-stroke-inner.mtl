@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.Material",
+  "_name": "test-stroke-inner",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "58e28af8-a880-4bb2-ba6c-7a93cbe219f8"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {},
+      "props": {
+        "outlineWidth": 2,
+        "size": {
+          "__type__": "cc.Vec2",
+          "x": 512,
+          "y": 512
+        }
+      }
+    }
+  }
+}

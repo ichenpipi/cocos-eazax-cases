@@ -1,24 +1,23 @@
 {
   "__type__": "cc.Material",
-  "_name": "blur",
+  "_name": "test-stroke-inner2",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "c473fbfd-2f9d-4782-911a-20a55d7a7c01"
+    "__uuid__": "baa4e95b-ebeb-4e8c-b3b2-a84e6c5fcc3f"
   },
   "_techniqueIndex": 0,
   "_techniqueData": {
     "0": {
-      "defines": {
-        "USE_TEXTURE": true
-      },
       "props": {
+        "outlineWidth": 2,
         "size": {
           "__type__": "cc.Vec2",
-          "x": 500,
-          "y": 500
+          "x": 512,
+          "y": 512
         }
-      }
+      },
+      "defines": {}
     }
   }
 }

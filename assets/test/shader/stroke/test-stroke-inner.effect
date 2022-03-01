@@ -1,4 +1,4 @@
-// Eazax-CCC 外描边 1.0.0.20200604
+// 内描边
 
 CCEffect %{
   techniques:
@@ -11,6 +11,7 @@ CCEffect %{
       rasterizerState:
         cullMode: none
       properties:
+        texture: { value: white }
         size: { value: [500.0, 500.0], editor: { tooltip: '节点尺寸' } }
         outlineColor: { value: [1.0, 0.0, 0.0, 1], editor: { type: color, tooltip: '颜色' } }
         outlineWidth: { value: 5.0, editor: { tooltip: '宽度' } }
@@ -31,7 +32,9 @@ CCProgram vs %{
 
   void main () {
     gl_Position = cc_matViewProj * vec4(a_position, 1);
+
     v_uv0 = a_uv0;
+    
     v_color = a_color;
   }
 }%
@@ -41,9 +44,9 @@ CCProgram fs %{
   precision highp float;
 
   in vec2 v_uv0;
-  in vec4 v_color;
-
   uniform sampler2D texture;
+
+  in vec4 v_color;
 
   uniform Properties {
     vec4 outlineColor;
@@ -64,40 +67,35 @@ CCProgram fs %{
     // vec2 down_right = v_uv0 + vec2(1.0, -1.0) / size * outlineWidth;
     // vec2 down_left = v_uv0 + vec2(-1.0, -1.0) / size * outlineWidth;
 
-    float x = 1.0 / size.x * outlineWidth;
-    float y = 1.0 / size.y * outlineWidth;
+    vec2 width = outlineWidth / size;
+    float stepX = width.x;
+    float stepY = width.y;
 
     float alpha = color.a;
-    if (v_uv0.y + (y) <= 1.0) {
-      alpha *= texture(texture, v_uv0 + vec2(0.0, 1.0) / size * outlineWidth).a;
-      
-      //  alpha *= texture(texture, v_uv0 + vec2(-1.0, 1.0) / size * outlineWidth).a;
-      // else alpha *= 0.0;
-
-      //  alpha *= texture(texture, v_uv0 + vec2(1.0, 1.0) / size * outlineWidth).a;
-      // else alpha *= 0.0;
+    // 上
+    if (v_uv0.y + stepY <= 1.0) {
+      alpha *= texture(texture, v_uv0 + vec2(0.0, 1.0) * width).a;
     } else {
       alpha *= 0.0;
     }
-
-    if (v_uv0.y + (-y) >= 0.0) {
-      alpha *= texture(texture, v_uv0 + vec2(0.0, -1.0) / size * outlineWidth).a;
-
-      //  alpha *= texture(texture, v_uv0 + vec2(-1.0, -1.0) / size * outlineWidth).a;
-      // else alpha *= 0.0;
-
-      //  alpha *= texture(texture, v_uv0 + vec2(1.0, -1.0) / size * outlineWidth).a;
-      // else alpha *= 0.0;
-
+    // 下
+    if (v_uv0.y - stepY >= 0.0) {
+      alpha *= texture(texture, v_uv0 + vec2(0.0, -1.0) * width).a;
     } else {
       alpha *= 0.0;
     }
-   
-    if (v_uv0.x + (-x) >= 0.0) alpha *= texture(texture, v_uv0 + vec2(-1.0, 0.0) / size * outlineWidth).a;
-    else alpha *= 0.0;
-
-    if (v_uv0.x + (x) <= 1.0) alpha *= texture(texture, v_uv0 + vec2(1.0, 0.0) / size * outlineWidth).a;
-    else alpha *= 0.0;
+    // 左
+    if (v_uv0.x - stepX >= 0.0) {
+      alpha *= texture(texture, v_uv0 + vec2(-1.0, 0.0) * width).a;
+    }else{
+      alpha *= 0.0;
+    }
+    // 右
+    if (v_uv0.x + stepX <= 1.0) {
+      alpha *= texture(texture, v_uv0 + vec2(1.0, 0.0) * width).a;
+    } else {
+      alpha *= 0.0;
+    }
 
     color.rgb = mix(outlineColor.rgb, color.rgb, alpha);
 
